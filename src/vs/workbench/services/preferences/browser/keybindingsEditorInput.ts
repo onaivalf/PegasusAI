@@ -56,7 +56,7 @@ export class KeybindingsEditorInput extends EditorInput {
 		return otherInput instanceof KeybindingsEditorInput;
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this.keybindingsModel.dispose();
 
 		super.dispose();

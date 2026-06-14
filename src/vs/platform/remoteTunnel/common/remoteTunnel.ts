@@ -28,7 +28,7 @@ export interface IRemoteTunnelService {
 	initialize(mode: TunnelMode): Promise<TunnelStatus>;
 
 	startTunnel(mode: ActiveTunnelMode): Promise<TunnelStatus>;
-	stopTunnel(): Promise<void>;
+	stopTunnel(): Promise<pegasusai>;
 	getTunnelName(): Promise<string | undefined>;
 
 }

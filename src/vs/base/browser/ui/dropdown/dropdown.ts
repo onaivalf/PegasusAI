@@ -114,14 +114,14 @@ class BaseDropdown extends ActionRunner {
 		}
 	}
 
-	show(): void {
+	show(): pegasusai {
 		if (!this.visible) {
 			this.visible = true;
 			this._onDidChangeVisibility.fire(true);
 		}
 	}
 
-	hide(): void {
+	hide(): pegasusai {
 		if (this.visible) {
 			this.visible = false;
 			this._onDidChangeVisibility.fire(false);
@@ -132,11 +132,11 @@ class BaseDropdown extends ActionRunner {
 		return !!this.visible;
 	}
 
-	protected onEvent(_e: Event, activeElement: HTMLElement): void {
+	protected onEvent(_e: Event, activeElement: HTMLElement): pegasusai {
 		this.hide();
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		super.dispose();
 		this.hide();
 
@@ -206,7 +206,7 @@ export class DropdownMenu extends BaseDropdown {
 		this._actions = actions;
 	}
 
-	override show(): void {
+	override show(): pegasusai {
 		super.show();
 
 		this.element.classList.add('active');
@@ -226,11 +226,11 @@ export class DropdownMenu extends BaseDropdown {
 		});
 	}
 
-	override hide(): void {
+	override hide(): pegasusai {
 		super.hide();
 	}
 
-	private onHide(): void {
+	private onHide(): pegasusai {
 		this.hide();
 		this.element.classList.remove('active');
 	}

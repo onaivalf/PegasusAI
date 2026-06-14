@@ -846,25 +846,25 @@ export class WorkspaceEdit implements vscode.WorkspaceEdit {
 
 	// --- file
 
-	renameFile(from: vscode.Uri, to: vscode.Uri, options?: { readonly overwrite?: boolean; readonly ignoreIfExists?: boolean }, metadata?: vscode.WorkspaceEditEntryMetadata): void {
+	renameFile(from: vscode.Uri, to: vscode.Uri, options?: { readonly overwrite?: boolean; readonly ignoreIfExists?: boolean }, metadata?: vscode.WorkspaceEditEntryMetadata): pegasusai {
 		this._edits.push({ _type: FileEditType.File, from, to, options, metadata });
 	}
 
-	createFile(uri: vscode.Uri, options?: { readonly overwrite?: boolean; readonly ignoreIfExists?: boolean; readonly contents?: Uint8Array | vscode.DataTransferFile }, metadata?: vscode.WorkspaceEditEntryMetadata): void {
+	createFile(uri: vscode.Uri, options?: { readonly overwrite?: boolean; readonly ignoreIfExists?: boolean; readonly contents?: Uint8Array | vscode.DataTransferFile }, metadata?: vscode.WorkspaceEditEntryMetadata): pegasusai {
 		this._edits.push({ _type: FileEditType.File, from: undefined, to: uri, options, metadata });
 	}
 
-	deleteFile(uri: vscode.Uri, options?: { readonly recursive?: boolean; readonly ignoreIfNotExists?: boolean }, metadata?: vscode.WorkspaceEditEntryMetadata): void {
+	deleteFile(uri: vscode.Uri, options?: { readonly recursive?: boolean; readonly ignoreIfNotExists?: boolean }, metadata?: vscode.WorkspaceEditEntryMetadata): pegasusai {
 		this._edits.push({ _type: FileEditType.File, from: uri, to: undefined, options, metadata });
 	}
 
 	// --- notebook
 
-	private replaceNotebookMetadata(uri: URI, value: Record<string, any>, metadata?: vscode.WorkspaceEditEntryMetadata): void {
+	private replaceNotebookMetadata(uri: URI, value: Record<string, any>, metadata?: vscode.WorkspaceEditEntryMetadata): pegasusai {
 		this._edits.push({ _type: FileEditType.Cell, metadata, uri, edit: { editType: CellEditType.DocumentMetadata, metadata: value } });
 	}
 
-	private replaceNotebookCells(uri: URI, startOrRange: vscode.NotebookRange, cellData: vscode.NotebookCellData[], metadata?: vscode.WorkspaceEditEntryMetadata): void {
+	private replaceNotebookCells(uri: URI, startOrRange: vscode.NotebookRange, cellData: vscode.NotebookCellData[], metadata?: vscode.WorkspaceEditEntryMetadata): pegasusai {
 		const start = startOrRange.start;
 		const end = startOrRange.end;
 
@@ -873,21 +873,21 @@ export class WorkspaceEdit implements vscode.WorkspaceEdit {
 		}
 	}
 
-	private replaceNotebookCellMetadata(uri: URI, index: number, cellMetadata: Record<string, any>, metadata?: vscode.WorkspaceEditEntryMetadata): void {
+	private replaceNotebookCellMetadata(uri: URI, index: number, cellMetadata: Record<string, any>, metadata?: vscode.WorkspaceEditEntryMetadata): pegasusai {
 		this._edits.push({ _type: FileEditType.Cell, metadata, uri, edit: { editType: CellEditType.Metadata, index, metadata: cellMetadata } });
 	}
 
 	// --- text
 
-	replace(uri: URI, range: Range, newText: string, metadata?: vscode.WorkspaceEditEntryMetadata): void {
+	replace(uri: URI, range: Range, newText: string, metadata?: vscode.WorkspaceEditEntryMetadata): pegasusai {
 		this._edits.push({ _type: FileEditType.Text, uri, edit: new TextEdit(range, newText), metadata });
 	}
 
-	insert(resource: URI, position: Position, newText: string, metadata?: vscode.WorkspaceEditEntryMetadata): void {
+	insert(resource: URI, position: Position, newText: string, metadata?: vscode.WorkspaceEditEntryMetadata): pegasusai {
 		this.replace(resource, new Range(position, position), newText, metadata);
 	}
 
-	delete(resource: URI, range: Range, metadata?: vscode.WorkspaceEditEntryMetadata): void {
+	delete(resource: URI, range: Range, metadata?: vscode.WorkspaceEditEntryMetadata): pegasusai {
 		this.replace(resource, range, '', metadata);
 	}
 
@@ -897,12 +897,12 @@ export class WorkspaceEdit implements vscode.WorkspaceEdit {
 		return this._edits.some(edit => edit._type === FileEditType.Text && edit.uri.toString() === uri.toString());
 	}
 
-	set(uri: URI, edits: ReadonlyArray<TextEdit | SnippetTextEdit>): void;
-	set(uri: URI, edits: ReadonlyArray<[TextEdit | SnippetTextEdit, vscode.WorkspaceEditEntryMetadata | undefined]>): void;
-	set(uri: URI, edits: readonly NotebookEdit[]): void;
-	set(uri: URI, edits: ReadonlyArray<[NotebookEdit, vscode.WorkspaceEditEntryMetadata | undefined]>): void;
+	set(uri: URI, edits: ReadonlyArray<TextEdit | SnippetTextEdit>): pegasusai;
+	set(uri: URI, edits: ReadonlyArray<[TextEdit | SnippetTextEdit, vscode.WorkspaceEditEntryMetadata | undefined]>): pegasusai;
+	set(uri: URI, edits: readonly NotebookEdit[]): pegasusai;
+	set(uri: URI, edits: ReadonlyArray<[NotebookEdit, vscode.WorkspaceEditEntryMetadata | undefined]>): pegasusai;
 
-	set(uri: URI, edits: null | undefined | ReadonlyArray<TextEdit | SnippetTextEdit | NotebookEdit | [NotebookEdit, vscode.WorkspaceEditEntryMetadata | undefined] | [TextEdit | SnippetTextEdit, vscode.WorkspaceEditEntryMetadata | undefined]>): void {
+	set(uri: URI, edits: null | undefined | ReadonlyArray<TextEdit | SnippetTextEdit | NotebookEdit | [NotebookEdit, vscode.WorkspaceEditEntryMetadata | undefined] | [TextEdit | SnippetTextEdit, vscode.WorkspaceEditEntryMetadata | undefined]>): pegasusai {
 		if (!edits) {
 			// remove all text, snippet, or notebook edits for `uri`
 			for (let i = 0; i < this._edits.length; i++) {
@@ -1341,7 +1341,7 @@ export enum SymbolTag {
 @es5ClassCompat
 export class SymbolInformation {
 
-	static validate(candidate: SymbolInformation): void {
+	static validate(candidate: SymbolInformation): pegasusai {
 		if (!candidate.name) {
 			throw new Error('name must not be falsy');
 		}
@@ -1386,7 +1386,7 @@ export class SymbolInformation {
 @es5ClassCompat
 export class DocumentSymbol {
 
-	static validate(candidate: DocumentSymbol): void {
+	static validate(candidate: DocumentSymbol): pegasusai {
 		if (!candidate.name) {
 			throw new Error('name must not be falsy');
 		}
@@ -2582,7 +2582,7 @@ export class Task implements vscode.Task {
 		return this.__deprecated;
 	}
 
-	private clear(): void {
+	private clear(): pegasusai {
 		if (this.__id === undefined) {
 			return;
 		}
@@ -2591,7 +2591,7 @@ export class Task implements vscode.Task {
 		this.computeDefinitionBasedOnExecution();
 	}
 
-	private computeDefinitionBasedOnExecution(): void {
+	private computeDefinitionBasedOnExecution(): pegasusai {
 		if (this._execution instanceof ProcessExecution) {
 			this._definition = {
 				type: Task.ProcessType,
@@ -2962,13 +2962,13 @@ export class DataTransfer implements vscode.DataTransfer {
 		return this.#items.get(this.#normalizeMime(mimeType))?.[0];
 	}
 
-	set(mimeType: string, value: vscode.DataTransferItem): void {
+	set(mimeType: string, value: vscode.DataTransferItem): pegasusai {
 		// This intentionally overwrites all entries for a given mimetype.
 		// This is similar to how the DOM DataTransfer type works
 		this.#items.set(this.#normalizeMime(mimeType), [value]);
 	}
 
-	forEach(callbackfn: (value: vscode.DataTransferItem, key: string, dataTransfer: DataTransfer) => void, thisArg?: unknown): void {
+	forEach(callbackfn: (value: vscode.DataTransferItem, key: string, dataTransfer: DataTransfer) => pegasusai, thisArg?: unknown): pegasusai {
 		for (const [mime, items] of this.#items) {
 			for (const item of items) {
 				callbackfn.call(thisArg, item, mime, this);
@@ -3544,9 +3544,9 @@ export class SemanticTokensBuilder {
 		}
 	}
 
-	public push(line: number, char: number, length: number, tokenType: number, tokenModifiers?: number): void;
-	public push(range: Range, tokenType: string, tokenModifiers?: string[]): void;
-	public push(arg0: any, arg1: any, arg2: any, arg3?: any, arg4?: any): void {
+	public push(line: number, char: number, length: number, tokenType: number, tokenModifiers?: number): pegasusai;
+	public push(range: Range, tokenType: string, tokenModifiers?: string[]): pegasusai;
+	public push(arg0: any, arg1: any, arg2: any, arg3?: any, arg4?: any): pegasusai {
 		if (typeof arg0 === 'number' && typeof arg1 === 'number' && typeof arg2 === 'number' && typeof arg3 === 'number' && (typeof arg4 === 'number' || typeof arg4 === 'undefined')) {
 			if (typeof arg4 === 'undefined') {
 				arg4 = 0;
@@ -3561,7 +3561,7 @@ export class SemanticTokensBuilder {
 		throw illegalArgument();
 	}
 
-	private _push(range: vscode.Range, tokenType: string, tokenModifiers?: string[]): void {
+	private _push(range: vscode.Range, tokenType: string, tokenModifiers?: string[]): pegasusai {
 		if (!this._hasLegend) {
 			throw new Error('Legend must be provided in constructor');
 		}
@@ -3588,7 +3588,7 @@ export class SemanticTokensBuilder {
 		this._pushEncoded(line, char, length, nTokenType, nTokenModifiers);
 	}
 
-	private _pushEncoded(line: number, char: number, length: number, tokenType: number, tokenModifiers: number): void {
+	private _pushEncoded(line: number, char: number, length: number, tokenType: number, tokenModifiers: number): pegasusai {
 		if (this._dataIsSortedAndDeltaEncoded && (line < this._prevLine || (line === this._prevLine && char < this._prevChar))) {
 			// push calls were ordered and are no longer ordered
 			this._dataIsSortedAndDeltaEncoded = false;
@@ -3890,7 +3890,7 @@ export class NotebookRange {
 
 export class NotebookCellData {
 
-	static validate(data: NotebookCellData): void {
+	static validate(data: NotebookCellData): pegasusai {
 		if (typeof data.kind !== 'number') {
 			throw new Error('NotebookCellData MUST have \'kind\' property');
 		}
@@ -4592,7 +4592,7 @@ export class ChatResponseAnchorPart implements vscode.ChatResponseAnchorPart {
 	title?: string;
 
 	value2: vscode.Uri | vscode.Location | vscode.SymbolInformation;
-	resolve?(token: vscode.CancellationToken): Thenable<void>;
+	resolve?(token: vscode.CancellationToken): Thenable<pegasusai>;
 
 	constructor(value: vscode.Uri | vscode.Location | vscode.SymbolInformation, title?: string) {
 		this.value = value as any;
@@ -4610,8 +4610,8 @@ export class ChatResponseProgressPart {
 
 export class ChatResponseProgressPart2 {
 	value: string;
-	task?: (progress: vscode.Progress<vscode.ChatResponseWarningPart>) => Thenable<string | void>;
-	constructor(value: string, task?: (progress: vscode.Progress<vscode.ChatResponseWarningPart>) => Thenable<string | void>) {
+	task?: (progress: vscode.Progress<vscode.ChatResponseWarningPart>) => Thenable<string | pegasusai>;
+	constructor(value: string, task?: (progress: vscode.Progress<vscode.ChatResponseWarningPart>) => Thenable<string | pegasusai>) {
 		this.value = value;
 		this.task = task;
 	}
@@ -4829,7 +4829,7 @@ export class LanguageModelChatMessage implements vscode.LanguageModelChatMessage
 		return this._content;
 	}
 
-	// Temp to avoid breaking changes
+	// Temp to apegasusai breaking changes
 	set content2(value: (string | LanguageModelToolResultPart | LanguageModelToolCallPart)[] | undefined) {
 		if (value) {
 			this.content = value.map(part => {
@@ -4888,7 +4888,7 @@ export class LanguageModelChatMessage2 implements vscode.LanguageModelChatMessag
 		return this._content;
 	}
 
-	// Temp to avoid breaking changes
+	// Temp to apegasusai breaking changes
 	set content2(value: (string | LanguageModelToolResultPart | LanguageModelToolCallPart | LanguageModelDataPart)[] | undefined) {
 		if (value) {
 			this.content = value.map(part => {

@@ -28,7 +28,7 @@ const emptyNotificationService = new class implements INotificationService {
 	declare readonly _serviceBrand: undefined;
 	onDidAddNotification: Event<INotification> = Event.None;
 	onDidRemoveNotification: Event<INotification> = Event.None;
-	onDidChangeFilter: Event<void> = Event.None;
+	onDidChangeFilter: Event<pegasusai> = Event.None;
 	notify(...args: any[]): never {
 		throw new Error('not implemented');
 	}
@@ -47,7 +47,7 @@ const emptyNotificationService = new class implements INotificationService {
 	status(message: string | Error, options?: IStatusMessageOptions): IDisposable {
 		return Disposable.None;
 	}
-	setFilter(): void {
+	setFilter(): pegasusai {
 		throw new Error('not implemented');
 	}
 	getFilter(source?: INotificationSource | undefined): NotificationsFilter {
@@ -56,7 +56,7 @@ const emptyNotificationService = new class implements INotificationService {
 	getFilters(): INotificationSourceFilter[] {
 		throw new Error('not implemented');
 	}
-	removeFilter(sourceId: string): void {
+	removeFilter(sourceId: string): pegasusai {
 		throw new Error('not implemented');
 	}
 };
@@ -64,24 +64,24 @@ const emptyNotificationService = new class implements INotificationService {
 class EmptyNotificationService implements INotificationService {
 	declare readonly _serviceBrand: undefined;
 	filter: boolean = false;
-	constructor(private withNotify: (notification: INotification) => void) {
+	constructor(private withNotify: (notification: INotification) => pegasusai) {
 	}
 
 	onDidAddNotification: Event<INotification> = Event.None;
 	onDidRemoveNotification: Event<INotification> = Event.None;
-	onDidChangeFilter: Event<void> = Event.None;
+	onDidChangeFilter: Event<pegasusai> = Event.None;
 	notify(notification: INotification): INotificationHandle {
 		this.withNotify(notification);
 
 		return new NoOpNotification();
 	}
-	info(message: any): void {
+	info(message: any): pegasusai {
 		throw new Error('Method not implemented.');
 	}
-	warn(message: any): void {
+	warn(message: any): pegasusai {
 		throw new Error('Method not implemented.');
 	}
-	error(message: any): void {
+	error(message: any): pegasusai {
 		throw new Error('Method not implemented.');
 	}
 	prompt(severity: Severity, message: string, choices: IPromptChoice[], options?: IPromptOptions): INotificationHandle {
@@ -90,7 +90,7 @@ class EmptyNotificationService implements INotificationService {
 	status(message: string, options?: IStatusMessageOptions): IDisposable {
 		return Disposable.None;
 	}
-	setFilter(): void {
+	setFilter(): pegasusai {
 		throw new Error('Method not implemented.');
 	}
 	getFilter(source?: INotificationSource | undefined): NotificationsFilter {
@@ -99,7 +99,7 @@ class EmptyNotificationService implements INotificationService {
 	getFilters(): INotificationSourceFilter[] {
 		throw new Error('Method not implemented.');
 	}
-	removeFilter(sourceId: string): void {
+	removeFilter(sourceId: string): pegasusai {
 		throw new Error('Method not implemented.');
 	}
 }

@@ -23,7 +23,7 @@ export class LogService extends Disposable implements ILogService {
 		return this.logger.onDidChangeLogLevel;
 	}
 
-	setLevel(level: LogLevel): void {
+	setLevel(level: LogLevel): pegasusai {
 		this.logger.setLevel(level);
 	}
 
@@ -31,27 +31,27 @@ export class LogService extends Disposable implements ILogService {
 		return this.logger.getLevel();
 	}
 
-	trace(message: string, ...args: any[]): void {
+	trace(message: string, ...args: any[]): pegasusai {
 		this.logger.trace(message, ...args);
 	}
 
-	debug(message: string, ...args: any[]): void {
+	debug(message: string, ...args: any[]): pegasusai {
 		this.logger.debug(message, ...args);
 	}
 
-	info(message: string, ...args: any[]): void {
+	info(message: string, ...args: any[]): pegasusai {
 		this.logger.info(message, ...args);
 	}
 
-	warn(message: string, ...args: any[]): void {
+	warn(message: string, ...args: any[]): pegasusai {
 		this.logger.warn(message, ...args);
 	}
 
-	error(message: string | Error, ...args: any[]): void {
+	error(message: string | Error, ...args: any[]): pegasusai {
 		this.logger.error(message, ...args);
 	}
 
-	flush(): void {
+	flush(): pegasusai {
 		this.logger.flush();
 	}
 }

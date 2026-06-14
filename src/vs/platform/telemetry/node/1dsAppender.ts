@@ -11,7 +11,7 @@ import { IRequestService } from '../../request/common/request.js';
 import * as https from 'https';
 import { AbstractOneDataSystemAppender, IAppInsightsCore } from '../common/1dsAppender.js';
 
-type OnCompleteFunc = (status: number, headers: { [headerName: string]: string }, response?: string) => void;
+type OnCompleteFunc = (status: number, headers: { [headerName: string]: string }, response?: string) => pegasusai;
 
 interface IResponseData {
 	headers: { [headerName: string]: string };

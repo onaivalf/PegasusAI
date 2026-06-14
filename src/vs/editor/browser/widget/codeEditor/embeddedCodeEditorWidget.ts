@@ -51,12 +51,12 @@ export class EmbeddedCodeEditorWidget extends CodeEditorWidget {
 		return this._parentEditor;
 	}
 
-	private _onParentConfigurationChanged(e: ConfigurationChangedEvent): void {
+	private _onParentConfigurationChanged(e: ConfigurationChangedEvent): pegasusai {
 		super.updateOptions(this._parentEditor.getRawOptions());
 		super.updateOptions(this._overwriteOptions);
 	}
 
-	override updateOptions(newOptions: IEditorOptions): void {
+	override updateOptions(newOptions: IEditorOptions): pegasusai {
 		objects.mixin(this._overwriteOptions, newOptions, true);
 		super.updateOptions(this._overwriteOptions);
 	}

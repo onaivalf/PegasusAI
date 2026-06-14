@@ -33,7 +33,7 @@ export class ExtHostNotebookDocumentSaveParticipant implements ExtHostNotebookDo
 
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 	}
 
 	getOnWillSaveNotebookDocumentEvent(extension: IExtensionDescription): Event<NotebookDocumentWillSaveEvent> {

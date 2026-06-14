@@ -214,7 +214,7 @@ export class DebugService implements IDebugService {
 		this.initContextKeys(contextKeyService);
 	}
 
-	private initContextKeys(contextKeyService: IContextKeyService): void {
+	private initContextKeys(contextKeyService: IContextKeyService): pegasusai {
 		queueMicrotask(() => {
 			contextKeyService.bufferChangeEvents(() => {
 				this.debugType = CONTEXT_DEBUG_TYPE.bindTo(contextKeyService);
@@ -250,11 +250,11 @@ export class DebugService implements IDebugService {
 		return this.adapterManager;
 	}
 
-	sourceIsNotAvailable(uri: uri): void {
+	sourceIsNotAvailable(uri: uri): pegasusai {
 		this.model.sourceIsNotAvailable(uri);
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.disposables.dispose();
 	}
 
@@ -273,7 +273,7 @@ export class DebugService implements IDebugService {
 		return this._initializingOptions;
 	}
 
-	private startInitializingState(options?: IDebugSessionOptions): void {
+	private startInitializingState(options?: IDebugSessionOptions): pegasusai {
 		if (!this.initializing) {
 			this.initializing = true;
 			this._initializingOptions = options;
@@ -281,7 +281,7 @@ export class DebugService implements IDebugService {
 		}
 	}
 
-	private endInitializingState(): void {
+	private endInitializingState(): pegasusai {
 		if (this.initializing) {
 			this.initializing = false;
 			this._initializingOptions = undefined;
@@ -289,7 +289,7 @@ export class DebugService implements IDebugService {
 		}
 	}
 
-	private cancelTokens(id: string | undefined): void {
+	private cancelTokens(id: string | undefined): pegasusai {
 		if (id) {
 			const token = this.sessionCancellationTokens.get(id);
 			if (token) {
@@ -302,7 +302,7 @@ export class DebugService implements IDebugService {
 		}
 	}
 
-	private onStateChange(): void {
+	private onStateChange(): pegasusai {
 		const state = this.state;
 		if (this.previousState !== state) {
 			this.contextKeyService.bufferChangeEvents(() => {
@@ -665,7 +665,7 @@ export class DebugService implements IDebugService {
 		}
 	}
 
-	private async launchOrAttachToSession(session: IDebugSession, forceFocus = false): Promise<void> {
+	private async launchOrAttachToSession(session: IDebugSession, forceFocus = false): Promise<pegasusai> {
 		// register listeners as the very first thing!
 		this.registerSessionListeners(session);
 
@@ -687,7 +687,7 @@ export class DebugService implements IDebugService {
 		}
 	}
 
-	private registerSessionListeners(session: IDebugSession): void {
+	private registerSessionListeners(session: IDebugSession): pegasusai {
 		const listenerDisposables = new DisposableStore();
 		this.disposables.add(listenerDisposables);
 
@@ -774,7 +774,7 @@ export class DebugService implements IDebugService {
 		}));
 	}
 
-	async restartSession(session: IDebugSession, restartData?: any): Promise<void> {
+	async restartSession(session: IDebugSession, restartData?: any): Promise<pegasusai> {
 		if (session.saveBeforeRestart) {
 			await saveAllBeforeDebugStart(this.configurationService, this.editorService);
 		}
@@ -961,7 +961,7 @@ export class DebugService implements IDebugService {
 		return Promise.resolve(config);
 	}
 
-	private async showError(message: string, errorActions: ReadonlyArray<IAction> = [], promptLaunchJson = true): Promise<void> {
+	private async showError(message: string, errorActions: ReadonlyArray<IAction> = [], promptLaunchJson = true): Promise<pegasusai> {
 		const configureAction = new Action(DEBUG_CONFIGURE_COMMAND_ID, DEBUG_CONFIGURE_LABEL, undefined, true, () => this.commandService.executeCommand(DEBUG_CONFIGURE_COMMAND_ID));
 		// Don't append the standard command if id of any provided action indicates it is a command
 		const actions = errorActions.filter((action) => action.id.endsWith('.command')).length > 0 ?
@@ -980,7 +980,7 @@ export class DebugService implements IDebugService {
 
 	//---- focus management
 
-	async focusStackFrame(_stackFrame: IStackFrame | undefined, _thread?: IThread, _session?: IDebugSession, options?: { explicit?: boolean; preserveFocus?: boolean; sideBySide?: boolean; pinned?: boolean }): Promise<void> {
+	async focusStackFrame(_stackFrame: IStackFrame | undefined, _thread?: IThread, _session?: IDebugSession, options?: { explicit?: boolean; preserveFocus?: boolean; sideBySide?: boolean; pinned?: boolean }): Promise<pegasusai> {
 		const { stackFrame, thread, session } = getStackFrameThreadAndSessionToFocus(this.model, _stackFrame, _thread, _session);
 
 		if (stackFrame) {
@@ -1013,7 +1013,7 @@ export class DebugService implements IDebugService {
 
 	//---- watches
 
-	addWatchExpression(name?: string): void {
+	addWatchExpression(name?: string): pegasusai {
 		const we = this.model.addWatchExpression(name);
 		if (!name) {
 			this.viewModel.setSelectedExpression(we, false);
@@ -1021,17 +1021,17 @@ export class DebugService implements IDebugService {
 		this.debugStorage.storeWatchExpressions(this.model.getWatchExpressions());
 	}
 
-	renameWatchExpression(id: string, newName: string): void {
+	renameWatchExpression(id: string, newName: string): pegasusai {
 		this.model.renameWatchExpression(id, newName);
 		this.debugStorage.storeWatchExpressions(this.model.getWatchExpressions());
 	}
 
-	moveWatchExpression(id: string, position: number): void {
+	moveWatchExpression(id: string, position: number): pegasusai {
 		this.model.moveWatchExpression(id, position);
 		this.debugStorage.storeWatchExpressions(this.model.getWatchExpressions());
 	}
 
-	removeWatchExpressions(id?: string): void {
+	removeWatchExpressions(id?: string): pegasusai {
 		this.model.removeWatchExpressions(id);
 		this.debugStorage.storeWatchExpressions(this.model.getWatchExpressions());
 	}
@@ -1042,7 +1042,7 @@ export class DebugService implements IDebugService {
 		return this.adapterManager.canSetBreakpointsIn(model);
 	}
 
-	async enableOrDisableBreakpoints(enable: boolean, breakpoint?: IEnablement): Promise<void> {
+	async enableOrDisableBreakpoints(enable: boolean, breakpoint?: IEnablement): Promise<pegasusai> {
 		if (breakpoint) {
 			this.model.setEnablement(breakpoint, enable);
 			this.debugStorage.storeBreakpoints(this.model);
@@ -1080,7 +1080,7 @@ export class DebugService implements IDebugService {
 		return breakpoints;
 	}
 
-	async updateBreakpoints(uri: uri, data: Map<string, IBreakpointUpdateData>, sendOnResourceSaved: boolean): Promise<void> {
+	async updateBreakpoints(uri: uri, data: Map<string, IBreakpointUpdateData>, sendOnResourceSaved: boolean): Promise<pegasusai> {
 		this.model.updateBreakpoints(data);
 		this.debugStorage.storeBreakpoints(this.model);
 		if (sendOnResourceSaved) {
@@ -1091,7 +1091,7 @@ export class DebugService implements IDebugService {
 		}
 	}
 
-	async removeBreakpoints(id?: string): Promise<void> {
+	async removeBreakpoints(id?: string): Promise<pegasusai> {
 		const breakpoints = this.model.getBreakpoints();
 		const toRemove = breakpoints.filter(bp => !id || bp.getId() === id);
 		// note: using the debugger-resolved uri for aria to reflect UI state
@@ -1105,12 +1105,12 @@ export class DebugService implements IDebugService {
 		await Promise.all([...urisToClear].map(uri => this.sendBreakpoints(URI.parse(uri))));
 	}
 
-	setBreakpointsActivated(activated: boolean): Promise<void> {
+	setBreakpointsActivated(activated: boolean): Promise<pegasusai> {
 		this.model.setBreakpointsActivated(activated);
 		return this.sendAllBreakpoints();
 	}
 
-	async addFunctionBreakpoint(opts?: IFunctionBreakpointOptions, id?: string): Promise<void> {
+	async addFunctionBreakpoint(opts?: IFunctionBreakpointOptions, id?: string): Promise<pegasusai> {
 		this.model.addFunctionBreakpoint(opts ?? { name: '' }, id);
 		// If opts not provided, sending the breakpoint is handled by a later to call to `updateFunctionBreakpoint`
 		if (opts) {
@@ -1120,45 +1120,45 @@ export class DebugService implements IDebugService {
 		}
 	}
 
-	async updateFunctionBreakpoint(id: string, update: { name?: string; hitCondition?: string; condition?: string }): Promise<void> {
+	async updateFunctionBreakpoint(id: string, update: { name?: string; hitCondition?: string; condition?: string }): Promise<pegasusai> {
 		this.model.updateFunctionBreakpoint(id, update);
 		this.debugStorage.storeBreakpoints(this.model);
 		await this.sendFunctionBreakpoints();
 	}
 
-	async removeFunctionBreakpoints(id?: string): Promise<void> {
+	async removeFunctionBreakpoints(id?: string): Promise<pegasusai> {
 		this.model.removeFunctionBreakpoints(id);
 		this.debugStorage.storeBreakpoints(this.model);
 		await this.sendFunctionBreakpoints();
 	}
 
-	async addDataBreakpoint(opts: IDataBreakpointOptions): Promise<void> {
+	async addDataBreakpoint(opts: IDataBreakpointOptions): Promise<pegasusai> {
 		this.model.addDataBreakpoint(opts);
 		this.debugStorage.storeBreakpoints(this.model);
 		await this.sendDataBreakpoints();
 		this.debugStorage.storeBreakpoints(this.model);
 	}
 
-	async updateDataBreakpoint(id: string, update: { hitCondition?: string; condition?: string }): Promise<void> {
+	async updateDataBreakpoint(id: string, update: { hitCondition?: string; condition?: string }): Promise<pegasusai> {
 		this.model.updateDataBreakpoint(id, update);
 		this.debugStorage.storeBreakpoints(this.model);
 		await this.sendDataBreakpoints();
 	}
 
-	async removeDataBreakpoints(id?: string): Promise<void> {
+	async removeDataBreakpoints(id?: string): Promise<pegasusai> {
 		this.model.removeDataBreakpoints(id);
 		this.debugStorage.storeBreakpoints(this.model);
 		await this.sendDataBreakpoints();
 	}
 
-	async addInstructionBreakpoint(opts: IInstructionBreakpointOptions): Promise<void> {
+	async addInstructionBreakpoint(opts: IInstructionBreakpointOptions): Promise<pegasusai> {
 		this.model.addInstructionBreakpoint(opts);
 		this.debugStorage.storeBreakpoints(this.model);
 		await this.sendInstructionBreakpoints();
 		this.debugStorage.storeBreakpoints(this.model);
 	}
 
-	async removeInstructionBreakpoints(instructionReference?: string, offset?: number): Promise<void> {
+	async removeInstructionBreakpoints(instructionReference?: string, offset?: number): Promise<pegasusai> {
 		this.model.removeInstructionBreakpoints(instructionReference, offset);
 		this.debugStorage.storeBreakpoints(this.model);
 		await this.sendInstructionBreakpoints();
@@ -1169,18 +1169,18 @@ export class DebugService implements IDebugService {
 		this.debugStorage.storeBreakpoints(this.model);
 	}
 
-	setExceptionBreakpointsForSession(session: IDebugSession, filters: DebugProtocol.ExceptionBreakpointsFilter[]): void {
+	setExceptionBreakpointsForSession(session: IDebugSession, filters: DebugProtocol.ExceptionBreakpointsFilter[]): pegasusai {
 		this.model.setExceptionBreakpointsForSession(session.getId(), filters);
 		this.debugStorage.storeBreakpoints(this.model);
 	}
 
-	async setExceptionBreakpointCondition(exceptionBreakpoint: IExceptionBreakpoint, condition: string | undefined): Promise<void> {
+	async setExceptionBreakpointCondition(exceptionBreakpoint: IExceptionBreakpoint, condition: string | undefined): Promise<pegasusai> {
 		this.model.setExceptionBreakpointCondition(exceptionBreakpoint, condition);
 		this.debugStorage.storeBreakpoints(this.model);
 		await this.sendExceptionBreakpoints();
 	}
 
-	async sendAllBreakpoints(session?: IDebugSession): Promise<void> {
+	async sendAllBreakpoints(session?: IDebugSession): Promise<pegasusai> {
 		const setBreakpointsPromises = distinct(this.model.getBreakpoints(), bp => bp.originalUri.toString())
 			.map(bp => this.sendBreakpoints(bp.originalUri, false, session));
 
@@ -1242,7 +1242,7 @@ export class DebugService implements IDebugService {
 		);
 	}
 
-	public async sendBreakpoints(modelUri: uri, sourceModified = false, session?: IDebugSession): Promise<void> {
+	public async sendBreakpoints(modelUri: uri, sourceModified = false, session?: IDebugSession): Promise<pegasusai> {
 		const breakpointsToSend = this.model.getBreakpoints({ originalUri: modelUri, enabledOnly: true });
 		await sendToOneOrAllSessions(this.model, session, async s => {
 			if (!s.configuration.noDebug) {
@@ -1252,7 +1252,7 @@ export class DebugService implements IDebugService {
 		});
 	}
 
-	private async sendFunctionBreakpoints(session?: IDebugSession): Promise<void> {
+	private async sendFunctionBreakpoints(session?: IDebugSession): Promise<pegasusai> {
 		const breakpointsToSend = this.model.getFunctionBreakpoints().filter(fbp => fbp.enabled && this.model.areBreakpointsActivated());
 
 		await sendToOneOrAllSessions(this.model, session, async s => {
@@ -1262,7 +1262,7 @@ export class DebugService implements IDebugService {
 		});
 	}
 
-	private async sendDataBreakpoints(session?: IDebugSession): Promise<void> {
+	private async sendDataBreakpoints(session?: IDebugSession): Promise<pegasusai> {
 		const breakpointsToSend = this.model.getDataBreakpoints().filter(fbp => fbp.enabled && this.model.areBreakpointsActivated());
 
 		await sendToOneOrAllSessions(this.model, session, async s => {
@@ -1272,7 +1272,7 @@ export class DebugService implements IDebugService {
 		});
 	}
 
-	private async sendInstructionBreakpoints(session?: IDebugSession): Promise<void> {
+	private async sendInstructionBreakpoints(session?: IDebugSession): Promise<pegasusai> {
 		const breakpointsToSend = this.model.getInstructionBreakpoints().filter(fbp => fbp.enabled && this.model.areBreakpointsActivated());
 
 		await sendToOneOrAllSessions(this.model, session, async s => {
@@ -1282,7 +1282,7 @@ export class DebugService implements IDebugService {
 		});
 	}
 
-	private sendExceptionBreakpoints(session?: IDebugSession): Promise<void> {
+	private sendExceptionBreakpoints(session?: IDebugSession): Promise<pegasusai> {
 		return sendToOneOrAllSessions(this.model, session, async s => {
 			const enabledExceptionBps = this.model.getExceptionBreakpointsForSession(s.getId()).filter(exb => exb.enabled);
 			if (s.capabilities.supportsConfigurationDoneRequest && (!s.capabilities.exceptionBreakpointFilters || s.capabilities.exceptionBreakpointFilters.length === 0)) {
@@ -1295,7 +1295,7 @@ export class DebugService implements IDebugService {
 		});
 	}
 
-	private onFileChanges(fileChangesEvent: FileChangesEvent): void {
+	private onFileChanges(fileChangesEvent: FileChangesEvent): pegasusai {
 		const toRemove = this.model.getBreakpoints().filter(bp =>
 			fileChangesEvent.contains(bp.originalUri, FileChangeType.DELETED));
 		if (toRemove.length) {
@@ -1315,7 +1315,7 @@ export class DebugService implements IDebugService {
 		}
 	}
 
-	async runTo(uri: uri, lineNumber: number, column?: number): Promise<void> {
+	async runTo(uri: uri, lineNumber: number, column?: number): Promise<pegasusai> {
 		let breakpointToRemove: IBreakpoint | undefined;
 		let threadToContinue = this.getViewModel().focusedThread;
 		const addTempBreakPoint = async () => {
@@ -1385,7 +1385,7 @@ export class DebugService implements IDebugService {
 		// Inherently racey if multiple sessions can verify async, but not solvable...
 		if (!breakpoint.verified) {
 			let listener: IDisposable;
-			await raceTimeout(new Promise<void>(resolve => {
+			await raceTimeout(new Promise<pegasusai>(resolve => {
 				listener = debugModel.onDidChangeBreakpoints(() => {
 					if (breakpoint.verified) {
 						resolve();
@@ -1445,7 +1445,7 @@ export class DebugService implements IDebugService {
 	}
 }
 
-export function getStackFrameThreadAndSessionToFocus(model: IDebugModel, stackFrame: IStackFrame | undefined, thread?: IThread, session?: IDebugSession, avoidSession?: IDebugSession): { stackFrame: IStackFrame | undefined; thread: IThread | undefined; session: IDebugSession | undefined } {
+export function getStackFrameThreadAndSessionToFocus(model: IDebugModel, stackFrame: IStackFrame | undefined, thread?: IThread, session?: IDebugSession, apegasusaiSession?: IDebugSession): { stackFrame: IStackFrame | undefined; thread: IThread | undefined; session: IDebugSession | undefined } {
 	if (!session) {
 		if (stackFrame || thread) {
 			session = stackFrame ? stackFrame.thread.session : thread!.session;
@@ -1453,7 +1453,7 @@ export function getStackFrameThreadAndSessionToFocus(model: IDebugModel, stackFr
 			const sessions = model.getSessions();
 			const stoppedSession = sessions.find(s => s.state === State.Stopped);
 			// Make sure to not focus session that is going down
-			session = stoppedSession || sessions.find(s => s !== avoidSession && s !== avoidSession?.parentSession) || (sessions.length ? sessions[0] : undefined);
+			session = stoppedSession || sessions.find(s => s !== apegasusaiSession && s !== apegasusaiSession?.parentSession) || (sessions.length ? sessions[0] : undefined);
 		}
 	}
 
@@ -1474,7 +1474,7 @@ export function getStackFrameThreadAndSessionToFocus(model: IDebugModel, stackFr
 	return { session, thread, stackFrame };
 }
 
-async function sendToOneOrAllSessions(model: DebugModel, session: IDebugSession | undefined, send: (session: IDebugSession) => Promise<void>): Promise<void> {
+async function sendToOneOrAllSessions(model: DebugModel, session: IDebugSession | undefined, send: (session: IDebugSession) => Promise<pegasusai>): Promise<pegasusai> {
 	if (session) {
 		await send(session);
 	} else {

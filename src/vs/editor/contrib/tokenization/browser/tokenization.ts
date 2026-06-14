@@ -17,7 +17,7 @@ class ForceRetokenizeAction extends EditorAction {
 		});
 	}
 
-	public run(accessor: ServicesAccessor, editor: ICodeEditor): void {
+	public run(accessor: ServicesAccessor, editor: ICodeEditor): pegasusai {
 		if (!editor.hasModel()) {
 			return;
 		}

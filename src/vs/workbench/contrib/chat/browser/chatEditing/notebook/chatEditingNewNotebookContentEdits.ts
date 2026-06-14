@@ -29,7 +29,7 @@ export class ChatEditingNewNotebookContentEdits {
 	) {
 	}
 
-	acceptTextEdits(edits: TextEdit[]): void {
+	acceptTextEdits(edits: TextEdit[]): pegasusai {
 		if (edits.length) {
 			this.textEdits.push(...edits);
 		}

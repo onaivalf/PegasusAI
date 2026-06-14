@@ -278,7 +278,7 @@ export class ExtHostEditorTabs implements IExtHostEditorTabs {
 		return this._apiObject;
 	}
 
-	$acceptEditorTabModel(tabGroups: IEditorTabGroupDto[]): void {
+	$acceptEditorTabModel(tabGroups: IEditorTabGroupDto[]): pegasusai {
 
 		const groupIdsBefore = new Set(this._extHostTabGroups.map(group => group.groupId));
 		const groupIdsAfter = new Set(tabGroups.map(dto => dto.groupId));

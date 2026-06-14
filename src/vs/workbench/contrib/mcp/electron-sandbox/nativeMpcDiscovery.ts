@@ -27,7 +27,7 @@ export class NativeMcpDiscovery extends NativeFilesystemMcpDiscovery {
 		super(null, labelService, fileService, instantiationService, mcpRegistry, configurationService);
 	}
 
-	public override start(): void {
+	public override start(): pegasusai {
 		const service = ProxyChannel.toService<INativeMcpDiscoveryHelperService>(
 			this.mainProcess.getChannel(NativeMcpDiscoveryHelperChannelName));
 

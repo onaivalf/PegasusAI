@@ -33,7 +33,7 @@ export class ToggleOvertypeInsertMode extends Action2 {
 		});
 	}
 
-	override async run(accessor: ServicesAccessor): Promise<void> {
+	override async run(accessor: ServicesAccessor): Promise<pegasusai> {
 		const oldInputMode = InputMode.getInputMode();
 		const newInputMode = oldInputMode === 'insert' ? 'overtype' : 'insert';
 		InputMode.setInputMode(newInputMode);

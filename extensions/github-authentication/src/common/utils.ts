@@ -25,13 +25,13 @@ export interface PromiseAdapter<T, U> {
 	(
 		value: T,
 		resolve:
-			(value: U | PromiseLike<U>) => void,
+			(value: U | PromiseLike<U>) => pegasusai,
 		reject:
-			(reason: any) => void
+			(reason: any) => pegasusai
 	): any;
 }
 
-const passthrough = (value: any, resolve: (value?: any) => void) => resolve(value);
+const passthrough = (value: any, resolve: (value?: any) => pegasusai) => resolve(value);
 
 /**
  * Return a promise that resolves with the next emitted event, or with some future
@@ -49,9 +49,9 @@ const passthrough = (value: any, resolve: (value?: any) => void) => resolve(valu
  */
 export function promiseFromEvent<T, U>(
 	event: Event<T>,
-	adapter: PromiseAdapter<T, U> = passthrough): { promise: Promise<U>; cancel: EventEmitter<void> } {
+	adapter: PromiseAdapter<T, U> = passthrough): { promise: Promise<U>; cancel: EventEmitter<pegasusai> } {
 	let subscription: Disposable;
-	const cancel = new EventEmitter<void>();
+	const cancel = new EventEmitter<pegasusai>();
 	return {
 		promise: new Promise<U>((resolve, reject) => {
 			cancel.event(_ => reject('Cancelled'));
@@ -105,7 +105,7 @@ export class StopWatch {
 	private _startTime: number = Date.now();
 	private _stopTime: number = -1;
 
-	public stop(): void {
+	public stop(): pegasusai {
 		this._stopTime = Date.now();
 	}
 

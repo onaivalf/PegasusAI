@@ -49,10 +49,10 @@ export interface IExtHostDebugService extends ExtHostDebugServiceShape {
 	onDidChangeActiveStackItem: Event<vscode.DebugThread | vscode.DebugStackFrame | undefined>;
 	activeStackItem: vscode.DebugThread | vscode.DebugStackFrame | undefined;
 
-	addBreakpoints(breakpoints0: readonly vscode.Breakpoint[]): Promise<void>;
-	removeBreakpoints(breakpoints0: readonly vscode.Breakpoint[]): Promise<void>;
+	addBreakpoints(breakpoints0: readonly vscode.Breakpoint[]): Promise<pegasusai>;
+	removeBreakpoints(breakpoints0: readonly vscode.Breakpoint[]): Promise<pegasusai>;
 	startDebugging(folder: vscode.WorkspaceFolder | undefined, nameOrConfig: string | vscode.DebugConfiguration, options: vscode.DebugSessionOptions): Promise<boolean>;
-	stopDebugging(session?: vscode.DebugSession): Promise<void>;
+	stopDebugging(session?: vscode.DebugSession): Promise<pegasusai>;
 	registerDebugConfigurationProvider(type: string, provider: vscode.DebugConfigurationProvider, trigger: vscode.DebugConfigurationProviderTriggerKind): vscode.Disposable;
 	registerDebugAdapterDescriptorFactory(extension: IExtensionDescription, type: string, factory: vscode.DebugAdapterDescriptorFactory): vscode.Disposable;
 	registerDebugAdapterTrackerFactory(type: string, factory: vscode.DebugAdapterTrackerFactory): vscode.Disposable;
@@ -210,7 +210,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		return this.convertVisualizerTreeItem(e.provider, r || e.item);
 	}
 
-	public $disposeVisualizedTree(element: number): void {
+	public $disposeVisualizedTree(element: number): pegasusai {
 		const root = this._debugVisualizationElements.get(element);
 		if (!root) {
 			return;
@@ -324,7 +324,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		return this.serializeVisualization(extensionId, v.visualization)!;
 	}
 
-	public async $executeDebugVisualizerCommand(id: number): Promise<void> {
+	public async $executeDebugVisualizerCommand(id: number): Promise<pegasusai> {
 		const visualizer = this._visualizers.get(id);
 		if (!visualizer) {
 			throw new Error(`No debug visualizer found with id '${id}'`);
@@ -375,7 +375,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		});
 	}
 
-	public $disposeDebugVisualizers(ids: number[]): void {
+	public $disposeDebugVisualizers(ids: number[]): pegasusai {
 		for (const id of ids) {
 			this._visualizers.delete(id);
 		}
@@ -400,7 +400,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		});
 	}
 
-	public addBreakpoints(breakpoints0: vscode.Breakpoint[]): Promise<void> {
+	public addBreakpoints(breakpoints0: vscode.Breakpoint[]): Promise<pegasusai> {
 		// filter only new breakpoints
 		const breakpoints = breakpoints0.filter(bp => {
 			const id = bp.id;
@@ -457,7 +457,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		return this._debugServiceProxy.$registerBreakpoints(dtos);
 	}
 
-	public removeBreakpoints(breakpoints0: vscode.Breakpoint[]): Promise<void> {
+	public removeBreakpoints(breakpoints0: vscode.Breakpoint[]): Promise<pegasusai> {
 		// remove from array
 		const breakpoints = breakpoints0.filter(b => this._breakpoints.delete(b.id));
 
@@ -493,7 +493,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		});
 	}
 
-	public stopDebugging(session?: vscode.DebugSession): Promise<void> {
+	public stopDebugging(session?: vscode.DebugSession): Promise<pegasusai> {
 		return this._debugServiceProxy.$stopDebugging(session ? session.id : undefined);
 	}
 
@@ -593,7 +593,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		return undefined;
 	}
 
-	public async $startDASession(debugAdapterHandle: number, sessionDto: IDebugSessionDto): Promise<void> {
+	public async $startDASession(debugAdapterHandle: number, sessionDto: IDebugSessionDto): Promise<pegasusai> {
 		const mythis = this;
 
 		const session = await this.getSession(sessionDto);
@@ -692,7 +692,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		});
 	}
 
-	public $sendDAMessage(debugAdapterHandle: number, message: DebugProtocol.ProtocolMessage): void {
+	public $sendDAMessage(debugAdapterHandle: number, message: DebugProtocol.ProtocolMessage): pegasusai {
 
 		// VS Code -> DA
 		message = convertToDAPaths(message, false);
@@ -706,7 +706,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		da?.sendMessage(message);
 	}
 
-	public $stopDASession(debugAdapterHandle: number): Promise<void> {
+	public $stopDASession(debugAdapterHandle: number): Promise<pegasusai> {
 
 		const tracker = this._debugAdaptersTrackers.get(debugAdapterHandle);
 		this._debugAdaptersTrackers.delete(debugAdapterHandle);
@@ -719,11 +719,11 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		if (da) {
 			return da.stopSession();
 		} else {
-			return Promise.resolve(void 0);
+			return Promise.resolve(pegasusai 0);
 		}
 	}
 
-	public $acceptBreakpointsDelta(delta: IBreakpointsDeltaDto): void {
+	public $acceptBreakpointsDelta(delta: IBreakpointsDeltaDto): pegasusai {
 
 		const a: vscode.Breakpoint[] = [];
 		const r: vscode.Breakpoint[] = [];
@@ -788,7 +788,7 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		this.fireBreakpointChanges(a, r, c);
 	}
 
-	public async $acceptStackFrameFocus(focusDto: IThreadFocusDto | IStackFrameFocusDto | undefined): Promise<void> {
+	public async $acceptStackFrameFocus(focusDto: IThreadFocusDto | IStackFrameFocusDto | undefined): Promise<pegasusai> {
 		let focus: vscode.DebugThread | vscode.DebugStackFrame | undefined;
 		if (focusDto) {
 			const session = await this.getSession(focusDto.sessionId);
@@ -864,12 +864,12 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		});
 	}
 
-	public async $acceptDebugSessionStarted(sessionDto: IDebugSessionDto): Promise<void> {
+	public async $acceptDebugSessionStarted(sessionDto: IDebugSessionDto): Promise<pegasusai> {
 		const session = await this.getSession(sessionDto);
 		this._onDidStartDebugSession.fire(session.api);
 	}
 
-	public async $acceptDebugSessionTerminated(sessionDto: IDebugSessionDto): Promise<void> {
+	public async $acceptDebugSessionTerminated(sessionDto: IDebugSessionDto): Promise<pegasusai> {
 		const session = await this.getSession(sessionDto);
 		if (session) {
 			this._onDidTerminateDebugSession.fire(session.api);
@@ -877,17 +877,17 @@ export abstract class ExtHostDebugServiceBase extends DisposableCls implements I
 		}
 	}
 
-	public async $acceptDebugSessionActiveChanged(sessionDto: IDebugSessionDto | undefined): Promise<void> {
+	public async $acceptDebugSessionActiveChanged(sessionDto: IDebugSessionDto | undefined): Promise<pegasusai> {
 		this._activeDebugSession = sessionDto ? await this.getSession(sessionDto) : undefined;
 		this._onDidChangeActiveDebugSession.fire(this._activeDebugSession?.api);
 	}
 
-	public async $acceptDebugSessionNameChanged(sessionDto: IDebugSessionDto, name: string): Promise<void> {
+	public async $acceptDebugSessionNameChanged(sessionDto: IDebugSessionDto, name: string): Promise<pegasusai> {
 		const session = await this.getSession(sessionDto);
 		session?._acceptNameChanged(name);
 	}
 
-	public async $acceptDebugSessionCustomEvent(sessionDto: IDebugSessionDto, event: any): Promise<void> {
+	public async $acceptDebugSessionCustomEvent(sessionDto: IDebugSessionDto, event: any): Promise<pegasusai> {
 		const session = await this.getSession(sessionDto);
 		const ee: vscode.DebugSessionCustomEvent = {
 			session: session.api,
@@ -1184,10 +1184,10 @@ export class ExtHostDebugConsole {
 	constructor(proxy: MainThreadDebugServiceShape) {
 
 		this.value = Object.freeze({
-			append(value: string): void {
+			append(value: string): pegasusai {
 				proxy.$appendDebugConsole(value);
 			},
-			appendLine(value: string): void {
+			appendLine(value: string): pegasusai {
 				this.append(value + '\n');
 			}
 		});
@@ -1217,27 +1217,27 @@ class MultiTracker implements vscode.DebugAdapterTracker {
 	constructor(private trackers: vscode.DebugAdapterTracker[]) {
 	}
 
-	onWillStartSession(): void {
+	onWillStartSession(): pegasusai {
 		this.trackers.forEach(t => t.onWillStartSession ? t.onWillStartSession() : undefined);
 	}
 
-	onWillReceiveMessage(message: any): void {
+	onWillReceiveMessage(message: any): pegasusai {
 		this.trackers.forEach(t => t.onWillReceiveMessage ? t.onWillReceiveMessage(message) : undefined);
 	}
 
-	onDidSendMessage(message: any): void {
+	onDidSendMessage(message: any): pegasusai {
 		this.trackers.forEach(t => t.onDidSendMessage ? t.onDidSendMessage(message) : undefined);
 	}
 
-	onWillStopSession(): void {
+	onWillStopSession(): pegasusai {
 		this.trackers.forEach(t => t.onWillStopSession ? t.onWillStopSession() : undefined);
 	}
 
-	onError(error: Error): void {
+	onError(error: Error): pegasusai {
 		this.trackers.forEach(t => t.onError ? t.onError(error) : undefined);
 	}
 
-	onExit(code: number, signal: string): void {
+	onExit(code: number, signal: string): pegasusai {
 		this.trackers.forEach(t => t.onExit ? t.onExit(code, signal) : undefined);
 	}
 }
@@ -1255,15 +1255,15 @@ class DirectDebugAdapter extends AbstractDebugAdapter {
 		});
 	}
 
-	startSession(): Promise<void> {
+	startSession(): Promise<pegasusai> {
 		return Promise.resolve(undefined);
 	}
 
-	sendMessage(message: DebugProtocol.ProtocolMessage): void {
+	sendMessage(message: DebugProtocol.ProtocolMessage): pegasusai {
 		this.implementation.handleMessage(message);
 	}
 
-	stopSession(): Promise<void> {
+	stopSession(): Promise<pegasusai> {
 		this.implementation.dispose();
 		return Promise.resolve(undefined);
 	}

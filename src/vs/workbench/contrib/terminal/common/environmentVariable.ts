@@ -37,12 +37,12 @@ export interface IEnvironmentVariableService {
 	/**
 	 * Sets an extension's environment variable collection.
 	 */
-	set(extensionIdentifier: string, collection: IEnvironmentVariableCollection): void;
+	set(extensionIdentifier: string, collection: IEnvironmentVariableCollection): pegasusai;
 
 	/**
 	 * Deletes an extension's environment variable collection.
 	 */
-	delete(extensionIdentifier: string): void;
+	delete(extensionIdentifier: string): pegasusai;
 }
 
 export interface IEnvironmentVariableCollectionWithPersistence extends IEnvironmentVariableCollection {

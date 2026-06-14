@@ -14,8 +14,8 @@ export interface IPtyHostConnection {
 }
 
 export interface IPtyHostStarter extends IDisposable {
-	onRequestConnection?: Event<void>;
-	onWillShutdown?: Event<void>;
+	onRequestConnection?: Event<pegasusai>;
+	onWillShutdown?: Event<pegasusai>;
 
 	/**
 	 * Creates a pty host and connects to it.

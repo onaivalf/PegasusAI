@@ -71,7 +71,7 @@ export class NotebookCellAnchor implements IDisposable {
 		}
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.executionWatcher?.dispose();
 		this.scrollWatcher?.dispose();
 	}

@@ -85,7 +85,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 		}));
 	}
 
-	private async updateNewSessionRequests(providerId: string, addedSessions: readonly AuthenticationSession[]): Promise<void> {
+	private async updateNewSessionRequests(providerId: string, addedSessions: readonly AuthenticationSession[]): Promise<pegasusai> {
 		const existingRequestsForProvider = this._signInRequestItems.get(providerId);
 		if (!existingRequestsForProvider) {
 			return;
@@ -124,7 +124,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 		}
 	}
 
-	private updateBadgeCount(): void {
+	private updateBadgeCount(): pegasusai {
 		this._accountBadgeDisposable.clear();
 
 		let numberOfRequests = 0;
@@ -144,7 +144,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 		}
 	}
 
-	private removeAccessRequest(providerId: string, extensionId: string): void {
+	private removeAccessRequest(providerId: string, extensionId: string): pegasusai {
 		const providerRequests = this._sessionAccessRequestItems.get(providerId) || {};
 		if (providerRequests[extensionId]) {
 			dispose(providerRequests[extensionId].disposables);
@@ -155,7 +155,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 
 	//#region Account/Session Preference
 
-	updateAccountPreference(extensionId: string, providerId: string, account: AuthenticationSessionAccount): void {
+	updateAccountPreference(extensionId: string, providerId: string, account: AuthenticationSessionAccount): pegasusai {
 		const realExtensionId = ExtensionIdentifier.toKey(extensionId);
 		const parentExtensionId = this._inheritAuthAccountPreferenceChildToParent[realExtensionId] ?? realExtensionId;
 		const key = this._getKey(parentExtensionId, providerId);
@@ -179,7 +179,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 		return this.storageService.get(key, StorageScope.WORKSPACE) ?? this.storageService.get(key, StorageScope.APPLICATION);
 	}
 
-	removeAccountPreference(extensionId: string, providerId: string): void {
+	removeAccountPreference(extensionId: string, providerId: string): pegasusai {
 		const realExtensionId = ExtensionIdentifier.toKey(extensionId);
 		const key = this._getKey(this._inheritAuthAccountPreferenceChildToParent[realExtensionId] ?? realExtensionId, providerId);
 
@@ -197,7 +197,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 
 	// TODO@TylerLeonhardt: Remove all of this after a couple iterations
 
-	updateSessionPreference(providerId: string, extensionId: string, session: AuthenticationSession): void {
+	updateSessionPreference(providerId: string, extensionId: string, session: AuthenticationSession): pegasusai {
 		const realExtensionId = ExtensionIdentifier.toKey(extensionId);
 		// The 3 parts of this key are important:
 		// * Extension id: The extension that has a preference
@@ -224,7 +224,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 		return this.storageService.get(key, StorageScope.WORKSPACE) ?? this.storageService.get(key, StorageScope.APPLICATION);
 	}
 
-	removeSessionPreference(providerId: string, extensionId: string, scopes: string[]): void {
+	removeSessionPreference(providerId: string, extensionId: string, scopes: string[]): pegasusai {
 		const realExtensionId = ExtensionIdentifier.toKey(extensionId);
 		// The 3 parts of this key are important:
 		// * Extension id: The extension that has a preference
@@ -240,7 +240,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 		this.storageService.remove(key, StorageScope.APPLICATION);
 	}
 
-	private _updateAccountAndSessionPreferences(providerId: string, extensionId: string, session: AuthenticationSession): void {
+	private _updateAccountAndSessionPreferences(providerId: string, extensionId: string, session: AuthenticationSession): pegasusai {
 		this.updateAccountPreference(extensionId, providerId, session.account);
 		this.updateSessionPreference(providerId, extensionId, session);
 	}
@@ -354,7 +354,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 		});
 	}
 
-	private async completeSessionAccessRequest(provider: IAuthenticationProvider, extensionId: string, extensionName: string, scopes: string[]): Promise<void> {
+	private async completeSessionAccessRequest(provider: IAuthenticationProvider, extensionId: string, extensionName: string, scopes: string[]): Promise<pegasusai> {
 		const providerRequests = this._sessionAccessRequestItems.get(provider.id) || {};
 		const existingRequest = providerRequests[extensionId];
 		if (!existingRequest) {
@@ -385,7 +385,7 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 		}
 	}
 
-	requestSessionAccess(providerId: string, extensionId: string, extensionName: string, scopes: string[], possibleSessions: AuthenticationSession[]): void {
+	requestSessionAccess(providerId: string, extensionId: string, extensionName: string, scopes: string[], possibleSessions: AuthenticationSession[]): pegasusai {
 		const providerRequests = this._sessionAccessRequestItems.get(providerId) || {};
 		const hasExistingRequest = providerRequests[extensionId];
 		if (hasExistingRequest) {
@@ -419,12 +419,12 @@ export class AuthenticationExtensionsService extends Disposable implements IAuth
 		this.updateBadgeCount();
 	}
 
-	async requestNewSession(providerId: string, scopes: string[], extensionId: string, extensionName: string): Promise<void> {
+	async requestNewSession(providerId: string, scopes: string[], extensionId: string, extensionName: string): Promise<pegasusai> {
 		if (!this._authenticationService.isAuthenticationProviderRegistered(providerId)) {
 			// Activate has already been called for the authentication provider, but it cannot block on registering itself
 			// since this is sync and returns a disposable. So, wait for registration event to fire that indicates the
 			// provider is now in the map.
-			await new Promise<void>((resolve, _) => {
+			await new Promise<pegasusai>((resolve, _) => {
 				const dispose = this._authenticationService.onDidRegisterAuthenticationProvider(e => {
 					if (e.id === providerId) {
 						dispose.dispose();

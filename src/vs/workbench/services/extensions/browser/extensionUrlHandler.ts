@@ -55,11 +55,11 @@ class UserTrustedExtensionIdStorage {
 		return this.extensions.indexOf(id) > -1;
 	}
 
-	add(id: string): void {
+	add(id: string): pegasusai {
 		this.set([...this.extensions, id]);
 	}
 
-	set(ids: string[]): void {
+	set(ids: string[]): pegasusai {
 		this.storageService.store(USER_TRUSTED_EXTENSIONS_STORAGE_KEY, JSON.stringify(ids), StorageScope.PROFILE, StorageTarget.MACHINE);
 	}
 }
@@ -72,8 +72,8 @@ export interface IExtensionContributedURLHandler extends IURLHandler {
 
 export interface IExtensionUrlHandler {
 	readonly _serviceBrand: undefined;
-	registerExtensionHandler(extensionId: ExtensionIdentifier, handler: IExtensionContributedURLHandler): void;
-	unregisterExtensionHandler(extensionId: ExtensionIdentifier): void;
+	registerExtensionHandler(extensionId: ExtensionIdentifier, handler: IExtensionContributedURLHandler): pegasusai;
+	unregisterExtensionHandler(extensionId: ExtensionIdentifier): pegasusai;
 }
 
 export interface IExtensionUrlHandlerOverride {
@@ -243,7 +243,7 @@ class ExtensionUrlHandler implements IExtensionUrlHandler, IURLHandler {
 		return true;
 	}
 
-	registerExtensionHandler(extensionId: ExtensionIdentifier, handler: IExtensionContributedURLHandler): void {
+	registerExtensionHandler(extensionId: ExtensionIdentifier, handler: IExtensionContributedURLHandler): pegasusai {
 		this.extensionHandlers.set(ExtensionIdentifier.toKey(extensionId), handler);
 
 		const uris = this.uriBuffer.get(ExtensionIdentifier.toKey(extensionId)) || [];
@@ -255,7 +255,7 @@ class ExtensionUrlHandler implements IExtensionUrlHandler, IURLHandler {
 		this.uriBuffer.delete(ExtensionIdentifier.toKey(extensionId));
 	}
 
-	unregisterExtensionHandler(extensionId: ExtensionIdentifier): void {
+	unregisterExtensionHandler(extensionId: ExtensionIdentifier): pegasusai {
 		this.extensionHandlers.delete(ExtensionIdentifier.toKey(extensionId));
 	}
 
@@ -263,7 +263,7 @@ class ExtensionUrlHandler implements IExtensionUrlHandler, IURLHandler {
 		return await handler.handleURL(uri, options);
 	}
 
-	private async handleUnhandledURL(uri: URI, extensionId: string, options?: IOpenURLOptions): Promise<void> {
+	private async handleUnhandledURL(uri: URI, extensionId: string, options?: IOpenURLOptions): Promise<pegasusai> {
 		try {
 			await this.commandService.executeCommand('workbench.extensions.installExtension', extensionId, {
 				justification: {
@@ -302,7 +302,7 @@ class ExtensionUrlHandler implements IExtensionUrlHandler, IURLHandler {
 	}
 
 	// forget about all uris buffered more than 5 minutes ago
-	private garbageCollect(): void {
+	private garbageCollect(): pegasusai {
 		const now = new Date().getTime();
 		const uriBuffer = new Map<string, { timestamp: number; uri: URI }[]>();
 
@@ -335,7 +335,7 @@ class ExtensionUrlHandler implements IExtensionUrlHandler, IURLHandler {
 		return trustedExtensionIds;
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.disposable.dispose();
 		this.extensionHandlers.clear();
 		this.uriBuffer.clear();
@@ -393,7 +393,7 @@ class ManageAuthorizedExtensionURIsAction extends Action2 {
 		});
 	}
 
-	async run(accessor: ServicesAccessor): Promise<void> {
+	async run(accessor: ServicesAccessor): Promise<pegasusai> {
 		const storageService = accessor.get(IStorageService);
 		const quickInputService = accessor.get(IQuickInputService);
 		const storage = new UserTrustedExtensionIdStorage(storageService);

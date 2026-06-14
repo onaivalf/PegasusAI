@@ -49,7 +49,7 @@ class NotebookModelReferenceCollection extends ReferenceCollection<Promise<IReso
 		super();
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 		this._onDidSaveNotebook.dispose();
 		this._onDidChangeDirty.dispose();
@@ -121,7 +121,7 @@ class NotebookModelReferenceCollection extends ReferenceCollection<Promise<IReso
 		return result;
 	}
 
-	protected destroyReferencedObject(key: string, object: Promise<IResolvedNotebookEditorModel>): void {
+	protected destroyReferencedObject(key: string, object: Promise<IResolvedNotebookEditorModel>): pegasusai {
 		this.modelsToDispose.add(key);
 
 		(async () => {

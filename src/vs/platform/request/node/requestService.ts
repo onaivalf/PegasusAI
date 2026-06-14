@@ -22,7 +22,7 @@ import { Agent, getProxyAgent } from './proxy.js';
 import { createGunzip } from 'zlib';
 
 export interface IRawRequestFunction {
-	(options: http.RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+	(options: http.RequestOptions, callback?: (res: http.IncomingMessage) => pegasusai): http.ClientRequest;
 }
 
 export interface NodeRequestOptions extends IRequestOptions {

@@ -38,12 +38,12 @@ import { ITreeSitterParserService } from '../../common/services/treeSitterParser
 import { TestTreeSitterParserService } from './services/testTreeSitterService.js';
 
 class TestTextModel extends TextModel {
-	public registerDisposable(disposable: IDisposable): void {
+	public registerDisposable(disposable: IDisposable): pegasusai {
 		this._register(disposable);
 	}
 }
 
-export function withEditorModel(text: string[], callback: (model: TextModel) => void): void {
+export function withEditorModel(text: string[], callback: (model: TextModel) => pegasusai): pegasusai {
 	const model = createTextModel(text.join('\n'));
 	callback(model);
 	model.dispose();

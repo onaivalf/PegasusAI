@@ -27,11 +27,11 @@ export class WindowIgnoreMenuShortcutsManager {
 		this._webviewMainService = ProxyChannel.toService<IWebviewManagerService>(mainProcessService.getChannel('webview'));
 	}
 
-	public didFocus(): void {
+	public didFocus(): pegasusai {
 		this.setIgnoreMenuShortcuts(true);
 	}
 
-	public didBlur(): void {
+	public didBlur(): pegasusai {
 		this.setIgnoreMenuShortcuts(false);
 	}
 

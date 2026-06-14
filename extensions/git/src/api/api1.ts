@@ -37,7 +37,7 @@ export class ApiChange implements Change {
 
 export class ApiRepositoryState implements RepositoryState {
 	#repository: BaseRepository;
-	readonly onDidChange: Event<void>;
+	readonly onDidChange: Event<pegasusai>;
 
 	constructor(repository: BaseRepository) {
 		this.#repository = repository;
@@ -61,11 +61,11 @@ export class ApiRepositoryState implements RepositoryState {
 
 export class ApiRepositoryUIState implements RepositoryUIState {
 	#sourceControl: SourceControl;
-	readonly onDidChange: Event<void>;
+	readonly onDidChange: Event<pegasusai>;
 
 	constructor(sourceControl: SourceControl) {
 		this.#sourceControl = sourceControl;
-		this.onDidChange = mapEvent<boolean, void>(this.#sourceControl.onDidChangeSelection, () => null);
+		this.onDidChange = mapEvent<boolean, pegasusai>(this.#sourceControl.onDidChangeSelection, () => null);
 	}
 
 	get selected(): boolean { return this.#sourceControl.selected; }
@@ -79,8 +79,8 @@ export class ApiRepository implements Repository {
 	readonly state: RepositoryState;
 	readonly ui: RepositoryUIState;
 
-	readonly onDidCommit: Event<void>;
-	readonly onDidCheckout: Event<void>;
+	readonly onDidCommit: Event<pegasusai>;
+	readonly onDidCheckout: Event<pegasusai>;
 
 	constructor(repository: BaseRepository) {
 		this.#repository = repository;
@@ -90,13 +90,13 @@ export class ApiRepository implements Repository {
 		this.state = new ApiRepositoryState(this.#repository);
 		this.ui = new ApiRepositoryUIState(this.#repository.sourceControl);
 
-		this.onDidCommit = mapEvent<OperationResult, void>(
+		this.onDidCommit = mapEvent<OperationResult, pegasusai>(
 			filterEvent(this.#repository.onDidRunOperation, e => e.operation.kind === OperationKind.Commit), () => null);
-		this.onDidCheckout = mapEvent<OperationResult, void>(
+		this.onDidCheckout = mapEvent<OperationResult, pegasusai>(
 			filterEvent(this.#repository.onDidRunOperation, e => e.operation.kind === OperationKind.Checkout || e.operation.kind === OperationKind.CheckoutTracking), () => null);
 	}
 
-	apply(patch: string, reverse?: boolean): Promise<void> {
+	apply(patch: string, reverse?: boolean): Promise<pegasusai> {
 		return this.#repository.apply(patch, reverse);
 	}
 
@@ -194,11 +194,11 @@ export class ApiRepository implements Repository {
 		return this.#repository.hashObject(data);
 	}
 
-	createBranch(name: string, checkout: boolean, ref?: string | undefined): Promise<void> {
+	createBranch(name: string, checkout: boolean, ref?: string | undefined): Promise<pegasusai> {
 		return this.#repository.branch(name, checkout, ref);
 	}
 
-	deleteBranch(name: string, force?: boolean): Promise<void> {
+	deleteBranch(name: string, force?: boolean): Promise<pegasusai> {
 		return this.#repository.deleteBranch(name, force);
 	}
 
@@ -214,7 +214,7 @@ export class ApiRepository implements Repository {
 		return this.#repository.getBranchBase(name);
 	}
 
-	setBranchUpstream(name: string, upstream: string): Promise<void> {
+	setBranchUpstream(name: string, upstream: string): Promise<pegasusai> {
 		return this.#repository.setBranchUpstream(name, upstream);
 	}
 
@@ -230,31 +230,31 @@ export class ApiRepository implements Repository {
 		return this.#repository.getMergeBase(ref1, ref2);
 	}
 
-	tag(name: string, message: string, ref?: string | undefined): Promise<void> {
+	tag(name: string, message: string, ref?: string | undefined): Promise<pegasusai> {
 		return this.#repository.tag({ name, message, ref });
 	}
 
-	deleteTag(name: string): Promise<void> {
+	deleteTag(name: string): Promise<pegasusai> {
 		return this.#repository.deleteTag(name);
 	}
 
-	status(): Promise<void> {
+	status(): Promise<pegasusai> {
 		return this.#repository.status();
 	}
 
-	checkout(treeish: string): Promise<void> {
+	checkout(treeish: string): Promise<pegasusai> {
 		return this.#repository.checkout(treeish);
 	}
 
-	addRemote(name: string, url: string): Promise<void> {
+	addRemote(name: string, url: string): Promise<pegasusai> {
 		return this.#repository.addRemote(name, url);
 	}
 
-	removeRemote(name: string): Promise<void> {
+	removeRemote(name: string): Promise<pegasusai> {
 		return this.#repository.removeRemote(name);
 	}
 
-	renameRemote(name: string, newName: string): Promise<void> {
+	renameRemote(name: string, newName: string): Promise<pegasusai> {
 		return this.#repository.renameRemote(name, newName);
 	}
 
@@ -262,7 +262,7 @@ export class ApiRepository implements Repository {
 		ref?: string | undefined,
 		depth?: number | undefined,
 		prune?: boolean | undefined
-	): Promise<void> {
+	): Promise<pegasusai> {
 		if (arg0 !== undefined && typeof arg0 !== 'string') {
 			return this.#repository.fetch(arg0);
 		}
@@ -270,11 +270,11 @@ export class ApiRepository implements Repository {
 		return this.#repository.fetch({ remote: arg0, ref, depth, prune });
 	}
 
-	pull(unshallow?: boolean): Promise<void> {
+	pull(unshallow?: boolean): Promise<pegasusai> {
 		return this.#repository.pull(undefined, unshallow);
 	}
 
-	push(remoteName?: string, branchName?: string, setUpstream: boolean = false, force?: ForcePushMode): Promise<void> {
+	push(remoteName?: string, branchName?: string, setUpstream: boolean = false, force?: ForcePushMode): Promise<pegasusai> {
 		return this.#repository.pushTo(remoteName, branchName, setUpstream, force);
 	}
 
@@ -286,27 +286,27 @@ export class ApiRepository implements Repository {
 		return this.#repository.log(options);
 	}
 
-	commit(message: string, opts?: CommitOptions): Promise<void> {
+	commit(message: string, opts?: CommitOptions): Promise<pegasusai> {
 		return this.#repository.commit(message, { ...opts, postCommitCommand: null });
 	}
 
-	merge(ref: string): Promise<void> {
+	merge(ref: string): Promise<pegasusai> {
 		return this.#repository.merge(ref);
 	}
 
-	mergeAbort(): Promise<void> {
+	mergeAbort(): Promise<pegasusai> {
 		return this.#repository.mergeAbort();
 	}
 
-	applyStash(index?: number): Promise<void> {
+	applyStash(index?: number): Promise<pegasusai> {
 		return this.#repository.applyStash(index);
 	}
 
-	popStash(index?: number): Promise<void> {
+	popStash(index?: number): Promise<pegasusai> {
 		return this.#repository.popStash(index);
 	}
 
-	dropStash(index?: number): Promise<void> {
+	dropStash(index?: number): Promise<pegasusai> {
 		return this.#repository.dropStash(index);
 	}
 }

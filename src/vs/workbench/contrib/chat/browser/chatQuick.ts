@@ -29,7 +29,7 @@ import { ChatAgentLocation } from '../common/constants.js';
 export class QuickChatService extends Disposable implements IQuickChatService {
 	readonly _serviceBrand: undefined;
 
-	private readonly _onDidClose = this._register(new Emitter<void>());
+	private readonly _onDidClose = this._register(new Emitter<pegasusai>());
 	readonly onDidClose = this._onDidClose.event;
 
 	private _input: IQuickWidget | undefined;
@@ -57,7 +57,7 @@ export class QuickChatService extends Disposable implements IQuickChatService {
 		return dom.isAncestorOfActiveElement(widget);
 	}
 
-	toggle(options?: IQuickChatOpenOptions): void {
+	toggle(options?: IQuickChatOpenOptions): pegasusai {
 		// If the input is already shown, hide it. This provides a toggle behavior of the quick
 		// pick. This should not happen when there is a query.
 		if (this.focused && !options?.query) {
@@ -75,7 +75,7 @@ export class QuickChatService extends Disposable implements IQuickChatService {
 		}
 	}
 
-	open(options?: IQuickChatOpenOptions): void {
+	open(options?: IQuickChatOpenOptions): pegasusai {
 		if (this._input) {
 			if (this._currentChat && options?.query) {
 				this._currentChat.focus();
@@ -124,14 +124,14 @@ export class QuickChatService extends Disposable implements IQuickChatService {
 			}
 		}
 	}
-	focus(): void {
+	focus(): pegasusai {
 		this._currentChat?.focus();
 	}
-	close(): void {
+	close(): pegasusai {
 		this._input?.dispose();
 		this._input = undefined;
 	}
-	async openInChatView(): Promise<void> {
+	async openInChatView(): Promise<pegasusai> {
 		await this._currentChat?.openChatView();
 		this.close();
 	}
@@ -166,7 +166,7 @@ class QuickChat extends Disposable {
 		this.widget.inputEditor.setValue('');
 	}
 
-	focus(selection?: Selection): void {
+	focus(selection?: Selection): pegasusai {
 		if (this.widget) {
 			this.widget.focusInput();
 			const value = this.widget.inputEditor.getValue();
@@ -181,7 +181,7 @@ class QuickChat extends Disposable {
 		}
 	}
 
-	hide(): void {
+	hide(): pegasusai {
 		this.widget.setVisible(false);
 		// Maintain scroll position for a short time so that if the user re-shows the chat
 		// the same scroll position will be used.
@@ -192,7 +192,7 @@ class QuickChat extends Disposable {
 		}, 30 * 1000); // 30 seconds
 	}
 
-	show(): void {
+	show(): pegasusai {
 		this.widget.setVisible(true);
 		// If the mutable disposable is set, then we are keeping the existing scroll position
 		// so we should not update the layout.
@@ -205,7 +205,7 @@ class QuickChat extends Disposable {
 		}
 	}
 
-	render(parent: HTMLElement): void {
+	render(parent: HTMLElement): pegasusai {
 		if (this.widget) {
 			// NOTE: if this changes, we need to make sure disposables in this function are tracked differently.
 			throw new Error('Cannot render quick chat twice');
@@ -241,7 +241,7 @@ class QuickChat extends Disposable {
 		return this.layoutService.mainContainerDimension.height - QuickChat.DEFAULT_HEIGHT_OFFSET;
 	}
 
-	private registerListeners(parent: HTMLElement): void {
+	private registerListeners(parent: HTMLElement): pegasusai {
 		this._register(this.layoutService.onDidLayoutMainContainer(() => {
 			if (this.widget.visible) {
 				this.widget.updateDynamicChatTreeItemLayout(2, this.maxHeight);
@@ -278,7 +278,7 @@ class QuickChat extends Disposable {
 		return this.widget.acceptInput();
 	}
 
-	async openChatView(): Promise<void> {
+	async openChatView(): Promise<pegasusai> {
 		const widget = await showChatView(this.viewsService);
 		if (!widget?.viewModel || !this.model) {
 			return;
@@ -340,16 +340,16 @@ class QuickChat extends Disposable {
 		widget.focusInput();
 	}
 
-	setValue(value: string, selection?: Selection): void {
+	setValue(value: string, selection?: Selection): pegasusai {
 		this.widget.inputEditor.setValue(value);
 		this.focus(selection);
 	}
 
-	clearValue(): void {
+	clearValue(): pegasusai {
 		this.widget.inputEditor.setValue('');
 	}
 
-	private updateModel(): void {
+	private updateModel(): pegasusai {
 		this.model ??= this.chatService.startSession(ChatAgentLocation.Panel, CancellationToken.None);
 		if (!this.model) {
 			throw new Error('Could not start chat session');

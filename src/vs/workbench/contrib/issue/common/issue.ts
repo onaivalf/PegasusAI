@@ -118,25 +118,25 @@ export interface IIssueFormService {
 	readonly _serviceBrand: undefined;
 
 	// Used by the issue reporter
-	openReporter(data: IssueReporterData): Promise<void>;
-	reloadWithExtensionsDisabled(): Promise<void>;
-	showConfirmCloseDialog(): Promise<void>;
+	openReporter(data: IssueReporterData): Promise<pegasusai>;
+	reloadWithExtensionsDisabled(): Promise<pegasusai>;
+	showConfirmCloseDialog(): Promise<pegasusai>;
 	showClipboardDialog(): Promise<boolean>;
 	sendReporterMenu(extensionId: string): Promise<IssueReporterData | undefined>;
-	closeReporter(): Promise<void>;
+	closeReporter(): Promise<pegasusai>;
 }
 
 export const IWorkbenchIssueService = createDecorator<IWorkbenchIssueService>('workbenchIssueService');
 
 export interface IWorkbenchIssueService {
 	readonly _serviceBrand: undefined;
-	openReporter(dataOverrides?: Partial<IssueReporterData>): Promise<void>;
+	openReporter(dataOverrides?: Partial<IssueReporterData>): Promise<pegasusai>;
 }
 
 export const IWorkbenchProcessService = createDecorator<IWorkbenchProcessService>('workbenchProcessService');
 
 export interface IWorkbenchProcessService {
 	readonly _serviceBrand: undefined;
-	openProcessExplorer(): Promise<void>;
+	openProcessExplorer(): Promise<pegasusai>;
 }
 

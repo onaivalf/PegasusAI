@@ -11,7 +11,7 @@ export class Profiler {
 	constructor(private readonly code: Code) {
 	}
 
-	async checkObjectLeaks(classNames: string | string[], fn: () => Promise<void>): Promise<void> {
+	async checkObjectLeaks(classNames: string | string[], fn: () => Promise<pegasusai>): Promise<pegasusai> {
 		await this.code.driver.startCDP();
 
 		const classNamesArray = Array.isArray(classNames) ? classNames : [classNames];
@@ -34,7 +34,7 @@ export class Profiler {
 		}
 	}
 
-	async checkHeapLeaks(classNames: string | string[], fn: () => Promise<void>): Promise<void> {
+	async checkHeapLeaks(classNames: string | string[], fn: () => Promise<pegasusai>): Promise<pegasusai> {
 		await this.code.driver.startCDP();
 		await fn();
 

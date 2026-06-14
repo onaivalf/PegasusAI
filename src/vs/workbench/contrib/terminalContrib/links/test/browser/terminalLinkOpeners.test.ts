@@ -50,7 +50,7 @@ class TestFileService extends FileService {
 		}
 		throw new Error('ENOENT');
 	}
-	setFiles(files: URI[] | '*'): void {
+	setFiles(files: URI[] | '*'): pegasusai {
 		this._files = files;
 	}
 }

@@ -35,7 +35,7 @@ export class ContentHoverWidget extends ResizableContentWidget {
 	private readonly _hoverVisibleKey: IContextKey<boolean>;
 	private readonly _hoverFocusedKey: IContextKey<boolean>;
 
-	private readonly _onDidResize = this._register(new Emitter<void>());
+	private readonly _onDidResize = this._register(new Emitter<pegasusai>());
 	public readonly onDidResize = this._onDidResize.event;
 
 	private readonly _onDidScroll = this._register(new Emitter<ScrollEvent>());
@@ -97,7 +97,7 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		this._editor.addContentWidget(this);
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		super.dispose();
 		this._renderedHover?.dispose();
 		this._editor.removeContentWidget(this);
@@ -107,29 +107,29 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		return ContentHoverWidget.ID;
 	}
 
-	private static _applyDimensions(container: HTMLElement, width: number | string, height: number | string): void {
+	private static _applyDimensions(container: HTMLElement, width: number | string, height: number | string): pegasusai {
 		const transformedWidth = typeof width === 'number' ? `${width}px` : width;
 		const transformedHeight = typeof height === 'number' ? `${height}px` : height;
 		container.style.width = transformedWidth;
 		container.style.height = transformedHeight;
 	}
 
-	private _setContentsDomNodeDimensions(width: number | string, height: number | string): void {
+	private _setContentsDomNodeDimensions(width: number | string, height: number | string): pegasusai {
 		const contentsDomNode = this._hover.contentsDomNode;
 		return ContentHoverWidget._applyDimensions(contentsDomNode, width, height);
 	}
 
-	private _setContainerDomNodeDimensions(width: number | string, height: number | string): void {
+	private _setContainerDomNodeDimensions(width: number | string, height: number | string): pegasusai {
 		const containerDomNode = this._hover.containerDomNode;
 		return ContentHoverWidget._applyDimensions(containerDomNode, width, height);
 	}
 
-	private _setScrollableElementDimensions(width: number | string, height: number | string): void {
+	private _setScrollableElementDimensions(width: number | string, height: number | string): pegasusai {
 		const scrollbarDomElement = this._hover.scrollbar.getDomNode();
 		return ContentHoverWidget._applyDimensions(scrollbarDomElement, width, height);
 	}
 
-	private _setHoverWidgetDimensions(width: number | string, height: number | string): void {
+	private _setHoverWidgetDimensions(width: number | string, height: number | string): pegasusai {
 		this._setContainerDomNodeDimensions(width, height);
 		this._setScrollableElementDimensions(width, height);
 		this._setContentsDomNodeDimensions(width, height);
@@ -143,7 +143,7 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		container.style.maxHeight = transformedHeight;
 	}
 
-	private _setHoverWidgetMaxDimensions(width: number | string, height: number | string): void {
+	private _setHoverWidgetMaxDimensions(width: number | string, height: number | string): pegasusai {
 		ContentHoverWidget._applyMaxDimensions(this._hover.contentsDomNode, width, height);
 		ContentHoverWidget._applyMaxDimensions(this._hover.scrollbar.getDomNode(), width, height);
 		ContentHoverWidget._applyMaxDimensions(this._hover.containerDomNode, width, height);
@@ -151,19 +151,19 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		this._layoutContentWidget();
 	}
 
-	private _setAdjustedHoverWidgetDimensions(size: dom.Dimension): void {
+	private _setAdjustedHoverWidgetDimensions(size: dom.Dimension): pegasusai {
 		this._setHoverWidgetMaxDimensions('none', 'none');
 		this._setHoverWidgetDimensions(size.width, size.height);
 	}
 
-	private _updateResizableNodeMaxDimensions(): void {
+	private _updateResizableNodeMaxDimensions(): pegasusai {
 		const maxRenderingWidth = this._findMaximumRenderingWidth() ?? Infinity;
 		const maxRenderingHeight = this._findMaximumRenderingHeight() ?? Infinity;
 		this._resizableNode.maxSize = new dom.Dimension(maxRenderingWidth, maxRenderingHeight);
 		this._setHoverWidgetMaxDimensions(maxRenderingWidth, maxRenderingHeight);
 	}
 
-	protected override _resize(size: dom.Dimension): void {
+	protected override _resize(size: dom.Dimension): pegasusai {
 		ContentHoverWidget._lastDimensions = new dom.Dimension(size.width, size.height);
 		this._setAdjustedHoverWidgetDimensions(size);
 		this._resizableNode.layout(size.height, size.width);
@@ -272,14 +272,14 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		return true;
 	}
 
-	private _setRenderedHover(renderedHover: RenderedContentHover | undefined): void {
+	private _setRenderedHover(renderedHover: RenderedContentHover | undefined): pegasusai {
 		this._renderedHover?.dispose();
 		this._renderedHover = renderedHover;
 		this._hoverVisibleKey.set(!!renderedHover);
 		this._hover.containerDomNode.classList.toggle('hidden', !renderedHover);
 	}
 
-	private _updateFont(): void {
+	private _updateFont(): pegasusai {
 		const { fontSize, lineHeight } = this._editor.getOption(EditorOption.fontInfo);
 		const contentsDomNode = this._hover.contentsDomNode;
 		contentsDomNode.style.fontSize = `${fontSize}px`;
@@ -288,14 +288,14 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		codeClasses.forEach(node => this._editor.applyFontInfo(node));
 	}
 
-	private _updateContent(node: DocumentFragment): void {
+	private _updateContent(node: DocumentFragment): pegasusai {
 		const contentsDomNode = this._hover.contentsDomNode;
 		contentsDomNode.style.paddingBottom = '';
 		contentsDomNode.textContent = '';
 		contentsDomNode.appendChild(node);
 	}
 
-	private _layoutContentWidget(): void {
+	private _layoutContentWidget(): pegasusai {
 		this._editor.layoutContentWidget(this);
 		this._hover.onContentsChanged();
 	}
@@ -329,7 +329,7 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		};
 	}
 
-	public show(renderedHover: RenderedContentHover): void {
+	public show(renderedHover: RenderedContentHover): pegasusai {
 		if (!this._editor || !this._editor.hasModel()) {
 			return;
 		}
@@ -357,7 +357,7 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		}
 	}
 
-	public hide(): void {
+	public hide(): pegasusai {
 		if (!this._renderedHover) {
 			return;
 		}
@@ -372,7 +372,7 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		}
 	}
 
-	private _removeConstraintsRenderNormally(): void {
+	private _removeConstraintsRenderNormally(): pegasusai {
 		// Added because otherwise the initial size of the hover content is smaller than should be
 		const layoutInfo = this._editor.getLayoutInfo();
 		this._resizableNode.layout(layoutInfo.height, layoutInfo.width);
@@ -380,7 +380,7 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		this._updateMaxDimensions();
 	}
 
-	public setMinimumDimensions(dimensions: dom.Dimension): void {
+	public setMinimumDimensions(dimensions: dom.Dimension): pegasusai {
 		// We combine the new minimum dimensions with the previous ones
 		this._minimumSize = new dom.Dimension(
 			Math.max(this._minimumSize.width, dimensions.width),
@@ -389,17 +389,17 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		this._updateMinimumWidth();
 	}
 
-	private _updateMinimumWidth(): void {
+	private _updateMinimumWidth(): pegasusai {
 		const width = (
 			typeof this._contentWidth === 'undefined'
 				? this._minimumSize.width
 				: Math.min(this._contentWidth, this._minimumSize.width)
 		);
-		// We want to avoid that the hover is artificially large, so we use the content width as minimum width
+		// We want to apegasusai that the hover is artificially large, so we use the content width as minimum width
 		this._resizableNode.minSize = new dom.Dimension(width, this._minimumSize.height);
 	}
 
-	public onContentsChanged(): void {
+	public onContentsChanged(): pegasusai {
 		this._removeConstraintsRenderNormally();
 		const contentsDomNode = this._hover.contentsDomNode;
 
@@ -422,49 +422,49 @@ export class ContentHoverWidget extends ResizableContentWidget {
 		this._layoutContentWidget();
 	}
 
-	public focus(): void {
+	public focus(): pegasusai {
 		this._hover.containerDomNode.focus();
 	}
 
-	public scrollUp(): void {
+	public scrollUp(): pegasusai {
 		const scrollTop = this._hover.scrollbar.getScrollPosition().scrollTop;
 		const fontInfo = this._editor.getOption(EditorOption.fontInfo);
 		this._hover.scrollbar.setScrollPosition({ scrollTop: scrollTop - fontInfo.lineHeight });
 	}
 
-	public scrollDown(): void {
+	public scrollDown(): pegasusai {
 		const scrollTop = this._hover.scrollbar.getScrollPosition().scrollTop;
 		const fontInfo = this._editor.getOption(EditorOption.fontInfo);
 		this._hover.scrollbar.setScrollPosition({ scrollTop: scrollTop + fontInfo.lineHeight });
 	}
 
-	public scrollLeft(): void {
+	public scrollLeft(): pegasusai {
 		const scrollLeft = this._hover.scrollbar.getScrollPosition().scrollLeft;
 		this._hover.scrollbar.setScrollPosition({ scrollLeft: scrollLeft - HORIZONTAL_SCROLLING_BY });
 	}
 
-	public scrollRight(): void {
+	public scrollRight(): pegasusai {
 		const scrollLeft = this._hover.scrollbar.getScrollPosition().scrollLeft;
 		this._hover.scrollbar.setScrollPosition({ scrollLeft: scrollLeft + HORIZONTAL_SCROLLING_BY });
 	}
 
-	public pageUp(): void {
+	public pageUp(): pegasusai {
 		const scrollTop = this._hover.scrollbar.getScrollPosition().scrollTop;
 		const scrollHeight = this._hover.scrollbar.getScrollDimensions().height;
 		this._hover.scrollbar.setScrollPosition({ scrollTop: scrollTop - scrollHeight });
 	}
 
-	public pageDown(): void {
+	public pageDown(): pegasusai {
 		const scrollTop = this._hover.scrollbar.getScrollPosition().scrollTop;
 		const scrollHeight = this._hover.scrollbar.getScrollDimensions().height;
 		this._hover.scrollbar.setScrollPosition({ scrollTop: scrollTop + scrollHeight });
 	}
 
-	public goToTop(): void {
+	public goToTop(): pegasusai {
 		this._hover.scrollbar.setScrollPosition({ scrollTop: 0 });
 	}
 
-	public goToBottom(): void {
+	public goToBottom(): pegasusai {
 		this._hover.scrollbar.setScrollPosition({ scrollTop: this._hover.scrollbar.getScrollDimensions().scrollHeight });
 	}
 }

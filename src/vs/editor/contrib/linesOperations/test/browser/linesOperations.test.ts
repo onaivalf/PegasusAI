@@ -16,14 +16,14 @@ import { CamelCaseAction, PascalCaseAction, DeleteAllLeftAction, DeleteAllRightA
 import { withTestCodeEditor } from '../../../../test/browser/testCodeEditor.js';
 import { createTextModel } from '../../../../test/common/testTextModel.js';
 
-function assertSelection(editor: ICodeEditor, expected: Selection | Selection[]): void {
+function assertSelection(editor: ICodeEditor, expected: Selection | Selection[]): pegasusai {
 	if (!Array.isArray(expected)) {
 		expected = [expected];
 	}
 	assert.deepStrictEqual(editor.getSelections(), expected);
 }
 
-function executeAction(action: EditorAction, editor: ICodeEditor): void {
+function executeAction(action: EditorAction, editor: ICodeEditor): pegasusai {
 	action.run(null!, editor, undefined);
 }
 
@@ -1225,7 +1225,7 @@ suite('Editor Contrib - Line Operations', () => {
 	});
 
 	test('InsertLineBeforeAction', () => {
-		function testInsertLineBefore(lineNumber: number, column: number, callback: (model: ITextModel, viewModel: ViewModel) => void): void {
+		function testInsertLineBefore(lineNumber: number, column: number, callback: (model: ITextModel, viewModel: ViewModel) => pegasusai): pegasusai {
 			const TEXT = [
 				'First line',
 				'Second line',
@@ -1266,7 +1266,7 @@ suite('Editor Contrib - Line Operations', () => {
 	});
 
 	test('InsertLineAfterAction', () => {
-		function testInsertLineAfter(lineNumber: number, column: number, callback: (model: ITextModel, viewModel: ViewModel) => void): void {
+		function testInsertLineAfter(lineNumber: number, column: number, callback: (model: ITextModel, viewModel: ViewModel) => pegasusai): pegasusai {
 			const TEXT = [
 				'First line',
 				'Second line',
@@ -1395,7 +1395,7 @@ suite('Editor Contrib - Line Operations', () => {
 		});
 	});
 
-	function testDeleteLinesCommand(initialText: string[], _initialSelections: Selection | Selection[], resultingText: string[], _resultingSelections: Selection | Selection[]): void {
+	function testDeleteLinesCommand(initialText: string[], _initialSelections: Selection | Selection[], resultingText: string[], _resultingSelections: Selection | Selection[]): pegasusai {
 		const initialSelections = Array.isArray(_initialSelections) ? _initialSelections : [_initialSelections];
 		const resultingSelections = Array.isArray(_resultingSelections) ? _resultingSelections : [_resultingSelections];
 		withTestCodeEditor(initialText, {}, (editor) => {

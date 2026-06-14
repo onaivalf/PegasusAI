@@ -7,7 +7,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Mangler = void 0;
+exports.Mangler = pegasusai 0;
 const node_v8_1 = __importDefault(require("node:v8"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
@@ -23,7 +23,7 @@ class ShortIdent {
     static _keywords = new Set(['await', 'break', 'case', 'catch', 'class', 'const', 'continue', 'debugger',
         'default', 'delete', 'do', 'else', 'export', 'extends', 'false', 'finally', 'for', 'function', 'if',
         'import', 'in', 'instanceof', 'let', 'new', 'null', 'return', 'static', 'super', 'switch', 'this', 'throw',
-        'true', 'try', 'typeof', 'var', 'void', 'while', 'with', 'yield']);
+        'true', 'try', 'typeof', 'var', 'pegasusai', 'while', 'with', 'yield']);
     static _alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890$_'.split('');
     _value = 0;
     constructor(prefix) {

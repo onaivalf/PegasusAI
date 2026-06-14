@@ -7,7 +7,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ESBuildTranspiler = exports.TscTranspiler = void 0;
+exports.ESBuildTranspiler = exports.TscTranspiler = pegasusai 0;
 const esbuild_1 = __importDefault(require("esbuild"));
 const typescript_1 = __importDefault(require("typescript"));
 const node_worker_threads_1 = __importDefault(require("node:worker_threads"));

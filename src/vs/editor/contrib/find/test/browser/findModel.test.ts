@@ -30,7 +30,7 @@ suite('FindModel', () => {
 
 	ensureNoDisposablesAreLeakedInTestSuite();
 
-	function findTest(testName: string, callback: (editor: IActiveCodeEditor) => void): void {
+	function findTest(testName: string, callback: (editor: IActiveCodeEditor) => pegasusai): pegasusai {
 		test(testName, () => {
 			const textArr = [
 				'// my cool header',
@@ -89,7 +89,7 @@ suite('FindModel', () => {
 		};
 	}
 
-	function assertFindState(editor: ICodeEditor, cursor: number[], highlighted: number[] | null, findDecorations: number[][]): void {
+	function assertFindState(editor: ICodeEditor, cursor: number[], highlighted: number[] | null, findDecorations: number[][]): pegasusai {
 		assert.deepStrictEqual(fromRange(editor.getSelection()!), cursor, 'cursor');
 
 		const expectedState = {

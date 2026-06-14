@@ -146,7 +146,7 @@ function main() {
 		}
 	}
 
-	/** @type { null|((callback:(err:any)=>void)=>void) } */
+	/** @type { null|((callback:(err:any)=>pegasusai)=>pegasusai) } */
 	let loadFunc = null;
 
 	if (args.runGlob) {

@@ -43,7 +43,7 @@ export class OverviewRuler extends ViewEventHandler implements IOverviewRuler {
 		this._context.addEventHandler(this);
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		this._context.removeEventHandler(this);
 		super.dispose();
 	}
@@ -91,7 +91,7 @@ export class OverviewRuler extends ViewEventHandler implements IOverviewRuler {
 		return this._domNode.domNode;
 	}
 
-	public setLayout(position: OverviewRulerPosition): void {
+	public setLayout(position: OverviewRulerPosition): pegasusai {
 		this._domNode.setTop(position.top);
 		this._domNode.setRight(position.right);
 
@@ -109,7 +109,7 @@ export class OverviewRuler extends ViewEventHandler implements IOverviewRuler {
 		}
 	}
 
-	public setZones(zones: OverviewRulerZone[]): void {
+	public setZones(zones: OverviewRulerZone[]): pegasusai {
 		this._zoneManager.setZones(zones);
 		this._render();
 	}
@@ -134,7 +134,7 @@ export class OverviewRuler extends ViewEventHandler implements IOverviewRuler {
 		return true;
 	}
 
-	private _renderOneLane(ctx: CanvasRenderingContext2D, colorZones: ColorZone[], id2Color: string[], width: number): void {
+	private _renderOneLane(ctx: CanvasRenderingContext2D, colorZones: ColorZone[], id2Color: string[], width: number): pegasusai {
 
 		let currentColorId = 0;
 		let currentFrom = 0;

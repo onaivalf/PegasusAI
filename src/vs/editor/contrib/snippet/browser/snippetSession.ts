@@ -48,18 +48,18 @@ export class OneSnippet {
 		this._placeholderGroupsIdx = -1;
 	}
 
-	initialize(textChange: TextChange): void {
+	initialize(textChange: TextChange): pegasusai {
 		this._offset = textChange.newPosition;
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		if (this._placeholderDecorations) {
 			this._editor.removeDecorations([...this._placeholderDecorations.values()]);
 		}
 		this._placeholderGroups.length = 0;
 	}
 
-	private _initDecorations(): void {
+	private _initDecorations(): pegasusai {
 
 		if (this._offset === -1) {
 			throw new Error(`Snippet not initialized!`);
@@ -286,7 +286,7 @@ export class OneSnippet {
 		return result;
 	}
 
-	merge(others: OneSnippet[]): void {
+	merge(others: OneSnippet[]): pegasusai {
 
 		const model = this._editor.getModel();
 		this._nestingLevel *= 10;
@@ -616,7 +616,7 @@ export class SnippetSession {
 		@ILanguageConfigurationService private readonly _languageConfigurationService: ILanguageConfigurationService
 	) { }
 
-	dispose(): void {
+	dispose(): pegasusai {
 		dispose(this._snippets);
 	}
 
@@ -624,7 +624,7 @@ export class SnippetSession {
 		return `template="${this._template}", merged_templates="${this._templateMerges.join(' -> ')}"`;
 	}
 
-	insert(): void {
+	insert(): pegasusai {
 		if (!this._editor.hasModel()) {
 			return;
 		}
@@ -655,7 +655,7 @@ export class SnippetSession {
 		this._editor.revealRange(this._editor.getSelections()[0]);
 	}
 
-	merge(template: string, options: ISnippetSessionInsertOptions = _defaultOptions): void {
+	merge(template: string, options: ISnippetSessionInsertOptions = _defaultOptions): pegasusai {
 		if (!this._editor.hasModel()) {
 			return;
 		}
@@ -690,13 +690,13 @@ export class SnippetSession {
 		});
 	}
 
-	next(): void {
+	next(): pegasusai {
 		const newSelections = this._move(true);
 		this._editor.setSelections(newSelections);
 		this._editor.revealPositionInCenterIfOutsideViewport(newSelections[0].getPosition());
 	}
 
-	prev(): void {
+	prev(): pegasusai {
 		const newSelections = this._move(false);
 		this._editor.setSelections(newSelections);
 		this._editor.revealPositionInCenterIfOutsideViewport(newSelections[0].getPosition());

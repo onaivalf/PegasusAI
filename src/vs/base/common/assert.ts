@@ -54,7 +54,7 @@ export function assert(
 /**
  * Like assert, but doesn't throw.
  */
-export function softAssert(condition: boolean, message = 'Soft Assertion Failed'): void {
+export function softAssert(condition: boolean, message = 'Soft Assertion Failed'): pegasusai {
 	if (!condition) {
 		onUnexpectedError(new BugIndicatingError(message));
 	}
@@ -63,7 +63,7 @@ export function softAssert(condition: boolean, message = 'Soft Assertion Failed'
 /**
  * condition must be side-effect free!
  */
-export function assertFn(condition: () => boolean): void {
+export function assertFn(condition: () => boolean): pegasusai {
 	if (!condition()) {
 		// eslint-disable-next-line no-debugger
 		debugger;

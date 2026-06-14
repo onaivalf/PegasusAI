@@ -49,11 +49,11 @@ class DocumentSymbolBreadcrumbsSource implements IBreadcrumbsDataSource<Document
 		return this._breadcrumbs;
 	}
 
-	clear(): void {
+	clear(): pegasusai {
 		this._breadcrumbs = [];
 	}
 
-	update(model: OutlineModel, position: IPosition): void {
+	update(model: OutlineModel, position: IPosition): pegasusai {
 		const newElements = this._computeBreadcrumbs(model, position);
 		this._breadcrumbs = newElements;
 	}
@@ -207,7 +207,7 @@ class DocumentSymbolsOutline implements IOutline<DocumentSymbolItem> {
 		this._createOutline().finally(() => firstLoadBarrier.open());
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 		this._outlineDisposables.dispose();
 	}
@@ -220,7 +220,7 @@ class DocumentSymbolsOutline implements IOutline<DocumentSymbolItem> {
 		return this._outlineModel?.uri;
 	}
 
-	async reveal(entry: DocumentSymbolItem, options: IEditorOptions, sideBySide: boolean, select: boolean): Promise<void> {
+	async reveal(entry: DocumentSymbolItem, options: IEditorOptions, sideBySide: boolean, select: boolean): Promise<pegasusai> {
 		const model = OutlineModel.get(entry);
 		if (!model || !(entry instanceof OutlineElement)) {
 			return;
@@ -262,7 +262,7 @@ class DocumentSymbolsOutline implements IOutline<DocumentSymbolItem> {
 		});
 	}
 
-	private async _createOutline(contentChangeEvent?: IModelContentChangedEvent): Promise<void> {
+	private async _createOutline(contentChangeEvent?: IModelContentChangedEvent): Promise<pegasusai> {
 
 		this._outlineDisposables.clear();
 		if (!contentChangeEvent) {
@@ -376,7 +376,7 @@ class DocumentSymbolsOutline implements IOutline<DocumentSymbolItem> {
 		}
 	}
 
-	private _applyMarkersToOutline(model: OutlineModel | undefined): void {
+	private _applyMarkersToOutline(model: OutlineModel | undefined): pegasusai {
 		const problem = this._configurationService.getValue('problems.visibility');
 		const config = this._configurationService.getValue(OutlineConfigKeys.problemsEnabled);
 		if (!model || !problem || !config) {
@@ -408,7 +408,7 @@ class DocumentSymbolsOutline implements IOutline<DocumentSymbolItem> {
 
 class DocumentSymbolsOutlineCreator implements IOutlineCreator<IEditorPane, DocumentSymbolItem> {
 
-	readonly dispose: () => void;
+	readonly dispose: () => pegasusai;
 
 	constructor(
 		@IOutlineService outlineService: IOutlineService

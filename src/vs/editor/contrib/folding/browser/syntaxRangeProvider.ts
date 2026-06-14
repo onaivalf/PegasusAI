@@ -29,7 +29,7 @@ export class SyntaxRangeProvider implements RangeProvider {
 	constructor(
 		private readonly editorModel: ITextModel,
 		private readonly providers: FoldingRangeProvider[],
-		readonly handleFoldingRangesChange: () => void,
+		readonly handleFoldingRangesChange: () => pegasusai,
 		private readonly foldingRangesLimit: FoldingLimitReporter,
 		private readonly fallbackRangeProvider: RangeProvider | undefined // used when all providers return null
 	) {

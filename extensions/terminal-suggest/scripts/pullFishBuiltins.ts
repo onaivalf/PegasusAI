@@ -92,7 +92,7 @@ const fallbackDescriptions: Record<string, ICommandDetails> = {
 };
 
 
-async function createCommandDescriptionsCache(): Promise<void> {
+async function createCommandDescriptionsCache(): Promise<pegasusai> {
 	const cachedCommandDescriptions: Map<string, { shortDescription?: string; description: string; args: string | undefined }> = new Map();
 
 	try {

@@ -15,29 +15,29 @@ import { ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier } from '../../wo
 
 export interface IBaseWindow extends IDisposable {
 
-	readonly onDidMaximize: Event<void>;
-	readonly onDidUnmaximize: Event<void>;
+	readonly onDidMaximize: Event<pegasusai>;
+	readonly onDidUnmaximize: Event<pegasusai>;
 	readonly onDidTriggerSystemContextMenu: Event<{ readonly x: number; readonly y: number }>;
-	readonly onDidEnterFullScreen: Event<void>;
-	readonly onDidLeaveFullScreen: Event<void>;
-	readonly onDidClose: Event<void>;
+	readonly onDidEnterFullScreen: Event<pegasusai>;
+	readonly onDidLeaveFullScreen: Event<pegasusai>;
+	readonly onDidClose: Event<pegasusai>;
 
 	readonly id: number;
 	readonly win: electron.BrowserWindow | null;
 
 	readonly lastFocusTime: number;
-	focus(options?: { force: boolean }): void;
+	focus(options?: { force: boolean }): pegasusai;
 
-	setRepresentedFilename(name: string): void;
+	setRepresentedFilename(name: string): pegasusai;
 	getRepresentedFilename(): string | undefined;
 
-	setDocumentEdited(edited: boolean): void;
+	setDocumentEdited(edited: boolean): pegasusai;
 	isDocumentEdited(): boolean;
 
 	readonly isFullScreen: boolean;
-	toggleFullScreen(): void;
+	toggleFullScreen(): pegasusai;
 
-	updateWindowControls(options: { height?: number; backgroundColor?: string; foregroundColor?: string }): void;
+	updateWindowControls(options: { height?: number; backgroundColor?: string; foregroundColor?: string }): pegasusai;
 
 	matches(webContents: electron.WebContents): boolean;
 }
@@ -45,10 +45,10 @@ export interface IBaseWindow extends IDisposable {
 export interface ICodeWindow extends IBaseWindow {
 
 	readonly onWillLoad: Event<ILoadEvent>;
-	readonly onDidSignalReady: Event<void>;
-	readonly onDidDestroy: Event<void>;
+	readonly onDidSignalReady: Event<pegasusai>;
+	readonly onDidDestroy: Event<pegasusai>;
 
-	readonly whenClosedOrLoaded: Promise<void>;
+	readonly whenClosedOrLoaded: Promise<pegasusai>;
 
 	readonly config: INativeWindowConfiguration | undefined;
 
@@ -65,23 +65,23 @@ export interface ICodeWindow extends IBaseWindow {
 
 	readonly isReady: boolean;
 	ready(): Promise<ICodeWindow>;
-	setReady(): void;
+	setReady(): pegasusai;
 
-	addTabbedWindow(window: ICodeWindow): void;
+	addTabbedWindow(window: ICodeWindow): pegasusai;
 
-	load(config: INativeWindowConfiguration, options?: { isReload?: boolean }): void;
-	reload(cli?: NativeParsedArgs): void;
+	load(config: INativeWindowConfiguration, options?: { isReload?: boolean }): pegasusai;
+	reload(cli?: NativeParsedArgs): pegasusai;
 
-	close(): void;
+	close(): pegasusai;
 
 	getBounds(): electron.Rectangle;
 
-	send(channel: string, ...args: any[]): void;
-	sendWhenReady(channel: string, token: CancellationToken, ...args: any[]): void;
+	send(channel: string, ...args: any[]): pegasusai;
+	sendWhenReady(channel: string, token: CancellationToken, ...args: any[]): pegasusai;
 
-	updateTouchBar(items: ISerializableCommandAction[][]): void;
+	updateTouchBar(items: ISerializableCommandAction[][]): pegasusai;
 
-	notifyZoomLevel(zoomLevel: number | undefined): void;
+	notifyZoomLevel(zoomLevel: number | undefined): pegasusai;
 
 	serializeWindowState(): IWindowState;
 }

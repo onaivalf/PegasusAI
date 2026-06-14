@@ -62,7 +62,7 @@ export interface IPaneCompositePartService {
 	/**
 	 * Hide the active viewlet.
 	 */
-	hideActivePaneComposite(viewContainerLocation: ViewContainerLocation): void;
+	hideActivePaneComposite(viewContainerLocation: ViewContainerLocation): pegasusai;
 
 	/**
 	 * Return the last active viewlet id.

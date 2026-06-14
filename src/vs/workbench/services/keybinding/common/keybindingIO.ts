@@ -18,7 +18,7 @@ export interface IUserKeybindingItem {
 
 export class KeybindingIO {
 
-	public static writeKeybindingItem(out: OutputBuilder, item: ResolvedKeybindingItem): void {
+	public static writeKeybindingItem(out: OutputBuilder, item: ResolvedKeybindingItem): pegasusai {
 		if (!item.resolvedKeybinding) {
 			return;
 		}
@@ -77,11 +77,11 @@ export class OutputBuilder {
 	private _lines: string[] = [];
 	private _currentLine: string = '';
 
-	write(str: string): void {
+	write(str: string): pegasusai {
 		this._currentLine += str;
 	}
 
-	writeLine(str: string = ''): void {
+	writeLine(str: string = ''): pegasusai {
 		this._lines.push(this._currentLine + str);
 		this._currentLine = '';
 	}

@@ -58,7 +58,7 @@ export class TypeScriptVersion {
 }
 
 export interface ITypeScriptVersionProvider {
-	updateConfiguration(configuration: TypeScriptServiceConfiguration): void;
+	updateConfiguration(configuration: TypeScriptServiceConfiguration): pegasusai;
 
 	readonly defaultVersion: TypeScriptVersion;
 	readonly globalVersion: TypeScriptVersion | undefined;

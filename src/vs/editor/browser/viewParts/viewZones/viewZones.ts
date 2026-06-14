@@ -72,7 +72,7 @@ export class ViewZones extends ViewPart {
 		this._zones = {};
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		super.dispose();
 		this._zones = {};
 	}
@@ -206,13 +206,13 @@ export class ViewZones extends ViewPart {
 					zonesHaveChanged = true;
 					return this._addZone(whitespaceAccessor, zone);
 				},
-				removeZone: (id: string): void => {
+				removeZone: (id: string): pegasusai => {
 					if (!id) {
 						return;
 					}
 					zonesHaveChanged = this._removeZone(whitespaceAccessor, id) || zonesHaveChanged;
 				},
-				layoutZone: (id: string): void => {
+				layoutZone: (id: string): pegasusai => {
 					if (!id) {
 						return;
 					}
@@ -333,7 +333,7 @@ export class ViewZones extends ViewPart {
 		return 0;
 	}
 
-	private _safeCallOnComputedHeight(zone: IViewZone, height: number): void {
+	private _safeCallOnComputedHeight(zone: IViewZone, height: number): pegasusai {
 		if (typeof zone.onComputedHeight === 'function') {
 			try {
 				zone.onComputedHeight(height);
@@ -343,7 +343,7 @@ export class ViewZones extends ViewPart {
 		}
 	}
 
-	private _safeCallOnDomNodeTop(zone: IViewZone, top: number): void {
+	private _safeCallOnDomNodeTop(zone: IViewZone, top: number): pegasusai {
 		if (typeof zone.onDomNodeTop === 'function') {
 			try {
 				zone.onDomNodeTop(top);
@@ -353,11 +353,11 @@ export class ViewZones extends ViewPart {
 		}
 	}
 
-	public prepareRender(ctx: RenderingContext): void {
+	public prepareRender(ctx: RenderingContext): pegasusai {
 		// Nothing to read
 	}
 
-	public render(ctx: RestrictedRenderingContext): void {
+	public render(ctx: RestrictedRenderingContext): pegasusai {
 		const visibleWhitespaces = ctx.viewportData.whitespaceViewportData;
 		const visibleZones: { [id: string]: IViewWhitespaceViewportData } = {};
 

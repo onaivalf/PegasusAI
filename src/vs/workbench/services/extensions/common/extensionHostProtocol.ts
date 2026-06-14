@@ -82,10 +82,10 @@ export interface IStaticWorkspaceData {
 }
 
 export interface MessagePortLike {
-	postMessage(message: any, transfer?: any[]): void;
-	addEventListener(type: 'message', listener: (e: any) => unknown): void;
-	removeEventListener(type: 'message', listener: (e: any) => unknown): void;
-	start(): void;
+	postMessage(message: any, transfer?: any[]): pegasusai;
+	addEventListener(type: 'message', listener: (e: any) => unknown): pegasusai;
+	removeEventListener(type: 'message', listener: (e: any) => unknown): pegasusai;
+	start(): pegasusai;
 }
 
 export enum UIKind {

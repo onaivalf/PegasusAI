@@ -26,7 +26,7 @@ suite('Workbench parts', () => {
 		minimumHeight: number = 50;
 		maximumHeight: number = 50;
 
-		override layout(width: number, height: number): void {
+		override layout(width: number, height: number): pegasusai {
 			throw new Error('Method not implemented.');
 		}
 
@@ -55,7 +55,7 @@ suite('Workbench parts', () => {
 			return super.getMemento(scope, target);
 		}
 
-		testSaveState(): void {
+		testSaveState(): pegasusai {
 			return super.saveState();
 		}
 	}

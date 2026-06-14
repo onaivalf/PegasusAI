@@ -62,7 +62,7 @@ const height = 800;
 
 type BrowserType = 'chromium' | 'firefox' | 'webkit';
 
-async function runTestsInBrowser(browserType: BrowserType, endpoint: url.UrlWithStringQuery, server: cp.ChildProcess): Promise<void> {
+async function runTestsInBrowser(browserType: BrowserType, endpoint: url.UrlWithStringQuery, server: cp.ChildProcess): Promise<pegasusai> {
 	const browser = await playwright[browserType].launch({ headless: !Boolean(args.debug) });
 	const context = await browser.newContext();
 

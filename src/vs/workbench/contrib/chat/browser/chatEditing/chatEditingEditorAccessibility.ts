@@ -38,7 +38,7 @@ export class ChatEditingEditorAccessibility implements IWorkbenchContribution {
 		}));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._store.dispose();
 	}
 }

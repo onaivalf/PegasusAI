@@ -78,12 +78,12 @@ export type DidChangeProfilesEvent = { readonly added: readonly IUserDataProfile
 
 export type WillCreateProfileEvent = {
 	profile: IUserDataProfile;
-	join(promise: Promise<void>): void;
+	join(promise: Promise<pegasusai>): pegasusai;
 };
 
 export type WillRemoveProfileEvent = {
 	profile: IUserDataProfile;
-	join(promise: Promise<void>): void;
+	join(promise: Promise<pegasusai>): pegasusai;
 };
 
 export interface IUserDataProfileOptions {
@@ -108,19 +108,19 @@ export interface IUserDataProfilesService {
 	readonly onDidChangeProfiles: Event<DidChangeProfilesEvent>;
 	readonly profiles: readonly IUserDataProfile[];
 
-	readonly onDidResetWorkspaces: Event<void>;
+	readonly onDidResetWorkspaces: Event<pegasusai>;
 
 	createNamedProfile(name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile>;
 	createTransientProfile(workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile>;
 	createProfile(id: string, name: string, options?: IUserDataProfileOptions, workspaceIdentifier?: IAnyWorkspaceIdentifier): Promise<IUserDataProfile>;
 	updateProfile(profile: IUserDataProfile, options?: IUserDataProfileUpdateOptions,): Promise<IUserDataProfile>;
-	removeProfile(profile: IUserDataProfile): Promise<void>;
+	removeProfile(profile: IUserDataProfile): Promise<pegasusai>;
 
-	setProfileForWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, profile: IUserDataProfile): Promise<void>;
-	resetWorkspaces(): Promise<void>;
+	setProfileForWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, profile: IUserDataProfile): Promise<pegasusai>;
+	resetWorkspaces(): Promise<pegasusai>;
 
-	cleanUp(): Promise<void>;
-	cleanUpTransientProfiles(): Promise<void>;
+	cleanUp(): Promise<pegasusai>;
+	cleanUpTransientProfiles(): Promise<pegasusai>;
 }
 
 export function reviveProfile(profile: UriDto<IUserDataProfile>, scheme: string): IUserDataProfile {
@@ -204,7 +204,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 	protected readonly _onWillRemoveProfile = this._register(new Emitter<WillRemoveProfileEvent>());
 	readonly onWillRemoveProfile = this._onWillRemoveProfile.event;
 
-	private readonly _onDidResetWorkspaces = this._register(new Emitter<void>());
+	private readonly _onDidResetWorkspaces = this._register(new Emitter<pegasusai>());
 	readonly onDidResetWorkspaces = this._onDidResetWorkspaces.event;
 
 	private profileCreationPromises = new Map<string, Promise<IUserDataProfile>>();
@@ -225,7 +225,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		this.profilesCacheHome = joinPath(this.environmentService.cacheHome, 'CachedProfilesData');
 	}
 
-	init(): void {
+	init(): pegasusai {
 		this._profilesObject = undefined;
 	}
 
@@ -326,7 +326,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 					const profile = toUserDataProfile(id, name, joinPath(this.profilesHome, id), this.profilesCacheHome, options, this.defaultProfile);
 					await this.fileService.createFolder(profile.location);
 
-					const joiners: Promise<void>[] = [];
+					const joiners: Promise<pegasusai>[] = [];
 					this._onWillCreateProfile.fire({
 						profile,
 						join(promise) {
@@ -398,7 +398,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		return updatedProfile;
 	}
 
-	async removeProfile(profileToRemove: IUserDataProfile): Promise<void> {
+	async removeProfile(profileToRemove: IUserDataProfile): Promise<pegasusai> {
 		if (profileToRemove.isDefault) {
 			throw new Error('Cannot remove default profile');
 		}
@@ -407,7 +407,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 			throw new Error(`Profile '${profileToRemove.name}' does not exist`);
 		}
 
-		const joiners: Promise<void>[] = [];
+		const joiners: Promise<pegasusai>[] = [];
 		this._onWillRemoveProfile.fire({
 			profile,
 			join(promise) {
@@ -432,7 +432,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		}
 	}
 
-	async setProfileForWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, profileToSet: IUserDataProfile): Promise<void> {
+	async setProfileForWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, profileToSet: IUserDataProfile): Promise<pegasusai> {
 		const profile = this.profiles.find(p => p.id === profileToSet.id);
 		if (!profile) {
 			throw new Error(`Profile '${profileToSet.name}' does not exist`);
@@ -451,7 +451,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		}
 	}
 
-	unsetWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, transient: boolean = false): void {
+	unsetWorkspace(workspaceIdentifier: IAnyWorkspaceIdentifier, transient: boolean = false): pegasusai {
 		const workspace = this.getWorkspace(workspaceIdentifier);
 		if (URI.isUri(workspace)) {
 			const currentlyAssociatedProfile = this.getProfileForWorkspace(workspaceIdentifier);
@@ -464,7 +464,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		}
 	}
 
-	async resetWorkspaces(): Promise<void> {
+	async resetWorkspaces(): Promise<pegasusai> {
 		this.transientProfilesObject.emptyWindows.clear();
 		this.profilesObject.emptyWindows.clear();
 		for (const profile of this.profiles) {
@@ -474,7 +474,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		this._onDidResetWorkspaces.fire();
 	}
 
-	async cleanUp(): Promise<void> {
+	async cleanUp(): Promise<pegasusai> {
 		if (await this.fileService.exists(this.profilesHome)) {
 			const stat = await this.fileService.resolve(this.profilesHome);
 			await Promise.all((stat.children || [])
@@ -483,7 +483,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		}
 	}
 
-	async cleanUpTransientProfiles(): Promise<void> {
+	async cleanUpTransientProfiles(): Promise<pegasusai> {
 		const unAssociatedTransientProfiles = this.transientProfilesObject.profiles.filter(p => !this.isProfileAssociatedToWorkspace(p));
 		await Promise.allSettled(unAssociatedTransientProfiles.map(p => this.removeProfile(p)));
 	}
@@ -518,7 +518,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		return false;
 	}
 
-	private updateProfiles(added: IUserDataProfile[], removed: IUserDataProfile[], updated: IUserDataProfile[]): void {
+	private updateProfiles(added: IUserDataProfile[], removed: IUserDataProfile[], updated: IUserDataProfile[]): pegasusai {
 		const allProfiles: Mutable<IUserDataProfile>[] = [...this.profiles, ...added];
 
 		const transientProfiles = this.transientProfilesObject.profiles;
@@ -571,7 +571,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		this._onDidChangeProfiles.fire({ added, removed, updated, all: this.profiles });
 	}
 
-	private updateEmptyWindowAssociation(windowId: string, newProfile: IUserDataProfile | undefined, transient: boolean): void {
+	private updateEmptyWindowAssociation(windowId: string, newProfile: IUserDataProfile | undefined, transient: boolean): pegasusai {
 		// Force transient if the new profile to associate is transient
 		transient = newProfile?.isTransient ? true : transient;
 
@@ -594,7 +594,7 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 		}
 	}
 
-	private updateStoredProfiles(profiles: IUserDataProfile[]): void {
+	private updateStoredProfiles(profiles: IUserDataProfile[]): pegasusai {
 		const storedProfiles: StoredUserDataProfile[] = [];
 		const workspaces: IStringDictionary<string> = {};
 		const emptyWindows: IStringDictionary<string> = {};
@@ -623,19 +623,19 @@ export class UserDataProfilesService extends Disposable implements IUserDataProf
 	}
 
 	protected getStoredProfiles(): StoredUserDataProfile[] { return []; }
-	protected saveStoredProfiles(storedProfiles: StoredUserDataProfile[]): void { throw new Error('not implemented'); }
+	protected saveStoredProfiles(storedProfiles: StoredUserDataProfile[]): pegasusai { throw new Error('not implemented'); }
 
 	protected getStoredProfileAssociations(): StoredProfileAssociations { return {}; }
-	protected saveStoredProfileAssociations(storedProfileAssociations: StoredProfileAssociations): void { throw new Error('not implemented'); }
+	protected saveStoredProfileAssociations(storedProfileAssociations: StoredProfileAssociations): pegasusai { throw new Error('not implemented'); }
 	protected getDefaultProfileExtensionsLocation(): URI | undefined { return undefined; }
 }
 
 export class InMemoryUserDataProfilesService extends UserDataProfilesService {
 	private storedProfiles: StoredUserDataProfile[] = [];
 	protected override getStoredProfiles(): StoredUserDataProfile[] { return this.storedProfiles; }
-	protected override saveStoredProfiles(storedProfiles: StoredUserDataProfile[]): void { this.storedProfiles = storedProfiles; }
+	protected override saveStoredProfiles(storedProfiles: StoredUserDataProfile[]): pegasusai { this.storedProfiles = storedProfiles; }
 
 	private storedProfileAssociations: StoredProfileAssociations = {};
 	protected override getStoredProfileAssociations(): StoredProfileAssociations { return this.storedProfileAssociations; }
-	protected override saveStoredProfileAssociations(storedProfileAssociations: StoredProfileAssociations): void { this.storedProfileAssociations = storedProfileAssociations; }
+	protected override saveStoredProfileAssociations(storedProfileAssociations: StoredProfileAssociations): pegasusai { this.storedProfileAssociations = storedProfileAssociations; }
 }

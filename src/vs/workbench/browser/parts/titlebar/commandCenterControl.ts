@@ -27,8 +27,8 @@ export class CommandCenterControl {
 
 	private readonly _disposables = new DisposableStore();
 
-	private readonly _onDidChangeVisibility = this._disposables.add(new Emitter<void>());
-	readonly onDidChangeVisibility: Event<void> = this._onDidChangeVisibility.event;
+	private readonly _onDidChangeVisibility = this._disposables.add(new Emitter<pegasusai>());
+	readonly onDidChangeVisibility: Event<pegasusai> = this._onDidChangeVisibility.event;
 
 	readonly element: HTMLElement = document.createElement('div');
 
@@ -61,12 +61,12 @@ export class CommandCenterControl {
 		this._disposables.add(titleToolbar);
 	}
 
-	private _setVisibility(show: boolean): void {
+	private _setVisibility(show: boolean): pegasusai {
 		this.element.classList.toggle('hide', !show);
 		this._onDidChangeVisibility.fire();
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 	}
 }
@@ -91,7 +91,7 @@ class CommandCenterCenterViewItem extends BaseActionViewItem {
 		this._hoverDelegate = options.hoverDelegate ?? getDefaultHoverDelegate('mouse');
 	}
 
-	override render(container: HTMLElement): void {
+	override render(container: HTMLElement): pegasusai {
 		super.render(container);
 		container.classList.add('command-center-center');
 		container.classList.toggle('multiple', (this._submenu.actions.length > 1));
@@ -138,7 +138,7 @@ class CommandCenterCenterViewItem extends BaseActionViewItem {
 							super(undefined, action, options);
 						}
 
-						override render(container: HTMLElement): void {
+						override render(container: HTMLElement): pegasusai {
 							super.render(container);
 							container.classList.toggle('command-center-quick-pick');
 							container.role = 'button';

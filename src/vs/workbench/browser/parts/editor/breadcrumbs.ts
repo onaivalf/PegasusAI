@@ -56,11 +56,11 @@ registerSingleton(IBreadcrumbsService, BreadcrumbsService, InstantiationType.Del
 export abstract class BreadcrumbsConfig<T> {
 
 	abstract get name(): string;
-	abstract get onDidChange(): Event<void>;
+	abstract get onDidChange(): Event<pegasusai>;
 
 	abstract getValue(overrides?: IConfigurationOverrides): T;
-	abstract updateValue(value: T, overrides?: IConfigurationOverrides): Promise<void>;
-	abstract dispose(): void;
+	abstract updateValue(value: T, overrides?: IConfigurationOverrides): Promise<pegasusai>;
+	abstract dispose(): pegasusai;
 
 	private constructor() {
 		// internal
@@ -79,7 +79,7 @@ export abstract class BreadcrumbsConfig<T> {
 	private static _stub<T>(name: string): { bindTo(service: IConfigurationService): BreadcrumbsConfig<T> } {
 		return {
 			bindTo(service) {
-				const onDidChange = new Emitter<void>();
+				const onDidChange = new Emitter<pegasusai>();
 
 				const listener = service.onDidChangeConfiguration(e => {
 					if (e.affectsConfiguration(name)) {
@@ -97,14 +97,14 @@ export abstract class BreadcrumbsConfig<T> {
 							return service.getValue(name);
 						}
 					}
-					updateValue(newValue: T, overrides?: IConfigurationOverrides): Promise<void> {
+					updateValue(newValue: T, overrides?: IConfigurationOverrides): Promise<pegasusai> {
 						if (overrides) {
 							return service.updateValue(name, newValue, overrides);
 						} else {
 							return service.updateValue(name, newValue);
 						}
 					}
-					dispose(): void {
+					dispose(): pegasusai {
 						listener.dispose();
 						onDidChange.dispose();
 					}

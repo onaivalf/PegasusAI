@@ -227,7 +227,7 @@ export class WorkingCopyService extends Disposable implements IWorkingCopyServic
 		});
 	}
 
-	protected unregisterWorkingCopy(workingCopy: IWorkingCopy): void {
+	protected unregisterWorkingCopy(workingCopy: IWorkingCopy): pegasusai {
 
 		// Registry (all)
 		this._workingCopies.delete(workingCopy);
@@ -304,7 +304,7 @@ export class WorkingCopyService extends Disposable implements IWorkingCopyServic
 		return leakId;
 	}
 
-	private untrackLeaks(leakId: string): void {
+	private untrackLeaks(leakId: string): pegasusai {
 		const stackCounter = (this.mapLeakToCounter.get(leakId) ?? 1) - 1;
 		this.mapLeakToCounter.set(leakId, stackCounter);
 

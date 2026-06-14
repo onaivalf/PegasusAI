@@ -43,7 +43,7 @@ export class DefaultConfiguration extends Disposable {
 		return this.configurationModel;
 	}
 
-	protected onDidUpdateConfiguration(properties: string[], defaultsOverrides?: boolean): void {
+	protected onDidUpdateConfiguration(properties: string[], defaultsOverrides?: boolean): pegasusai {
 		this.updateConfigurationModel(properties, Registry.as<IConfigurationRegistry>(Extensions.Configuration).getConfigurationProperties());
 		this._onDidChangeConfiguration.fire({ defaults: this.configurationModel, properties });
 	}
@@ -52,13 +52,13 @@ export class DefaultConfiguration extends Disposable {
 		return {};
 	}
 
-	private resetConfigurationModel(): void {
+	private resetConfigurationModel(): pegasusai {
 		this._configurationModel = ConfigurationModel.createEmptyModel(this.logService);
 		const properties = Registry.as<IConfigurationRegistry>(Extensions.Configuration).getConfigurationProperties();
 		this.updateConfigurationModel(Object.keys(properties), properties);
 	}
 
-	private updateConfigurationModel(properties: string[], configurationProperties: IStringDictionary<IRegisteredConfigurationPropertySchema>): void {
+	private updateConfigurationModel(properties: string[], configurationProperties: IStringDictionary<IRegisteredConfigurationPropertySchema>): pegasusai {
 		const configurationDefaultsOverrides = this.getConfigurationDefaultOverrides();
 		for (const key of properties) {
 			const defaultOverrideValue = configurationDefaultsOverrides[key];
@@ -152,14 +152,14 @@ export class PolicyConfiguration extends Disposable implements IPolicyConfigurat
 		return keys;
 	}
 
-	private onDidChangePolicies(policyNames: readonly PolicyName[]): void {
+	private onDidChangePolicies(policyNames: readonly PolicyName[]): pegasusai {
 		this.logService.trace('PolicyConfiguration#onDidChangePolicies', policyNames);
 		const policyConfigurations = this.configurationRegistry.getPolicyConfigurations();
 		const keys = coalesce(policyNames.map(policyName => policyConfigurations.get(policyName)));
 		this.update(keys, true);
 	}
 
-	private update(keys: string[], trigger: boolean): void {
+	private update(keys: string[], trigger: boolean): pegasusai {
 		this.logService.trace('PolicyConfiguration#update', keys);
 		const configurationProperties = this.configurationRegistry.getConfigurationProperties();
 		const excludedConfigurationProperties = this.configurationRegistry.getExcludedConfigurationProperties();

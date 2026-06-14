@@ -4,6 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 export interface ICommentThreadWidget {
-	submitComment: () => Promise<void>;
-	collapse: () => void;
+	submitComment: () => Promise<pegasusai>;
+	collapse: () => pegasusai;
 }

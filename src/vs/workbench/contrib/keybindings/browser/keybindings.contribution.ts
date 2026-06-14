@@ -29,7 +29,7 @@ class ToggleKeybindingsLogAction extends Action2 {
 		});
 	}
 
-	run(accessor: ServicesAccessor): void {
+	run(accessor: ServicesAccessor): pegasusai {
 		const logging = accessor.get(IKeybindingService).toggleLogging();
 		if (logging) {
 			const commandService = accessor.get(ICommandService);
@@ -63,7 +63,7 @@ class ToggleKeybindingsLogAction extends Action2 {
 
 		const onKeyDown = disposables.add(new Emitter<KeyboardEvent>());
 
-		function registerWindowListeners(window: Window, disposables: DisposableStore): void {
+		function registerWindowListeners(window: Window, disposables: DisposableStore): pegasusai {
 			disposables.add(disposables.add(new DomEmitter(window, 'keydown', true)).event(e => onKeyDown.fire(e)));
 		}
 

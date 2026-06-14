@@ -73,7 +73,7 @@ class ConnectionData {
 		public readonly initialDataChunk: VSBuffer
 	) { }
 
-	public socketDrain(): Promise<void> {
+	public socketDrain(): Promise<pegasusai> {
 		return this.socket.drain();
 	}
 
@@ -105,8 +105,8 @@ class ConnectionData {
 
 export class ExtensionHostConnection extends Disposable {
 
-	private _onClose = new Emitter<void>();
-	readonly onClose: Event<void> = this._onClose.event;
+	private _onClose = new Emitter<pegasusai>();
+	readonly onClose: Event<pegasusai> = this._onClose.event;
 
 	private readonly _canSendSocket: boolean;
 	private _disposed: boolean;
@@ -134,7 +134,7 @@ export class ExtensionHostConnection extends Disposable {
 		this._log(`New connection established.`);
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this._cleanResources();
 		super.dispose();
 	}
@@ -143,15 +143,15 @@ export class ExtensionHostConnection extends Disposable {
 		return `[${this._remoteAddress}][${this._reconnectionToken.substr(0, 8)}][ExtensionHostConnection] `;
 	}
 
-	private _log(_str: string): void {
+	private _log(_str: string): pegasusai {
 		this._logService.info(`${this._logPrefix}${_str}`);
 	}
 
-	private _logError(_str: string): void {
+	private _logError(_str: string): pegasusai {
 		this._logService.error(`${this._logPrefix}${_str}`);
 	}
 
-	private async _pipeSockets(extHostSocket: net.Socket, connectionData: ConnectionData): Promise<void> {
+	private async _pipeSockets(extHostSocket: net.Socket, connectionData: ConnectionData): Promise<pegasusai> {
 
 		const disposables = new DisposableStore();
 		disposables.add(connectionData.socket);
@@ -166,9 +166,9 @@ export class ExtensionHostConnection extends Disposable {
 		disposables.add(connectionData.socket.onEnd(stopAndCleanup));
 		disposables.add(connectionData.socket.onClose(stopAndCleanup));
 
-		disposables.add(Event.fromNodeEventEmitter<void>(extHostSocket, 'end')(stopAndCleanup));
-		disposables.add(Event.fromNodeEventEmitter<void>(extHostSocket, 'close')(stopAndCleanup));
-		disposables.add(Event.fromNodeEventEmitter<void>(extHostSocket, 'error')(stopAndCleanup));
+		disposables.add(Event.fromNodeEventEmitter<pegasusai>(extHostSocket, 'end')(stopAndCleanup));
+		disposables.add(Event.fromNodeEventEmitter<pegasusai>(extHostSocket, 'close')(stopAndCleanup));
+		disposables.add(Event.fromNodeEventEmitter<pegasusai>(extHostSocket, 'error')(stopAndCleanup));
 
 		disposables.add(connectionData.socket.onData((e) => extHostSocket.write(e.buffer)));
 		disposables.add(Event.fromNodeEventEmitter<Buffer>(extHostSocket, 'data')((e) => {
@@ -180,7 +180,7 @@ export class ExtensionHostConnection extends Disposable {
 		}
 	}
 
-	private async _sendSocketToExtensionHost(extensionHostProcess: cp.ChildProcess, connectionData: ConnectionData): Promise<void> {
+	private async _sendSocketToExtensionHost(extensionHostProcess: cp.ChildProcess, connectionData: ConnectionData): Promise<pegasusai> {
 		// Make sure all outstanding writes have been drained before sending the socket
 		await connectionData.socketDrain();
 		const msg = connectionData.toIExtHostSocketMessage();
@@ -193,7 +193,7 @@ export class ExtensionHostConnection extends Disposable {
 		extensionHostProcess.send(msg, socket);
 	}
 
-	public shortenReconnectionGraceTimeIfNecessary(): void {
+	public shortenReconnectionGraceTimeIfNecessary(): pegasusai {
 		if (!this._extensionHostProcess) {
 			return;
 		}
@@ -203,7 +203,7 @@ export class ExtensionHostConnection extends Disposable {
 		this._extensionHostProcess.send(msg);
 	}
 
-	public acceptReconnection(remoteAddress: string, _socket: NodeSocket | WebSocketNodeSocket, initialDataChunk: VSBuffer): void {
+	public acceptReconnection(remoteAddress: string, _socket: NodeSocket | WebSocketNodeSocket, initialDataChunk: VSBuffer): pegasusai {
 		this._remoteAddress = remoteAddress;
 		this._log(`The client has reconnected.`);
 		const connectionData = new ConnectionData(_socket, initialDataChunk);
@@ -217,7 +217,7 @@ export class ExtensionHostConnection extends Disposable {
 		this._sendSocketToExtensionHost(this._extensionHostProcess, connectionData);
 	}
 
-	private _cleanResources(): void {
+	private _cleanResources(): pegasusai {
 		if (this._disposed) {
 			// already called
 			return;
@@ -234,7 +234,7 @@ export class ExtensionHostConnection extends Disposable {
 		this._onClose.fire(undefined);
 	}
 
-	public async start(startParams: IRemoteExtensionHostStartParams): Promise<void> {
+	public async start(startParams: IRemoteExtensionHostStartParams): Promise<pegasusai> {
 		try {
 			let execArgv: string[] = process.execArgv ? process.execArgv.filter(a => !/^--inspect(-brk)?=/.test(a)) : [];
 			if (startParams.port && !(<any>process).pkg) {
@@ -337,13 +337,13 @@ function readCaseInsensitive(env: { [key: string]: string | undefined }, key: st
 	return env[pathKey];
 }
 
-function setCaseInsensitive(env: { [key: string]: unknown }, key: string, value: string): void {
+function setCaseInsensitive(env: { [key: string]: unknown }, key: string, value: string): pegasusai {
 	const pathKeys = Object.keys(env).filter(k => k.toLowerCase() === key.toLowerCase());
 	const pathKey = pathKeys.length > 0 ? pathKeys[0] : key;
 	env[pathKey] = value;
 }
 
-function removeNulls(env: { [key: string]: unknown | null }): void {
+function removeNulls(env: { [key: string]: unknown | null }): pegasusai {
 	// Don't delete while iterating the object itself
 	for (const key of Object.keys(env)) {
 		if (env[key] === null) {

@@ -80,7 +80,7 @@ export class StatusBarColorProvider implements IWorkbenchContribution {
 		this.update();
 	}
 
-	protected update(): void {
+	protected update(): pegasusai {
 		const debugConfig = this.configurationService.getValue<IDebugConfiguration>('debug');
 		const isInDebugMode = isStatusbarInDebugMode(this.debugService.state, this.debugService.getModel().getSessions());
 		if (!debugConfig.enableStatusBarColor) {
@@ -97,7 +97,7 @@ export class StatusBarColorProvider implements IWorkbenchContribution {
 
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.disposable?.dispose();
 		this.disposables.dispose();
 	}

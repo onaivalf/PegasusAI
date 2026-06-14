@@ -79,7 +79,7 @@ export class Terminal {
 
 	constructor(private code: Code, private quickaccess: QuickAccess, private quickinput: QuickInput) { }
 
-	async runCommand(commandId: TerminalCommandId, expectedLocation?: 'editor' | 'panel'): Promise<void> {
+	async runCommand(commandId: TerminalCommandId, expectedLocation?: 'editor' | 'panel'): Promise<pegasusai> {
 		const keepOpen = commandId === TerminalCommandId.Join;
 		await this.quickaccess.runCommand(commandId, { keepOpen });
 		if (keepOpen) {
@@ -108,11 +108,11 @@ export class Terminal {
 		}
 	}
 
-	async runCommandWithValue(commandId: TerminalCommandIdWithValue, value?: string, altKey?: boolean): Promise<void> {
+	async runCommandWithValue(commandId: TerminalCommandIdWithValue, value?: string, altKey?: boolean): Promise<pegasusai> {
 		const keepOpen = !!value || commandId === TerminalCommandIdWithValue.NewWithProfile || commandId === TerminalCommandIdWithValue.Rename || (commandId === TerminalCommandIdWithValue.SelectDefaultProfile && value !== 'PowerShell');
 		await this.quickaccess.runCommand(commandId, { keepOpen });
 		// Running the command should hide the quick input in the following frame, this next wait
-		// ensures that the quick input is opened again before proceeding to avoid a race condition
+		// ensures that the quick input is opened again before proceeding to apegasusai a race condition
 		// where the enter keybinding below would close the quick input if it's triggered before the
 		// new quick input shows.
 		await this.quickinput.waitForQuickInputOpened();
@@ -134,7 +134,7 @@ export class Terminal {
 		}
 	}
 
-	async runCommandInTerminal(commandText: string, skipEnter?: boolean): Promise<void> {
+	async runCommandInTerminal(commandText: string, skipEnter?: boolean): Promise<pegasusai> {
 		await this.code.writeInTerminal(Selector.Xterm, commandText);
 		if (!skipEnter) {
 			await this.code.sendKeybinding('enter');
@@ -147,7 +147,7 @@ export class Terminal {
 	 * Creates a terminal using the new terminal command.
 	 * @param expectedLocation The location to check the terminal for, defaults to panel.
 	 */
-	async createTerminal(expectedLocation?: 'editor' | 'panel'): Promise<void> {
+	async createTerminal(expectedLocation?: 'editor' | 'panel'): Promise<pegasusai> {
 		await this.runCommand(TerminalCommandId.CreateNew, expectedLocation);
 		await this._waitForTerminal(expectedLocation);
 	}
@@ -157,7 +157,7 @@ export class Terminal {
 	 * essentially acts like an Pseudoterminal extension API-based terminal. This can then be paired
 	 * with `TerminalCommandIdWithValue.WriteDataToTerminal` to make more reliable tests.
 	 */
-	async createEmptyTerminal(expectedLocation?: 'editor' | 'panel'): Promise<void> {
+	async createEmptyTerminal(expectedLocation?: 'editor' | 'panel'): Promise<pegasusai> {
 		await this.createTerminal(expectedLocation);
 
 		// Run a command to ensure the shell has started, this is used to ensure the shell's data
@@ -174,11 +174,11 @@ export class Terminal {
 		}
 	}
 
-	async assertEditorGroupCount(count: number): Promise<void> {
+	async assertEditorGroupCount(count: number): Promise<pegasusai> {
 		await this.code.waitForElements(Selector.EditorGroups, true, editorGroups => editorGroups && editorGroups.length === count);
 	}
 
-	async assertSingleTab(label: TerminalLabel, editor?: boolean): Promise<void> {
+	async assertSingleTab(label: TerminalLabel, editor?: boolean): Promise<pegasusai> {
 		let regex = undefined;
 		if (label.name && label.description) {
 			regex = new RegExp(label.name + ' - ' + label.description);
@@ -188,7 +188,7 @@ export class Terminal {
 		await this.assertTabExpected(editor ? Selector.EditorTab : Selector.SingleTab, undefined, regex, label.icon, label.color);
 	}
 
-	async assertTerminalGroups(expectedGroups: TerminalGroup[]): Promise<void> {
+	async assertTerminalGroups(expectedGroups: TerminalGroup[]): Promise<pegasusai> {
 		let expectedCount = 0;
 		expectedGroups.forEach(g => expectedCount += g.length);
 		let index = 0;
@@ -234,7 +234,7 @@ export class Terminal {
 		return tab.textContent;
 	}
 
-	private async assertTabExpected(selector?: string, listIndex?: number, nameRegex?: RegExp, icon?: string, color?: string, description?: string): Promise<void> {
+	private async assertTabExpected(selector?: string, listIndex?: number, nameRegex?: RegExp, icon?: string, color?: string, description?: string): Promise<pegasusai> {
 		if (listIndex) {
 			if (nameRegex) {
 				await this.code.waitForElement(`${Selector.Tabs}[data-index="${listIndex}"] ${Selector.TabsEntry}`, entry => !!entry && !!entry?.textContent.match(nameRegex));
@@ -262,11 +262,11 @@ export class Terminal {
 		}
 	}
 
-	async assertTerminalViewHidden(): Promise<void> {
+	async assertTerminalViewHidden(): Promise<pegasusai> {
 		await this.code.waitForElement(Selector.TerminalView, result => result === undefined);
 	}
 
-	async assertCommandDecorations(expectedCounts?: ICommandDecorationCounts, customIcon?: { updatedIcon: string; count: number }, showDecorations?: 'both' | 'gutter' | 'overviewRuler' | 'never'): Promise<void> {
+	async assertCommandDecorations(expectedCounts?: ICommandDecorationCounts, customIcon?: { updatedIcon: string; count: number }, showDecorations?: 'both' | 'gutter' | 'overviewRuler' | 'never'): Promise<pegasusai> {
 		if (expectedCounts) {
 			const placeholderSelector = showDecorations === 'overviewRuler' ? `${Selector.CommandDecorationPlaceholder}${Selector.Hide}` : Selector.CommandDecorationPlaceholder;
 			await this.code.waitForElements(placeholderSelector, true, decorations => decorations && decorations.length === expectedCounts.placeholder);
@@ -281,19 +281,19 @@ export class Terminal {
 		}
 	}
 
-	async clickPlusButton(): Promise<void> {
+	async clickPlusButton(): Promise<pegasusai> {
 		await this.code.waitAndClick(Selector.PlusButton);
 	}
 
-	async clickSplitButton(): Promise<void> {
+	async clickSplitButton(): Promise<pegasusai> {
 		await this.code.waitAndClick(Selector.SplitButton);
 	}
 
-	async clickSingleTab(): Promise<void> {
+	async clickSingleTab(): Promise<pegasusai> {
 		await this.code.waitAndClick(Selector.SingleTab);
 	}
 
-	async waitForTerminalText(accept: (buffer: string[]) => boolean, message?: string, splitIndex?: 0 | 1): Promise<void> {
+	async waitForTerminalText(accept: (buffer: string[]) => boolean, message?: string, splitIndex?: 0 | 1): Promise<pegasusai> {
 		try {
 			let selector: string = Selector.Xterm;
 			if (splitIndex !== undefined) {
@@ -316,7 +316,7 @@ export class Terminal {
 	 * Waits for the terminal to be focused and to contain content.
 	 * @param expectedLocation The location to check the terminal for, defaults to panel.
 	 */
-	private async _waitForTerminal(expectedLocation?: 'editor' | 'panel'): Promise<void> {
+	private async _waitForTerminal(expectedLocation?: 'editor' | 'panel'): Promise<pegasusai> {
 		await this.code.waitForElement(Selector.XtermFocused);
 		await this.code.waitForTerminalBuffer(expectedLocation === 'editor' ? Selector.XtermEditor : Selector.Xterm, lines => lines.some(line => line.length > 0));
 	}

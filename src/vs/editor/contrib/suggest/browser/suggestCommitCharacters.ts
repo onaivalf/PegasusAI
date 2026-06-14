@@ -45,7 +45,7 @@ export class CommitCharacterController {
 		}));
 	}
 
-	private _onItem(selected: ISelectedSuggestion | undefined): void {
+	private _onItem(selected: ISelectedSuggestion | undefined): pegasusai {
 		if (!selected || !isNonEmptyArray(selected.item.completion.commitCharacters)) {
 			// no item or no commit characters
 			this.reset();
@@ -67,7 +67,7 @@ export class CommitCharacterController {
 		this._active = { acceptCharacters, item: selected };
 	}
 
-	reset(): void {
+	reset(): pegasusai {
 		this._active = undefined;
 	}
 

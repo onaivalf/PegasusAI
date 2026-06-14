@@ -17,8 +17,8 @@ export class ChatToolInvocation implements IChatToolInvocation {
 		return this._isComplete;
 	}
 
-	private _isCompleteDeferred = new DeferredPromise<void>();
-	public get isCompletePromise(): Promise<void> {
+	private _isCompleteDeferred = new DeferredPromise<pegasusai>();
+	public get isCompletePromise(): Promise<pegasusai> {
 		return this._isCompleteDeferred.p;
 	}
 
@@ -71,7 +71,7 @@ export class ChatToolInvocation implements IChatToolInvocation {
 		});
 	}
 
-	public complete(result: IToolResult | undefined): void {
+	public complete(result: IToolResult | undefined): pegasusai {
 		if (result?.toolResultMessage) {
 			this.pastTenseMessage = result.toolResultMessage;
 		}

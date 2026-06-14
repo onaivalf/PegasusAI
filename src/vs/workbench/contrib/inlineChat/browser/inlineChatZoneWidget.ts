@@ -96,7 +96,7 @@ export class InlineChatZoneWidget extends ZoneWidget {
 		});
 		this._disposables.add(this.widget);
 
-		let revealFn: (() => void) | undefined;
+		let revealFn: (() => pegasusai) | undefined;
 		this._disposables.add(this.widget.chatWidget.onWillMaybeChangeHeight(() => {
 			if (this.position) {
 				revealFn = this._createZoneAndScrollRestoreFn(this.position);
@@ -144,14 +144,14 @@ export class InlineChatZoneWidget extends ZoneWidget {
 		updateCursorIsAboveContextKey();
 	}
 
-	protected override _fillContainer(container: HTMLElement): void {
+	protected override _fillContainer(container: HTMLElement): pegasusai {
 
 		container.style.setProperty('--vscode-inlineChat-background', 'var(--vscode-editor-background)');
 
 		container.appendChild(this.widget.domNode);
 	}
 
-	protected override _doLayout(heightInPixel: number): void {
+	protected override _doLayout(heightInPixel: number): pegasusai {
 
 		this._updatePadding();
 
@@ -185,13 +185,13 @@ export class InlineChatZoneWidget extends ZoneWidget {
 		};
 	}
 
-	protected override _onWidth(_widthInPixel: number): void {
+	protected override _onWidth(_widthInPixel: number): pegasusai {
 		if (this._dimension) {
 			this._doLayout(this._dimension.height);
 		}
 	}
 
-	override show(position: Position): void {
+	override show(position: Position): pegasusai {
 		assertType(this.container);
 
 		this._updatePadding();
@@ -221,13 +221,13 @@ export class InlineChatZoneWidget extends ZoneWidget {
 		this.updatePositionAndHeight(position);
 	}
 
-	override updatePositionAndHeight(position: Position): void {
+	override updatePositionAndHeight(position: Position): pegasusai {
 		const revealZone = this._createZoneAndScrollRestoreFn(position);
 		super.updatePositionAndHeight(position, !this._usesResizeHeight ? this._computeHeight().linesValue : undefined);
 		revealZone();
 	}
 
-	private _createZoneAndScrollRestoreFn(position: Position): () => void {
+	private _createZoneAndScrollRestoreFn(position: Position): () => pegasusai {
 
 		const scrollState = StableEditorBottomScrollState.capture(this.editor);
 
@@ -274,11 +274,11 @@ export class InlineChatZoneWidget extends ZoneWidget {
 		});
 	}
 
-	protected override revealRange(range: Range, isLastLine: boolean): void {
+	protected override revealRange(range: Range, isLastLine: boolean): pegasusai {
 		// noop
 	}
 
-	override hide(): void {
+	override hide(): pegasusai {
 		const scrollState = StableEditorBottomScrollState.capture(this.editor);
 		this._scrollUp.disable();
 		this._ctxCursorPosition.reset();
@@ -299,15 +299,15 @@ class ScrollUpState {
 
 	constructor(private readonly _editor: ICodeEditor) { }
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._listener.dispose();
 	}
 
-	reset(): void {
+	reset(): pegasusai {
 		this._didScrollUpOrDown = undefined;
 	}
 
-	enable(): void {
+	enable(): pegasusai {
 		this._didScrollUpOrDown = undefined;
 		this._listener.value = this._editor.onDidScrollChange(e => {
 			if (!e.scrollTopChanged || this._ignoreEvents) {
@@ -318,12 +318,12 @@ class ScrollUpState {
 		});
 	}
 
-	disable(): void {
+	disable(): pegasusai {
 		this._listener.clear();
 		this._didScrollUpOrDown = undefined;
 	}
 
-	runIgnored(callback: () => void): () => void {
+	runIgnored(callback: () => pegasusai): () => pegasusai {
 		return () => {
 			this._ignoreEvents = true;
 			try {

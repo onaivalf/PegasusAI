@@ -71,7 +71,7 @@ export class DebugStatusContribution implements IWorkbenchContribution {
 		};
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.entryAccessor?.dispose();
 		dispose(this.toDispose);
 	}

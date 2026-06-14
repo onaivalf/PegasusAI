@@ -102,11 +102,11 @@ export class TestExtensionEnablementService extends ExtensionEnablementService {
 		this._register(disposables);
 	}
 
-	public async waitUntilInitialized(): Promise<void> {
+	public async waitUntilInitialized(): Promise<pegasusai> {
 		await this.extensionsManager.whenInitialized();
 	}
 
-	public reset(): void {
+	public reset(): pegasusai {
 		let extensions = this.globalExtensionEnablementService.getDisabledExtensions();
 		for (const e of this._getWorkspaceDisabledExtensions()) {
 			if (!extensions.some(r => areSameExtensions(r, e))) {

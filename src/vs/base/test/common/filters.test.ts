@@ -410,8 +410,8 @@ suite('Filters', () => {
 	});
 
 	test('Cannot set property \'1\' of undefined, #26511', function () {
-		const word = new Array<void>(123).join('a');
-		const pattern = new Array<void>(120).join('a');
+		const word = new Array<pegasusai>(123).join('a');
+		const pattern = new Array<pegasusai>(120).join('a');
 		fuzzyScore(pattern, pattern.toLowerCase(), 0, word, word.toLowerCase(), 0);
 		assert.ok(true); // must not explode
 	});

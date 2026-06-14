@@ -37,12 +37,12 @@ export interface IMouseDispatchData {
 }
 
 export interface ICommandDelegate {
-	paste(text: string, pasteOnNewLine: boolean, multicursorText: string[] | null, mode: string | null): void;
-	type(text: string): void;
-	compositionType(text: string, replacePrevCharCnt: number, replaceNextCharCnt: number, positionDelta: number): void;
-	startComposition(): void;
-	endComposition(): void;
-	cut(): void;
+	paste(text: string, pasteOnNewLine: boolean, multicursorText: string[] | null, mode: string | null): pegasusai;
+	type(text: string): pegasusai;
+	compositionType(text: string, replacePrevCharCnt: number, replaceNextCharCnt: number, positionDelta: number): pegasusai;
+	startComposition(): pegasusai;
+	endComposition(): pegasusai;
+	cut(): pegasusai;
 }
 
 export class ViewController {
@@ -64,31 +64,31 @@ export class ViewController {
 		this.commandDelegate = commandDelegate;
 	}
 
-	public paste(text: string, pasteOnNewLine: boolean, multicursorText: string[] | null, mode: string | null): void {
+	public paste(text: string, pasteOnNewLine: boolean, multicursorText: string[] | null, mode: string | null): pegasusai {
 		this.commandDelegate.paste(text, pasteOnNewLine, multicursorText, mode);
 	}
 
-	public type(text: string): void {
+	public type(text: string): pegasusai {
 		this.commandDelegate.type(text);
 	}
 
-	public compositionType(text: string, replacePrevCharCnt: number, replaceNextCharCnt: number, positionDelta: number): void {
+	public compositionType(text: string, replacePrevCharCnt: number, replaceNextCharCnt: number, positionDelta: number): pegasusai {
 		this.commandDelegate.compositionType(text, replacePrevCharCnt, replaceNextCharCnt, positionDelta);
 	}
 
-	public compositionStart(): void {
+	public compositionStart(): pegasusai {
 		this.commandDelegate.startComposition();
 	}
 
-	public compositionEnd(): void {
+	public compositionEnd(): pegasusai {
 		this.commandDelegate.endComposition();
 	}
 
-	public cut(): void {
+	public cut(): pegasusai {
 		this.commandDelegate.cut();
 	}
 
-	public setSelection(modelSelection: Selection): void {
+	public setSelection(modelSelection: Selection): pegasusai {
 		CoreNavigationCommands.SetSelection.runCoreEditorCommand(this.viewModel, {
 			source: 'keyboard',
 			selection: modelSelection
@@ -129,7 +129,7 @@ export class ViewController {
 		}
 	}
 
-	public dispatchMouse(data: IMouseDispatchData): void {
+	public dispatchMouse(data: IMouseDispatchData): pegasusai {
 		const options = this.configuration.options;
 		const selectionClipboardIsOn = (platform.isLinux && options.get(EditorOption.selectionClipboard));
 		const columnSelection = options.get(EditorOption.columnSelection);
@@ -220,15 +220,15 @@ export class ViewController {
 		};
 	}
 
-	public moveTo(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	public moveTo(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.MoveTo.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _moveToSelect(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	private _moveToSelect(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.MoveToSelect.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _columnSelect(viewPosition: Position, mouseColumn: number, doColumnSelect: boolean): void {
+	private _columnSelect(viewPosition: Position, mouseColumn: number, doColumnSelect: boolean): pegasusai {
 		viewPosition = this._validateViewColumn(viewPosition);
 		CoreNavigationCommands.ColumnSelect.runCoreEditorCommand(this.viewModel, {
 			source: 'mouse',
@@ -239,7 +239,7 @@ export class ViewController {
 		});
 	}
 
-	private _createCursor(viewPosition: Position, wholeLine: boolean): void {
+	private _createCursor(viewPosition: Position, wholeLine: boolean): pegasusai {
 		viewPosition = this._validateViewColumn(viewPosition);
 		CoreNavigationCommands.CreateCursor.runCoreEditorCommand(this.viewModel, {
 			source: 'mouse',
@@ -249,39 +249,39 @@ export class ViewController {
 		});
 	}
 
-	private _lastCursorMoveToSelect(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	private _lastCursorMoveToSelect(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.LastCursorMoveToSelect.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _wordSelect(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	private _wordSelect(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.WordSelect.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _wordSelectDrag(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	private _wordSelectDrag(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.WordSelectDrag.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _lastCursorWordSelect(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	private _lastCursorWordSelect(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.LastCursorWordSelect.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _lineSelect(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	private _lineSelect(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.LineSelect.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _lineSelectDrag(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	private _lineSelectDrag(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.LineSelectDrag.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _lastCursorLineSelect(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	private _lastCursorLineSelect(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.LastCursorLineSelect.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _lastCursorLineSelectDrag(viewPosition: Position, revealType: NavigationCommandRevealType): void {
+	private _lastCursorLineSelectDrag(viewPosition: Position, revealType: NavigationCommandRevealType): pegasusai {
 		CoreNavigationCommands.LastCursorLineSelectDrag.runCoreEditorCommand(this.viewModel, this._usualArgs(viewPosition, revealType));
 	}
 
-	private _selectAll(): void {
+	private _selectAll(): pegasusai {
 		CoreNavigationCommands.SelectAll.runCoreEditorCommand(this.viewModel, { source: 'mouse' });
 	}
 
@@ -291,47 +291,47 @@ export class ViewController {
 		return this.viewModel.coordinatesConverter.convertViewPositionToModelPosition(viewPosition);
 	}
 
-	public emitKeyDown(e: IKeyboardEvent): void {
+	public emitKeyDown(e: IKeyboardEvent): pegasusai {
 		this.userInputEvents.emitKeyDown(e);
 	}
 
-	public emitKeyUp(e: IKeyboardEvent): void {
+	public emitKeyUp(e: IKeyboardEvent): pegasusai {
 		this.userInputEvents.emitKeyUp(e);
 	}
 
-	public emitContextMenu(e: IEditorMouseEvent): void {
+	public emitContextMenu(e: IEditorMouseEvent): pegasusai {
 		this.userInputEvents.emitContextMenu(e);
 	}
 
-	public emitMouseMove(e: IEditorMouseEvent): void {
+	public emitMouseMove(e: IEditorMouseEvent): pegasusai {
 		this.userInputEvents.emitMouseMove(e);
 	}
 
-	public emitMouseLeave(e: IPartialEditorMouseEvent): void {
+	public emitMouseLeave(e: IPartialEditorMouseEvent): pegasusai {
 		this.userInputEvents.emitMouseLeave(e);
 	}
 
-	public emitMouseUp(e: IEditorMouseEvent): void {
+	public emitMouseUp(e: IEditorMouseEvent): pegasusai {
 		this.userInputEvents.emitMouseUp(e);
 	}
 
-	public emitMouseDown(e: IEditorMouseEvent): void {
+	public emitMouseDown(e: IEditorMouseEvent): pegasusai {
 		this.userInputEvents.emitMouseDown(e);
 	}
 
-	public emitMouseDrag(e: IEditorMouseEvent): void {
+	public emitMouseDrag(e: IEditorMouseEvent): pegasusai {
 		this.userInputEvents.emitMouseDrag(e);
 	}
 
-	public emitMouseDrop(e: IPartialEditorMouseEvent): void {
+	public emitMouseDrop(e: IPartialEditorMouseEvent): pegasusai {
 		this.userInputEvents.emitMouseDrop(e);
 	}
 
-	public emitMouseDropCanceled(): void {
+	public emitMouseDropCanceled(): pegasusai {
 		this.userInputEvents.emitMouseDropCanceled();
 	}
 
-	public emitMouseWheel(e: IMouseWheelEvent): void {
+	public emitMouseWheel(e: IMouseWheelEvent): pegasusai {
 		this.userInputEvents.emitMouseWheel(e);
 	}
 }

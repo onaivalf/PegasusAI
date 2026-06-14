@@ -40,14 +40,14 @@ export class WorkspaceWatcher extends Disposable {
 		this.refresh();
 	}
 
-	private registerListeners(): void {
+	private registerListeners(): pegasusai {
 		this._register(this.contextService.onDidChangeWorkspaceFolders(e => this.onDidChangeWorkspaceFolders(e)));
 		this._register(this.contextService.onDidChangeWorkbenchState(() => this.onDidChangeWorkbenchState()));
 		this._register(this.configurationService.onDidChangeConfiguration(e => this.onDidChangeConfiguration(e)));
 		this._register(this.fileService.onDidWatchError(error => this.onDidWatchError(error)));
 	}
 
-	private onDidChangeWorkspaceFolders(e: IWorkspaceFoldersChangeEvent): void {
+	private onDidChangeWorkspaceFolders(e: IWorkspaceFoldersChangeEvent): pegasusai {
 
 		// Removed workspace: Unwatch
 		for (const removed of e.removed) {
@@ -60,17 +60,17 @@ export class WorkspaceWatcher extends Disposable {
 		}
 	}
 
-	private onDidChangeWorkbenchState(): void {
+	private onDidChangeWorkbenchState(): pegasusai {
 		this.refresh();
 	}
 
-	private onDidChangeConfiguration(e: IConfigurationChangeEvent): void {
+	private onDidChangeConfiguration(e: IConfigurationChangeEvent): pegasusai {
 		if (e.affectsConfiguration('files.watcherExclude') || e.affectsConfiguration('files.watcherInclude')) {
 			this.refresh();
 		}
 	}
 
-	private onDidWatchError(error: Error): void {
+	private onDidWatchError(error: Error): pegasusai {
 		const msg = error.toString();
 		let reason: 'ENOSPC' | 'EUNKNOWN' | 'ETERM' | undefined = undefined;
 
@@ -130,7 +130,7 @@ export class WorkspaceWatcher extends Disposable {
 		}
 	}
 
-	private watchWorkspace(workspace: IWorkspaceFolder): void {
+	private watchWorkspace(workspace: IWorkspaceFolder): pegasusai {
 
 		// Compute the watcher exclude rules from configuration
 		const excludes: string[] = [];
@@ -179,14 +179,14 @@ export class WorkspaceWatcher extends Disposable {
 		this.watchedWorkspaces.set(workspace.uri, disposables);
 	}
 
-	private unwatchWorkspace(workspace: IWorkspaceFolder): void {
+	private unwatchWorkspace(workspace: IWorkspaceFolder): pegasusai {
 		if (this.watchedWorkspaces.has(workspace.uri)) {
 			dispose(this.watchedWorkspaces.get(workspace.uri));
 			this.watchedWorkspaces.delete(workspace.uri);
 		}
 	}
 
-	private refresh(): void {
+	private refresh(): pegasusai {
 
 		// Unwatch all first
 		this.unwatchWorkspaces();
@@ -197,14 +197,14 @@ export class WorkspaceWatcher extends Disposable {
 		}
 	}
 
-	private unwatchWorkspaces(): void {
+	private unwatchWorkspaces(): pegasusai {
 		for (const [, disposable] of this.watchedWorkspaces) {
 			disposable.dispose();
 		}
 		this.watchedWorkspaces.clear();
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		super.dispose();
 
 		this.unwatchWorkspaces();

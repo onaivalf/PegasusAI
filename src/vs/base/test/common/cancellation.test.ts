@@ -23,7 +23,7 @@ suite('CancellationToken', function () {
 
 		assert.strictEqual(source.token.isCancellationRequested, true);
 
-		return new Promise<void>(resolve => {
+		return new Promise<pegasusai>(resolve => {
 			source.token.onCancellationRequested(() => resolve());
 		});
 	});

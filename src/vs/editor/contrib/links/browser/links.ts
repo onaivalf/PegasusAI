@@ -112,7 +112,7 @@ export class LinkDetector extends Disposable implements IEditorContribution {
 		this.computeLinks.schedule(0);
 	}
 
-	private async computeLinksNow(): Promise<void> {
+	private async computeLinksNow(): Promise<pegasusai> {
 		if (!this.editor.hasModel() || !this.editor.getOption(EditorOption.links)) {
 			return;
 		}
@@ -148,7 +148,7 @@ export class LinkDetector extends Disposable implements IEditorContribution {
 		}
 	}
 
-	private updateDecorations(links: Link[]): void {
+	private updateDecorations(links: Link[]): pegasusai {
 		const useMetaKey = (this.editor.getOption(EditorOption.multiCursorModifier) === 'altKey');
 		const oldDecorations: string[] = [];
 		const keys = Object.keys(this.currentOccurrences);
@@ -177,7 +177,7 @@ export class LinkDetector extends Disposable implements IEditorContribution {
 		});
 	}
 
-	private _onEditorMouseMove(mouseEvent: ClickLinkMouseEvent, withKey: ClickLinkKeyboardEvent | null): void {
+	private _onEditorMouseMove(mouseEvent: ClickLinkMouseEvent, withKey: ClickLinkKeyboardEvent | null): pegasusai {
 		const useMetaKey = (this.editor.getOption(EditorOption.multiCursorModifier) === 'altKey');
 		if (this.isEnabled(mouseEvent, withKey)) {
 			this.cleanUpActiveLinkDecoration(); // always remove previous link decoration as their can only be one
@@ -193,7 +193,7 @@ export class LinkDetector extends Disposable implements IEditorContribution {
 		}
 	}
 
-	private cleanUpActiveLinkDecoration(): void {
+	private cleanUpActiveLinkDecoration(): pegasusai {
 		const useMetaKey = (this.editor.getOption(EditorOption.multiCursorModifier) === 'altKey');
 		if (this.activeLinkDecorationId) {
 			const occurrence = this.currentOccurrences[this.activeLinkDecorationId];
@@ -207,7 +207,7 @@ export class LinkDetector extends Disposable implements IEditorContribution {
 		}
 	}
 
-	private onEditorMouseUp(mouseEvent: ClickLinkMouseEvent): void {
+	private onEditorMouseUp(mouseEvent: ClickLinkMouseEvent): pegasusai {
 		if (!this.isEnabled(mouseEvent)) {
 			return;
 		}
@@ -218,7 +218,7 @@ export class LinkDetector extends Disposable implements IEditorContribution {
 		this.openLinkOccurrence(occurrence, mouseEvent.hasSideBySideModifier, true /* from user gesture */);
 	}
 
-	public openLinkOccurrence(occurrence: LinkOccurrence, openToSide: boolean, fromUserGesture = false): void {
+	public openLinkOccurrence(occurrence: LinkOccurrence, openToSide: boolean, fromUserGesture = false): pegasusai {
 
 		if (!this.openerService) {
 			return;
@@ -294,7 +294,7 @@ export class LinkDetector extends Disposable implements IEditorContribution {
 		);
 	}
 
-	private stop(): void {
+	private stop(): pegasusai {
 		this.computeLinks.cancel();
 		if (this.activeLinksList) {
 			this.activeLinksList?.dispose();
@@ -306,7 +306,7 @@ export class LinkDetector extends Disposable implements IEditorContribution {
 		}
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		super.dispose();
 		this.stop();
 	}
@@ -350,11 +350,11 @@ class LinkOccurrence {
 		this.decorationId = decorationId;
 	}
 
-	public activate(changeAccessor: IModelDecorationsChangeAccessor, useMetaKey: boolean): void {
+	public activate(changeAccessor: IModelDecorationsChangeAccessor, useMetaKey: boolean): pegasusai {
 		changeAccessor.changeDecorationOptions(this.decorationId, LinkOccurrence._getOptions(this.link, useMetaKey, true));
 	}
 
-	public deactivate(changeAccessor: IModelDecorationsChangeAccessor, useMetaKey: boolean): void {
+	public deactivate(changeAccessor: IModelDecorationsChangeAccessor, useMetaKey: boolean): pegasusai {
 		changeAccessor.changeDecorationOptions(this.decorationId, LinkOccurrence._getOptions(this.link, useMetaKey, false));
 	}
 }
@@ -405,7 +405,7 @@ class OpenLinkAction extends EditorAction {
 		});
 	}
 
-	public run(accessor: ServicesAccessor, editor: ICodeEditor): void {
+	public run(accessor: ServicesAccessor, editor: ICodeEditor): pegasusai {
 		const linkDetector = LinkDetector.get(editor);
 		if (!linkDetector) {
 			return;

@@ -69,12 +69,12 @@ class TypeHierarchyController implements IEditorContribution {
 		this._disposables.add(this._sessionDisposables);
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 	}
 
 	// Peek
-	async startTypeHierarchyFromEditor(): Promise<void> {
+	async startTypeHierarchyFromEditor(): Promise<pegasusai> {
 		this._sessionDisposables.clear();
 
 		if (!this._editor.hasModel()) {
@@ -128,7 +128,7 @@ class TypeHierarchyController implements IEditorContribution {
 		});
 	}
 
-	async startTypeHierarchyFromTypeHierarchy(): Promise<void> {
+	async startTypeHierarchyFromTypeHierarchy(): Promise<pegasusai> {
 		if (!this._widget) {
 			return;
 		}
@@ -152,17 +152,17 @@ class TypeHierarchyController implements IEditorContribution {
 		);
 	}
 
-	showSupertypes(): void {
+	showSupertypes(): pegasusai {
 		this._widget?.updateDirection(TypeHierarchyDirection.Supertypes);
 		this._ctxDirection.set(TypeHierarchyDirection.Supertypes);
 	}
 
-	showSubtypes(): void {
+	showSubtypes(): pegasusai {
 		this._widget?.updateDirection(TypeHierarchyDirection.Subtypes);
 		this._ctxDirection.set(TypeHierarchyDirection.Subtypes);
 	}
 
-	endTypeHierarchy(): void {
+	endTypeHierarchy(): pegasusai {
 		this._sessionDisposables.clear();
 		this._ctxIsVisible.set(false);
 		this._editor.focus();
@@ -195,7 +195,7 @@ registerAction2(class PeekTypeHierarchyAction extends EditorAction2 {
 		});
 	}
 
-	async runEditorCommand(_accessor: ServicesAccessor, editor: ICodeEditor): Promise<void> {
+	async runEditorCommand(_accessor: ServicesAccessor, editor: ICodeEditor): Promise<pegasusai> {
 		return TypeHierarchyController.get(editor)?.startTypeHierarchyFromEditor();
 	}
 });
@@ -265,7 +265,7 @@ registerAction2(class extends EditorAction2 {
 		});
 	}
 
-	async runEditorCommand(_accessor: ServicesAccessor, editor: ICodeEditor): Promise<void> {
+	async runEditorCommand(_accessor: ServicesAccessor, editor: ICodeEditor): Promise<pegasusai> {
 		return TypeHierarchyController.get(editor)?.startTypeHierarchyFromTypeHierarchy();
 	}
 });
@@ -290,7 +290,7 @@ registerAction2(class extends EditorAction2 {
 		});
 	}
 
-	runEditorCommand(_accessor: ServicesAccessor, editor: ICodeEditor): void {
+	runEditorCommand(_accessor: ServicesAccessor, editor: ICodeEditor): pegasusai {
 		return TypeHierarchyController.get(editor)?.endTypeHierarchy();
 	}
 });

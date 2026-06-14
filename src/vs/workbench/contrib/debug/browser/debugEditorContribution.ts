@@ -290,7 +290,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		this.toggleExceptionWidget();
 	}
 
-	private registerListeners(): void {
+	private registerListeners(): pegasusai {
 		this.toDispose.push(this.debugService.getViewModel().onDidFocusStackFrame(e => this.onFocusStackFrame(e.stackFrame)));
 
 		// hover listeners & hover widget
@@ -349,7 +349,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 
 	private _wordToLineNumbersMap: WordsToLineNumbersCache | undefined;
 
-	private updateHoverConfiguration(): void {
+	private updateHoverConfiguration(): pegasusai {
 		const model = this.editor.getModel();
 		if (model) {
 			this.editorHoverOptions = this.configurationService.getValue<IEditorHoverOptions>('editor.hover', {
@@ -359,7 +359,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		}
 	}
 
-	private addDocumentListeners(): void {
+	private addDocumentListeners(): pegasusai {
 		const stackFrame = this.debugService.getViewModel().focusedStackFrame;
 		const model = this.editor.getModel();
 		if (model) {
@@ -367,7 +367,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		}
 	}
 
-	private applyDocumentListeners(model: ITextModel, stackFrame: IStackFrame | undefined): void {
+	private applyDocumentListeners(model: ITextModel, stackFrame: IStackFrame | undefined): pegasusai {
 		if (!stackFrame || !this.uriIdentityService.extUri.isEqual(model.uri, stackFrame.source.uri)) {
 			this.altListener.clear();
 			return;
@@ -406,7 +406,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		});
 	}
 
-	async showHover(position: Position, focus: boolean, mouseEvent?: IMouseEvent): Promise<void> {
+	async showHover(position: Position, focus: boolean, mouseEvent?: IMouseEvent): Promise<pegasusai> {
 		// normally will already be set in `showHoverScheduler`, but public callers may hit this directly:
 		this.preventDefaultEditorHover();
 
@@ -450,7 +450,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		hoverController?.showContentHover(range, HoverStartMode.Immediate, HoverStartSource.Mouse, focus);
 	}
 
-	private async onFocusStackFrame(sf: IStackFrame | undefined): Promise<void> {
+	private async onFocusStackFrame(sf: IStackFrame | undefined): Promise<pegasusai> {
 		const model = this.editor.getModel();
 		if (model) {
 			this.applyDocumentListeners(model, sf);
@@ -491,7 +491,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		return scheduler;
 	}
 
-	private hideHoverWidget(): void {
+	private hideHoverWidget(): pegasusai {
 		if (this.hoverWidget.willBeVisible()) {
 			this.hoverWidget.hide();
 		}
@@ -501,7 +501,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 
 	// hover business
 
-	private onEditorMouseDown(mouseEvent: IEditorMouseEvent): void {
+	private onEditorMouseDown(mouseEvent: IEditorMouseEvent): pegasusai {
 		this.mouseDown = true;
 		if (mouseEvent.target.type === MouseTargetType.CONTENT_WIDGET && mouseEvent.target.detail === DebugHoverWidget.ID) {
 			return;
@@ -510,7 +510,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		this.hideHoverWidget();
 	}
 
-	private onEditorMouseMove(mouseEvent: IEditorMouseEvent): void {
+	private onEditorMouseMove(mouseEvent: IEditorMouseEvent): pegasusai {
 		if (this.debugService.state !== State.Stopped) {
 			return;
 		}
@@ -543,7 +543,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		if (target.type === MouseTargetType.CONTENT_TEXT) {
 			if (target.position && !Position.equals(target.position, this.hoverPosition?.position || null) && !this.hoverWidget.isInSafeTriangle(mouseEvent.event.posx, mouseEvent.event.posy)) {
 				this.hoverPosition = { position: target.position, event: mouseEvent.event };
-				// Disable the editor hover during the request to avoid flickering
+				// Disable the editor hover during the request to apegasusai flickering
 				this.preventDefaultEditorHover();
 				this.showHoverScheduler.schedule(this.hoverDelay);
 			}
@@ -553,7 +553,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		}
 	}
 
-	private onKeyDown(e: IKeyboardEvent): void {
+	private onKeyDown(e: IKeyboardEvent): pegasusai {
 		const stopKey = env.isMacintosh ? KeyCode.Meta : KeyCode.Ctrl;
 		if (e.keyCode !== stopKey && e.keyCode !== KeyCode.Alt) {
 			// do not hide hover when Ctrl/Meta is pressed, and alt is handled separately
@@ -563,7 +563,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 	// end hover business
 
 	// exception widget
-	private async toggleExceptionWidget(): Promise<void> {
+	private async toggleExceptionWidget(): Promise<pegasusai> {
 		// Toggles exception widget based on the state of the current editor model and debug stack frame
 		const model = this.editor.getModel();
 		const focusedSf = this.debugService.getViewModel().focusedStackFrame;
@@ -591,7 +591,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		}
 	}
 
-	private showExceptionWidget(exceptionInfo: IExceptionInfo, debugSession: IDebugSession | undefined, lineNumber: number, column: number): void {
+	private showExceptionWidget(exceptionInfo: IExceptionInfo, debugSession: IDebugSession | undefined, lineNumber: number, column: number): pegasusai {
 		if (this.exceptionWidget) {
 			this.exceptionWidget.dispose();
 		}
@@ -608,7 +608,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		this.exceptionWidgetVisible.set(true);
 	}
 
-	closeExceptionWidget(): void {
+	closeExceptionWidget(): pegasusai {
 		if (this.exceptionWidget) {
 			const shouldFocusEditor = this.exceptionWidget.hasFocus();
 			this.exceptionWidget.dispose();
@@ -620,7 +620,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		}
 	}
 
-	async addLaunchConfiguration(): Promise<void> {
+	async addLaunchConfiguration(): Promise<pegasusai> {
 		const model = this.editor.getModel();
 		if (!model) {
 			return;
@@ -705,7 +705,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		);
 	}
 
-	private async updateInlineValueDecorations(stackFrame: IStackFrame | undefined): Promise<void> {
+	private async updateInlineValueDecorations(stackFrame: IStackFrame | undefined): Promise<pegasusai> {
 
 		const var_value_format = '{0} = {1}';
 		const separator = ', ';
@@ -837,7 +837,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 				({ scope, variables: await scope.getChildren() })));
 
 			// Map of inline values per line that's populated in scope order, from
-			// narrowest to widest. This is done to avoid duplicating values if
+			// narrowest to widest. This is done to apegasusai duplicating values if
 			// they appear in multiple scopes or are shadowed (#129770, #217326)
 			const valuesPerLine = new Map</* line */number, Map</* var */string, /* value */ string>>();
 
@@ -901,7 +901,7 @@ export class DebugEditorContribution implements IDebugEditorContribution {
 		}
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		if (this.hoverWidget) {
 			this.hoverWidget.dispose();
 		}

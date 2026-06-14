@@ -14,10 +14,10 @@ import {
 } from 'vscode';
 
 export interface ISuggestionsCollector {
-	add(suggestion: CompletionItem): void;
-	error(message: string): void;
-	log(message: string): void;
-	setAsIncomplete(): void;
+	add(suggestion: CompletionItem): pegasusai;
+	error(message: string): pegasusai;
+	log(message: string): pegasusai;
+	setAsIncomplete(): pegasusai;
 }
 
 export interface IJSONContribution {

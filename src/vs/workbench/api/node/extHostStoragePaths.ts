@@ -61,13 +61,13 @@ export class ExtensionStoragePaths extends CommonExtensionStoragePaths {
 		return workspaceStorageURI;
 	}
 
-	override onWillDeactivateAll(): void {
+	override onWillDeactivateAll(): pegasusai {
 		// the lock will be released soon
 		this._workspaceStorageLock?.setWillRelease(6000);
 	}
 }
 
-async function mkdir(dir: string): Promise<void> {
+async function mkdir(dir: string): Promise<pegasusai> {
 	try {
 		await fs.promises.stat(dir);
 		return;
@@ -111,12 +111,12 @@ class Lock extends Disposable {
 		}, MTIME_UPDATE_TIME);
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		super.dispose();
 		try { fs.unlinkSync(this.filename); } catch (err) { }
 	}
 
-	public async setWillRelease(timeUntilReleaseMs: number): Promise<void> {
+	public async setWillRelease(timeUntilReleaseMs: number): Promise<pegasusai> {
 		this.logService.info(`Lock '${this.filename}': Marking the lockfile as scheduled to be released in ${timeUntilReleaseMs} ms.`);
 		try {
 			const contents: ILockfileContents = {

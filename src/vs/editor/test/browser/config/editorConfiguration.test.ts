@@ -71,7 +71,7 @@ suite('Common Editor Config', () => {
 		}
 	}
 
-	function assertWrapping(config: TestConfiguration, isViewportWrapping: boolean, wrappingColumn: number): void {
+	function assertWrapping(config: TestConfiguration, isViewportWrapping: boolean, wrappingColumn: number): pegasusai {
 		const options = config.options;
 		const wrappingInfo = options.get(EditorOption.wrappingInfo);
 		assert.strictEqual(wrappingInfo.isViewportWrapping, isViewportWrapping);

@@ -31,7 +31,7 @@ export class MainThreadLoggerService implements MainThreadLoggerShape {
 		}));
 	}
 
-	$log(file: UriComponents, messages: [LogLevel, string][]): void {
+	$log(file: UriComponents, messages: [LogLevel, string][]): pegasusai {
 		const logger = this.loggerService.getLogger(URI.revive(file));
 		if (!logger) {
 			throw new Error('Create the logger before logging');
@@ -41,26 +41,26 @@ export class MainThreadLoggerService implements MainThreadLoggerShape {
 		}
 	}
 
-	async $createLogger(file: UriComponents, options?: ILoggerOptions): Promise<void> {
+	async $createLogger(file: UriComponents, options?: ILoggerOptions): Promise<pegasusai> {
 		this.loggerService.createLogger(URI.revive(file), options);
 	}
 
-	async $registerLogger(logResource: UriDto<ILoggerResource>): Promise<void> {
+	async $registerLogger(logResource: UriDto<ILoggerResource>): Promise<pegasusai> {
 		this.loggerService.registerLogger({
 			...logResource,
 			resource: URI.revive(logResource.resource)
 		});
 	}
 
-	async $deregisterLogger(resource: UriComponents): Promise<void> {
+	async $deregisterLogger(resource: UriComponents): Promise<pegasusai> {
 		this.loggerService.deregisterLogger(URI.revive(resource));
 	}
 
-	async $setVisibility(resource: UriComponents, visible: boolean): Promise<void> {
+	async $setVisibility(resource: UriComponents, visible: boolean): Promise<pegasusai> {
 		this.loggerService.setVisibility(URI.revive(resource), visible);
 	}
 
-	$flush(file: UriComponents): void {
+	$flush(file: UriComponents): pegasusai {
 		const logger = this.loggerService.getLogger(URI.revive(file));
 		if (!logger) {
 			throw new Error('Create the logger before flushing');
@@ -68,7 +68,7 @@ export class MainThreadLoggerService implements MainThreadLoggerShape {
 		logger.flush();
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.disposables.dispose();
 	}
 }

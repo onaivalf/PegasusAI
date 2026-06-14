@@ -20,7 +20,7 @@ export class InPlaceReplaceCommand implements ICommand {
 		this._text = text;
 	}
 
-	public getEditOperations(model: ITextModel, builder: IEditOperationBuilder): void {
+	public getEditOperations(model: ITextModel, builder: IEditOperationBuilder): pegasusai {
 		builder.addTrackedEditOperation(this._editRange, this._text);
 	}
 

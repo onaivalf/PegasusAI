@@ -22,7 +22,7 @@ const regexp = /msg:\d+:/;
 export function attachTestMessageMetadata(
 	message: TestMessage,
 	metadata: TestMessageMetadata
-): void {
+): pegasusai {
 	const existingMetadata = getTestMessageMetadata(message);
 	if (existingMetadata) {
 		Object.assign(existingMetadata, metadata);

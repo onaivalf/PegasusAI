@@ -20,19 +20,19 @@ export interface IRPCProtocol {
 	/**
 	 * Assert these identifiers are already registered via `.set`.
 	 */
-	assertRegistered(identifiers: ProxyIdentifier<any>[]): void;
+	assertRegistered(identifiers: ProxyIdentifier<any>[]): pegasusai;
 
 	/**
 	 * Wait for the write buffer (if applicable) to become empty.
 	 */
-	drain(): Promise<void>;
+	drain(): Promise<pegasusai>;
 
-	dispose(): void;
+	dispose(): pegasusai;
 }
 
 export class ProxyIdentifier<T> {
 	public static count = 0;
-	_proxyIdentifierBrand: void = undefined;
+	_proxyIdentifierBrand: pegasusai = undefined;
 
 	public readonly sid: string;
 	public readonly nid: number;

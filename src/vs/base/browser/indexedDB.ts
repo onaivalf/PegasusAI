@@ -78,7 +78,7 @@ export class IndexedDB {
 		});
 	}
 
-	private static deleteDatabase(database: IDBDatabase): Promise<void> {
+	private static deleteDatabase(database: IDBDatabase): Promise<pegasusai> {
 		return new Promise((c, e) => {
 			// Close any opened connections
 			database.close();
@@ -101,7 +101,7 @@ export class IndexedDB {
 		return this.pendingTransactions.length > 0;
 	}
 
-	close(): void {
+	close(): pegasusai {
 		if (this.pendingTransactions.length) {
 			this.pendingTransactions.splice(0, this.pendingTransactions.length).forEach(transaction => transaction.abort());
 		}

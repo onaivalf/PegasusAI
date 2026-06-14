@@ -29,15 +29,15 @@ export interface ITerminalPersistedHistory<T> {
 	/**
 	 * Adds an entry.
 	 */
-	add(key: string, value: T): void;
+	add(key: string, value: T): pegasusai;
 	/**
 	 * Removes an entry.
 	 */
-	remove(key: string): void;
+	remove(key: string): pegasusai;
 	/**
 	 * Clears all entries.
 	 */
-	clear(): void;
+	clear(): pegasusai;
 }
 
 interface ISerializedCache<T> {

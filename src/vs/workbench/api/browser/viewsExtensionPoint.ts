@@ -297,7 +297,7 @@ class ViewsExtensionHandler implements IWorkbenchContribution {
 		});
 	}
 
-	private addCustomViewContainers(extensionPoints: readonly IExtensionPointUser<ViewContainerExtensionPointType>[], existingViewContainers: ViewContainer[]): void {
+	private addCustomViewContainers(extensionPoints: readonly IExtensionPointUser<ViewContainerExtensionPointType>[], existingViewContainers: ViewContainer[]): pegasusai {
 		const viewContainersRegistry = Registry.as<IViewContainersRegistry>(ViewContainerExtensions.ViewContainersRegistry);
 		let activityBarOrder = CUSTOM_VIEWS_START_ORDER + viewContainersRegistry.all.filter(v => !!v.extensionId && viewContainersRegistry.getViewContainerLocation(v) === ViewContainerLocation.Sidebar).length;
 		let panelOrder = 5 + viewContainersRegistry.all.filter(v => !!v.extensionId && viewContainersRegistry.getViewContainerLocation(v) === ViewContainerLocation.Panel).length + 1;
@@ -318,7 +318,7 @@ class ViewsExtensionHandler implements IWorkbenchContribution {
 		}
 	}
 
-	private removeCustomViewContainers(extensionPoints: readonly IExtensionPointUser<ViewContainerExtensionPointType>[]): void {
+	private removeCustomViewContainers(extensionPoints: readonly IExtensionPointUser<ViewContainerExtensionPointType>[]): pegasusai {
 		const viewContainersRegistry = Registry.as<IViewContainersRegistry>(ViewContainerExtensions.ViewContainersRegistry);
 		const removedExtensions: ExtensionIdentifierSet = extensionPoints.reduce((result, e) => { result.add(e.description.identifier); return result; }, new ExtensionIdentifierSet());
 		for (const viewContainer of viewContainersRegistry.all) {
@@ -413,7 +413,7 @@ class ViewsExtensionHandler implements IWorkbenchContribution {
 		return viewContainer;
 	}
 
-	private deregisterCustomViewContainer(viewContainer: ViewContainer): void {
+	private deregisterCustomViewContainer(viewContainer: ViewContainer): pegasusai {
 		this.viewContainersRegistry.deregisterViewContainer(viewContainer);
 		Registry.as<PaneCompositeRegistry>(ViewletExtensions.Viewlets).deregisterPaneComposite(viewContainer.id);
 	}
@@ -429,7 +429,7 @@ class ViewsExtensionHandler implements IWorkbenchContribution {
 		});
 	}
 
-	private addViews(extensions: readonly IExtensionPointUser<ViewExtensionPointType>[]): void {
+	private addViews(extensions: readonly IExtensionPointUser<ViewExtensionPointType>[]): pegasusai {
 		const viewIds: Set<string> = new Set<string>();
 		const allViewDescriptors: { views: IViewDescriptor[]; viewContainer: ViewContainer }[] = [];
 
@@ -549,7 +549,7 @@ class ViewsExtensionHandler implements IWorkbenchContribution {
 		return this.viewContainersRegistry.get(EXPLORER)!;
 	}
 
-	private removeViews(extensions: readonly IExtensionPointUser<ViewExtensionPointType>[]): void {
+	private removeViews(extensions: readonly IExtensionPointUser<ViewExtensionPointType>[]): pegasusai {
 		const removedExtensions: ExtensionIdentifierSet = extensions.reduce((result, e) => { result.add(e.description.identifier); return result; }, new ExtensionIdentifierSet());
 		for (const viewContainer of this.viewContainersRegistry.all) {
 			const removedViews = this.viewsRegistry.getViews(viewContainer).filter(v => (v as ICustomViewDescriptor).extensionId && removedExtensions.has((v as ICustomViewDescriptor).extensionId));

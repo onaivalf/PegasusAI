@@ -31,7 +31,7 @@ class WebviewInputStore {
 	private readonly _handlesToInputs = new Map<string, WebviewInput>();
 	private readonly _inputsToHandles = new Map<WebviewInput, string>();
 
-	public add(handle: string, input: WebviewInput): void {
+	public add(handle: string, input: WebviewInput): pegasusai {
 		this._handlesToInputs.set(handle, input);
 		this._inputsToHandles.set(input, handle);
 	}
@@ -44,7 +44,7 @@ class WebviewInputStore {
 		return this._handlesToInputs.get(handle);
 	}
 
-	public delete(handle: string): void {
+	public delete(handle: string): pegasusai {
 		const input = this.getInputForHandle(handle);
 		this._handlesToInputs.delete(handle);
 		if (input) {
@@ -135,7 +135,7 @@ export class MainThreadWebviewPanels extends Disposable implements extHostProtoc
 
 	public get webviewInputs(): Iterable<WebviewInput> { return this._webviewInputs; }
 
-	public addWebviewInput(handle: extHostProtocol.WebviewHandle, input: WebviewInput, options: { serializeBuffersForPostMessage: boolean }): void {
+	public addWebviewInput(handle: extHostProtocol.WebviewHandle, input: WebviewInput, options: { serializeBuffersForPostMessage: boolean }): pegasusai {
 		this._webviewInputs.add(handle, input);
 		this._mainThreadWebviews.addWebview(handle, input.webview, options);
 
@@ -154,7 +154,7 @@ export class MainThreadWebviewPanels extends Disposable implements extHostProtoc
 		viewType: string,
 		initData: extHostProtocol.IWebviewInitData,
 		showOptions: extHostProtocol.WebviewPanelShowOptions,
-	): void {
+	): pegasusai {
 		const targetGroup = this.getTargetGroupFromShowOptions(showOptions);
 		const mainThreadShowOptions: IWebViewShowOptions = showOptions ? {
 			preserveFocus: !!showOptions.preserveFocus,
@@ -176,7 +176,7 @@ export class MainThreadWebviewPanels extends Disposable implements extHostProtoc
 		this.addWebviewInput(handle, webview, { serializeBuffersForPostMessage: initData.serializeBuffersForPostMessage });
 	}
 
-	public $disposeWebview(handle: extHostProtocol.WebviewHandle): void {
+	public $disposeWebview(handle: extHostProtocol.WebviewHandle): pegasusai {
 		const webview = this.tryGetWebviewInput(handle);
 		if (!webview) {
 			return;
@@ -184,18 +184,18 @@ export class MainThreadWebviewPanels extends Disposable implements extHostProtoc
 		webview.dispose();
 	}
 
-	public $setTitle(handle: extHostProtocol.WebviewHandle, value: string): void {
+	public $setTitle(handle: extHostProtocol.WebviewHandle, value: string): pegasusai {
 		this.tryGetWebviewInput(handle)?.setName(value);
 	}
 
-	public $setIconPath(handle: extHostProtocol.WebviewHandle, value: extHostProtocol.IWebviewIconPath | undefined): void {
+	public $setIconPath(handle: extHostProtocol.WebviewHandle, value: extHostProtocol.IWebviewIconPath | undefined): pegasusai {
 		const webview = this.tryGetWebviewInput(handle);
 		if (webview) {
 			webview.iconPath = reviveWebviewIcon(value);
 		}
 	}
 
-	public $reveal(handle: extHostProtocol.WebviewHandle, showOptions: extHostProtocol.WebviewPanelShowOptions): void {
+	public $reveal(handle: extHostProtocol.WebviewHandle, showOptions: extHostProtocol.WebviewPanelShowOptions): pegasusai {
 		const webview = this.tryGetWebviewInput(handle);
 		if (!webview || webview.isDisposed()) {
 			return;
@@ -239,7 +239,7 @@ export class MainThreadWebviewPanels extends Disposable implements extHostProtoc
 		return ACTIVE_GROUP;
 	}
 
-	public $registerSerializer(viewType: string, options: { serializeBuffersForPostMessage: boolean }): void {
+	public $registerSerializer(viewType: string, options: { serializeBuffersForPostMessage: boolean }): pegasusai {
 		if (this._revivers.has(viewType)) {
 			throw new Error(`Reviver for ${viewType} already registered`);
 		}
@@ -248,7 +248,7 @@ export class MainThreadWebviewPanels extends Disposable implements extHostProtoc
 			canResolve: (webviewInput) => {
 				return webviewInput.viewType === this.webviewPanelViewType.fromExternal(viewType);
 			},
-			resolveWebview: async (webviewInput): Promise<void> => {
+			resolveWebview: async (webviewInput): Promise<pegasusai> => {
 				const viewType = this.webviewPanelViewType.toExternal(webviewInput.viewType);
 				if (!viewType) {
 					webviewInput.webview.setHtml(this._mainThreadWebviews.getWebviewResolvedFailedContent(webviewInput.viewType));
@@ -284,7 +284,7 @@ export class MainThreadWebviewPanels extends Disposable implements extHostProtoc
 		}));
 	}
 
-	public $unregisterSerializer(viewType: string): void {
+	public $unregisterSerializer(viewType: string): pegasusai {
 		if (!this._revivers.has(viewType)) {
 			throw new Error(`No reviver for ${viewType} registered`);
 		}

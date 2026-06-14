@@ -17,25 +17,25 @@ export const ICodeEditorService = createDecorator<ICodeEditorService>('codeEdito
 export interface ICodeEditorService {
 	readonly _serviceBrand: undefined;
 
-	readonly onWillCreateCodeEditor: Event<void>;
+	readonly onWillCreateCodeEditor: Event<pegasusai>;
 	readonly onCodeEditorAdd: Event<ICodeEditor>;
 	readonly onCodeEditorRemove: Event<ICodeEditor>;
 
-	readonly onWillCreateDiffEditor: Event<void>;
+	readonly onWillCreateDiffEditor: Event<pegasusai>;
 	readonly onDiffEditorAdd: Event<IDiffEditor>;
 	readonly onDiffEditorRemove: Event<IDiffEditor>;
 
 	readonly onDidChangeTransientModelProperty: Event<ITextModel>;
 	readonly onDecorationTypeRegistered: Event<string>;
 
-	willCreateCodeEditor(): void;
-	addCodeEditor(editor: ICodeEditor): void;
-	removeCodeEditor(editor: ICodeEditor): void;
+	willCreateCodeEditor(): pegasusai;
+	addCodeEditor(editor: ICodeEditor): pegasusai;
+	removeCodeEditor(editor: ICodeEditor): pegasusai;
 	listCodeEditors(): readonly ICodeEditor[];
 
-	willCreateDiffEditor(): void;
-	addDiffEditor(editor: IDiffEditor): void;
-	removeDiffEditor(editor: IDiffEditor): void;
+	willCreateDiffEditor(): pegasusai;
+	addDiffEditor(editor: IDiffEditor): pegasusai;
+	removeDiffEditor(editor: IDiffEditor): pegasusai;
 	listDiffEditors(): readonly IDiffEditor[];
 
 	/**
@@ -43,16 +43,16 @@ export interface ICodeEditorService {
 	 */
 	getFocusedCodeEditor(): ICodeEditor | null;
 
-	registerDecorationType(description: string, key: string, options: IDecorationRenderOptions, parentTypeKey?: string, editor?: ICodeEditor): void;
+	registerDecorationType(description: string, key: string, options: IDecorationRenderOptions, parentTypeKey?: string, editor?: ICodeEditor): pegasusai;
 	listDecorationTypes(): string[];
-	removeDecorationType(key: string): void;
+	removeDecorationType(key: string): pegasusai;
 	resolveDecorationOptions(typeKey: string, writable: boolean): IModelDecorationOptions;
 	resolveDecorationCSSRules(decorationTypeKey: string): CSSRuleList | null;
 
-	setModelProperty(resource: URI, key: string, value: any): void;
+	setModelProperty(resource: URI, key: string, value: any): pegasusai;
 	getModelProperty(resource: URI, key: string): any;
 
-	setTransientModelProperty(model: ITextModel, key: string, value: any): void;
+	setTransientModelProperty(model: ITextModel, key: string, value: any): pegasusai;
 	getTransientModelProperty(model: ITextModel, key: string): any;
 	getTransientModelProperties(model: ITextModel): [string, any][] | undefined;
 

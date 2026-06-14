@@ -56,7 +56,7 @@ export class BrowserUpdateService extends Disposable implements IUpdateService {
 		return !!update;
 	}
 
-	async checkForUpdates(explicit: boolean): Promise<void> {
+	async checkForUpdates(explicit: boolean): Promise<pegasusai> {
 		await this.doCheckForUpdates(explicit);
 	}
 
@@ -82,19 +82,19 @@ export class BrowserUpdateService extends Disposable implements IUpdateService {
 		return undefined; // no update provider to ask
 	}
 
-	async downloadUpdate(): Promise<void> {
+	async downloadUpdate(): Promise<pegasusai> {
 		// no-op
 	}
 
-	async applyUpdate(): Promise<void> {
+	async applyUpdate(): Promise<pegasusai> {
 		this.hostService.reload();
 	}
 
-	async quitAndInstall(): Promise<void> {
+	async quitAndInstall(): Promise<pegasusai> {
 		this.hostService.reload();
 	}
 
-	async _applySpecificUpdate(packagePath: string): Promise<void> {
+	async _applySpecificUpdate(packagePath: string): Promise<pegasusai> {
 		// noop
 	}
 }

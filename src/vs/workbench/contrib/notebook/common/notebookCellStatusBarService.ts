@@ -15,8 +15,8 @@ export const INotebookCellStatusBarService = createDecorator<INotebookCellStatus
 export interface INotebookCellStatusBarService {
 	readonly _serviceBrand: undefined;
 
-	readonly onDidChangeProviders: Event<void>;
-	readonly onDidChangeItems: Event<void>;
+	readonly onDidChangeProviders: Event<pegasusai>;
+	readonly onDidChangeItems: Event<pegasusai>;
 
 	registerCellStatusBarItemProvider(provider: INotebookCellStatusBarItemProvider): IDisposable;
 

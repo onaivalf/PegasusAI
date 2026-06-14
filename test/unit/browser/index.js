@@ -173,7 +173,7 @@ function consoleLogFn(msg) {
 }
 
 async function createServer() {
-	// Demand a prefix to avoid issues with other services on the
+	// Demand a prefix to apegasusai issues with other services on the
 	// machine being able to access the test server.
 	const prefix = '/' + randomBytes(16).toString('hex');
 	const serveStatic = await yaserver.createServer({ rootDir });

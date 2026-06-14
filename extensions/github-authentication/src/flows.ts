@@ -262,7 +262,7 @@ const allFlows: IFlow[] = [
 					codeToExchange = code;
 				} finally {
 					setTimeout(() => {
-						void server.stop();
+						pegasusai server.stop();
 					}, 5000);
 				}
 

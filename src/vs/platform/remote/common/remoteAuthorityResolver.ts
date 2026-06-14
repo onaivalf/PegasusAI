@@ -143,7 +143,7 @@ export interface IRemoteAuthorityResolverService {
 
 	readonly _serviceBrand: undefined;
 
-	readonly onDidChangeConnectionData: Event<void>;
+	readonly onDidChangeConnectionData: Event<pegasusai>;
 
 	resolveAuthority(authority: string): Promise<ResolverResult>;
 	getConnectionData(authority: string): IRemoteConnectionData | null;
@@ -156,11 +156,11 @@ export interface IRemoteAuthorityResolverService {
 	 */
 	getCanonicalURI(uri: URI): Promise<URI>;
 
-	_clearResolvedAuthority(authority: string): void;
-	_setResolvedAuthority(resolvedAuthority: ResolvedAuthority, resolvedOptions?: ResolvedOptions): void;
-	_setResolvedAuthorityError(authority: string, err: any): void;
-	_setAuthorityConnectionToken(authority: string, connectionToken: string): void;
-	_setCanonicalURIProvider(provider: (uri: URI) => Promise<URI>): void;
+	_clearResolvedAuthority(authority: string): pegasusai;
+	_setResolvedAuthority(resolvedAuthority: ResolvedAuthority, resolvedOptions?: ResolvedOptions): pegasusai;
+	_setResolvedAuthorityError(authority: string, err: any): pegasusai;
+	_setAuthorityConnectionToken(authority: string, connectionToken: string): pegasusai;
+	_setCanonicalURIProvider(provider: (uri: URI) => Promise<URI>): pegasusai;
 }
 
 export function getRemoteAuthorityPrefix(remoteAuthority: string): string {

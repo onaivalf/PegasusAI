@@ -18,8 +18,8 @@ export class TerminalProcessExtHostProxy extends Disposable implements ITerminal
 	private readonly _onProcessReady = this._register(new Emitter<IProcessReadyEvent>());
 	get onProcessReady(): Event<IProcessReadyEvent> { return this._onProcessReady.event; }
 
-	private readonly _onStart = this._register(new Emitter<void>());
-	readonly onStart: Event<void> = this._onStart.event;
+	private readonly _onStart = this._register(new Emitter<pegasusai>());
+	readonly onStart: Event<pegasusai> = this._onStart.event;
 	private readonly _onInput = this._register(new Emitter<string>());
 	readonly onInput: Event<string> = this._onInput.event;
 	private readonly _onBinary = this._register(new Emitter<string>());
@@ -30,17 +30,17 @@ export class TerminalProcessExtHostProxy extends Disposable implements ITerminal
 	readonly onAcknowledgeDataEvent: Event<number> = this._onAcknowledgeDataEvent.event;
 	private readonly _onShutdown = this._register(new Emitter<boolean>());
 	readonly onShutdown: Event<boolean> = this._onShutdown.event;
-	private readonly _onRequestInitialCwd = this._register(new Emitter<void>());
-	readonly onRequestInitialCwd: Event<void> = this._onRequestInitialCwd.event;
-	private readonly _onRequestCwd = this._register(new Emitter<void>());
-	readonly onRequestCwd: Event<void> = this._onRequestCwd.event;
+	private readonly _onRequestInitialCwd = this._register(new Emitter<pegasusai>());
+	readonly onRequestInitialCwd: Event<pegasusai> = this._onRequestInitialCwd.event;
+	private readonly _onRequestCwd = this._register(new Emitter<pegasusai>());
+	readonly onRequestCwd: Event<pegasusai> = this._onRequestCwd.event;
 	private readonly _onDidChangeProperty = this._register(new Emitter<IProcessProperty<any>>());
 	readonly onDidChangeProperty = this._onDidChangeProperty.event;
 	private readonly _onProcessExit = this._register(new Emitter<number | undefined>());
 	readonly onProcessExit: Event<number | undefined> = this._onProcessExit.event;
 
-	private _pendingInitialCwdRequests: ((value: string | PromiseLike<string>) => void)[] = [];
-	private _pendingCwdRequests: ((value: string | PromiseLike<string>) => void)[] = [];
+	private _pendingInitialCwdRequests: ((value: string | PromiseLike<string>) => pegasusai)[] = [];
+	private _pendingCwdRequests: ((value: string | PromiseLike<string>) => pegasusai)[] = [];
 
 	constructor(
 		public instanceId: number,
@@ -51,19 +51,19 @@ export class TerminalProcessExtHostProxy extends Disposable implements ITerminal
 		super();
 	}
 
-	emitData(data: string): void {
+	emitData(data: string): pegasusai {
 		this._onProcessData.fire(data);
 	}
 
-	emitTitle(title: string): void {
+	emitTitle(title: string): pegasusai {
 		this._onDidChangeProperty.fire({ type: ProcessPropertyType.Title, value: title });
 	}
 
-	emitReady(pid: number, cwd: string): void {
+	emitReady(pid: number, cwd: string): pegasusai {
 		this._onProcessReady.fire({ pid, cwd, windowsPty: undefined });
 	}
 
-	emitProcessProperty({ type, value }: IProcessProperty<any>): void {
+	emitProcessProperty({ type, value }: IProcessProperty<any>): pegasusai {
 		switch (type) {
 			case ProcessPropertyType.Cwd:
 				this.emitCwd(value);
@@ -83,26 +83,26 @@ export class TerminalProcessExtHostProxy extends Disposable implements ITerminal
 		}
 	}
 
-	emitExit(exitCode: number | undefined): void {
+	emitExit(exitCode: number | undefined): pegasusai {
 		this._onProcessExit.fire(exitCode);
 		this.dispose();
 	}
 
-	emitOverrideDimensions(dimensions: ITerminalDimensions | undefined): void {
+	emitOverrideDimensions(dimensions: ITerminalDimensions | undefined): pegasusai {
 		this._onDidChangeProperty.fire({ type: ProcessPropertyType.OverrideDimensions, value: dimensions });
 	}
 
-	emitResolvedShellLaunchConfig(shellLaunchConfig: IShellLaunchConfig): void {
+	emitResolvedShellLaunchConfig(shellLaunchConfig: IShellLaunchConfig): pegasusai {
 		this._onDidChangeProperty.fire({ type: ProcessPropertyType.ResolvedShellLaunchConfig, value: shellLaunchConfig });
 	}
 
-	emitInitialCwd(initialCwd: string): void {
+	emitInitialCwd(initialCwd: string): pegasusai {
 		while (this._pendingInitialCwdRequests.length > 0) {
 			this._pendingInitialCwdRequests.pop()!(initialCwd);
 		}
 	}
 
-	emitCwd(cwd: string): void {
+	emitCwd(cwd: string): pegasusai {
 		while (this._pendingCwdRequests.length > 0) {
 			this._pendingCwdRequests.pop()!(cwd);
 		}
@@ -112,31 +112,31 @@ export class TerminalProcessExtHostProxy extends Disposable implements ITerminal
 		return this._terminalService.requestStartExtensionTerminal(this, this._cols, this._rows);
 	}
 
-	shutdown(immediate: boolean): void {
+	shutdown(immediate: boolean): pegasusai {
 		this._onShutdown.fire(immediate);
 	}
 
-	input(data: string): void {
+	input(data: string): pegasusai {
 		this._onInput.fire(data);
 	}
 
-	resize(cols: number, rows: number): void {
+	resize(cols: number, rows: number): pegasusai {
 		this._onResize.fire({ cols, rows });
 	}
 
-	clearBuffer(): void | Promise<void> {
+	clearBuffer(): pegasusai | Promise<pegasusai> {
 		// no-op
 	}
 
-	acknowledgeDataEvent(): void {
+	acknowledgeDataEvent(): pegasusai {
 		// Flow control is disabled for extension terminals
 	}
 
-	async setUnicodeVersion(version: '6' | '11'): Promise<void> {
+	async setUnicodeVersion(version: '6' | '11'): Promise<pegasusai> {
 		// No-op
 	}
 
-	async processBinary(data: string): Promise<void> {
+	async processBinary(data: string): Promise<pegasusai> {
 		// Disabled for extension terminals
 		this._onBinary.fire(data);
 	}
@@ -159,7 +159,7 @@ export class TerminalProcessExtHostProxy extends Disposable implements ITerminal
 		// throws if called in extHostTerminalService
 	}
 
-	async updateProperty<T extends ProcessPropertyType>(type: T, value: IProcessPropertyMap[T]): Promise<void> {
+	async updateProperty<T extends ProcessPropertyType>(type: T, value: IProcessPropertyMap[T]): Promise<pegasusai> {
 		// throws if called in extHostTerminalService
 	}
 }

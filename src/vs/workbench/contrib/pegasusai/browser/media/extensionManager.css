@@ -1,0 +1,232 @@
+/*---------------------------------------------------------------------------------------------
+ *  PegasusAI - Extension Manager Styles
+ *  Copyright (c) PegasusAI Project. All rights reserved.
+ *  Licensed under the MIT License.
+ *--------------------------------------------------------------------------------------------*/
+
+.pegasusai-extension-manager {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background-color: var(--vscode-sideBar-background);
+	color: var(--vscode-sideBar-foreground);
+	font-family: var(--vscode-font-family);
+}
+
+.extension-header {
+	padding: 12px 16px;
+	border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+.extension-header h2 {
+	margin: 0 0 12px 0;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.tabs {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.tabs button {
+	background: transparent;
+	border: none;
+	color: var(--vscode-foreground);
+	padding: 6px 12px;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 13px;
+	opacity: 0.7;
+	transition: all 0.2s;
+}
+
+.tabs button:hover {
+	opacity: 1;
+	background-color: var(--vscode-list-hoverBackground);
+}
+
+.tabs button.active {
+	opacity: 1;
+	background-color: var(--vscode-focusBorder);
+	color: var(--vscode-button-foreground);
+	font-weight: 600;
+}
+
+.tabs button:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.search-bar {
+	display: flex;
+	gap: 8px;
+}
+
+.search-bar input {
+	flex: 1;
+	padding: 6px 10px;
+	border: 1px solid var(--vscode-input-border);
+	background-color: var(--vscode-input-background);
+	color: var(--vscode-input-foreground);
+	border-radius: 4px;
+	font-size: 13px;
+}
+
+.search-bar input:focus {
+	outline: 1px solid var(--vscode-focusBorder);
+}
+
+.search-bar button {
+	padding: 6px 16px;
+	background-color: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 13px;
+}
+
+.search-bar button:hover {
+	background-color: var(--vscode-button-hoverBackground);
+}
+
+.extension-content {
+	flex: 1;
+	overflow-y: auto;
+	padding: 8px;
+}
+
+.loading, .error-message {
+	padding: 20px;
+	text-align: center;
+}
+
+.error-message {
+	color: var(--vscode-errorForeground);
+	background-color: var(--vscode-inputValidation-errorBackground);
+	border: 1px solid var(--vscode-inputValidation-errorBorder);
+	border-radius: 4px;
+	margin: 8px;
+}
+
+.extensions-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.extension-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 12px;
+	background-color: var(--vscode-list-item-hoverBackground);
+	border-radius: 6px;
+	border: 1px solid transparent;
+	transition: all 0.2s;
+}
+
+.extension-item:hover {
+	border-color: var(--vscode-list-activeSelectionBackground);
+}
+
+.extension-info {
+	flex: 1;
+	min-width: 0;
+}
+
+.extension-info h4 {
+	margin: 0 0 4px 0;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--vscode-foreground);
+}
+
+.extension-info .description {
+	margin: 0 0 6px 0;
+	font-size: 12px;
+	color: var(--vscode-descriptionForeground);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.extension-info .meta {
+	margin: 0;
+	font-size: 11px;
+	color: var(--vscode-foreground);
+	opacity: 0.7;
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.status {
+	padding: 2px 6px;
+	border-radius: 3px;
+	font-size: 10px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.status.enabled {
+	background-color: rgba(46, 160, 67, 0.2);
+	color: #3fb950;
+}
+
+.status.disabled {
+	background-color: rgba(139, 148, 158, 0.2);
+	color: #8b949e;
+}
+
+.extension-actions {
+	display: flex;
+	gap: 6px;
+	flex-shrink: 0;
+	margin-left: 12px;
+}
+
+.extension-actions button {
+	padding: 6px 12px;
+	background-color: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 500;
+	transition: background-color 0.2s;
+}
+
+.extension-actions button:hover {
+	background-color: var(--vscode-button-hoverBackground);
+}
+
+.extension-actions button.danger {
+	background-color: var(--vscode-inputValidation-errorBackground);
+	color: var(--vscode-errorForeground);
+}
+
+.extension-actions button.danger:hover {
+	background-color: var(--vscode-inputValidation-errorBorder);
+}
+
+/* Scrollbar customizada */
+.extension-content::-webkit-scrollbar {
+	width: 10px;
+}
+
+.extension-content::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.extension-content::-webkit-scrollbar-thumb {
+	background: var(--vscode-scrollbarSlider-background);
+	border-radius: 5px;
+}
+
+.extension-content::-webkit-scrollbar-thumb:hover {
+	background: var(--vscode-scrollbarSlider-hoverBackground);
+}

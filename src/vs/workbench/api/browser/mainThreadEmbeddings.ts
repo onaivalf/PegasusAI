@@ -22,7 +22,7 @@ interface IEmbeddingsService {
 
 	_serviceBrand: undefined;
 
-	readonly onDidChange: Event<void>;
+	readonly onDidChange: Event<pegasusai>;
 
 	allProviders: Iterable<string>;
 
@@ -36,8 +36,8 @@ class EmbeddingsService implements IEmbeddingsService {
 
 	private providers: Map<string, IEmbeddingsProvider>;
 
-	private readonly _onDidChange = new Emitter<void>();
-	readonly onDidChange: Event<void> = this._onDidChange.event;
+	private readonly _onDidChange = new Emitter<pegasusai>();
+	readonly onDidChange: Event<pegasusai> = this._onDidChange.event;
 
 	constructor() {
 		this.providers = new Map<string, IEmbeddingsProvider>();
@@ -89,11 +89,11 @@ export class MainThreadEmbeddings implements MainThreadEmbeddingsShape {
 		})));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._store.dispose();
 	}
 
-	$registerEmbeddingProvider(handle: number, identifier: string): void {
+	$registerEmbeddingProvider(handle: number, identifier: string): pegasusai {
 		const registration = this.embeddingsService.registerProvider(identifier, {
 			provideEmbeddings: (input: string[], token: CancellationToken): Promise<{ values: number[] }[]> => {
 				return this._proxy.$provideEmbeddings(handle, input, token);
@@ -102,7 +102,7 @@ export class MainThreadEmbeddings implements MainThreadEmbeddingsShape {
 		this._providers.set(handle, registration);
 	}
 
-	$unregisterEmbeddingProvider(handle: number): void {
+	$unregisterEmbeddingProvider(handle: number): pegasusai {
 		this._providers.deleteAndDispose(handle);
 	}
 

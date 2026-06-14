@@ -39,15 +39,15 @@ suite('ObjectTree', function () {
 				getTemplateId(): string { return 'default'; }
 			};
 
-			const renderer = new class implements ITreeRenderer<number, void, HTMLElement> {
+			const renderer = new class implements ITreeRenderer<number, pegasusai, HTMLElement> {
 				readonly templateId = 'default';
 				renderTemplate(container: HTMLElement): HTMLElement {
 					return container;
 				}
-				renderElement(element: ITreeNode<number, void>, index: number, templateData: HTMLElement): void {
+				renderElement(element: ITreeNode<number, pegasusai>, index: number, templateData: HTMLElement): pegasusai {
 					templateData.textContent = `${element.element}`;
 				}
-				disposeTemplate(): void { }
+				disposeTemplate(): pegasusai { }
 			};
 
 			tree = new ObjectTree<number>('test', container, delegate, [renderer], { filter: { filter: (el) => filter(el) } });
@@ -195,15 +195,15 @@ suite('ObjectTree', function () {
 		getTemplateId(): string { return 'default'; }
 	}
 
-	class Renderer implements ITreeRenderer<number, void, HTMLElement> {
+	class Renderer implements ITreeRenderer<number, pegasusai, HTMLElement> {
 		readonly templateId = 'default';
 		renderTemplate(container: HTMLElement): HTMLElement {
 			return container;
 		}
-		renderElement(element: ITreeNode<number, void>, index: number, templateData: HTMLElement): void {
+		renderElement(element: ITreeNode<number, pegasusai>, index: number, templateData: HTMLElement): pegasusai {
 			templateData.textContent = `${element.element}`;
 		}
-		disposeTemplate(): void { }
+		disposeTemplate(): pegasusai { }
 	}
 
 	class IdentityProvider implements IIdentityProvider<number> {
@@ -240,18 +240,18 @@ suite('CompressibleObjectTree', function () {
 		getTemplateId(): string { return 'default'; }
 	}
 
-	class Renderer implements ICompressibleTreeRenderer<number, void, HTMLElement> {
+	class Renderer implements ICompressibleTreeRenderer<number, pegasusai, HTMLElement> {
 		readonly templateId = 'default';
 		renderTemplate(container: HTMLElement): HTMLElement {
 			return container;
 		}
-		renderElement(node: ITreeNode<number, void>, _: number, templateData: HTMLElement): void {
+		renderElement(node: ITreeNode<number, pegasusai>, _: number, templateData: HTMLElement): pegasusai {
 			templateData.textContent = `${node.element}`;
 		}
-		renderCompressedElements(node: ITreeNode<ICompressedTreeNode<number>, void>, _: number, templateData: HTMLElement): void {
+		renderCompressedElements(node: ITreeNode<ICompressedTreeNode<number>, pegasusai>, _: number, templateData: HTMLElement): pegasusai {
 			templateData.textContent = `${node.element.elements.join('/')}`;
 		}
-		disposeTemplate(): void { }
+		disposeTemplate(): pegasusai { }
 	}
 
 	const ds = ensureNoDisposablesAreLeakedInTestSuite();

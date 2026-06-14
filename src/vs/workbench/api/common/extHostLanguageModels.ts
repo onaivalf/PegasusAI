@@ -86,7 +86,7 @@ class LanguageModelResponse {
 		}
 	}
 
-	handleFragment(fragment: IChatResponseFragment): void {
+	handleFragment(fragment: IChatResponseFragment): pegasusai {
 		if (this._isDone) {
 			return;
 		}
@@ -111,14 +111,14 @@ class LanguageModelResponse {
 	}
 
 
-	reject(err: Error): void {
+	reject(err: Error): pegasusai {
 		this._isDone = true;
 		for (const stream of this._streams()) {
 			stream.reject(err);
 		}
 	}
 
-	resolve(): void {
+	resolve(): pegasusai {
 		this._isDone = true;
 		for (const stream of this._streams()) {
 			stream.resolve();
@@ -134,7 +134,7 @@ export class ExtHostLanguageModels implements ExtHostLanguageModelsShape {
 
 	private readonly _proxy: MainThreadLanguageModelsShape;
 	private readonly _onDidChangeModelAccess = new Emitter<{ from: ExtensionIdentifier; to: ExtensionIdentifier }>();
-	private readonly _onDidChangeProviders = new Emitter<void>();
+	private readonly _onDidChangeProviders = new Emitter<pegasusai>();
 	readonly onDidChangeProviders = this._onDidChangeProviders.event;
 
 	private readonly _languageModels = new Map<number, LanguageModelData>();
@@ -151,7 +151,7 @@ export class ExtHostLanguageModels implements ExtHostLanguageModelsShape {
 		this._proxy = extHostRpc.getProxy(MainContext.MainThreadLanguageModels);
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._onDidChangeModelAccess.dispose();
 		this._onDidChangeProviders.dispose();
 	}
@@ -194,7 +194,7 @@ export class ExtHostLanguageModels implements ExtHostLanguageModelsShape {
 		});
 	}
 
-	async $startChatRequest(handle: number, requestId: number, from: ExtensionIdentifier, messages: SerializableObjectWithBuffers<IChatMessage[]>, options: vscode.LanguageModelChatRequestOptions, token: CancellationToken): Promise<void> {
+	async $startChatRequest(handle: number, requestId: number, from: ExtensionIdentifier, messages: SerializableObjectWithBuffers<IChatMessage[]>, options: vscode.LanguageModelChatRequestOptions, token: CancellationToken): Promise<pegasusai> {
 		const data = this._languageModels.get(handle);
 		if (!data) {
 			throw new Error('Provider not found');
@@ -267,7 +267,7 @@ export class ExtHostLanguageModels implements ExtHostLanguageModelsShape {
 
 	//#region --- making request
 
-	$acceptChatModelMetadata(data: { added?: { identifier: string; metadata: ILanguageModelChatMetadata }[] | undefined; removed?: string[] | undefined }): void {
+	$acceptChatModelMetadata(data: { added?: { identifier: string; metadata: ILanguageModelChatMetadata }[] | undefined; removed?: string[] | undefined }): pegasusai {
 		if (data.added) {
 			for (const { identifier, metadata } of data.added) {
 				this._allLanguageModelData.set(identifier, { metadata, apiObjects: new ExtensionIdentifierMap() });
@@ -415,14 +415,14 @@ export class ExtHostLanguageModels implements ExtHostLanguageModelsShape {
 		return internalMessages;
 	}
 
-	async $acceptResponsePart(requestId: number, chunk: IChatResponseFragment): Promise<void> {
+	async $acceptResponsePart(requestId: number, chunk: IChatResponseFragment): Promise<pegasusai> {
 		const data = this._pendingRequest.get(requestId);
 		if (data) {
 			data.res.handleFragment(chunk);
 		}
 	}
 
-	async $acceptResponseDone(requestId: number, error: SerializedError | undefined): Promise<void> {
+	async $acceptResponseDone(requestId: number, error: SerializedError | undefined): Promise<pegasusai> {
 		const data = this._pendingRequest.get(requestId);
 		if (!data) {
 			return;
@@ -473,7 +473,7 @@ export class ExtHostLanguageModels implements ExtHostLanguageModelsShape {
 			&& !ExtensionIdentifier.equals(toMetadata.extension, from);
 	}
 
-	private async _fakeAuthPopulate(metadata: ILanguageModelChatMetadata): Promise<void> {
+	private async _fakeAuthPopulate(metadata: ILanguageModelChatMetadata): Promise<pegasusai> {
 
 		if (!metadata.auth) {
 			return;
@@ -505,7 +505,7 @@ export class ExtHostLanguageModels implements ExtHostLanguageModelsShape {
 		return this._proxy.$countTokens(languageModelId, (typeof value === 'string' ? value : typeConvert.LanguageModelChatMessage2.from(value)), token);
 	}
 
-	$updateModelAccesslist(data: { from: ExtensionIdentifier; to: ExtensionIdentifier; enabled: boolean }[]): void {
+	$updateModelAccesslist(data: { from: ExtensionIdentifier; to: ExtensionIdentifier; enabled: boolean }[]): pegasusai {
 		const updated = new Array<{ from: ExtensionIdentifier; to: ExtensionIdentifier }>();
 		for (const { from, to, enabled } of data) {
 			const set = this._modelAccessList.get(from) ?? new ExtensionIdentifierSet();

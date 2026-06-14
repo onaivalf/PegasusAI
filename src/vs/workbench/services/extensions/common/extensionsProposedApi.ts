@@ -55,13 +55,13 @@ export class ExtensionsProposedApi {
 		}
 	}
 
-	updateEnabledApiProposals(extensions: IExtensionDescription[]): void {
+	updateEnabledApiProposals(extensions: IExtensionDescription[]): pegasusai {
 		for (const extension of extensions) {
 			this.doUpdateEnabledApiProposals(extension);
 		}
 	}
 
-	private doUpdateEnabledApiProposals(extension: Mutable<IExtensionDescription>): void {
+	private doUpdateEnabledApiProposals(extension: Mutable<IExtensionDescription>): pegasusai {
 
 		const key = ExtensionIdentifier.toKey(extension.identifier);
 

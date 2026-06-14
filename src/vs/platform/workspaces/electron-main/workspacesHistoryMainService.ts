@@ -32,12 +32,12 @@ export interface IWorkspacesHistoryMainService {
 
 	readonly _serviceBrand: undefined;
 
-	readonly onDidChangeRecentlyOpened: CommonEvent<void>;
+	readonly onDidChangeRecentlyOpened: CommonEvent<pegasusai>;
 
-	addRecentlyOpened(recents: IRecent[]): Promise<void>;
+	addRecentlyOpened(recents: IRecent[]): Promise<pegasusai>;
 	getRecentlyOpened(): Promise<IRecentlyOpened>;
-	removeRecentlyOpened(paths: URI[]): Promise<void>;
-	clearRecentlyOpened(options?: { confirm?: boolean }): Promise<void>;
+	removeRecentlyOpened(paths: URI[]): Promise<pegasusai>;
+	clearRecentlyOpened(options?: { confirm?: boolean }): Promise<pegasusai>;
 }
 
 export class WorkspacesHistoryMainService extends Disposable implements IWorkspacesHistoryMainService {
@@ -48,7 +48,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 
 	declare readonly _serviceBrand: undefined;
 
-	private readonly _onDidChangeRecentlyOpened = this._register(new Emitter<void>());
+	private readonly _onDidChangeRecentlyOpened = this._register(new Emitter<pegasusai>());
 	readonly onDidChangeRecentlyOpened = this._onDidChangeRecentlyOpened.event;
 
 	constructor(
@@ -63,7 +63,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		this.registerListeners();
 	}
 
-	private registerListeners(): void {
+	private registerListeners(): pegasusai {
 
 		// Install window jump list delayed after opening window
 		// because perf measurements have shown this to be slow
@@ -75,7 +75,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 
 	//#region Workspaces History
 
-	async addRecentlyOpened(recentToAdd: IRecent[]): Promise<void> {
+	async addRecentlyOpened(recentToAdd: IRecent[]): Promise<pegasusai> {
 		let workspaces: Array<IRecentFolder | IRecentWorkspace> = [];
 		let files: IRecentFile[] = [];
 
@@ -132,7 +132,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		}
 	}
 
-	async removeRecentlyOpened(recentToRemove: URI[]): Promise<void> {
+	async removeRecentlyOpened(recentToRemove: URI[]): Promise<pegasusai> {
 		const keep = (recent: IRecent) => {
 			const uri = this.location(recent);
 			for (const resourceToRemove of recentToRemove) {
@@ -159,7 +159,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		}
 	}
 
-	async clearRecentlyOpened(options?: { confirm?: boolean }): Promise<void> {
+	async clearRecentlyOpened(options?: { confirm?: boolean }): Promise<pegasusai> {
 		if (options?.confirm) {
 			const { response } = await this.dialogMainService.showMessageBox({
 				type: 'warning',
@@ -254,7 +254,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		return restoreRecentlyOpened(storedRecentlyOpened, this.logService);
 	}
 
-	private async saveRecentlyOpened(recent: IRecentlyOpened): Promise<void> {
+	private async saveRecentlyOpened(recent: IRecentlyOpened): Promise<pegasusai> {
 
 		// Wait for global storage to be ready
 		await this.applicationStorageMainService.whenReady;
@@ -304,9 +304,9 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		'git-rebase-todo'
 	];
 
-	private readonly macOSRecentDocumentsUpdater = this._register(new ThrottledDelayer<void>(800));
+	private readonly macOSRecentDocumentsUpdater = this._register(new ThrottledDelayer<pegasusai>(800));
 
-	private async handleWindowsJumpList(): Promise<void> {
+	private async handleWindowsJumpList(): Promise<pegasusai> {
 		if (!isWindows) {
 			return; // only on windows
 		}
@@ -315,7 +315,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		this._register(this.onDidChangeRecentlyOpened(() => this.updateWindowsJumpList()));
 	}
 
-	private async updateWindowsJumpList(): Promise<void> {
+	private async updateWindowsJumpList(): Promise<pegasusai> {
 		if (!isWindows) {
 			return; // only on windows
 		}
@@ -436,7 +436,7 @@ export class WorkspacesHistoryMainService extends Disposable implements IWorkspa
 		return uri.scheme === 'file' ? normalizeDriveLetter(uri.fsPath) : uri.toString();
 	}
 
-	private async updateMacOSRecentDocuments(): Promise<void> {
+	private async updateMacOSRecentDocuments(): Promise<pegasusai> {
 		if (!isMacintosh) {
 			return;
 		}

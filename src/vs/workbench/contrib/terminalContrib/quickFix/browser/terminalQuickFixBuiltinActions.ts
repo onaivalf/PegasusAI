@@ -112,7 +112,7 @@ export function gitTwoDashes(): ITerminalQuickFixInternalOptions {
 		}
 	};
 }
-export function freePort(runCallback: (port: string, commandLine: string) => Promise<void>): ITerminalQuickFixInternalOptions {
+export function freePort(runCallback: (port: string, commandLine: string) => Promise<pegasusai>): ITerminalQuickFixInternalOptions {
 	return {
 		id: 'Free Port',
 		type: 'internal',

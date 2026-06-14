@@ -72,7 +72,7 @@ suite('Snippets', function () {
 
 	test('Snippet#needsClipboard', function () {
 
-		function assertNeedsClipboard(body: string, expected: boolean): void {
+		function assertNeedsClipboard(body: string, expected: boolean): pegasusai {
 			const snippet = new Snippet(false, ['foo'], 'FooSnippet1', 'foo', '', body, 'test', SnippetSource.User, generateUuid());
 			assert.strictEqual(snippet.needsClipboard, expected);
 
@@ -89,7 +89,7 @@ suite('Snippets', function () {
 
 	test('Snippet#isTrivial', function () {
 
-		function assertIsTrivial(body: string, expected: boolean): void {
+		function assertIsTrivial(body: string, expected: boolean): pegasusai {
 			const snippet = new Snippet(false, ['foo'], 'FooSnippet1', 'foo', '', body, 'test', SnippetSource.User, generateUuid());
 			assert.strictEqual(snippet.isTrivial, expected);
 		}

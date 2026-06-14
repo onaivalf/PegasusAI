@@ -360,7 +360,7 @@ export class ThemeConfiguration {
 		return ConfigurationTarget.USER;
 	}
 
-	private async writeConfiguration(key: string, value: any, settingsTarget: ThemeSettingTarget): Promise<void> {
+	private async writeConfiguration(key: string, value: any, settingsTarget: ThemeSettingTarget): Promise<pegasusai> {
 		if (settingsTarget === undefined || settingsTarget === 'preview') {
 			return;
 		}

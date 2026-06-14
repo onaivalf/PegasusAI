@@ -151,7 +151,7 @@ export class ViewQuickAccessProvider extends PickerQuickAccessProvider<IViewQuic
 		// Viewlets / Panels
 		addPaneComposites(ViewContainerLocation.Sidebar, localize('views', "Side Bar"));
 		addPaneComposites(ViewContainerLocation.Panel, localize('panels', "Panel"));
-		addPaneComposites(ViewContainerLocation.AuxiliaryBar, localize('Void side bar', "Void Side Bar"));
+		addPaneComposites(ViewContainerLocation.AuxiliaryBar, localize('PegasusAI side bar', "PegasusAI Side Bar"));
 
 		const addPaneCompositeViews = (location: ViewContainerLocation) => {
 			const paneComposites = this.paneCompositeService.getPaneComposites(location);
@@ -239,7 +239,7 @@ export class OpenViewPickerAction extends Action2 {
 		});
 	}
 
-	async run(accessor: ServicesAccessor): Promise<void> {
+	async run(accessor: ServicesAccessor): Promise<pegasusai> {
 		accessor.get(IQuickInputService).quickAccess.show(ViewQuickAccessProvider.PREFIX);
 	}
 }
@@ -267,7 +267,7 @@ export class QuickAccessViewPickerAction extends Action2 {
 		});
 	}
 
-	async run(accessor: ServicesAccessor): Promise<void> {
+	async run(accessor: ServicesAccessor): Promise<pegasusai> {
 		const keybindingService = accessor.get(IKeybindingService);
 		const quickInputService = accessor.get(IQuickInputService);
 

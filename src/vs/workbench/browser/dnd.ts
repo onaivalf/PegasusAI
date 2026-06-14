@@ -97,7 +97,7 @@ export class ResourcesDropHandler {
 	) {
 	}
 
-	async handleDrop(event: DragEvent, targetWindow: Window, resolveTargetGroup?: () => IEditorGroup | undefined, afterDrop?: (targetGroup: IEditorGroup | undefined) => void, options?: IEditorOptions): Promise<void> {
+	async handleDrop(event: DragEvent, targetWindow: Window, resolveTargetGroup?: () => IEditorGroup | undefined, afterDrop?: (targetGroup: IEditorGroup | undefined) => pegasusai, options?: IEditorOptions): Promise<pegasusai> {
 		const editors = await this.instantiationService.invokeFunction(accessor => extractEditorsAndFilesDropData(accessor, event));
 		if (!editors.length) {
 			return;
@@ -188,10 +188,10 @@ export class ResourcesDropHandler {
 	}
 }
 
-export function fillEditorsDragData(accessor: ServicesAccessor, resources: URI[], event: DragMouseEvent | DragEvent, options?: { disableStandardTransfer: boolean }): void;
-export function fillEditorsDragData(accessor: ServicesAccessor, resources: IResourceStat[], event: DragMouseEvent | DragEvent, options?: { disableStandardTransfer: boolean }): void;
-export function fillEditorsDragData(accessor: ServicesAccessor, editors: IEditorIdentifier[], event: DragMouseEvent | DragEvent, options?: { disableStandardTransfer: boolean }): void;
-export function fillEditorsDragData(accessor: ServicesAccessor, resourcesOrEditors: Array<URI | IResourceStat | IEditorIdentifier>, event: DragMouseEvent | DragEvent, options?: { disableStandardTransfer: boolean }): void {
+export function fillEditorsDragData(accessor: ServicesAccessor, resources: URI[], event: DragMouseEvent | DragEvent, options?: { disableStandardTransfer: boolean }): pegasusai;
+export function fillEditorsDragData(accessor: ServicesAccessor, resources: IResourceStat[], event: DragMouseEvent | DragEvent, options?: { disableStandardTransfer: boolean }): pegasusai;
+export function fillEditorsDragData(accessor: ServicesAccessor, editors: IEditorIdentifier[], event: DragMouseEvent | DragEvent, options?: { disableStandardTransfer: boolean }): pegasusai;
+export function fillEditorsDragData(accessor: ServicesAccessor, resourcesOrEditors: Array<URI | IResourceStat | IEditorIdentifier>, event: DragMouseEvent | DragEvent, options?: { disableStandardTransfer: boolean }): pegasusai {
 	if (resourcesOrEditors.length === 0 || !event.dataTransfer) {
 		return;
 	}
@@ -374,25 +374,25 @@ export type Before2D = {
 };
 
 export interface ICompositeDragAndDrop {
-	drop(data: IDragAndDropData, target: string | undefined, originalEvent: DragEvent, before?: Before2D): void;
+	drop(data: IDragAndDropData, target: string | undefined, originalEvent: DragEvent, before?: Before2D): pegasusai;
 	onDragOver(data: IDragAndDropData, target: string | undefined, originalEvent: DragEvent): boolean;
 	onDragEnter(data: IDragAndDropData, target: string | undefined, originalEvent: DragEvent): boolean;
 }
 
 export interface ICompositeDragAndDropObserverCallbacks {
-	onDragEnter?: (e: IDraggedCompositeData) => void;
-	onDragLeave?: (e: IDraggedCompositeData) => void;
-	onDrop?: (e: IDraggedCompositeData) => void;
-	onDragOver?: (e: IDraggedCompositeData) => void;
-	onDragStart?: (e: IDraggedCompositeData) => void;
-	onDragEnd?: (e: IDraggedCompositeData) => void;
+	onDragEnter?: (e: IDraggedCompositeData) => pegasusai;
+	onDragLeave?: (e: IDraggedCompositeData) => pegasusai;
+	onDrop?: (e: IDraggedCompositeData) => pegasusai;
+	onDragOver?: (e: IDraggedCompositeData) => pegasusai;
+	onDragStart?: (e: IDraggedCompositeData) => pegasusai;
+	onDragEnd?: (e: IDraggedCompositeData) => pegasusai;
 }
 
 export class CompositeDragAndDropData implements IDragAndDropData {
 
 	constructor(private type: 'view' | 'composite', private id: string) { }
 
-	update(dataTransfer: DataTransfer): void {
+	update(dataTransfer: DataTransfer): pegasusai {
 		// no-op
 	}
 
@@ -471,7 +471,7 @@ export class CompositeDragAndDropObserver extends Disposable {
 		return undefined;
 	}
 
-	private writeDragData(id: string, type: ViewType): void {
+	private writeDragData(id: string, type: ViewType): pegasusai {
 		this.transferData.setData([type === 'view' ? new DraggedViewIdentifier(id) : new DraggedCompositeIdentifier(id)], type === 'view' ? DraggedViewIdentifier.prototype : DraggedCompositeIdentifier.prototype);
 	}
 
@@ -644,7 +644,7 @@ export class ResourceListDnDHandler<T> implements IListDragAndDrop<T> {
 		return resources.length === 1 ? basename(resources[0]) : resources.length > 1 ? String(resources.length) : undefined;
 	}
 
-	onDragStart(data: IDragAndDropData, originalEvent: DragEvent): void {
+	onDragStart(data: IDragAndDropData, originalEvent: DragEvent): pegasusai {
 		const resources: URI[] = [];
 		const elements = (data as ElementsDragAndDropData<T>).elements;
 		for (const element of elements) {
@@ -660,7 +660,7 @@ export class ResourceListDnDHandler<T> implements IListDragAndDrop<T> {
 		}
 	}
 
-	protected onWillDragElements(elements: readonly T[], originalEvent: DragEvent): void {
+	protected onWillDragElements(elements: readonly T[], originalEvent: DragEvent): pegasusai {
 		// noop
 	}
 
@@ -668,9 +668,9 @@ export class ResourceListDnDHandler<T> implements IListDragAndDrop<T> {
 		return false;
 	}
 
-	drop(data: IDragAndDropData, targetElement: T, targetIndex: number, targetSector: ListViewTargetSector | undefined, originalEvent: DragEvent): void { }
+	drop(data: IDragAndDropData, targetElement: T, targetIndex: number, targetSector: ListViewTargetSector | undefined, originalEvent: DragEvent): pegasusai { }
 
-	dispose(): void { }
+	dispose(): pegasusai { }
 }
 
 //#endregion
@@ -687,7 +687,7 @@ class GlobalWindowDraggedOverTracker extends Disposable {
 		this.registerListeners();
 	}
 
-	private registerListeners(): void {
+	private registerListeners(): pegasusai {
 		this._register(Event.runAndSubscribe(onDidRegisterWindow, ({ window, disposables }) => {
 			disposables.add(addDisposableListener(window, EventType.DRAG_OVER, () => this.markDraggedOver(false), true));
 			disposables.add(addDisposableListener(window, EventType.DRAG_LEAVE, () => this.clearDraggedOver(false), true));
@@ -705,7 +705,7 @@ class GlobalWindowDraggedOverTracker extends Disposable {
 	private draggedOver = false;
 	get isDraggedOver(): boolean { return this.draggedOver; }
 
-	private markDraggedOver(fromBroadcast: boolean): void {
+	private markDraggedOver(fromBroadcast: boolean): pegasusai {
 		if (this.draggedOver === true) {
 			return; // alrady marked
 		}
@@ -717,7 +717,7 @@ class GlobalWindowDraggedOverTracker extends Disposable {
 		}
 	}
 
-	private clearDraggedOver(fromBroadcast: boolean): void {
+	private clearDraggedOver(fromBroadcast: boolean): pegasusai {
 		if (this.draggedOver === false) {
 			return; // alrady cleared
 		}

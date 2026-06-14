@@ -122,12 +122,12 @@ export class TreeViewPane extends ViewPane {
 		this.updateTreeVisibility();
 	}
 
-	override focus(): void {
+	override focus(): pegasusai {
 		super.focus();
 		this.treeView.focus();
 	}
 
-	protected override renderBody(container: HTMLElement): void {
+	protected override renderBody(container: HTMLElement): pegasusai {
 		this._container = container;
 		super.renderBody(container);
 		this.renderTreeView(container);
@@ -137,7 +137,7 @@ export class TreeViewPane extends ViewPane {
 		return ((this.treeView.dataProvider === undefined) || !!this.treeView.dataProvider.isTreeEmpty) && ((this.treeView.message === undefined) || (this.treeView.message === ''));
 	}
 
-	protected override layoutBody(height: number, width: number): void {
+	protected override layoutBody(height: number, width: number): pegasusai {
 		super.layoutBody(height, width);
 		this.layoutTreeView(height, width);
 	}
@@ -146,15 +146,15 @@ export class TreeViewPane extends ViewPane {
 		return this.treeView.getOptimalWidth();
 	}
 
-	protected renderTreeView(container: HTMLElement): void {
+	protected renderTreeView(container: HTMLElement): pegasusai {
 		this.treeView.show(container);
 	}
 
-	protected layoutTreeView(height: number, width: number): void {
+	protected layoutTreeView(height: number, width: number): pegasusai {
 		this.treeView.layout(height, width);
 	}
 
-	private updateTreeVisibility(): void {
+	private updateTreeVisibility(): pegasusai {
 		this.treeView.setVisibility(this.isBodyVisible());
 	}
 
@@ -250,11 +250,11 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 	private readonly _onDidChangeVisibility: Emitter<boolean> = this._register(new Emitter<boolean>());
 	readonly onDidChangeVisibility: Event<boolean> = this._onDidChangeVisibility.event;
 
-	private readonly _onDidChangeActions: Emitter<void> = this._register(new Emitter<void>());
-	readonly onDidChangeActions: Event<void> = this._onDidChangeActions.event;
+	private readonly _onDidChangeActions: Emitter<pegasusai> = this._register(new Emitter<pegasusai>());
+	readonly onDidChangeActions: Event<pegasusai> = this._onDidChangeActions.event;
 
-	private readonly _onDidChangeWelcomeState: Emitter<void> = this._register(new Emitter<void>());
-	readonly onDidChangeWelcomeState: Event<void> = this._onDidChangeWelcomeState.event;
+	private readonly _onDidChangeWelcomeState: Emitter<pegasusai> = this._register(new Emitter<pegasusai>());
+	readonly onDidChangeWelcomeState: Event<pegasusai> = this._onDidChangeWelcomeState.event;
 
 	private readonly _onDidChangeTitle: Emitter<string> = this._register(new Emitter<string>());
 	readonly onDidChangeTitle: Event<string> = this._onDidChangeTitle.event;
@@ -265,7 +265,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 	private readonly _onDidChangeCheckboxState: Emitter<readonly ITreeItem[]> = this._register(new Emitter<readonly ITreeItem[]>());
 	readonly onDidChangeCheckboxState: Event<readonly ITreeItem[]> = this._onDidChangeCheckboxState.event;
 
-	private readonly _onDidCompleteRefresh: Emitter<void> = this._register(new Emitter<void>());
+	private readonly _onDidCompleteRefresh: Emitter<pegasusai> = this._register(new Emitter<pegasusai>());
 
 	constructor(
 		readonly id: string,
@@ -359,8 +359,8 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 			const self = this;
 			this._dataProvider = new class implements ITreeViewDataProvider {
 				private _isEmpty: boolean = true;
-				private _onDidChangeEmpty: Emitter<void> = new Emitter();
-				public onDidChangeEmpty: Event<void> = this._onDidChangeEmpty.event;
+				private _onDidChangeEmpty: Emitter<pegasusai> = new Emitter();
+				public onDidChangeEmpty: Event<pegasusai> = this._onDidChangeEmpty.event;
 
 				get isTreeEmpty(): boolean {
 					return this._isEmpty;
@@ -371,7 +371,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 					return batches?.[0];
 				}
 
-				private updateEmptyState(nodes: ITreeItem[], childrenGroups: ITreeItem[][]): void {
+				private updateEmptyState(nodes: ITreeItem[], childrenGroups: ITreeItem[][]): pegasusai {
 					if ((nodes.length === 1) && (nodes[0] instanceof Root)) {
 						const oldEmpty = this._isEmpty;
 						this._isEmpty = (childrenGroups.length === 0) || (childrenGroups[0].length === 0);
@@ -583,7 +583,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 					icon: Codicon.refresh
 				});
 			}
-			async run(): Promise<void> {
+			async run(): Promise<pegasusai> {
 				return that.refresh();
 			}
 		}));
@@ -602,7 +602,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 					icon: Codicon.collapseAll
 				});
 			}
-			async run(): Promise<void> {
+			async run(): Promise<pegasusai> {
 				if (that.tree) {
 					return new CollapseAllAction<ITreeItem, ITreeItem, FuzzyScore>(that.tree, true).run();
 				}
@@ -610,7 +610,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		}));
 	}
 
-	setVisibility(isVisible: boolean): void {
+	setVisibility(isVisible: boolean): pegasusai {
 		// Throughout setVisibility we need to check if the tree view's data provider still exists.
 		// This can happen because the `getChildren` call to the extension can return
 		// after the tree has been disposed.
@@ -648,9 +648,9 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 	}
 
 	protected activated: boolean = false;
-	protected abstract activate(): void;
+	protected abstract activate(): pegasusai;
 
-	focus(reveal: boolean = true, revealItem?: ITreeItem): void {
+	focus(reveal: boolean = true, revealItem?: ITreeItem): pegasusai {
 		if (this.tree && this.root.children && this.root.children.length > 0) {
 			// Make sure the current selected element is revealed
 			const element = revealItem ?? this.tree.getSelection()[0];
@@ -667,7 +667,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		}
 	}
 
-	show(container: HTMLElement): void {
+	show(container: HTMLElement): pegasusai {
 		this._container = container;
 		DOM.append(container, this.domNode);
 	}
@@ -830,7 +830,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		return command;
 	}
 
-	private onContextMenu(treeMenus: TreeMenus, treeEvent: ITreeContextMenuEvent<ITreeItem>, actionRunner: MultipleSelectionActionRunner): void {
+	private onContextMenu(treeMenus: TreeMenus, treeEvent: ITreeContextMenuEvent<ITreeItem>, actionRunner: MultipleSelectionActionRunner): pegasusai {
 		this.hoverService.hideHover();
 		const node: ITreeItem | null = treeEvent.element;
 		if (node === null) {
@@ -876,7 +876,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		});
 	}
 
-	protected updateMessage(): void {
+	protected updateMessage(): pegasusai {
 		if (this._message) {
 			this.showMessage(this._message);
 		} else if (!this.dataProvider) {
@@ -940,7 +940,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		return container;
 	}
 
-	private showMessage(message: string | IMarkdownString): void {
+	private showMessage(message: string | IMarkdownString): pegasusai {
 		if (isRenderedMessageValue(this._messageValue)) {
 			this._messageValue.disposables.dispose();
 		}
@@ -967,13 +967,13 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		this.layout(this._height, this._width);
 	}
 
-	private hideMessage(): void {
+	private hideMessage(): pegasusai {
 		this.resetMessageElement();
 		this.messageElement?.classList.add('hide');
 		this.layout(this._height, this._width);
 	}
 
-	private resetMessageElement(): void {
+	private resetMessageElement(): pegasusai {
 		if (this.messageElement) {
 			DOM.clearNode(this.messageElement);
 		}
@@ -1004,7 +1004,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		return setCascadingCheckboxUpdates(elements);
 	}
 
-	async refresh(elements?: readonly ITreeItem[], checkboxes?: readonly ITreeItem[]): Promise<void> {
+	async refresh(elements?: readonly ITreeItem[], checkboxes?: readonly ITreeItem[]): Promise<pegasusai> {
 		if (this.dataProvider && this.tree) {
 			if (this.refreshing) {
 				await Event.toPromise(this._onDidCompleteRefresh.event);
@@ -1037,7 +1037,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		return undefined;
 	}
 
-	async expand(itemOrItems: ITreeItem | ITreeItem[]): Promise<void> {
+	async expand(itemOrItems: ITreeItem | ITreeItem[]): Promise<pegasusai> {
 		const tree = this.tree;
 		if (!tree) {
 			return;
@@ -1057,7 +1057,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		return !!this.tree?.isCollapsed(item);
 	}
 
-	setSelection(items: ITreeItem[]): void {
+	setSelection(items: ITreeItem[]): pegasusai {
 		this.tree?.setSelection(items);
 	}
 
@@ -1065,7 +1065,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		return this.tree?.getSelection() ?? [];
 	}
 
-	setFocus(item?: ITreeItem): void {
+	setFocus(item?: ITreeItem): pegasusai {
 		if (this.tree) {
 			if (item) {
 				this.focus(true, item);
@@ -1076,14 +1076,14 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		}
 	}
 
-	async reveal(item: ITreeItem): Promise<void> {
+	async reveal(item: ITreeItem): Promise<pegasusai> {
 		if (this.tree) {
 			return this.tree.reveal(item);
 		}
 	}
 
 	private refreshing: boolean = false;
-	private async doRefresh(elements: readonly ITreeItem[]): Promise<void> {
+	private async doRefresh(elements: readonly ITreeItem[]): Promise<pegasusai> {
 		const tree = this.tree;
 		if (tree && this.visible) {
 			this.refreshing = true;
@@ -1126,7 +1126,7 @@ abstract class AbstractTreeView extends Disposable implements ITreeView {
 		}
 	}
 
-	private updateContentAreas(): void {
+	private updateContentAreas(): pegasusai {
 		const isTreeEmpty = !this.root.children || this.root.children.length === 0;
 		// Hide tree container only when there is a message and tree is empty and not refreshing
 		if (this._messageValue && isTreeEmpty && !this.refreshing && this.treeContainer) {
@@ -1321,7 +1321,7 @@ class TreeRenderer extends Disposable implements ITreeRenderer<ITreeItem, FuzzyS
 		};
 	}
 
-	renderElement(element: ITreeNode<ITreeItem, FuzzyScore>, index: number, templateData: ITreeExplorerTemplateData): void {
+	renderElement(element: ITreeNode<ITreeItem, FuzzyScore>, index: number, templateData: ITreeExplorerTemplateData): pegasusai {
 		const node = element.element;
 		const resource = node.resourceUri ? URI.revive(node.resourceUri) : null;
 		const treeItemLabel: ITreeItemLabel | undefined = node.label ? node.label : (resource ? { label: basename(resource) } : undefined);
@@ -1530,7 +1530,7 @@ class TreeRenderer extends Disposable implements ITreeRenderer<ITreeItem, FuzzyS
 		this._onDidChangeCheckboxState.fire(allItems);
 	}
 
-	disposeElement(resource: ITreeNode<ITreeItem, FuzzyScore>, index: number, templateData: ITreeExplorerTemplateData): void {
+	disposeElement(resource: ITreeNode<ITreeItem, FuzzyScore>, index: number, templateData: ITreeExplorerTemplateData): pegasusai {
 		const itemRenders = this._renderedElements.get(resource.element.handle) ?? [];
 		const renderedIndex = itemRenders.findIndex(renderedItem => templateData === renderedItem.rendered);
 
@@ -1544,7 +1544,7 @@ class TreeRenderer extends Disposable implements ITreeRenderer<ITreeItem, FuzzyS
 		templateData.checkbox = undefined;
 	}
 
-	disposeTemplate(templateData: ITreeExplorerTemplateData): void {
+	disposeTemplate(templateData: ITreeExplorerTemplateData): pegasusai {
 		templateData.resourceLabel.dispose();
 		templateData.actionBar.dispose();
 	}
@@ -1608,7 +1608,7 @@ class MultipleSelectionActionRunner extends ActionRunner {
 		}));
 	}
 
-	protected override async runAction(action: IAction, context: TreeViewItemHandleArg | TreeViewPaneHandleArg): Promise<void> {
+	protected override async runAction(action: IAction, context: TreeViewItemHandleArg | TreeViewPaneHandleArg): Promise<pegasusai> {
 		const selection = this.getSelectedResources();
 		let selectionHandleArgs: TreeViewItemHandleArg[] | undefined = undefined;
 		let actionInSelected: boolean = false;
@@ -1881,7 +1881,7 @@ export class CustomTreeViewDragAndDrop implements ITreeDragAndDrop<ITreeItem> {
 		}
 	}
 
-	onDragStart(data: IDragAndDropData, originalEvent: DragEvent): void {
+	onDragStart(data: IDragAndDropData, originalEvent: DragEvent): pegasusai {
 		if (originalEvent.dataTransfer) {
 			const treeItemsData = (data as ElementsDragAndDropData<ITreeItem, ITreeItem[]>).getData();
 			const resources: URI[] = [];
@@ -1962,7 +1962,7 @@ export class CustomTreeViewDragAndDrop implements ITreeDragAndDrop<ITreeItem> {
 		return element.label ? element.label.label : (element.resourceUri ? this.labelService.getUriLabel(URI.revive(element.resourceUri)) : undefined);
 	}
 
-	async drop(data: IDragAndDropData, targetNode: ITreeItem | undefined, targetIndex: number | undefined, targetSector: ListViewTargetSector | undefined, originalEvent: DragEvent): Promise<void> {
+	async drop(data: IDragAndDropData, targetNode: ITreeItem | undefined, targetIndex: number | undefined, targetSector: ListViewTargetSector | undefined, originalEvent: DragEvent): Promise<pegasusai> {
 		const dndController = this.dndController;
 		if (!originalEvent.dataTransfer || !dndController) {
 			return;
@@ -1999,14 +1999,14 @@ export class CustomTreeViewDragAndDrop implements ITreeDragAndDrop<ITreeItem> {
 		return dndController.handleDrop(outDataTransfer, targetNode, CancellationToken.None, willDropUuid, treeSourceInfo?.id, treeSourceInfo?.itemHandles);
 	}
 
-	onDragEnd(originalEvent: DragEvent): void {
+	onDragEnd(originalEvent: DragEvent): pegasusai {
 		// Check if the drag was cancelled.
 		if (originalEvent.dataTransfer?.dropEffect === 'none') {
 			this.dragCancellationToken?.cancel();
 		}
 	}
 
-	dispose(): void { }
+	dispose(): pegasusai { }
 }
 
 function setCascadingCheckboxUpdates(items: readonly ITreeItem[]) {

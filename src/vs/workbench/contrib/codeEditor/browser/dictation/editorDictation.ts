@@ -57,7 +57,7 @@ export class EditorDictationStartAction extends EditorAction2 {
 		});
 	}
 
-	override runEditorCommand(accessor: ServicesAccessor, editor: ICodeEditor): void {
+	override runEditorCommand(accessor: ServicesAccessor, editor: ICodeEditor): pegasusai {
 		const keybindingService = accessor.get(IKeybindingService);
 
 		const holdMode = keybindingService.enableKeybindingHoldMode(this.desc.id);
@@ -99,7 +99,7 @@ export class EditorDictationStopAction extends EditorAction2 {
 		});
 	}
 
-	override runEditorCommand(_accessor: ServicesAccessor, editor: ICodeEditor): void {
+	override runEditorCommand(_accessor: ServicesAccessor, editor: ICodeEditor): pegasusai {
 		EditorDictation.get(editor)?.stop();
 	}
 }
@@ -165,11 +165,11 @@ export class DictationWidget extends Disposable implements IContentWidget {
 		this.editor.addContentWidget(this);
 	}
 
-	layout(): void {
+	layout(): pegasusai {
 		this.editor.layoutContentWidget(this);
 	}
 
-	active(): void {
+	active(): pegasusai {
 		this.domNode.classList.add('recording');
 	}
 
@@ -204,7 +204,7 @@ export class EditorDictation extends Disposable implements IEditorContribution {
 		this.editorDictationInProgress = EDITOR_DICTATION_IN_PROGRESS.bindTo(contextKeyService);
 	}
 
-	async start(): Promise<void> {
+	async start(): Promise<pegasusai> {
 		const disposables = new DisposableStore();
 		this.sessionDisposables.value = disposables;
 
@@ -293,7 +293,7 @@ export class EditorDictation extends Disposable implements IEditorContribution {
 		}));
 	}
 
-	stop(): void {
+	stop(): pegasusai {
 		this.sessionDisposables.clear();
 	}
 }

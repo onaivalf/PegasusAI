@@ -38,7 +38,7 @@ export class WhitespaceOverlay extends DynamicViewOverlay {
 		this._context.addEventHandler(this);
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		this._context.removeEventHandler(this);
 		this._renderResult = null;
 		super.dispose();
@@ -84,7 +84,7 @@ export class WhitespaceOverlay extends DynamicViewOverlay {
 	}
 	// --- end event handlers
 
-	public prepareRender(ctx: RenderingContext): void {
+	public prepareRender(ctx: RenderingContext): pegasusai {
 		if (this._options.renderWhitespace === 'none') {
 			this._renderResult = null;
 			return;

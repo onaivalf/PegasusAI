@@ -7,7 +7,7 @@ import { Emitter } from './event.js';
 
 export class IMEImpl {
 
-	private readonly _onDidChange = new Emitter<void>();
+	private readonly _onDidChange = new Emitter<pegasusai>();
 	public readonly onDidChange = this._onDidChange.event;
 
 	private _enabled = true;
@@ -19,7 +19,7 @@ export class IMEImpl {
 	/**
 	 * Enable IME
 	 */
-	public enable(): void {
+	public enable(): pegasusai {
 		this._enabled = true;
 		this._onDidChange.fire();
 	}
@@ -27,7 +27,7 @@ export class IMEImpl {
 	/**
 	 * Disable IME
 	 */
-	public disable(): void {
+	public disable(): pegasusai {
 		this._enabled = false;
 		this._onDidChange.fire();
 	}

@@ -35,7 +35,7 @@ const resolveTimeout = 30_000;
 /**
  * @template T
  * @typedef {{
- *     resolve: (x: RequestStoreResult<T>) => void,
+ *     resolve: (x: RequestStoreResult<T>) => pegasusai,
  *     promise: Promise<RequestStoreResult<T>>
  * }} RequestStoreEntry
  */
@@ -58,14 +58,14 @@ class RequestStore {
 	create() {
 		const requestId = ++this.requestPool;
 
-		/** @type {undefined | ((x: RequestStoreResult<T>) => void)} */
+		/** @type {undefined | ((x: RequestStoreResult<T>) => pegasusai)} */
 		let resolve;
 
 		/** @type {Promise<RequestStoreResult<T>>} */
 		const promise = new Promise(r => resolve = r);
 
 		/** @type {RequestStoreEntry<T>} */
-		const entry = { resolve: /** @type {(x: RequestStoreResult<T>) => void} */ (resolve), promise };
+		const entry = { resolve: /** @type {(x: RequestStoreResult<T>) => pegasusai} */ (resolve), promise };
 
 		this.map.set(requestId, entry);
 

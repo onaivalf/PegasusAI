@@ -265,7 +265,7 @@ async function expandAll(accessor: ServicesAccessor) {
  * If `element` is not provided, it is the root node.
  */
 export async function forcedExpandRecursively(
-	viewer: WorkbenchCompressibleAsyncDataTree<ISearchResult, RenderableMatch, void>,
+	viewer: WorkbenchCompressibleAsyncDataTree<ISearchResult, RenderableMatch, pegasusai>,
 	element: RenderableMatch | undefined
 ) {
 	if (element) {

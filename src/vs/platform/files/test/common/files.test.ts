@@ -154,7 +154,7 @@ suite('Files', () => {
 		assert.strictEqual(event.correlates(120), false);
 	});
 
-	function testIsEqual(testMethod: (pA: string, pB: string, ignoreCase: boolean) => boolean): void {
+	function testIsEqual(testMethod: (pA: string, pB: string, ignoreCase: boolean) => boolean): pegasusai {
 
 		// corner cases
 		assert(testMethod('', '', true));

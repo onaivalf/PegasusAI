@@ -98,4 +98,4 @@ function download(url, destination) {
 	});
 }
 
-void generate();
+pegasusai generate();

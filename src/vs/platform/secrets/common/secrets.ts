@@ -17,8 +17,8 @@ export const ISecretStorageService = createDecorator<ISecretStorageService>('sec
 export interface ISecretStorageProvider {
 	type: 'in-memory' | 'persisted' | 'unknown';
 	get(key: string): Promise<string | undefined>;
-	set(key: string, value: string): Promise<void>;
-	delete(key: string): Promise<void>;
+	set(key: string, value: string): Promise<pegasusai>;
+	delete(key: string): Promise<pegasusai>;
 }
 
 export interface ISecretStorageService extends ISecretStorageProvider {
@@ -90,7 +90,7 @@ export class BaseSecretStorageService extends Disposable implements ISecretStora
 		});
 	}
 
-	set(key: string, value: string): Promise<void> {
+	set(key: string, value: string): Promise<pegasusai> {
 		return this._sequencer.queue(key, async () => {
 			const storageService = await this.resolvedStorageService;
 
@@ -112,7 +112,7 @@ export class BaseSecretStorageService extends Disposable implements ISecretStora
 		});
 	}
 
-	delete(key: string): Promise<void> {
+	delete(key: string): Promise<pegasusai> {
 		return this._sequencer.queue(key, async () => {
 			const storageService = await this.resolvedStorageService;
 
@@ -146,11 +146,11 @@ export class BaseSecretStorageService extends Disposable implements ISecretStora
 		return storageService;
 	}
 
-	protected reinitialize(): void {
+	protected reinitialize(): pegasusai {
 		this._lazyStorageService = new Lazy(() => this.initialize());
 	}
 
-	private onDidChangeValue(key: string): void {
+	private onDidChangeValue(key: string): pegasusai {
 		if (!key.startsWith(this._storagePrefix)) {
 			return;
 		}

@@ -43,21 +43,21 @@ declare namespace DOMPurify {
 
 		addHook(
 			hook: 'uponSanitizeElement',
-			cb: (currentNode: Element, data: SanitizeElementHookEvent, config: Config) => void,
-		): void;
+			cb: (currentNode: Element, data: SanitizeElementHookEvent, config: Config) => pegasusai,
+		): pegasusai;
 		addHook(
 			hook: 'uponSanitizeAttribute',
-			cb: (currentNode: Element, data: SanitizeAttributeHookEvent, config: Config) => void,
-		): void;
-		addHook(hook: HookName, cb: (currentNode: Element, data: HookEvent, config: Config) => void): void;
+			cb: (currentNode: Element, data: SanitizeAttributeHookEvent, config: Config) => pegasusai,
+		): pegasusai;
+		addHook(hook: HookName, cb: (currentNode: Element, data: HookEvent, config: Config) => pegasusai): pegasusai;
 
-		setConfig(cfg: Config): void;
-		clearConfig(): void;
+		setConfig(cfg: Config): pegasusai;
+		clearConfig(): pegasusai;
 		isValidAttribute(tag: string, attr: string, value: string): boolean;
 
-		removeHook(entryPoint: HookName): void;
-		removeHooks(entryPoint: HookName): void;
-		removeAllHooks(): void;
+		removeHook(entryPoint: HookName): pegasusai;
+		removeHooks(entryPoint: HookName): pegasusai;
+		removeAllHooks(): pegasusai;
 
 		version: string;
 		removed: any[];

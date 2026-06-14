@@ -77,7 +77,7 @@ export class TextEditorService extends Disposable implements ITextEditorService 
 		this.registerDefaultEditor();
 	}
 
-	private registerDefaultEditor(): void {
+	private registerDefaultEditor(): pegasusai {
 		this._register(this.editorResolverService.registerEditor(
 			'*',
 			{
@@ -233,7 +233,7 @@ export class TextEditorService extends Disposable implements ITextEditorService 
 	private createOrGetCached(
 		resource: URI,
 		factoryFn: () => TextResourceEditorInput | IFileEditorInput | UntitledTextEditorInput,
-		cachedFn?: (input: TextResourceEditorInput | IFileEditorInput | UntitledTextEditorInput) => void
+		cachedFn?: (input: TextResourceEditorInput | IFileEditorInput | UntitledTextEditorInput) => pegasusai
 	): TextResourceEditorInput | IFileEditorInput | UntitledTextEditorInput {
 
 		// Return early if already cached

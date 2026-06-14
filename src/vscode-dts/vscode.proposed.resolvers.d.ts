@@ -36,11 +36,11 @@ declare module 'vscode' {
 	export interface ManagedMessagePassing {
 		onDidReceiveMessage: Event<Uint8Array>;
 		onDidClose: Event<Error | undefined>;
-		onDidEnd: Event<void>;
+		onDidEnd: Event<pegasusai>;
 
-		send: (data: Uint8Array) => void;
-		end: () => void;
-		drain?: () => Thenable<void>;
+		send: (data: Uint8Array) => pegasusai;
+		end: () => pegasusai;
+		drain?: () => Thenable<pegasusai>;
 	}
 
 	export class ManagedResolvedAuthority {
@@ -102,8 +102,8 @@ declare module 'vscode' {
 
 	export interface Tunnel extends TunnelDescription {
 		// Implementers of Tunnel should fire onDidDispose when dispose is called.
-		onDidDispose: Event<void>;
-		dispose(): void | Thenable<void>;
+		onDidDispose: Event<pegasusai>;
+		dispose(): pegasusai | Thenable<pegasusai>;
 	}
 
 	/**
@@ -201,7 +201,7 @@ declare module 'vscode' {
 		 *
 		 * @param processId process ID to kill.
 		 */
-		kill(processId: number): Thenable<void>;
+		kill(processId: number): Thenable<pegasusai>;
 
 		/**
 		 * Connects to the given TCP host/port on the remote.
@@ -214,7 +214,7 @@ declare module 'vscode' {
 		tcpConnect(
 			host: string,
 			port: number,
-		): Thenable<{ stream: WriteStream & ReadStream; done: Thenable<void> }>;
+		): Thenable<{ stream: WriteStream & ReadStream; done: Thenable<pegasusai> }>;
 
 		/**
 		 * Access to the file system of the remote.
@@ -254,12 +254,12 @@ declare module 'vscode' {
 
 	export interface ReadStream {
 		readonly onDidReceiveMessage: Event<Uint8Array>;
-		readonly onEnd: Thenable<void>;
+		readonly onEnd: Thenable<pegasusai>;
 	}
 
 	export interface WriteStream {
-		write(data: Uint8Array): void;
-		end(): void;
+		write(data: Uint8Array): pegasusai;
+		end(): pegasusai;
 	}
 
 	export interface ServeParams {
@@ -304,7 +304,7 @@ declare module 'vscode' {
 		 * @param path The path of the folder to create
 		 * @throws an exception when `path` is a file, or other i/o operations happen
 		 */
-		mkdirp(path: string): Thenable<void>;
+		mkdirp(path: string): Thenable<pegasusai>;
 
 		/**
 		 * Recursively deletes the given path on the remote.
@@ -313,7 +313,7 @@ declare module 'vscode' {
 		 * @throws if an i/o error happens during removal. It does not throw if
 		 * the path already does not exist.
 		 */
-		rm(path: string): Thenable<void>;
+		rm(path: string): Thenable<pegasusai>;
 
 		/**
 		 * Reads the given file from the remote.
@@ -332,7 +332,7 @@ declare module 'vscode' {
 		 * @returns a writable `stream` that accepts data, and a `done` promise that
 		 * will resolve after `stream.end()` is called once the write is complete.
 		 */
-		write(path: string): Thenable<{ stream: WriteStream; done: Thenable<void> }>;
+		write(path: string): Thenable<{ stream: WriteStream; done: Thenable<pegasusai> }>;
 
 		/**
 		 * Connects to the given unix socket or named pipe on the remote.
@@ -342,7 +342,7 @@ declare module 'vscode' {
 		 * @returns a duplex stream, and a promise the resolves when both sides
 		 * have closed.
 		 */
-		connect(path: string): Thenable<{ stream: WriteStream & ReadStream; done: Thenable<void> }>;
+		connect(path: string): Thenable<{ stream: WriteStream & ReadStream; done: Thenable<pegasusai> }>;
 
 		/**
 		 * Renames the file.
@@ -351,7 +351,7 @@ declare module 'vscode' {
 		 * @param toPath The new file path.
 		 * @throws if the original path doesn't exist, or the toPath can't be accessed
 		 */
-		rename(fromPath: string, toPath: string): Thenable<void>;
+		rename(fromPath: string, toPath: string): Thenable<pegasusai>;
 
 		/**
 		 * Reads the contents of a directory.

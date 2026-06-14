@@ -195,7 +195,7 @@ export class MarkupCellViewModel extends BaseCellViewModel implements ICellViewM
 		// throw new Error('Method not implemented.');
 		return -1;
 	}
-	updateOutputHeight(index: number, height: number): void {
+	updateOutputHeight(index: number, height: number): pegasusai {
 		// throw new Error('Method not implemented.');
 	}
 
@@ -294,7 +294,7 @@ export class MarkupCellViewModel extends BaseCellViewModel implements ICellViewM
 		}
 	}
 
-	protected onDidChangeTextModelContent(): void {
+	protected onDidChangeTextModelContent(): pegasusai {
 		this._onDidChangeState.fire({ contentChanged: true });
 	}
 

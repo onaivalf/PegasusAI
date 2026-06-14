@@ -71,7 +71,7 @@ export class GotoLineAction extends EditorAction {
 		});
 	}
 
-	run(accessor: ServicesAccessor): void {
+	run(accessor: ServicesAccessor): pegasusai {
 		accessor.get(IQuickInputService).quickAccess.show(StandaloneCommandsQuickAccessProvider.PREFIX);
 	}
 }

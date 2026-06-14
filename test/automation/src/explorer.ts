@@ -23,7 +23,7 @@ export class Explorer extends Viewlet {
 		}
 	}
 
-	async waitForOpenEditorsViewTitle(fn: (title: string) => boolean): Promise<void> {
+	async waitForOpenEditorsViewTitle(fn: (title: string) => boolean): Promise<pegasusai> {
 		await this.code.waitForTextContent(Explorer.OPEN_EDITORS_VIEW, undefined, fn);
 	}
 

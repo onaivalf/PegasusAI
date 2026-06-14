@@ -9,12 +9,12 @@ export interface IHistoryNavigationWidget {
 
 	readonly element: HTMLElement;
 
-	showPreviousValue(): void;
+	showPreviousValue(): pegasusai;
 
-	showNextValue(): void;
+	showNextValue(): pegasusai;
 
-	onDidFocus: Event<void>;
+	onDidFocus: Event<pegasusai>;
 
-	onDidBlur: Event<void>;
+	onDidBlur: Event<pegasusai>;
 
 }

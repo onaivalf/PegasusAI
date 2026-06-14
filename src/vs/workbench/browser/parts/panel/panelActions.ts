@@ -68,7 +68,7 @@ export class TogglePanelAction extends Action2 {
 		});
 	}
 
-	override async run(accessor: ServicesAccessor): Promise<void> {
+	override async run(accessor: ServicesAccessor): Promise<pegasusai> {
 		const layoutService = accessor.get(IWorkbenchLayoutService);
 		layoutService.setPartHidden(layoutService.isVisible(Parts.PANEL_PART), Parts.PANEL_PART);
 	}
@@ -105,7 +105,7 @@ registerAction2(class extends Action2 {
 		});
 	}
 
-	override async run(accessor: ServicesAccessor): Promise<void> {
+	override async run(accessor: ServicesAccessor): Promise<pegasusai> {
 		const layoutService = accessor.get(IWorkbenchLayoutService);
 		const paneCompositeService = accessor.get(IPaneCompositePartService);
 
@@ -197,7 +197,7 @@ PositionPanelActionConfigs.forEach((positionPanelAction, index) => {
 				f1: true
 			});
 		}
-		run(accessor: ServicesAccessor): void {
+		run(accessor: ServicesAccessor): pegasusai {
 			const layoutService = accessor.get(IWorkbenchLayoutService);
 			layoutService.setPanelPosition(value === undefined ? Position.BOTTOM : value);
 		}
@@ -232,7 +232,7 @@ AlignPanelActionConfigs.forEach(alignPanelAction => {
 				f1: true
 			});
 		}
-		run(accessor: ServicesAccessor): void {
+		run(accessor: ServicesAccessor): pegasusai {
 			const layoutService = accessor.get(IWorkbenchLayoutService);
 			layoutService.setPanelAlignment(value === undefined ? 'center' : value);
 		}
@@ -334,7 +334,7 @@ class MoveViewsBetweenPanelsAction extends Action2 {
 		super(desc);
 	}
 
-	run(accessor: ServicesAccessor, ...args: any[]): void {
+	run(accessor: ServicesAccessor, ...args: any[]): pegasusai {
 		const viewDescriptorService = accessor.get(IViewDescriptorService);
 		const layoutService = accessor.get(IWorkbenchLayoutService);
 		const viewsService = accessor.get(IViewsService);
@@ -355,14 +355,14 @@ class MoveViewsBetweenPanelsAction extends Action2 {
 	}
 }
 
-// --- Move Panel Views To Void Side Bar
+// --- Move Panel Views To PegasusAI Side Bar
 
 class MovePanelToSidePanelAction extends MoveViewsBetweenPanelsAction {
 	static readonly ID = 'workbench.action.movePanelToSidePanel';
 	constructor() {
 		super(ViewContainerLocation.Panel, ViewContainerLocation.AuxiliaryBar, {
 			id: MovePanelToSidePanelAction.ID,
-			title: localize2('movePanelToSecondarySideBar', "Move Panel Views To Void Side Bar"),
+			title: localize2('movePanelToSecondarySideBar', "Move Panel Views To PegasusAI Side Bar"),
 			category: Categories.View,
 			f1: false
 		});
@@ -374,7 +374,7 @@ export class MovePanelToSecondarySideBarAction extends MoveViewsBetweenPanelsAct
 	constructor() {
 		super(ViewContainerLocation.Panel, ViewContainerLocation.AuxiliaryBar, {
 			id: MovePanelToSecondarySideBarAction.ID,
-			title: localize2('movePanelToSecondarySideBar', "Move Panel Views To Void Side Bar"),
+			title: localize2('movePanelToSecondarySideBar', "Move Panel Views To PegasusAI Side Bar"),
 			category: Categories.View,
 			f1: true
 		});
@@ -384,7 +384,7 @@ export class MovePanelToSecondarySideBarAction extends MoveViewsBetweenPanelsAct
 registerAction2(MovePanelToSidePanelAction);
 registerAction2(MovePanelToSecondarySideBarAction);
 
-// --- Move Void Side Bar Views To Panel
+// --- Move PegasusAI Side Bar Views To Panel
 
 class MoveSidePanelToPanelAction extends MoveViewsBetweenPanelsAction {
 	static readonly ID = 'workbench.action.moveSidePanelToPanel';
@@ -392,7 +392,7 @@ class MoveSidePanelToPanelAction extends MoveViewsBetweenPanelsAction {
 	constructor() {
 		super(ViewContainerLocation.AuxiliaryBar, ViewContainerLocation.Panel, {
 			id: MoveSidePanelToPanelAction.ID,
-			title: localize2('moveSidePanelToPanel', "Move Void Side Bar Views To Panel"),
+			title: localize2('moveSidePanelToPanel', "Move PegasusAI Side Bar Views To Panel"),
 			category: Categories.View,
 			f1: false
 		});
@@ -405,7 +405,7 @@ export class MoveSecondarySideBarToPanelAction extends MoveViewsBetweenPanelsAct
 	constructor() {
 		super(ViewContainerLocation.AuxiliaryBar, ViewContainerLocation.Panel, {
 			id: MoveSecondarySideBarToPanelAction.ID,
-			title: localize2('moveSidePanelToPanel', "Move Void Side Bar Views To Panel"),
+			title: localize2('moveSidePanelToPanel', "Move PegasusAI Side Bar Views To Panel"),
 			category: Categories.View,
 			f1: true
 		});

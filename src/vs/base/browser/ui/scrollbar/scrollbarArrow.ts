@@ -15,7 +15,7 @@ import * as dom from '../../dom.js';
 export const ARROW_IMG_SIZE = 11;
 
 export interface ScrollbarArrowOptions {
-	onActivate: () => void;
+	onActivate: () => pegasusai;
 	className: string;
 	icon: ThemeIcon;
 
@@ -30,7 +30,7 @@ export interface ScrollbarArrowOptions {
 
 export class ScrollbarArrow extends Widget {
 
-	private _onActivate: () => void;
+	private _onActivate: () => pegasusai;
 	public bgDomNode: HTMLElement;
 	public domNode: HTMLElement;
 	private _pointerdownRepeatTimer: dom.WindowIntervalTimer;
@@ -87,7 +87,7 @@ export class ScrollbarArrow extends Widget {
 		this._pointerdownScheduleRepeatTimer = this._register(new TimeoutTimer());
 	}
 
-	private _arrowPointerDown(e: PointerEvent): void {
+	private _arrowPointerDown(e: PointerEvent): pegasusai {
 		if (!e.target || !(e.target instanceof Element)) {
 			return;
 		}

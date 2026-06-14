@@ -58,7 +58,7 @@ suite('StorageMainService', function () {
 		}
 	}
 
-	async function testStorage(storage: IStorageMain, scope: StorageScope): Promise<void> {
+	async function testStorage(storage: IStorageMain, scope: StorageScope): Promise<pegasusai> {
 		strictEqual(storage.isInMemory(), true);
 
 		// Telemetry: added after init unless workspace/profile scoped

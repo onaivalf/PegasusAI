@@ -28,9 +28,9 @@ export class BrowserClipboardService extends BaseBrowserClipboardService {
 		super(layoutService, logService);
 	}
 
-	override async writeText(text: string, type?: string): Promise<void> {
+	override async writeText(text: string, type?: string): Promise<pegasusai> {
 		if (!!this.environmentService.extensionTestsLocationURI && typeof type !== 'string') {
-			type = 'vscode-tests'; // force in-memory clipboard for tests to avoid permission issues
+			type = 'vscode-tests'; // force in-memory clipboard for tests to apegasusai permission issues
 		}
 
 		return super.writeText(text, type);
@@ -38,7 +38,7 @@ export class BrowserClipboardService extends BaseBrowserClipboardService {
 
 	override async readText(type?: string): Promise<string> {
 		if (!!this.environmentService.extensionTestsLocationURI && typeof type !== 'string') {
-			type = 'vscode-tests'; // force in-memory clipboard for tests to avoid permission issues
+			type = 'vscode-tests'; // force in-memory clipboard for tests to apegasusai permission issues
 		}
 
 		if (type) {

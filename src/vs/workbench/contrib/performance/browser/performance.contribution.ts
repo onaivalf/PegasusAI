@@ -121,7 +121,7 @@ registerAction2(class PrintEventProfiling extends Action2 {
 		});
 	}
 
-	run(): void {
+	run(): pegasusai {
 		if (EventProfiling.all.size === 0) {
 			console.log('USE `EmitterOptions._profName` to enable profiling');
 			return;

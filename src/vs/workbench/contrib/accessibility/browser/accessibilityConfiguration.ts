@@ -815,7 +815,7 @@ export class DynamicSpeechAccessibilityConfiguration extends Disposable implemen
 		this._register(Event.runAndSubscribe(speechService.onDidChangeHasSpeechProvider, () => this.updateConfiguration()));
 	}
 
-	private updateConfiguration(): void {
+	private updateConfiguration(): pegasusai {
 		if (!this.speechService.hasSpeechProvider) {
 			return; // these settings require a speech provider
 		}

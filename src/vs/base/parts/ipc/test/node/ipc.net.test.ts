@@ -20,7 +20,7 @@ import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../test/common
 
 class MessageStream extends Disposable {
 
-	private _currentComplete: ((data: VSBuffer) => void) | null;
+	private _currentComplete: ((data: VSBuffer) => pegasusai) | null;
 	private _messages: VSBuffer[];
 
 	constructor(x: Protocol | PersistentProtocol) {
@@ -33,7 +33,7 @@ class MessageStream extends Disposable {
 		}));
 	}
 
-	private _trigger(): void {
+	private _trigger(): pegasusai {
 		if (!this._currentComplete) {
 			return;
 		}
@@ -71,7 +71,7 @@ class EtherStream extends EventEmitter {
 		return true;
 	}
 
-	destroy(): void {
+	destroy(): pegasusai {
 	}
 }
 
@@ -100,7 +100,7 @@ class Ether {
 		this._ba = [];
 	}
 
-	public write(from: 'a' | 'b', data: Buffer): void {
+	public write(from: 'a' | 'b', data: Buffer): pegasusai {
 		setTimeout(() => {
 			if (from === 'a') {
 				this._ab.push(data);
@@ -112,7 +112,7 @@ class Ether {
 		}, this._wireLatency);
 	}
 
-	private _deliver(): void {
+	private _deliver(): pegasusai {
 
 		if (this._ab.length > 0) {
 			const data = Buffer.concat(this._ab);
@@ -568,8 +568,8 @@ flakySuite('IPC, create handle', () => {
 		return testIPCHandle(createStaticIPCHandle(tmpdir(), 'test', '1.64.0'));
 	});
 
-	function testIPCHandle(handle: string): Promise<void> {
-		return new Promise<void>((resolve, reject) => {
+	function testIPCHandle(handle: string): Promise<pegasusai> {
+		return new Promise<pegasusai>((resolve, reject) => {
 			const pipeName = createRandomIPCHandle();
 
 			const server = createServer();
@@ -628,18 +628,18 @@ suite('WebSocketNodeSocket', () => {
 
 		public writtenData: VSBuffer[] = [];
 
-		public traceSocketEvent(type: SocketDiagnosticsEventType, data?: VSBuffer | Uint8Array | ArrayBuffer | ArrayBufferView | any): void {
+		public traceSocketEvent(type: SocketDiagnosticsEventType, data?: VSBuffer | Uint8Array | ArrayBuffer | ArrayBufferView | any): pegasusai {
 		}
 
 		constructor() {
 			super();
 		}
 
-		public write(data: VSBuffer): void {
+		public write(data: VSBuffer): pegasusai {
 			this.writtenData.push(data);
 		}
 
-		public fireData(data: number[]): void {
+		public fireData(data: number[]): pegasusai {
 			this._onData.fire(VSBuffer.wrap(toUint8Array(data)));
 		}
 	}
@@ -817,7 +817,7 @@ suite('WebSocketNodeSocket', () => {
 		return buff;
 	}
 
-	function listenOnRandomPort(handler: (socket: Socket) => void): Promise<Server> {
+	function listenOnRandomPort(handler: (socket: Socket) => pegasusai): Promise<Server> {
 		return new Promise((resolve, reject) => {
 			const server = createServer(handler).listen(0);
 			server.on('listening', () => {

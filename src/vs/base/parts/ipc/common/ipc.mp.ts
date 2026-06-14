@@ -25,13 +25,13 @@ export interface MessageEvent {
 
 export interface MessagePort {
 
-	addEventListener(type: 'message', listener: (this: MessagePort, e: MessageEvent) => unknown): void;
-	removeEventListener(type: 'message', listener: (this: MessagePort, e: MessageEvent) => unknown): void;
+	addEventListener(type: 'message', listener: (this: MessagePort, e: MessageEvent) => unknown): pegasusai;
+	removeEventListener(type: 'message', listener: (this: MessagePort, e: MessageEvent) => unknown): pegasusai;
 
-	postMessage(message: Uint8Array): void;
+	postMessage(message: Uint8Array): pegasusai;
 
-	start(): void;
-	close(): void;
+	start(): pegasusai;
+	close(): pegasusai;
 }
 
 /**
@@ -54,11 +54,11 @@ export class Protocol implements IMessagePassingProtocol {
 		port.start();
 	}
 
-	send(message: VSBuffer): void {
+	send(message: VSBuffer): pegasusai {
 		this.port.postMessage(message.buffer);
 	}
 
-	disconnect(): void {
+	disconnect(): pegasusai {
 		this.port.close();
 	}
 }
@@ -77,7 +77,7 @@ export class Client extends IPCClient implements IDisposable {
 		this.protocol = protocol;
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this.protocol.disconnect();
 
 		super.dispose();

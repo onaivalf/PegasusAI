@@ -114,13 +114,13 @@ export class CompletionModel {
 		return this._stats!;
 	}
 
-	private _ensureCachedState(): void {
+	private _ensureCachedState(): pegasusai {
 		if (this._refilterKind !== Refilter.Nothing) {
 			this._createCachedState();
 		}
 	}
 
-	private _createCachedState(): void {
+	private _createCachedState(): pegasusai {
 
 		this._itemsByProvider = new Map();
 

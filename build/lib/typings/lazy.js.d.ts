@@ -41,15 +41,15 @@ declare module Lazy {
 	}
 
 	interface Callback {
-		(): void;
+		(): pegasusai;
 	}
 
 	interface ErrorCallback {
-		(error: any): void;
+		(error: any): pegasusai;
 	}
 
 	interface ValueCallback<T> {
-		(value: T): void;
+		(value: T): pegasusai;
 	}
 
 	interface GetKeyCallback<T> {
@@ -102,9 +102,9 @@ declare module Lazy {
 	}
 
 	interface AsyncHandle<T> {
-		cancel(): void;
-		onComplete(callback: Callback): void;
-		onError(callback: ErrorCallback): void;
+		cancel(): pegasusai;
+		onComplete(callback: Callback): pegasusai;
+		onError(callback: ErrorCallback): pegasusai;
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

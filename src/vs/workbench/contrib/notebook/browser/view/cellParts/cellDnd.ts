@@ -37,11 +37,11 @@ export class CellDragAndDropPart extends CellContentPart {
 		super();
 	}
 
-	override didRenderCell(element: ICellViewModel): void {
+	override didRenderCell(element: ICellViewModel): pegasusai {
 		this.update(element);
 	}
 
-	override updateState(element: ICellViewModel, e: CellViewModelStateChangeEvent): void {
+	override updateState(element: ICellViewModel, e: CellViewModelStateChangeEvent): pegasusai {
 		if (e.dragStateChanged) {
 			this.update(element);
 		}
@@ -63,7 +63,7 @@ export class CellDragAndDropController extends Disposable {
 	private list!: INotebookCellList;
 
 	private isScrolling = false;
-	private readonly scrollingDelayer: Delayer<void>;
+	private readonly scrollingDelayer: Delayer<pegasusai>;
 
 	private readonly listOnWillScrollListener = this._register(new MutableDisposable());
 
@@ -78,7 +78,7 @@ export class CellDragAndDropController extends Disposable {
 		this._register(DOM.addDisposableListener(notebookListContainer.ownerDocument.body, DOM.EventType.DRAG_START, this.onGlobalDragStart.bind(this), true));
 		this._register(DOM.addDisposableListener(notebookListContainer.ownerDocument.body, DOM.EventType.DRAG_END, this.onGlobalDragEnd.bind(this), true));
 
-		const addCellDragListener = (eventType: string, handler: (e: CellDragEvent) => void, useCapture = false) => {
+		const addCellDragListener = (eventType: string, handler: (e: CellDragEvent) => pegasusai, useCapture = false) => {
 			this._register(DOM.addDisposableListener(
 				notebookEditor.getDomNode(),
 				eventType,
@@ -167,7 +167,7 @@ export class CellDragAndDropController extends Disposable {
 		this.notebookEditor.getDomNode().classList.remove(GLOBAL_DRAG_CLASS);
 	}
 
-	private onCellDragover(event: CellDragEvent): void {
+	private onCellDragover(event: CellDragEvent): pegasusai {
 		if (!event.browserEvent.dataTransfer) {
 			return;
 		}
@@ -202,7 +202,7 @@ export class CellDragAndDropController extends Disposable {
 		return dragPosRatio < 0.5 ? 'above' : 'below';
 	}
 
-	private onCellDrop(event: CellDragEvent): void {
+	private onCellDrop(event: CellDragEvent): pegasusai {
 		const draggedCell = this.currentDraggedCell!;
 
 		if (this.isScrolling || this.currentDraggedCell === event.draggedOverCell) {
@@ -284,13 +284,13 @@ export class CellDragAndDropController extends Disposable {
 		}
 	}
 
-	private onCellDragLeave(event: CellDragEvent): void {
+	private onCellDragLeave(event: CellDragEvent): pegasusai {
 		if (!event.browserEvent.relatedTarget || !DOM.isAncestor(event.browserEvent.relatedTarget as HTMLElement, this.notebookEditor.getDomNode())) {
 			this.setInsertIndicatorVisibility(false);
 		}
 	}
 
-	private dragCleanup(): void {
+	private dragCleanup(): pegasusai {
 		if (this.currentDraggedCell) {
 			this.draggedCells.forEach(cell => cell.dragging = false);
 			this.currentDraggedCell = undefined;
@@ -300,7 +300,7 @@ export class CellDragAndDropController extends Disposable {
 		this.setInsertIndicatorVisibility(false);
 	}
 
-	registerDragHandle(templateData: BaseCellRenderTemplate, cellRoot: HTMLElement, dragHandles: HTMLElement[], dragImageProvider: DragImageProvider): void {
+	registerDragHandle(templateData: BaseCellRenderTemplate, cellRoot: HTMLElement, dragHandles: HTMLElement[], dragImageProvider: DragImageProvider): pegasusai {
 		const container = templateData.container;
 		for (const dragHandle of dragHandles) {
 			dragHandle.setAttribute('draggable', 'true');
@@ -419,7 +419,7 @@ export class CellDragAndDropController extends Disposable {
 	}
 }
 
-export function performCellDropEdits(editor: INotebookEditorDelegate, draggedCell: ICellViewModel, dropDirection: 'above' | 'below', draggedOverCell: ICellViewModel): void {
+export function performCellDropEdits(editor: INotebookEditorDelegate, draggedCell: ICellViewModel, dropDirection: 'above' | 'below', draggedOverCell: ICellViewModel): pegasusai {
 	const draggedCellIndex = editor.getCellIndex(draggedCell)!;
 	let originalToIdx = editor.getCellIndex(draggedOverCell)!;
 

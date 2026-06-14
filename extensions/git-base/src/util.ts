@@ -4,15 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 
 export interface IDisposable {
-	dispose(): void;
+	dispose(): pegasusai;
 }
 
-export function toDisposable(dispose: () => void): IDisposable {
+export function toDisposable(dispose: () => pegasusai): IDisposable {
 	return { dispose };
 }
 
-export function done<T>(promise: Promise<T>): Promise<void> {
-	return promise.then<void>(() => undefined);
+export function done<T>(promise: Promise<T>): Promise<pegasusai> {
+	return promise.then<pegasusai>(() => undefined);
 }
 
 export namespace Versions {

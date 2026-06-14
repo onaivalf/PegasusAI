@@ -55,12 +55,12 @@ class RemoteSourceProviderQuickPick implements Disposable {
 	}
 
 	@debounce(300)
-	private onDidChangeValue(): void {
+	private onDidChangeValue(): pegasusai {
 		this.query();
 	}
 
 	@throttle
-	private async query(): Promise<void> {
+	private async query(): Promise<pegasusai> {
 		try {
 			if (this.isDisposed) {
 				return;

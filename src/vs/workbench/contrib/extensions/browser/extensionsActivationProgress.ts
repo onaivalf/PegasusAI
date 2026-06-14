@@ -49,7 +49,7 @@ export class ExtensionActivationProgress implements IWorkbenchContribution {
 		});
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._listener.dispose();
 	}
 }

@@ -29,7 +29,7 @@ export class CellContextKeyPart extends CellContentPart {
 		this.cellContextKeyManager = this._register(this.instantiationService.createInstance(CellContextKeyManager, notebookEditor, undefined));
 	}
 
-	override didRenderCell(element: ICellViewModel): void {
+	override didRenderCell(element: ICellViewModel): pegasusai {
 		this.cellContextKeyManager.updateForElement(element);
 	}
 }

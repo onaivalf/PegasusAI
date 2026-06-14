@@ -125,12 +125,12 @@ export interface RepositoryState {
 	readonly workingTreeChanges: Change[];
 	readonly untrackedChanges: Change[];
 
-	readonly onDidChange: Event<void>;
+	readonly onDidChange: Event<pegasusai>;
 }
 
 export interface RepositoryUIState {
 	readonly selected: boolean;
-	readonly onDidChange: Event<void>;
+	readonly onDidChange: Event<pegasusai>;
 }
 
 /**
@@ -200,8 +200,8 @@ export interface Repository {
 	readonly state: RepositoryState;
 	readonly ui: RepositoryUIState;
 
-	readonly onDidCommit: Event<void>;
-	readonly onDidCheckout: Event<void>;
+	readonly onDidCommit: Event<pegasusai>;
+	readonly onDidCheckout: Event<pegasusai>;
 
 	getConfigs(): Promise<{ key: string; value: string; }[]>;
 	getConfig(key: string): Promise<string>;
@@ -215,11 +215,11 @@ export interface Repository {
 	show(ref: string, path: string): Promise<string>;
 	getCommit(ref: string): Promise<Commit>;
 
-	add(paths: string[]): Promise<void>;
-	revert(paths: string[]): Promise<void>;
-	clean(paths: string[]): Promise<void>;
+	add(paths: string[]): Promise<pegasusai>;
+	revert(paths: string[]): Promise<pegasusai>;
+	clean(paths: string[]): Promise<pegasusai>;
 
-	apply(patch: string, reverse?: boolean): Promise<void>;
+	apply(patch: string, reverse?: boolean): Promise<pegasusai>;
 	diff(cached?: boolean): Promise<string>;
 	diffWithHEAD(): Promise<Change[]>;
 	diffWithHEAD(path: string): Promise<string>;
@@ -235,12 +235,12 @@ export interface Repository {
 
 	hashObject(data: string): Promise<string>;
 
-	createBranch(name: string, checkout: boolean, ref?: string): Promise<void>;
-	deleteBranch(name: string, force?: boolean): Promise<void>;
+	createBranch(name: string, checkout: boolean, ref?: string): Promise<pegasusai>;
+	deleteBranch(name: string, force?: boolean): Promise<pegasusai>;
 	getBranch(name: string): Promise<Branch>;
 	getBranches(query: BranchQuery, cancellationToken?: CancellationToken): Promise<Ref[]>;
 	getBranchBase(name: string): Promise<Branch | undefined>;
-	setBranchUpstream(name: string, upstream: string): Promise<void>;
+	setBranchUpstream(name: string, upstream: string): Promise<pegasusai>;
 
 	checkIgnore(paths: string[]): Promise<Set<string>>;
 
@@ -248,31 +248,31 @@ export interface Repository {
 
 	getMergeBase(ref1: string, ref2: string): Promise<string | undefined>;
 
-	tag(name: string, upstream: string): Promise<void>;
-	deleteTag(name: string): Promise<void>;
+	tag(name: string, upstream: string): Promise<pegasusai>;
+	deleteTag(name: string): Promise<pegasusai>;
 
-	status(): Promise<void>;
-	checkout(treeish: string): Promise<void>;
+	status(): Promise<pegasusai>;
+	checkout(treeish: string): Promise<pegasusai>;
 
-	addRemote(name: string, url: string): Promise<void>;
-	removeRemote(name: string): Promise<void>;
-	renameRemote(name: string, newName: string): Promise<void>;
+	addRemote(name: string, url: string): Promise<pegasusai>;
+	removeRemote(name: string): Promise<pegasusai>;
+	renameRemote(name: string, newName: string): Promise<pegasusai>;
 
-	fetch(options?: FetchOptions): Promise<void>;
-	fetch(remote?: string, ref?: string, depth?: number): Promise<void>;
-	pull(unshallow?: boolean): Promise<void>;
-	push(remoteName?: string, branchName?: string, setUpstream?: boolean, force?: ForcePushMode): Promise<void>;
+	fetch(options?: FetchOptions): Promise<pegasusai>;
+	fetch(remote?: string, ref?: string, depth?: number): Promise<pegasusai>;
+	pull(unshallow?: boolean): Promise<pegasusai>;
+	push(remoteName?: string, branchName?: string, setUpstream?: boolean, force?: ForcePushMode): Promise<pegasusai>;
 
 	blame(path: string): Promise<string>;
 	log(options?: LogOptions): Promise<Commit[]>;
 
-	commit(message: string, opts?: CommitOptions): Promise<void>;
-	merge(ref: string): Promise<void>;
-	mergeAbort(): Promise<void>;
+	commit(message: string, opts?: CommitOptions): Promise<pegasusai>;
+	merge(ref: string): Promise<pegasusai>;
+	mergeAbort(): Promise<pegasusai>;
 
-	applyStash(index?: number): Promise<void>;
-	popStash(index?: number): Promise<void>;
-	dropStash(index?: number): Promise<void>;
+	applyStash(index?: number): Promise<pegasusai>;
+	popStash(index?: number): Promise<pegasusai>;
+	dropStash(index?: number): Promise<pegasusai>;
 }
 
 export interface RemoteSource {
@@ -287,13 +287,13 @@ export interface RemoteSourceProvider {
 	readonly supportsQuery?: boolean;
 	getRemoteSources(query?: string): ProviderResult<RemoteSource[]>;
 	getBranches?(url: string): ProviderResult<string[]>;
-	publishRepository?(repository: Repository): Promise<void>;
+	publishRepository?(repository: Repository): Promise<pegasusai>;
 }
 
 export interface RemoteSourcePublisher {
 	readonly name: string;
 	readonly icon?: string; // codicon name
-	publishRepository(repository: Repository): Promise<void>;
+	publishRepository(repository: Repository): Promise<pegasusai>;
 }
 
 export interface Credentials {

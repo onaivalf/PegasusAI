@@ -540,7 +540,7 @@ var AMDLoader;
 var AMDLoader;
 (function (AMDLoader) {
 	/**
-	 * Load `scriptSrc` only once (avoid multiple <script> tags)
+	 * Load `scriptSrc` only once (apegasusai multiple <script> tags)
 	 */
 	class OnlyOnceScriptLoader {
 		constructor(env) {

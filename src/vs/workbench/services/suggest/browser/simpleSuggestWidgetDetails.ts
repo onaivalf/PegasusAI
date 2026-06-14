@@ -27,8 +27,8 @@ export class SimpleSuggestDetailsWidget {
 
 	readonly domNode: HTMLDivElement;
 
-	private readonly _onDidClose = new Emitter<void>();
-	readonly onDidClose: Event<void> = this._onDidClose.event;
+	private readonly _onDidClose = new Emitter<pegasusai>();
+	readonly onDidClose: Event<pegasusai> = this._onDidClose.event;
 
 	private readonly _onDidChangeContents = new Emitter<this>();
 	readonly onDidChangeContents: Event<this> = this._onDidChangeContents.event;
@@ -49,7 +49,7 @@ export class SimpleSuggestDetailsWidget {
 
 	constructor(
 		private readonly _getFontInfo: () => ISimpleSuggestWidgetFontInfo,
-		onDidFontInfoChange: Event<void>,
+		onDidFontInfoChange: Event<pegasusai>,
 		private readonly _getAdvancedExplainModeDetails: () => string | undefined,
 		@IInstantiationService instaService: IInstantiationService
 	) {
@@ -80,7 +80,7 @@ export class SimpleSuggestDetailsWidget {
 		this._disposables.add(onDidFontInfoChange(() => this._configureFont()));
 	}
 
-	private _configureFont(): void {
+	private _configureFont(): pegasusai {
 		const fontInfo = this._getFontInfo();
 		const fontFamily = fontInfo.fontFamily;
 
@@ -100,7 +100,7 @@ export class SimpleSuggestDetailsWidget {
 
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 		this._onDidClose.dispose();
 		this._onDidChangeContents.dispose();
@@ -119,7 +119,7 @@ export class SimpleSuggestDetailsWidget {
 		};
 	}
 
-	renderLoading(): void {
+	renderLoading(): pegasusai {
 		this._type.textContent = nls.localize('loading', "Loading...");
 		this._docs.textContent = '';
 		this.domNode.classList.remove('no-docs', 'no-type');
@@ -127,7 +127,7 @@ export class SimpleSuggestDetailsWidget {
 		this._onDidChangeContents.fire(this);
 	}
 
-	renderItem(item: SimpleCompletionItem, explainMode: boolean): void {
+	renderItem(item: SimpleCompletionItem, explainMode: boolean): pegasusai {
 		this._renderDisposeable.clear();
 
 		let { detail, documentation } = item.completion;
@@ -227,7 +227,7 @@ export class SimpleSuggestDetailsWidget {
 		return this._size;
 	}
 
-	layout(width: number, height: number): void {
+	layout(width: number, height: number): pegasusai {
 		const newSize = new dom.Dimension(width, height);
 		if (!dom.Dimension.equals(newSize, this._size)) {
 			this._size = newSize;
@@ -236,27 +236,27 @@ export class SimpleSuggestDetailsWidget {
 		this._scrollbar.scanDomNode();
 	}
 
-	scrollDown(much = 8): void {
+	scrollDown(much = 8): pegasusai {
 		this._body.scrollTop += much;
 	}
 
-	scrollUp(much = 8): void {
+	scrollUp(much = 8): pegasusai {
 		this._body.scrollTop -= much;
 	}
 
-	scrollTop(): void {
+	scrollTop(): pegasusai {
 		this._body.scrollTop = 0;
 	}
 
-	scrollBottom(): void {
+	scrollBottom(): pegasusai {
 		this._body.scrollTop = this._body.scrollHeight;
 	}
 
-	pageDown(): void {
+	pageDown(): pegasusai {
 		this.scrollDown(80);
 	}
 
-	pageUp(): void {
+	pageUp(): pegasusai {
 		this.scrollUp(80);
 	}
 
@@ -339,7 +339,7 @@ export class SimpleSuggestDetailsOverlay {
 		}));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.widget.dispose();
 		this._disposables.dispose();
 		this.hide();
@@ -353,14 +353,14 @@ export class SimpleSuggestDetailsOverlay {
 		return this._resizable.domNode;
 	}
 
-	show(): void {
+	show(): pegasusai {
 		if (!this._added) {
 			this._container.appendChild(this._resizable.domNode);
 			this._added = true;
 		}
 	}
 
-	hide(sessionEnded: boolean = false): void {
+	hide(sessionEnded: boolean = false): pegasusai {
 		this._resizable.clearSashHoverState();
 
 		if (this._added) {
@@ -470,7 +470,7 @@ export class SimpleSuggestDetailsOverlay {
 		this.widget.layout(this._resizable.size.width, this._resizable.size.height);
 	}
 
-	private _applyTopLeft(topLeft: { left: number; top: number }): void {
+	private _applyTopLeft(topLeft: { left: number; top: number }): pegasusai {
 		this._topLeft = topLeft;
 		// this._editor.layoutOverlayWidget(this);
 		this._resizable.domNode.style.top = `${topLeft.top}px`;

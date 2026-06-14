@@ -19,7 +19,7 @@ export class SimpleBrowserManager {
 		this._activeView = undefined;
 	}
 
-	public show(inputUri: string | vscode.Uri, options?: ShowOptions): void {
+	public show(inputUri: string | vscode.Uri, options?: ShowOptions): pegasusai {
 		const url = typeof inputUri === 'string' ? inputUri : inputUri.toString(true);
 		if (this._activeView) {
 			this._activeView.show(url, options);
@@ -31,7 +31,7 @@ export class SimpleBrowserManager {
 		}
 	}
 
-	public restore(panel: vscode.WebviewPanel, state: any): void {
+	public restore(panel: vscode.WebviewPanel, state: any): pegasusai {
 		const url = state?.url ?? '';
 		const view = SimpleBrowserView.restore(this.extensionUri, url, panel);
 		this.registerWebviewListeners(view);

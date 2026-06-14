@@ -15,11 +15,11 @@ export interface IMarkerService {
 
 	getStatistics(): MarkerStatistics;
 
-	changeOne(owner: string, resource: URI, markers: IMarkerData[]): void;
+	changeOne(owner: string, resource: URI, markers: IMarkerData[]): pegasusai;
 
-	changeAll(owner: string, data: IResourceMarker[]): void;
+	changeAll(owner: string, data: IResourceMarker[]): pegasusai;
 
-	remove(owner: string, resources: URI[]): void;
+	remove(owner: string, resources: URI[]): pegasusai;
 
 	read(filter?: { owner?: string; resource?: URI; severities?: number; take?: number }): IMarker[];
 

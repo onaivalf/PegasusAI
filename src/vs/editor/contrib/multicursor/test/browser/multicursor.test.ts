@@ -265,7 +265,7 @@ suite('Multicursor selection', () => {
 		});
 	});
 
-	function testMulticursor(text: string[], callback: (editor: ITestCodeEditor, findController: CommonFindController) => void): void {
+	function testMulticursor(text: string[], callback: (editor: ITestCodeEditor, findController: CommonFindController) => pegasusai): pegasusai {
 		withTestCodeEditor(text, { serviceCollection: serviceCollection }, (editor) => {
 			const findController = editor.registerAndInstantiateContribution(CommonFindController.ID, CommonFindController);
 			const multiCursorSelectController = editor.registerAndInstantiateContribution(MultiCursorSelectionController.ID, MultiCursorSelectionController);
@@ -277,7 +277,7 @@ suite('Multicursor selection', () => {
 		});
 	}
 
-	function testAddSelectionToNextFindMatchAction(text: string[], callback: (editor: ITestCodeEditor, action: AddSelectionToNextFindMatchAction, findController: CommonFindController) => void): void {
+	function testAddSelectionToNextFindMatchAction(text: string[], callback: (editor: ITestCodeEditor, action: AddSelectionToNextFindMatchAction, findController: CommonFindController) => pegasusai): pegasusai {
 		testMulticursor(text, (editor, findController) => {
 			const action = new AddSelectionToNextFindMatchAction();
 			callback(editor, action, findController);

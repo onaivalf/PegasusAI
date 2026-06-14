@@ -64,7 +64,7 @@ suite('Notebook Outline', function () {
 				override getControl() {
 					return editor;
 				}
-				override onDidChangeModel: Event<void> = Event.None;
+				override onDidChangeModel: Event<pegasusai> = Event.None;
 				override onDidChangeSelection: Event<IEditorPaneSelectionChangeEvent> = Event.None;
 			};
 

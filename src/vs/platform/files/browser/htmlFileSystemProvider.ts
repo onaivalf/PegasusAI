@@ -189,7 +189,7 @@ export class HTMLFileSystemProvider extends Disposable implements IFileSystemPro
 		}
 	}
 
-	async writeFile(resource: URI, content: Uint8Array, opts: IFileWriteOptions): Promise<void> {
+	async writeFile(resource: URI, content: Uint8Array, opts: IFileWriteOptions): Promise<pegasusai> {
 		try {
 			let handle = await this.getFileHandle(resource);
 
@@ -232,7 +232,7 @@ export class HTMLFileSystemProvider extends Disposable implements IFileSystemPro
 
 	//#region Move/Copy/Delete/Create Folder
 
-	async mkdir(resource: URI): Promise<void> {
+	async mkdir(resource: URI): Promise<pegasusai> {
 		try {
 			const parent = await this.getDirectoryHandle(this.extUri.dirname(resource));
 			if (!parent) {
@@ -245,7 +245,7 @@ export class HTMLFileSystemProvider extends Disposable implements IFileSystemPro
 		}
 	}
 
-	async delete(resource: URI, opts: IFileDeleteOptions): Promise<void> {
+	async delete(resource: URI, opts: IFileDeleteOptions): Promise<pegasusai> {
 		try {
 			const parent = await this.getDirectoryHandle(this.extUri.dirname(resource));
 			if (!parent) {
@@ -258,7 +258,7 @@ export class HTMLFileSystemProvider extends Disposable implements IFileSystemPro
 		}
 	}
 
-	async rename(from: URI, to: URI, opts: IFileOverwriteOptions): Promise<void> {
+	async rename(from: URI, to: URI, opts: IFileOverwriteOptions): Promise<pegasusai> {
 		try {
 			if (this.extUri.isEqual(from, to)) {
 				return; // no-op if the paths are the same
@@ -298,7 +298,7 @@ export class HTMLFileSystemProvider extends Disposable implements IFileSystemPro
 		return disposables;
 	}
 
-	private async doWatch(resource: URI, opts: IWatchOptions, disposables: DisposableStore): Promise<void> {
+	private async doWatch(resource: URI, opts: IWatchOptions, disposables: DisposableStore): Promise<pegasusai> {
 		if (!WebFileSystemObserver.supported(globalThis)) {
 			return;
 		}
@@ -503,7 +503,7 @@ export class HTMLFileSystemProvider extends Disposable implements IFileSystemPro
 
 	private toFileSystemProviderError(error: Error): FileSystemProviderError {
 		if (error instanceof FileSystemProviderError) {
-			return error; // avoid double conversion
+			return error; // apegasusai double conversion
 		}
 
 		let code = FileSystemProviderErrorCode.Unknown;

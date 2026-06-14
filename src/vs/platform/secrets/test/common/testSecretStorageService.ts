@@ -19,18 +19,18 @@ export class TestSecretStorageService implements ISecretStorageService {
 		return this._storage.get(key);
 	}
 
-	async set(key: string, value: string): Promise<void> {
+	async set(key: string, value: string): Promise<pegasusai> {
 		this._storage.set(key, value);
 		this._onDidChangeSecretEmitter.fire(key);
 	}
 
-	async delete(key: string): Promise<void> {
+	async delete(key: string): Promise<pegasusai> {
 		this._storage.delete(key);
 		this._onDidChangeSecretEmitter.fire(key);
 	}
 
 	// Helper method for tests to clear all secrets
-	clear(): void {
+	clear(): pegasusai {
 		this._storage.clear();
 	}
 }

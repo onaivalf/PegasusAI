@@ -35,11 +35,11 @@ export class TMScopeRegistry {
 		this._scopeNameToLanguageRegistration = Object.create(null);
 	}
 
-	public reset(): void {
+	public reset(): pegasusai {
 		this._scopeNameToLanguageRegistration = Object.create(null);
 	}
 
-	public register(def: IValidGrammarDefinition): void {
+	public register(def: IValidGrammarDefinition): pegasusai {
 		if (this._scopeNameToLanguageRegistration[def.scopeName]) {
 			const existingRegistration = this._scopeNameToLanguageRegistration[def.scopeName];
 			if (!resources.isEqual(existingRegistration.location, def.location)) {

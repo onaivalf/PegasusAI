@@ -26,7 +26,7 @@ abstract class AbstractUpdateService implements IUpdateService {
 		return this._state;
 	}
 
-	protected setState(state: State): void {
+	protected setState(state: State): pegasusai {
 		this.logService.info('update#setState', state.type);
 		this._state = state;
 		this._onStateChange.fire(state);
@@ -48,7 +48,7 @@ abstract class AbstractUpdateService implements IUpdateService {
 		this.scheduleCheckForUpdates(30 * 1000).then(undefined, err => this.logService.error(err));
 	}
 
-	private scheduleCheckForUpdates(delay = 60 * 60 * 1000): Promise<void> {
+	private scheduleCheckForUpdates(delay = 60 * 60 * 1000): Promise<pegasusai> {
 		return timeout(delay)
 			.then(() => this.checkForUpdates(false))
 			.then(() => {
@@ -57,7 +57,7 @@ abstract class AbstractUpdateService implements IUpdateService {
 			});
 	}
 
-	async checkForUpdates(explicit: boolean): Promise<void> {
+	async checkForUpdates(explicit: boolean): Promise<pegasusai> {
 		this.logService.trace('update#checkForUpdates, state = ', this.state.type);
 
 		if (this.state.type !== StateType.Idle) {
@@ -67,7 +67,7 @@ abstract class AbstractUpdateService implements IUpdateService {
 		this.doCheckForUpdates(explicit);
 	}
 
-	async downloadUpdate(): Promise<void> {
+	async downloadUpdate(): Promise<pegasusai> {
 		this.logService.trace('update#downloadUpdate, state = ', this.state.type);
 
 		if (this.state.type !== StateType.AvailableForDownload) {
@@ -77,11 +77,11 @@ abstract class AbstractUpdateService implements IUpdateService {
 		await this.doDownloadUpdate(this.state);
 	}
 
-	protected doDownloadUpdate(state: AvailableForDownload): Promise<void> {
+	protected doDownloadUpdate(state: AvailableForDownload): Promise<pegasusai> {
 		return Promise.resolve(undefined);
 	}
 
-	async applyUpdate(): Promise<void> {
+	async applyUpdate(): Promise<pegasusai> {
 		this.logService.trace('update#applyUpdate, state = ', this.state.type);
 
 		if (this.state.type !== StateType.Downloaded) {
@@ -91,11 +91,11 @@ abstract class AbstractUpdateService implements IUpdateService {
 		await this.doApplyUpdate();
 	}
 
-	protected doApplyUpdate(): Promise<void> {
+	protected doApplyUpdate(): Promise<pegasusai> {
 		return Promise.resolve(undefined);
 	}
 
-	quitAndInstall(): Promise<void> {
+	quitAndInstall(): Promise<pegasusai> {
 		this.logService.trace('update#quitAndInstall, state = ', this.state.type);
 
 		if (this.state.type !== StateType.Ready) {
@@ -122,17 +122,17 @@ abstract class AbstractUpdateService implements IUpdateService {
 		return UpdateType.Snap;
 	}
 
-	protected doQuitAndInstall(): void {
+	protected doQuitAndInstall(): pegasusai {
 		// noop
 	}
 
 	abstract isLatestVersion(): Promise<boolean | undefined>;
 
-	async _applySpecificUpdate(packagePath: string): Promise<void> {
+	async _applySpecificUpdate(packagePath: string): Promise<pegasusai> {
 		// noop
 	}
 
-	protected abstract doCheckForUpdates(context: any): void;
+	protected abstract doCheckForUpdates(context: any): pegasusai;
 }
 
 export class SnapUpdateService extends AbstractUpdateService {
@@ -158,7 +158,7 @@ export class SnapUpdateService extends AbstractUpdateService {
 		});
 	}
 
-	protected doCheckForUpdates(): void {
+	protected doCheckForUpdates(): pegasusai {
 		this.setState(State.CheckingForUpdates(false));
 		this.isUpdateAvailable().then(result => {
 			if (result) {
@@ -172,7 +172,7 @@ export class SnapUpdateService extends AbstractUpdateService {
 		});
 	}
 
-	protected override doQuitAndInstall(): void {
+	protected override doQuitAndInstall(): pegasusai {
 		this.logService.trace('update#quitAndInstall(): running raw#quitAndInstall()');
 
 		// Allow 3 seconds for VS Code to close

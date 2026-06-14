@@ -456,7 +456,7 @@ export class TimelinePane extends ViewPane {
 		this.updateMessage();
 	}
 
-	private updateMessage(): void {
+	private updateMessage(): pegasusai {
 		if (this._message !== undefined) {
 			this.showMessage(this._message);
 		} else {
@@ -464,7 +464,7 @@ export class TimelinePane extends ViewPane {
 		}
 	}
 
-	private showMessage(message: string): void {
+	private showMessage(message: string): pegasusai {
 		if (!this.$message) {
 			return;
 		}
@@ -474,12 +474,12 @@ export class TimelinePane extends ViewPane {
 		this.$message.textContent = message;
 	}
 
-	private hideMessage(): void {
+	private hideMessage(): pegasusai {
 		this.resetMessageElement();
 		this.$message.classList.add('hide');
 	}
 
-	private resetMessageElement(): void {
+	private resetMessageElement(): pegasusai {
 		DOM.clearNode(this.$message);
 	}
 
@@ -862,7 +862,7 @@ export class TimelinePane extends ViewPane {
 		this.refresh();
 	}
 
-	override focus(): void {
+	override focus(): pegasusai {
 		super.focus();
 		this.tree.domFocus();
 	}
@@ -881,7 +881,7 @@ export class TimelinePane extends ViewPane {
 		return changed;
 	}
 
-	override setVisible(visible: boolean): void {
+	override setVisible(visible: boolean): pegasusai {
 		if (visible) {
 			this.extensionService.activateByEvent('onView:timeline');
 			this.visibilityDisposables = new DisposableStore();
@@ -900,18 +900,18 @@ export class TimelinePane extends ViewPane {
 		}
 	}
 
-	protected override layoutBody(height: number, width: number): void {
+	protected override layoutBody(height: number, width: number): pegasusai {
 		super.layoutBody(height, width);
 		this.tree.layout(height, width);
 	}
 
-	protected override renderHeaderTitle(container: HTMLElement): void {
+	protected override renderHeaderTitle(container: HTMLElement): pegasusai {
 		super.renderHeaderTitle(container, this.title);
 
 		container.classList.add('timeline-view');
 	}
 
-	protected override renderBody(container: HTMLElement): void {
+	protected override renderBody(container: HTMLElement): pegasusai {
 		super.renderBody(container);
 
 		this.$container = container;
@@ -1032,7 +1032,7 @@ export class TimelinePane extends ViewPane {
 		this.message = file ? localize('timeline.loading', "Loading timeline for {0}...", file) : '';
 	}
 
-	private onContextMenu(commands: TimelinePaneCommands, treeEvent: ITreeContextMenuEvent<TreeElement | null>): void {
+	private onContextMenu(commands: TimelinePaneCommands, treeEvent: ITreeContextMenuEvent<TreeElement | null>): pegasusai {
 		const item = treeEvent.element;
 		if (item === null) {
 			return;
@@ -1118,7 +1118,7 @@ export class TimelineIdentityProvider implements IIdentityProvider<TreeElement> 
 
 class TimelineActionRunner extends ActionRunner {
 
-	protected override async runAction(action: IAction, { uri, item }: TimelineActionContext): Promise<void> {
+	protected override async runAction(action: IAction, { uri, item }: TimelineActionContext): Promise<pegasusai> {
 		if (!isTimelineItem(item)) {
 			// TODO@eamodio do we need to do anything else?
 			await action.run();
@@ -1191,7 +1191,7 @@ class TimelineTreeRenderer implements ITreeRenderer<TreeElement, FuzzyScore, Tim
 		index: number,
 		template: TimelineElementTemplate,
 		height: number | undefined
-	): void {
+	): pegasusai {
 		template.reset();
 
 		const { element: item } = node;
@@ -1242,11 +1242,11 @@ class TimelineTreeRenderer implements ITreeRenderer<TreeElement, FuzzyScore, Tim
 		}
 	}
 
-	disposeElement(element: ITreeNode<TreeElement, FuzzyScore>, index: number, templateData: TimelineElementTemplate, height: number | undefined): void {
+	disposeElement(element: ITreeNode<TreeElement, FuzzyScore>, index: number, templateData: TimelineElementTemplate, height: number | undefined): pegasusai {
 		templateData.actionBar.actionRunner.dispose();
 	}
 
-	disposeTemplate(template: TimelineElementTemplate): void {
+	disposeTemplate(template: TimelineElementTemplate): pegasusai {
 		template.dispose();
 	}
 }

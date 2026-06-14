@@ -29,8 +29,8 @@ export class ChatAgentHover extends Disposable {
 	private readonly publisherName: HTMLElement;
 	private readonly description: HTMLElement;
 
-	private readonly _onDidChangeContents = this._register(new Emitter<void>());
-	public readonly onDidChangeContents: Event<void> = this._onDidChangeContents.event;
+	private readonly _onDidChangeContents = this._register(new Emitter<pegasusai>());
+	public readonly onDidChangeContents: Event<pegasusai> = this._onDidChangeContents.event;
 
 	constructor(
 		@IChatAgentService private readonly chatAgentService: IChatAgentService,
@@ -77,7 +77,7 @@ export class ChatAgentHover extends Disposable {
 		hoverElement.warning.appendChild(dom.$('span', undefined, localize('reservedName', "This chat extension is using a reserved name.")));
 	}
 
-	setAgent(id: string): void {
+	setAgent(id: string): pegasusai {
 		const agent = this.chatAgentService.getAgent(id)!;
 		if (agent.metadata.icon instanceof URI) {
 			const avatarIcon = dom.$<HTMLImageElement>('img.icon');

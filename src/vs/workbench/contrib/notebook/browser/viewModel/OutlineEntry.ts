@@ -65,7 +65,7 @@ export class OutlineEntry {
 		return undefined;
 	}
 
-	updateMarkers(markerService: IMarkerService): void {
+	updateMarkers(markerService: IMarkerService): pegasusai {
 		if (this.cell.cellKind === CellKind.Code) {
 			// a code cell can have marker
 			const marker = markerService.read({ resource: this.cell.uri, severities: MarkerSeverity.Error | MarkerSeverity.Warning });
@@ -88,7 +88,7 @@ export class OutlineEntry {
 		}
 	}
 
-	clearMarkers(): void {
+	clearMarkers(): pegasusai {
 		this._markerInfo = undefined;
 		for (const child of this.children) {
 			child.clearMarkers();
@@ -110,7 +110,7 @@ export class OutlineEntry {
 		return undefined;
 	}
 
-	asFlatList(bucket: OutlineEntry[]): void {
+	asFlatList(bucket: OutlineEntry[]): pegasusai {
 		bucket.push(this);
 		for (const child of this.children) {
 			child.asFlatList(bucket);

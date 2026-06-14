@@ -67,7 +67,7 @@ export class EditorPanes extends Disposable {
 
 	//#region Events
 
-	private readonly _onDidFocus = this._register(new Emitter<void>());
+	private readonly _onDidFocus = this._register(new Emitter<pegasusai>());
 	readonly onDidFocus = this._onDidFocus.event;
 
 	private _onDidChangeSizeConstraints = this._register(new Emitter<{ width: number; height: number } | undefined>());
@@ -84,7 +84,7 @@ export class EditorPanes extends Disposable {
 	get activeEditorPane(): IVisibleEditorPane | null { return this._activeEditorPane as IVisibleEditorPane | null; }
 
 	private readonly editorPanes: EditorPane[] = [];
-	private readonly mapEditorPaneToPendingSetInput = new Map<EditorPane, Promise<void>>();
+	private readonly mapEditorPaneToPendingSetInput = new Map<EditorPane, Promise<pegasusai>>();
 
 	private readonly activeEditorPaneDisposables = this._register(new DisposableStore());
 
@@ -113,7 +113,7 @@ export class EditorPanes extends Disposable {
 		this.registerListeners();
 	}
 
-	private registerListeners(): void {
+	private registerListeners(): pegasusai {
 		this._register(this.workspaceTrustService.onDidChangeTrust(() => this.onDidChangeWorkspaceTrust()));
 	}
 
@@ -294,7 +294,7 @@ export class EditorPanes extends Disposable {
 
 		if (!isEditableElement(activeElement)) {
 
-			// This is to avoid regressions from not restoring focus as we used to:
+			// This is to apegasusai regressions from not restoring focus as we used to:
 			// Only allow a different input element (or textarea) to remain focused
 			// but not other elements that do not accept text input.
 
@@ -484,7 +484,7 @@ export class EditorPanes extends Disposable {
 		return { changed: !inputMatches, cancelled };
 	}
 
-	private doHideActiveEditorPane(): void {
+	private doHideActiveEditorPane(): pegasusai {
 		if (!this._activeEditorPane) {
 			return;
 		}
@@ -512,29 +512,29 @@ export class EditorPanes extends Disposable {
 		this.doSetActiveEditorPane(null);
 	}
 
-	closeEditor(editor: EditorInput): void {
+	closeEditor(editor: EditorInput): pegasusai {
 		if (this._activeEditorPane?.input && editor.matches(this._activeEditorPane.input)) {
 			this.doHideActiveEditorPane();
 		}
 	}
 
-	setVisible(visible: boolean): void {
+	setVisible(visible: boolean): pegasusai {
 		this.safeRun(() => this._activeEditorPane?.setVisible(visible));
 	}
 
-	layout(pagePosition: IDomNodePagePosition): void {
+	layout(pagePosition: IDomNodePagePosition): pegasusai {
 		this.pagePosition = pagePosition;
 
 		this.safeRun(() => this._activeEditorPane?.layout(new Dimension(pagePosition.width, pagePosition.height), pagePosition));
 	}
 
-	setBoundarySashes(sashes: IBoundarySashes): void {
+	setBoundarySashes(sashes: IBoundarySashes): pegasusai {
 		this.boundarySashes = sashes;
 
 		this.safeRun(() => this._activeEditorPane?.setBoundarySashes(sashes));
 	}
 
-	private safeRun(fn: () => void): void {
+	private safeRun(fn: () => pegasusai): pegasusai {
 
 		// We delegate many calls to the active editor pane which
 		// can be any kind of editor. We must ensure that our calls

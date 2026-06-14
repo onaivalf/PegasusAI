@@ -7,11 +7,11 @@ import type { Disposable, Event } from 'vscode';
 
 export interface ICachedPublicClientApplication {
 	onDidAccountsChange: Event<{ added: AccountInfo[]; changed: AccountInfo[]; deleted: AccountInfo[] }>;
-	onDidRemoveLastAccount: Event<void>;
+	onDidRemoveLastAccount: Event<pegasusai>;
 	acquireTokenSilent(request: SilentFlowRequest): Promise<AuthenticationResult>;
 	acquireTokenInteractive(request: InteractiveRequest): Promise<AuthenticationResult>;
 	acquireTokenByRefreshToken(request: RefreshTokenRequest): Promise<AuthenticationResult | null>;
-	removeAccount(account: AccountInfo): Promise<void>;
+	removeAccount(account: AccountInfo): Promise<pegasusai>;
 	accounts: AccountInfo[];
 	clientId: string;
 }

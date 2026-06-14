@@ -78,8 +78,8 @@ declare module 'vscode' {
 	}
 
 	export interface MappedEditsResponseStream {
-		textEdit(target: Uri, edits: TextEdit | TextEdit[]): void;
-		notebookEdit(target: Uri, edits: NotebookEdit | NotebookEdit[]): void;
+		textEdit(target: Uri, edits: TextEdit | TextEdit[]): pegasusai;
+		notebookEdit(target: Uri, edits: NotebookEdit | NotebookEdit[]): pegasusai;
 	}
 
 	export interface MappedEditsResult {

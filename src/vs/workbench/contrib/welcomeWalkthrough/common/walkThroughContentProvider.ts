@@ -24,7 +24,7 @@ class WalkThroughContentProviderRegistry {
 
 	private readonly providers = new Map<string, IWalkThroughContentProvider>();
 
-	registerProvider(moduleId: string, provider: IWalkThroughContentProvider): void {
+	registerProvider(moduleId: string, provider: IWalkThroughContentProvider): pegasusai {
 		this.providers.set(moduleId, provider);
 	}
 

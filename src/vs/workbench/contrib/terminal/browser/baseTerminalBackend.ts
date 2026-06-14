@@ -19,13 +19,13 @@ export abstract class BaseTerminalBackend extends Disposable {
 
 	get isResponsive(): boolean { return !this._isPtyHostUnresponsive; }
 
-	protected readonly _onPtyHostConnected = this._register(new Emitter<void>());
+	protected readonly _onPtyHostConnected = this._register(new Emitter<pegasusai>());
 	readonly onPtyHostConnected = this._onPtyHostConnected.event;
-	protected readonly _onPtyHostRestart = this._register(new Emitter<void>());
+	protected readonly _onPtyHostRestart = this._register(new Emitter<pegasusai>());
 	readonly onPtyHostRestart = this._onPtyHostRestart.event;
-	protected readonly _onPtyHostUnresponsive = this._register(new Emitter<void>());
+	protected readonly _onPtyHostUnresponsive = this._register(new Emitter<pegasusai>());
 	readonly onPtyHostUnresponsive = this._onPtyHostUnresponsive.event;
-	protected readonly _onPtyHostResponsive = this._register(new Emitter<void>());
+	protected readonly _onPtyHostResponsive = this._register(new Emitter<pegasusai>());
 	readonly onPtyHostResponsive = this._onPtyHostResponsive.event;
 
 	constructor(
@@ -97,7 +97,7 @@ export abstract class BaseTerminalBackend extends Disposable {
 		}));
 	}
 
-	restartPtyHost(): void {
+	restartPtyHost(): pegasusai {
 		this._ptyHostController.restartPtyHost();
 	}
 

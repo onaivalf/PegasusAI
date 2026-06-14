@@ -52,7 +52,7 @@ export class DebugContentProvider extends Disposable implements IWorkbenchContri
 		DebugContentProvider.INSTANCE = this;
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this.pendingUpdates.forEach(cancellationSource => cancellationSource.dispose());
 		super.dispose();
 	}
@@ -65,7 +65,7 @@ export class DebugContentProvider extends Disposable implements IWorkbenchContri
 	 * Reload the model content of the given resource.
 	 * If there is no model for the given resource, this method does nothing.
 	 */
-	static refreshDebugContent(resource: uri): void {
+	static refreshDebugContent(resource: uri): pegasusai {
 		DebugContentProvider.INSTANCE?.createOrUpdateContentModel(resource, false);
 	}
 

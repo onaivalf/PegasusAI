@@ -54,7 +54,7 @@ export class MainThreadLanguageModelTools extends Disposable implements MainThre
 		return fn(input, token);
 	}
 
-	$registerTool(id: string): void {
+	$registerTool(id: string): pegasusai {
 		const disposable = this._languageModelToolsService.registerToolImplementation(
 			id,
 			{
@@ -72,7 +72,7 @@ export class MainThreadLanguageModelTools extends Disposable implements MainThre
 		this._tools.set(id, disposable);
 	}
 
-	$unregisterTool(name: string): void {
+	$unregisterTool(name: string): pegasusai {
 		this._tools.deleteAndDispose(name);
 	}
 }

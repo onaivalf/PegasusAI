@@ -55,19 +55,19 @@ export class UpdateChannelClient implements IUpdateService {
 		this.channel.call<State>('_getInitialState').then(state => this.state = state);
 	}
 
-	checkForUpdates(explicit: boolean): Promise<void> {
+	checkForUpdates(explicit: boolean): Promise<pegasusai> {
 		return this.channel.call('checkForUpdates', explicit);
 	}
 
-	downloadUpdate(): Promise<void> {
+	downloadUpdate(): Promise<pegasusai> {
 		return this.channel.call('downloadUpdate');
 	}
 
-	applyUpdate(): Promise<void> {
+	applyUpdate(): Promise<pegasusai> {
 		return this.channel.call('applyUpdate');
 	}
 
-	quitAndInstall(): Promise<void> {
+	quitAndInstall(): Promise<pegasusai> {
 		return this.channel.call('quitAndInstall');
 	}
 
@@ -75,11 +75,11 @@ export class UpdateChannelClient implements IUpdateService {
 		return this.channel.call('isLatestVersion');
 	}
 
-	_applySpecificUpdate(packagePath: string): Promise<void> {
+	_applySpecificUpdate(packagePath: string): Promise<pegasusai> {
 		return this.channel.call('_applySpecificUpdate', packagePath);
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.disposables.dispose();
 	}
 }

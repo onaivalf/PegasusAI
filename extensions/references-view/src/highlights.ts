@@ -39,7 +39,7 @@ export class EditorHighlights<T> {
 		}
 	}
 
-	private _show(): void {
+	private _show(): pegasusai {
 		const { activeTextEditor: editor } = vscode.window;
 		if (!editor || !editor.viewColumn) {
 			return;
@@ -57,13 +57,13 @@ export class EditorHighlights<T> {
 		}
 	}
 
-	private _hide(): void {
+	private _hide(): pegasusai {
 		for (const editor of vscode.window.visibleTextEditors) {
 			editor.setDecorations(this._decorationType, []);
 		}
 	}
 
-	update(): void {
+	update(): pegasusai {
 		this._hide();
 		this._show();
 	}

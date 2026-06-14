@@ -38,10 +38,10 @@ class SimpleSnippetService implements ISnippetsService {
 	isEnabled(): boolean {
 		throw new Error();
 	}
-	updateEnablement(): void {
+	updateEnablement(): pegasusai {
 		throw new Error();
 	}
-	updateUsageTimestamp(snippet: Snippet): void {
+	updateUsageTimestamp(snippet: Snippet): pegasusai {
 		throw new Error();
 	}
 }

@@ -54,7 +54,7 @@ export class MockDebugService implements IDebugService {
 		throw new Error('Method not implemented.');
 	}
 
-	focusStackFrame(focusedStackFrame: IStackFrame): Promise<void> {
+	focusStackFrame(focusedStackFrame: IStackFrame): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
@@ -70,15 +70,15 @@ export class MockDebugService implements IDebugService {
 		throw new Error('not implemented');
 	}
 
-	updateBreakpoints(uri: uri, data: Map<string, IBreakpointUpdateData>, sendOnResourceSaved: boolean): Promise<void> {
+	updateBreakpoints(uri: uri, data: Map<string, IBreakpointUpdateData>, sendOnResourceSaved: boolean): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
-	enableOrDisableBreakpoints(enabled: boolean): Promise<void> {
+	enableOrDisableBreakpoints(enabled: boolean): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
-	setBreakpointsActivated(): Promise<void> {
+	setBreakpointsActivated(): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
@@ -86,61 +86,61 @@ export class MockDebugService implements IDebugService {
 		throw new Error('not implemented');
 	}
 
-	addInstructionBreakpoint(opts: IInstructionBreakpointOptions): Promise<void> {
+	addInstructionBreakpoint(opts: IInstructionBreakpointOptions): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 
-	removeInstructionBreakpoints(address?: string): Promise<void> {
+	removeInstructionBreakpoints(address?: string): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 
-	setExceptionBreakpointCondition(breakpoint: IExceptionBreakpoint, condition: string): Promise<void> {
+	setExceptionBreakpointCondition(breakpoint: IExceptionBreakpoint, condition: string): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 
-	setExceptionBreakpointsForSession(session: IDebugSession, data: DebugProtocol.ExceptionBreakpointsFilter[]): void {
+	setExceptionBreakpointsForSession(session: IDebugSession, data: DebugProtocol.ExceptionBreakpointsFilter[]): pegasusai {
 		throw new Error('Method not implemented.');
 	}
 
-	addFunctionBreakpoint(): void { }
+	addFunctionBreakpoint(): pegasusai { }
 
-	moveWatchExpression(id: string, position: number): void { }
+	moveWatchExpression(id: string, position: number): pegasusai { }
 
-	updateFunctionBreakpoint(id: string, update: { name?: string; hitCondition?: string; condition?: string }): Promise<void> {
+	updateFunctionBreakpoint(id: string, update: { name?: string; hitCondition?: string; condition?: string }): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
-	removeFunctionBreakpoints(id?: string): Promise<void> {
+	removeFunctionBreakpoints(id?: string): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
-	addDataBreakpoint(): Promise<void> {
+	addDataBreakpoint(): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 
-	updateDataBreakpoint(id: string, update: { hitCondition?: string; condition?: string }): Promise<void> {
+	updateDataBreakpoint(id: string, update: { hitCondition?: string; condition?: string }): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
-	removeDataBreakpoints(id?: string | undefined): Promise<void> {
+	removeDataBreakpoints(id?: string | undefined): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 
-	addReplExpression(name: string): Promise<void> {
+	addReplExpression(name: string): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
-	removeReplExpressions(): void { }
+	removeReplExpressions(): pegasusai { }
 
-	addWatchExpression(name?: string): Promise<void> {
+	addWatchExpression(name?: string): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
-	renameWatchExpression(id: string, newName: string): Promise<void> {
+	renameWatchExpression(id: string, newName: string): Promise<pegasusai> {
 		throw new Error('not implemented');
 	}
 
-	removeWatchExpressions(id?: string): void { }
+	removeWatchExpressions(id?: string): pegasusai { }
 
 	startDebugging(launch: ILaunch, configOrName?: IConfig | string, options?: IDebugSessionOptions): Promise<boolean> {
 		return Promise.resolve(true);
@@ -162,13 +162,13 @@ export class MockDebugService implements IDebugService {
 		throw new Error('not implemented');
 	}
 
-	sourceIsNotAvailable(uri: uri): void { }
+	sourceIsNotAvailable(uri: uri): pegasusai { }
 
 	tryToAutoFocusStackFrame(thread: IThread): Promise<any> {
 		throw new Error('not implemented');
 	}
 
-	runTo(uri: uri, lineNumber: number, column?: number): Promise<void> {
+	runTo(uri: uri, lineNumber: number, column?: number): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 }
@@ -195,7 +195,7 @@ export class MockSession implements IDebugSession {
 		throw new Error('Method not implemented.');
 	}
 
-	cancelCorrelatedTestRun(): void {
+	cancelCorrelatedTestRun(): pegasusai {
 
 	}
 
@@ -235,7 +235,7 @@ export class MockSession implements IDebugSession {
 		throw new Error('Method not implemented.');
 	}
 
-	sendDataBreakpoints(dbps: IDataBreakpoint[]): Promise<void> {
+	sendDataBreakpoints(dbps: IDataBreakpoint[]): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 
@@ -245,7 +245,7 @@ export class MockSession implements IDebugSession {
 		return false;
 	}
 
-	setSubId(subId: string | undefined): void {
+	setSubId(subId: string | undefined): pegasusai {
 		throw new Error('Method not implemented.');
 	}
 
@@ -261,16 +261,16 @@ export class MockSession implements IDebugSession {
 		return true;
 	}
 
-	removeReplExpressions(): void { }
+	removeReplExpressions(): pegasusai { }
 	get onDidChangeReplElements(): Event<IReplElement | undefined> {
 		throw new Error('not implemented');
 	}
 
-	addReplExpression(stackFrame: IStackFrame, name: string): Promise<void> {
+	addReplExpression(stackFrame: IStackFrame, name: string): Promise<pegasusai> {
 		return Promise.resolve(undefined);
 	}
 
-	appendToRepl(data: INewReplElementData): void { }
+	appendToRepl(data: INewReplElementData): pegasusai { }
 
 	configuration: IConfig = { type: 'mock', name: 'mock', request: 'launch' };
 	unresolvedConfiguration: IConfig = { type: 'mock', name: 'mock', request: 'launch' };
@@ -290,7 +290,7 @@ export class MockSession implements IDebugSession {
 		return 'mockname';
 	}
 
-	setName(name: string): void {
+	setName(name: string): pegasusai {
 		throw new Error('not implemented');
 	}
 
@@ -314,7 +314,7 @@ export class MockSession implements IDebugSession {
 		throw new Error('not implemented');
 	}
 
-	get onDidChangeState(): Event<void> {
+	get onDidChangeState(): Event<pegasusai> {
 		throw new Error('not implemented');
 	}
 
@@ -356,29 +356,29 @@ export class MockSession implements IDebugSession {
 		throw new Error('not implemented');
 	}
 
-	clearThreads(removeThreads: boolean, reference?: number): void { }
+	clearThreads(removeThreads: boolean, reference?: number): pegasusai { }
 
-	rawUpdate(data: IRawModelUpdate): void { }
+	rawUpdate(data: IRawModelUpdate): pegasusai { }
 
-	initialize(dbgr: IDebugger): Promise<void> {
+	initialize(dbgr: IDebugger): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	launchOrAttach(config: IConfig): Promise<void> {
+	launchOrAttach(config: IConfig): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	restart(): Promise<void> {
+	restart(): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	sendBreakpoints(modelUri: uri, bpts: IBreakpoint[], sourceModified: boolean): Promise<void> {
+	sendBreakpoints(modelUri: uri, bpts: IBreakpoint[], sourceModified: boolean): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	sendFunctionBreakpoints(fbps: IFunctionBreakpoint[]): Promise<void> {
+	sendFunctionBreakpoints(fbps: IFunctionBreakpoint[]): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	sendExceptionBreakpoints(exbpts: IExceptionBreakpoint[]): Promise<void> {
+	sendExceptionBreakpoints(exbpts: IExceptionBreakpoint[]): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	sendInstructionBreakpoints(dbps: IInstructionBreakpoint[]): Promise<void> {
+	sendInstructionBreakpoints(dbps: IInstructionBreakpoint[]): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 	getDebugProtocolBreakpoint(breakpointId: string): DebugProtocol.Breakpoint | undefined {
@@ -402,31 +402,31 @@ export class MockSession implements IDebugSession {
 	evaluate(expression: string, frameId: number, context?: string): Promise<DebugProtocol.EvaluateResponse> {
 		throw new Error('Method not implemented.');
 	}
-	restartFrame(frameId: number, threadId: number): Promise<void> {
+	restartFrame(frameId: number, threadId: number): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	next(threadId: number, granularity?: DebugProtocol.SteppingGranularity): Promise<void> {
+	next(threadId: number, granularity?: DebugProtocol.SteppingGranularity): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	stepIn(threadId: number, targetId?: number, granularity?: DebugProtocol.SteppingGranularity): Promise<void> {
+	stepIn(threadId: number, targetId?: number, granularity?: DebugProtocol.SteppingGranularity): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	stepOut(threadId: number, granularity?: DebugProtocol.SteppingGranularity): Promise<void> {
+	stepOut(threadId: number, granularity?: DebugProtocol.SteppingGranularity): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	stepBack(threadId: number, granularity?: DebugProtocol.SteppingGranularity): Promise<void> {
+	stepBack(threadId: number, granularity?: DebugProtocol.SteppingGranularity): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	continue(threadId: number): Promise<void> {
+	continue(threadId: number): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	reverseContinue(threadId: number): Promise<void> {
+	reverseContinue(threadId: number): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	pause(threadId: number): Promise<void> {
+	pause(threadId: number): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	terminateThreads(threadIds: number[]): Promise<void> {
+	terminateThreads(threadIds: number[]): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 	setVariable(variablesReference: number, name: string, value: string): Promise<DebugProtocol.SetVariableResponse> {
@@ -442,10 +442,10 @@ export class MockSession implements IDebugSession {
 		throw new Error('Method not implemented.');
 	}
 
-	terminate(restart = false): Promise<void> {
+	terminate(restart = false): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
-	disconnect(restart = false): Promise<void> {
+	disconnect(restart = false): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 
@@ -599,15 +599,15 @@ export class MockDebugAdapter extends AbstractDebugAdapter {
 
 	private pendingResponses = new Map<string, DeferredPromise<DebugProtocol.Response>>();
 
-	startSession(): Promise<void> {
+	startSession(): Promise<pegasusai> {
 		return Promise.resolve();
 	}
 
-	stopSession(): Promise<void> {
+	stopSession(): Promise<pegasusai> {
 		return Promise.resolve();
 	}
 
-	sendMessage(message: DebugProtocol.ProtocolMessage): void {
+	sendMessage(message: DebugProtocol.ProtocolMessage): pegasusai {
 		if (message.type === 'request') {
 			setTimeout(() => {
 				const request = message as DebugProtocol.Request;

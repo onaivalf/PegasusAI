@@ -76,7 +76,7 @@ export function showCopilotView(viewsService: IViewsService, layoutService: IWor
 	}
 }
 
-export function ensureSideBarChatViewSize(viewDescriptorService: IViewDescriptorService, layoutService: IWorkbenchLayoutService, viewsService: IViewsService): void {
+export function ensureSideBarChatViewSize(viewDescriptorService: IViewDescriptorService, layoutService: IWorkbenchLayoutService, viewsService: IViewsService): pegasusai {
 	const viewId = preferCopilotEditsView(viewsService) ? EditsViewId : ChatViewId;
 
 	const location = viewDescriptorService.getViewLocationById(viewId);
@@ -102,14 +102,14 @@ export function ensureSideBarChatViewSize(viewDescriptorService: IViewDescriptor
 export const IQuickChatService = createDecorator<IQuickChatService>('quickChatService');
 export interface IQuickChatService {
 	readonly _serviceBrand: undefined;
-	readonly onDidClose: Event<void>;
+	readonly onDidClose: Event<pegasusai>;
 	readonly enabled: boolean;
 	readonly focused: boolean;
-	toggle(options?: IQuickChatOpenOptions): void;
-	focus(): void;
-	open(options?: IQuickChatOpenOptions): void;
-	close(): void;
-	openInChatView(): void;
+	toggle(options?: IQuickChatOpenOptions): pegasusai;
+	focus(): pegasusai;
+	open(options?: IQuickChatOpenOptions): pegasusai;
+	close(): pegasusai;
+	openInChatView(): pegasusai;
 }
 
 export interface IQuickChatOpenOptions {
@@ -131,7 +131,7 @@ export const IChatAccessibilityService = createDecorator<IChatAccessibilityServi
 export interface IChatAccessibilityService {
 	readonly _serviceBrand: undefined;
 	acceptRequest(): number;
-	acceptResponse(response: IChatResponseViewModel | string | undefined, requestId: number, isVoiceInput?: boolean): void;
+	acceptResponse(response: IChatResponseViewModel | string | undefined, requestId: number, isVoiceInput?: boolean): pegasusai;
 }
 
 export interface IChatCodeBlockInfo {
@@ -142,13 +142,13 @@ export interface IChatCodeBlockInfo {
 	readonly uriPromise: Promise<URI | undefined>;
 	codemapperUri: URI | undefined;
 	readonly isStreaming: boolean;
-	focus(): void;
+	focus(): pegasusai;
 }
 
 export interface IChatFileTreeInfo {
 	treeDataId: string;
 	treeIndex: number;
-	focus(): void;
+	focus(): pegasusai;
 }
 
 export type ChatTreeItem = IChatRequestViewModel | IChatResponseViewModel;
@@ -209,12 +209,12 @@ export interface IChatAcceptInputOptions {
 }
 
 export interface IChatWidget {
-	readonly onDidChangeViewModel: Event<void>;
-	readonly onDidAcceptInput: Event<void>;
-	readonly onDidHide: Event<void>;
+	readonly onDidChangeViewModel: Event<pegasusai>;
+	readonly onDidAcceptInput: Event<pegasusai>;
+	readonly onDidHide: Event<pegasusai>;
 	readonly onDidSubmitAgent: Event<{ agent: IChatAgentData; slashCommand?: IChatAgentCommand }>;
 	readonly onDidChangeAgent: Event<{ agent: IChatAgentData; slashCommand?: IChatAgentCommand }>;
-	readonly onDidChangeParsedInput: Event<void>;
+	readonly onDidChangeParsedInput: Event<pegasusai>;
 	readonly location: ChatAgentLocation;
 	readonly viewContext: IChatWidgetViewContext;
 	readonly viewModel: IChatViewModel | undefined;
@@ -230,28 +230,28 @@ export interface IChatWidget {
 	readonly isUnifiedPanelWidget: boolean;
 
 	getContrib<T extends IChatWidgetContrib>(id: string): T | undefined;
-	reveal(item: ChatTreeItem): void;
-	focus(item: ChatTreeItem): void;
+	reveal(item: ChatTreeItem): pegasusai;
+	focus(item: ChatTreeItem): pegasusai;
 	getSibling(item: ChatTreeItem, type: 'next' | 'previous'): ChatTreeItem | undefined;
 	getFocus(): ChatTreeItem | undefined;
-	setInput(query?: string): void;
+	setInput(query?: string): pegasusai;
 	getInput(): string;
-	refreshParsedInput(): void;
-	logInputHistory(): void;
+	refreshParsedInput(): pegasusai;
+	logInputHistory(): pegasusai;
 	acceptInput(query?: string, options?: IChatAcceptInputOptions): Promise<IChatResponseModel | undefined>;
-	rerunLastRequest(): Promise<void>;
-	setInputPlaceholder(placeholder: string): void;
-	resetInputPlaceholder(): void;
-	focusLastMessage(): void;
-	focusInput(): void;
+	rerunLastRequest(): Promise<pegasusai>;
+	setInputPlaceholder(placeholder: string): pegasusai;
+	resetInputPlaceholder(): pegasusai;
+	focusLastMessage(): pegasusai;
+	focusInput(): pegasusai;
 	hasInputFocus(): boolean;
 	getCodeBlockInfoForEditor(uri: URI): IChatCodeBlockInfo | undefined;
 	getCodeBlockInfosForResponse(response: IChatResponseViewModel): IChatCodeBlockInfo[];
 	getFileTreeInfosForResponse(response: IChatResponseViewModel): IChatFileTreeInfo[];
 	getLastFocusedFileTreeForResponse(response: IChatResponseViewModel): IChatFileTreeInfo | undefined;
-	clear(): void;
+	clear(): pegasusai;
 	getViewState(): IChatViewState;
-	togglePaused(): void;
+	togglePaused(): pegasusai;
 }
 
 

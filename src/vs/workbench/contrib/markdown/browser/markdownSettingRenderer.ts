@@ -202,13 +202,13 @@ export class SimpleSettingRenderer {
 		return undefined;
 	}
 
-	async restoreSetting(settingId: string): Promise<void> {
+	async restoreSetting(settingId: string): Promise<pegasusai> {
 		const userOriginalSettingValue = this._updatedSettings.get(settingId);
 		this._updatedSettings.delete(settingId);
 		return this._configurationService.updateValue(settingId, userOriginalSettingValue, ConfigurationTarget.USER);
 	}
 
-	async setSetting(settingId: string, currentSettingValue: any, newSettingValue: any): Promise<void> {
+	async setSetting(settingId: string, currentSettingValue: any, newSettingValue: any): Promise<pegasusai> {
 		this._updatedSettings.set(settingId, currentSettingValue);
 		return this._configurationService.updateValue(settingId, newSettingValue, ConfigurationTarget.USER);
 	}

@@ -18,40 +18,40 @@ export interface IWorkspaceEditingService {
 	 * Add folders to the existing workspace.
 	 * When `donotNotifyError` is `true`, error will be bubbled up otherwise, the service handles the error with proper message and action
 	 */
-	addFolders(folders: IWorkspaceFolderCreationData[], donotNotifyError?: boolean): Promise<void>;
+	addFolders(folders: IWorkspaceFolderCreationData[], donotNotifyError?: boolean): Promise<pegasusai>;
 
 	/**
 	 * Remove folders from the existing workspace
 	 * When `donotNotifyError` is `true`, error will be bubbled up otherwise, the service handles the error with proper message and action
 	 */
-	removeFolders(folders: URI[], donotNotifyError?: boolean): Promise<void>;
+	removeFolders(folders: URI[], donotNotifyError?: boolean): Promise<pegasusai>;
 
 	/**
 	 * Allows to add and remove folders to the existing workspace at once.
 	 * When `donotNotifyError` is `true`, error will be bubbled up otherwise, the service handles the error with proper message and action
 	 */
-	updateFolders(index: number, deleteCount?: number, foldersToAdd?: IWorkspaceFolderCreationData[], donotNotifyError?: boolean): Promise<void>;
+	updateFolders(index: number, deleteCount?: number, foldersToAdd?: IWorkspaceFolderCreationData[], donotNotifyError?: boolean): Promise<pegasusai>;
 
 	/**
 	 * Enters the workspace with the provided path.
 	 */
-	enterWorkspace(path: URI): Promise<void>;
+	enterWorkspace(path: URI): Promise<pegasusai>;
 
 	/**
 	 * Creates a new workspace with the provided folders and opens it. if path is provided
 	 * the workspace will be saved into that location.
 	 */
-	createAndEnterWorkspace(folders: IWorkspaceFolderCreationData[], path?: URI): Promise<void>;
+	createAndEnterWorkspace(folders: IWorkspaceFolderCreationData[], path?: URI): Promise<pegasusai>;
 
 	/**
 	 * Saves the current workspace to the provided path and opens it. requires a workspace to be opened.
 	 */
-	saveAndEnterWorkspace(path: URI): Promise<void>;
+	saveAndEnterWorkspace(path: URI): Promise<pegasusai>;
 
 	/**
 	 * Copies current workspace settings to the target workspace.
 	 */
-	copyWorkspaceSettings(toWorkspace: IWorkspaceIdentifier): Promise<void>;
+	copyWorkspaceSettings(toWorkspace: IWorkspaceIdentifier): Promise<pegasusai>;
 
 	/**
 	 * Picks a new workspace path

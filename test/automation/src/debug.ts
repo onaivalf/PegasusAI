@@ -131,7 +131,7 @@ export class Debug extends Viewlet {
 		await this.editors.waitForTab(name);
 	}
 
-	async waitForReplCommand(text: string, accept: (result: string) => boolean): Promise<void> {
+	async waitForReplCommand(text: string, accept: (result: string) => boolean): Promise<pegasusai> {
 		await this.commands.runCommand('Debug: Focus on Debug Console View');
 		const selector = this.code.quality === Quality.Stable ? REPL_FOCUSED_TEXTAREA : REPL_FOCUSED_NATIVE_EDIT_CONTEXT;
 		await this.code.waitForActiveElement(selector);
@@ -146,11 +146,11 @@ export class Debug extends Viewlet {
 	}
 
 	// Different node versions give different number of variables. As a workaround be more relaxed when checking for variable count
-	async waitForVariableCount(count: number, alternativeCount: number): Promise<void> {
+	async waitForVariableCount(count: number, alternativeCount: number): Promise<pegasusai> {
 		await this.code.waitForElements(VARIABLE, false, els => els.length === count || els.length === alternativeCount);
 	}
 
-	async waitForLink(): Promise<void> {
+	async waitForLink(): Promise<pegasusai> {
 		await this.code.waitForElement(CONSOLE_LINK);
 	}
 

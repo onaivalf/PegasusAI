@@ -32,17 +32,17 @@ export enum Visibility {
 // 		parserResult: ArgumentParserResult,
 // 		hasBackspacedToNewToken: boolean,
 // 		largeBufferChange: boolean,
-// 	) => void;
-// 	error: (error: string) => void;
-// 	setVisibleState: (visibleState: Visibility) => void;
-// 	scroll: (index: number, visibleState: Visibility) => void;
+// 	) => pegasusai;
+// 	error: (error: string) => pegasusai;
+// 	setVisibleState: (visibleState: Visibility) => pegasusai;
+// 	scroll: (index: number, visibleState: Visibility) => pegasusai;
 // 	// setFigState: React.Dispatch<React.SetStateAction<FigState>>;
 // 	updateVisibilityPostInsert: (
 // 		suggestion: Suggestion,
 // 		isFullCompletion: boolean,
-// 	) => void;
-// 	insertTextForItem: (item: Suggestion, execute?: boolean) => void;
-// 	insertCommonPrefix: () => void;
+// 	) => pegasusai;
+// 	insertTextForItem: (item: Suggestion, execute?: boolean) => pegasusai;
+// 	insertCommonPrefix: () => pegasusai;
 // 	// setHistoryModeEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 // 	// setUserFuzzySearchEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 // 	// setSettings: React.Dispatch<React.SetStateAction<SettingsMap>>;
@@ -80,5 +80,5 @@ export declare type NamedSetState<T> = {
 		name: string,
 		partial: Partial<T> | ((s: T) => Partial<T>),
 		replace?: boolean,
-	): void;
+	): pegasusai;
 };

@@ -127,7 +127,7 @@ registerTerminalAction({
 		]);
 
 		// Record session
-		return new Promise<void>(resolve => {
+		return new Promise<pegasusai>(resolve => {
 			const events: unknown[] = [];
 			const endRecording = () => {
 				const session = JSON.stringify(events, null, 2);
@@ -244,7 +244,7 @@ class DevModeContribution extends Disposable implements ITerminalContribution {
 		}));
 	}
 
-	xtermReady(xterm: IXtermTerminal & { raw: Terminal }): void {
+	xtermReady(xterm: IXtermTerminal & { raw: Terminal }): pegasusai {
 		this._xterm = xterm;
 		this._updateDevMode();
 	}

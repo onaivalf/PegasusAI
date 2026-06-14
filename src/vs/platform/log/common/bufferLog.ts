@@ -35,7 +35,7 @@ export class BufferLogger extends AbstractMessageLogger {
 		this.buffer = [];
 	}
 
-	protected log(level: LogLevel, message: string): void {
+	protected log(level: LogLevel, message: string): pegasusai {
 		if (this._logger) {
 			log(this._logger, level, message);
 		} else if (this.getLevel() <= level) {
@@ -43,12 +43,12 @@ export class BufferLogger extends AbstractMessageLogger {
 		}
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this._logger?.dispose();
 		super.dispose();
 	}
 
-	override flush(): void {
+	override flush(): pegasusai {
 		this._logger?.flush();
 	}
 }

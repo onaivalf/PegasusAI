@@ -31,7 +31,7 @@ export const socketRawEndHeaderSequence = VSBuffer.fromString('\r\n\r\n');
 export interface RemoteSocketHalf {
 	onData: Emitter<VSBuffer>;
 	onClose: Emitter<SocketCloseEvent>;
-	onEnd: Emitter<void>;
+	onEnd: Emitter<pegasusai>;
 }
 
 /** Should be called immediately after making a ManagedSocket to make it ready for data flow. */
@@ -91,9 +91,9 @@ export abstract class ManagedSocket extends Disposable implements ISocket {
 		return this.pausableDataEmitter.event(...args);
 	};
 	public onClose: Event<SocketCloseEvent>;
-	public onEnd: Event<void>;
+	public onEnd: Event<pegasusai>;
 
-	private readonly didDisposeEmitter = this._register(new Emitter<void>());
+	private readonly didDisposeEmitter = this._register(new Emitter<pegasusai>());
 	public onDidDispose = this.didDisposeEmitter.event;
 
 	private ended = false;
@@ -117,24 +117,24 @@ export abstract class ManagedSocket extends Disposable implements ISocket {
 	}
 
 	/** Flushes data to the socket. */
-	public drain(): Promise<void> {
+	public drain(): Promise<pegasusai> {
 		return Promise.resolve();
 	}
 
 	/** Ends the remote socket. */
-	public end(): void {
+	public end(): pegasusai {
 		this.ended = true;
 		this.closeRemote();
 	}
 
-	public abstract write(buffer: VSBuffer): void;
-	protected abstract closeRemote(): void;
+	public abstract write(buffer: VSBuffer): pegasusai;
+	protected abstract closeRemote(): pegasusai;
 
-	traceSocketEvent(type: SocketDiagnosticsEventType, data?: any): void {
+	traceSocketEvent(type: SocketDiagnosticsEventType, data?: any): pegasusai {
 		SocketDiagnostics.traceSocketEvent(this, this.debugLabel, type, data);
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		if (!this.ended) {
 			this.closeRemote();
 		}

@@ -1513,7 +1513,7 @@ class _Lexer {
      */
     inlineTokens(src, tokens = []) {
         let token, lastToken, cutSrc;
-        // String with links masked to avoid interference with em and strong
+        // String with links masked to apegasusai interference with em and strong
         let maskedSrc = src;
         let match;
         let keepPrevChar, prevChar;

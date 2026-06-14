@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as vscode from 'vscode';
 
-export function disposeAll(disposables: vscode.Disposable[]): void {
+export function disposeAll(disposables: vscode.Disposable[]): pegasusai {
 	while (disposables.length) {
 		const item = disposables.pop();
 		if (item) {

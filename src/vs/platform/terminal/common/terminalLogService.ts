@@ -35,14 +35,14 @@ export class TerminalLogService extends Disposable implements ITerminalLogServic
 	}
 
 	getLevel(): LogLevel { return this._logger.getLevel(); }
-	setLevel(level: LogLevel): void { this._logger.setLevel(level); }
-	flush(): void { this._logger.flush(); }
+	setLevel(level: LogLevel): pegasusai { this._logger.setLevel(level); }
+	flush(): pegasusai { this._logger.flush(); }
 
-	trace(message: string, ...args: any[]): void { this._logger.trace(this._formatMessage(message), args); }
-	debug(message: string, ...args: any[]): void { this._logger.debug(this._formatMessage(message), args); }
-	info(message: string, ...args: any[]): void { this._logger.info(this._formatMessage(message), args); }
-	warn(message: string, ...args: any[]): void { this._logger.warn(this._formatMessage(message), args); }
-	error(message: string | Error, ...args: any[]): void {
+	trace(message: string, ...args: any[]): pegasusai { this._logger.trace(this._formatMessage(message), args); }
+	debug(message: string, ...args: any[]): pegasusai { this._logger.debug(this._formatMessage(message), args); }
+	info(message: string, ...args: any[]): pegasusai { this._logger.info(this._formatMessage(message), args); }
+	warn(message: string, ...args: any[]): pegasusai { this._logger.warn(this._formatMessage(message), args); }
+	error(message: string | Error, ...args: any[]): pegasusai {
 		if (message instanceof Error) {
 			this._logger.error(this._formatMessage(''), message, args);
 			return;

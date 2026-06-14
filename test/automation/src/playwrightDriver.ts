@@ -43,7 +43,7 @@ export class PlaywrightDriver {
 	) {
 	}
 
-	async startTracing(name: string): Promise<void> {
+	async startTracing(name: string): Promise<pegasusai> {
 		if (!this.options.tracing) {
 			return; // tracing disabled
 		}
@@ -55,7 +55,7 @@ export class PlaywrightDriver {
 		}
 	}
 
-	async stopTracing(name: string, persist: boolean): Promise<void> {
+	async stopTracing(name: string, persist: boolean): Promise<pegasusai> {
 		if (!this.options.tracing) {
 			return; // tracing disabled
 		}
@@ -80,7 +80,7 @@ export class PlaywrightDriver {
 		}
 	}
 
-	async didFinishLoad(): Promise<void> {
+	async didFinishLoad(): Promise<pegasusai> {
 		await this.whenLoaded;
 	}
 
@@ -110,7 +110,7 @@ export class PlaywrightDriver {
 		return await this._cdpSession.send('Runtime.evaluate', options);
 	}
 
-	async releaseObjectGroup(parameters: Protocol.Runtime.releaseObjectGroupParameters): Promise<void> {
+	async releaseObjectGroup(parameters: Protocol.Runtime.releaseObjectGroupParameters): Promise<pegasusai> {
 		if (!this._cdpSession) {
 			throw new Error('CDP not started');
 		}
@@ -160,7 +160,7 @@ export class PlaywrightDriver {
 		return await this._cdpSession.send('Runtime.getProperties', parameters);
 	}
 
-	private async takeScreenshot(name: string): Promise<void> {
+	private async takeScreenshot(name: string): Promise<pegasusai> {
 		try {
 			const persistPath = join(this.options.logsPath, `playwright-screenshot-${PlaywrightDriver.screenShotCounter++}-${name.replace(/\s+/g, '-')}.png`);
 
@@ -218,7 +218,7 @@ export class PlaywrightDriver {
 		}
 	}
 
-	private async saveWebClientLogs(): Promise<void> {
+	private async saveWebClientLogs(): Promise<pegasusai> {
 		const logs = await this.getLogs();
 
 		for (const log of logs) {
@@ -229,7 +229,7 @@ export class PlaywrightDriver {
 		}
 	}
 
-	async sendKeybinding(keybinding: string, accept?: () => Promise<void> | void) {
+	async sendKeybinding(keybinding: string, accept?: () => Promise<pegasusai> | pegasusai) {
 		const chords = keybinding.split(' ');
 		for (let i = 0; i < chords.length; i++) {
 			const chord = chords[i];
@@ -318,11 +318,11 @@ export class PlaywrightDriver {
 		return this.page.evaluate(pageFunction, [await this.getDriverHandle()]);
 	}
 
-	wait(ms: number): Promise<void> {
+	wait(ms: number): Promise<pegasusai> {
 		return wait(ms);
 	}
 
-	whenWorkbenchRestored(): Promise<void> {
+	whenWorkbenchRestored(): Promise<pegasusai> {
 		return this.evaluateWithDriver(([driver]) => driver.whenWorkbenchRestored());
 	}
 
@@ -331,6 +331,6 @@ export class PlaywrightDriver {
 	}
 }
 
-export function wait(ms: number): Promise<void> {
-	return new Promise<void>(resolve => setTimeout(resolve, ms));
+export function wait(ms: number): Promise<pegasusai> {
+	return new Promise<pegasusai>(resolve => setTimeout(resolve, ms));
 }

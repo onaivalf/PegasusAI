@@ -115,7 +115,7 @@ export class OutlinePane extends ViewPane implements IOutlinePane {
 		this._disposables.add(this._outlineViewState.onDidChange(updateContext));
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this._disposables.dispose();
 		this._editorPaneDisposables.dispose();
 		this._editorControlDisposables.dispose();
@@ -123,14 +123,14 @@ export class OutlinePane extends ViewPane implements IOutlinePane {
 		super.dispose();
 	}
 
-	override focus(): void {
+	override focus(): pegasusai {
 		this._editorControlChangePromise.then(() => {
 			super.focus();
 			this._tree?.domFocus();
 		});
 	}
 
-	protected override renderBody(container: HTMLElement): void {
+	protected override renderBody(container: HTMLElement): pegasusai {
 		super.renderBody(container);
 
 		this._domNode = container;
@@ -159,17 +159,17 @@ export class OutlinePane extends ViewPane implements IOutlinePane {
 		}));
 	}
 
-	protected override layoutBody(height: number, width: number): void {
+	protected override layoutBody(height: number, width: number): pegasusai {
 		super.layoutBody(height, width);
 		this._tree?.layout(height, width);
 		this._treeDimensions = new dom.Dimension(width, height);
 	}
 
-	collapseAll(): void {
+	collapseAll(): pegasusai {
 		this._tree?.collapseAll();
 	}
 
-	expandAll(): void {
+	expandAll(): pegasusai {
 		this._tree?.expandAll();
 	}
 
@@ -197,8 +197,8 @@ export class OutlinePane extends ViewPane implements IOutlinePane {
 		return false;
 	}
 
-	private _editorControlChangePromise: Promise<void> = Promise.resolve();
-	private _handleEditorChanged(pane: IEditorPane | undefined): void {
+	private _editorControlChangePromise: Promise<pegasusai> = Promise.resolve();
+	private _handleEditorChanged(pane: IEditorPane | undefined): pegasusai {
 		this._editorPaneDisposables.clear();
 
 		if (pane) {
@@ -211,7 +211,7 @@ export class OutlinePane extends ViewPane implements IOutlinePane {
 		this._editorControlChangePromise = this._handleEditorControlChanged(pane);
 	}
 
-	private async _handleEditorControlChanged(pane: IEditorPane | undefined): Promise<void> {
+	private async _handleEditorControlChanged(pane: IEditorPane | undefined): Promise<pegasusai> {
 
 		// persist state
 		const resource = EditorResourceAccessor.getOriginalUri(pane?.input);

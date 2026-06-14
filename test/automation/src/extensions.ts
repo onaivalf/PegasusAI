@@ -50,7 +50,7 @@ export class Extensions extends Viewlet {
 		}
 	}
 
-	async installExtension(id: string, waitUntilEnabled: boolean): Promise<void> {
+	async installExtension(id: string, waitUntilEnabled: boolean): Promise<pegasusai> {
 		await this.searchForExtension(id);
 
 		// try to install extension 3 times
@@ -74,7 +74,7 @@ export class Extensions extends Viewlet {
 	}
 }
 
-export async function copyExtension(repoPath: string, extensionsPath: string, extId: string): Promise<void> {
+export async function copyExtension(repoPath: string, extensionsPath: string, extId: string): Promise<pegasusai> {
 	const dest = path.join(extensionsPath, extId);
 	if (!fs.existsSync(dest)) {
 		const orig = path.join(repoPath, 'extensions', extId);

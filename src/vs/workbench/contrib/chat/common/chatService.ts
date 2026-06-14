@@ -131,13 +131,13 @@ export interface IChatProgressMessage {
 }
 
 export interface IChatTask extends IChatTaskDto {
-	deferred: DeferredPromise<string | void>;
+	deferred: DeferredPromise<string | pegasusai>;
 	progress: (IChatWarningMessage | IChatContentReference)[];
 	onDidAddProgress: Event<IChatWarningMessage | IChatContentReference>;
-	add(progress: IChatWarningMessage | IChatContentReference): void;
+	add(progress: IChatWarningMessage | IChatContentReference): pegasusai;
 
-	complete: (result: string | void) => void;
-	task: () => Promise<string | void>;
+	complete: (result: string | pegasusai) => pegasusai;
+	task: () => Promise<string | pegasusai>;
 	isSettled: () => boolean;
 }
 
@@ -152,7 +152,7 @@ export interface IChatTaskDto {
 }
 
 export interface IChatTaskResult {
-	content: IMarkdownString | void;
+	content: IMarkdownString | pegasusai;
 	kind: 'progressTaskResult';
 }
 
@@ -237,9 +237,9 @@ export interface IChatToolInvocation {
 	readonly toolId: string;
 	readonly toolCallId: string;
 
-	isCompletePromise: Promise<void>;
+	isCompletePromise: Promise<pegasusai>;
 	isComplete: boolean;
-	complete(result: IToolResult): void;
+	complete(result: IToolResult): pegasusai;
 	kind: 'toolInvocation';
 }
 
@@ -426,7 +426,7 @@ export interface IChatTransferredSessionData {
 
 export interface IChatSendRequestResponseState {
 	responseCreatedPromise: Promise<IChatResponseModel>;
-	responseCompletePromise: Promise<void>;
+	responseCompletePromise: Promise<pegasusai>;
 }
 
 export interface IChatSendRequestData extends IChatSendRequestResponseState {
@@ -502,24 +502,24 @@ export interface IChatService {
 	 */
 	sendRequest(sessionId: string, message: string, options?: IChatSendRequestOptions): Promise<IChatSendRequestData | undefined>;
 
-	resendRequest(request: IChatRequestModel, options?: IChatSendRequestOptions): Promise<void>;
-	adoptRequest(sessionId: string, request: IChatRequestModel): Promise<void>;
-	removeRequest(sessionid: string, requestId: string): Promise<void>;
-	cancelCurrentRequestForSession(sessionId: string): void;
-	clearSession(sessionId: string): Promise<void>;
-	addCompleteRequest(sessionId: string, message: IParsedChatRequest | string, variableData: IChatRequestVariableData | undefined, attempt: number | undefined, response: IChatCompleteResponse): void;
+	resendRequest(request: IChatRequestModel, options?: IChatSendRequestOptions): Promise<pegasusai>;
+	adoptRequest(sessionId: string, request: IChatRequestModel): Promise<pegasusai>;
+	removeRequest(sessionid: string, requestId: string): Promise<pegasusai>;
+	cancelCurrentRequestForSession(sessionId: string): pegasusai;
+	clearSession(sessionId: string): Promise<pegasusai>;
+	addCompleteRequest(sessionId: string, message: IParsedChatRequest | string, variableData: IChatRequestVariableData | undefined, attempt: number | undefined, response: IChatCompleteResponse): pegasusai;
 	getHistory(): Promise<IChatDetail[]>;
-	setChatSessionTitle(sessionId: string, title: string): void;
-	clearAllHistoryEntries(): Promise<void>;
-	removeHistoryEntry(sessionId: string): Promise<void>;
+	setChatSessionTitle(sessionId: string, title: string): pegasusai;
+	clearAllHistoryEntries(): Promise<pegasusai>;
+	removeHistoryEntry(sessionId: string): Promise<pegasusai>;
 	getChatStorageFolder(): URI;
-	logChatIndex(): void;
+	logChatIndex(): pegasusai;
 
 	onDidPerformUserAction: Event<IChatUserActionEvent>;
-	notifyUserAction(event: IChatUserActionEvent): void;
+	notifyUserAction(event: IChatUserActionEvent): pegasusai;
 	onDidDisposeSession: Event<{ sessionId: string; reason: 'initializationFailed' | 'cleared' }>;
 
-	transferChatSession(transferredSessionData: IChatTransferredSessionData, toWorkspace: URI): void;
+	transferChatSession(transferredSessionData: IChatTransferredSessionData, toWorkspace: URI): pegasusai;
 
 	readonly unifiedViewEnabled: boolean;
 	isEditingLocation(location: ChatAgentLocation): boolean;

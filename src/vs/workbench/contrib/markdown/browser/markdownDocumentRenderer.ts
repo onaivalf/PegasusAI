@@ -247,7 +247,7 @@ namespace MarkedHighlight {
 
 		return {
 			async: !!options.async,
-			walkTokens(token: marked.Token): Promise<void> | void {
+			walkTokens(token: marked.Token): Promise<pegasusai> | pegasusai {
 				if (token.type !== 'code') {
 					return;
 				}

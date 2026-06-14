@@ -58,7 +58,7 @@ export class NativeMenubarControl extends MenubarControl {
 		this.registerListeners();
 	}
 
-	protected override setupMainMenu(): void {
+	protected override setupMainMenu(): pegasusai {
 		super.setupMainMenu();
 
 		for (const topLevelMenuName of Object.keys(this.topLevelTitles)) {
@@ -69,7 +69,7 @@ export class NativeMenubarControl extends MenubarControl {
 		}
 	}
 
-	protected doUpdateMenubar(): void {
+	protected doUpdateMenubar(): pegasusai {
 		// Since the native menubar is shared between windows (main process)
 		// only allow the focused window to update the menubar
 		if (!this.hostService.hasFocus) {

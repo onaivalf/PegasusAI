@@ -31,7 +31,7 @@ import { observableCodeEditor } from '../../../browser/observableCodeEditor.js';
 export const IPeekViewService = createDecorator<IPeekViewService>('IPeekViewService');
 export interface IPeekViewService {
 	readonly _serviceBrand: undefined;
-	addExclusiveWidget(editor: ICodeEditor, widget: PeekViewWidget): void;
+	addExclusiveWidget(editor: ICodeEditor, widget: PeekViewWidget): pegasusai;
 }
 
 registerSingleton(IPeekViewService, class implements IPeekViewService {
@@ -39,7 +39,7 @@ registerSingleton(IPeekViewService, class implements IPeekViewService {
 
 	private readonly _widgets = new Map<ICodeEditor, { widget: PeekViewWidget; listener: IDisposable }>();
 
-	addExclusiveWidget(editor: ICodeEditor, widget: PeekViewWidget): void {
+	addExclusiveWidget(editor: ICodeEditor, widget: PeekViewWidget): pegasusai {
 		const existing = this._widgets.get(editor);
 		if (existing) {
 			existing.listener.dispose();
@@ -74,7 +74,7 @@ class PeekContextController implements IEditorContribution {
 		}
 	}
 
-	dispose(): void { }
+	dispose(): pegasusai { }
 }
 
 registerEditorContribution(PeekContextController.ID, PeekContextController, EditorContributionInstantiation.Eager); // eager because it needs to define a context key
@@ -123,7 +123,7 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		e.openedPeekWidgets.set(e.openedPeekWidgets.get() + 1, undefined);
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		if (!this.disposed) {
 			this.disposed = true; // prevent consumers who dispose on onDidClose from looping
 			super.dispose();
@@ -134,7 +134,7 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		}
 	}
 
-	override style(styles: IPeekViewStyles): void {
+	override style(styles: IPeekViewStyles): pegasusai {
 		const options = <IPeekViewOptions>this.options;
 		if (styles.headerBackgroundColor) {
 			options.headerBackgroundColor = styles.headerBackgroundColor;
@@ -148,7 +148,7 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		super.style(styles);
 	}
 
-	protected override _applyStyles(): void {
+	protected override _applyStyles(): pegasusai {
 		super._applyStyles();
 		const options = <IPeekViewOptions>this.options;
 		if (this._headElement && options.headerBackgroundColor) {
@@ -165,7 +165,7 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		}
 	}
 
-	protected _fillContainer(container: HTMLElement): void {
+	protected _fillContainer(container: HTMLElement): pegasusai {
 		this.setCssClass('peekview-widget');
 
 		this._headElement = dom.$<HTMLDivElement>('.head');
@@ -178,7 +178,7 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		container.appendChild(this._bodyElement);
 	}
 
-	protected _fillHead(container: HTMLElement, noCloseAction?: boolean): void {
+	protected _fillHead(container: HTMLElement, noCloseAction?: boolean): pegasusai {
 		this._titleElement = dom.$('.peekview-title');
 		if ((this.options as IPeekViewOptions).supportOnTitleClick) {
 			this._titleElement.classList.add('clickable');
@@ -207,7 +207,7 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		}
 	}
 
-	protected _fillTitleIcon(container: HTMLElement): void {
+	protected _fillTitleIcon(container: HTMLElement): pegasusai {
 	}
 
 	protected _getActionBarOptions(): IActionBarOptions {
@@ -217,11 +217,11 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		};
 	}
 
-	protected _onTitleClick(event: IMouseEvent): void {
+	protected _onTitleClick(event: IMouseEvent): pegasusai {
 		// implement me if supportOnTitleClick option is set
 	}
 
-	setTitle(primaryHeading: string, secondaryHeading?: string): void {
+	setTitle(primaryHeading: string, secondaryHeading?: string): pegasusai {
 		if (this._primaryHeading && this._secondaryHeading) {
 			this._primaryHeading.innerText = primaryHeading;
 			this._primaryHeading.setAttribute('title', primaryHeading);
@@ -233,7 +233,7 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		}
 	}
 
-	setMetaTitle(value: string): void {
+	setMetaTitle(value: string): pegasusai {
 		if (this._metaHeading) {
 			if (value) {
 				this._metaHeading.innerText = value;
@@ -244,9 +244,9 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		}
 	}
 
-	protected abstract _fillBody(container: HTMLElement): void;
+	protected abstract _fillBody(container: HTMLElement): pegasusai;
 
-	protected override _doLayout(heightInPixel: number, widthInPixel: number): void {
+	protected override _doLayout(heightInPixel: number, widthInPixel: number): pegasusai {
 
 		if (!this._isShowing && heightInPixel < 0) {
 			// Looks like the view zone got folded away!
@@ -261,14 +261,14 @@ export abstract class PeekViewWidget extends ZoneWidget {
 		this._doLayoutBody(bodyHeight, widthInPixel);
 	}
 
-	protected _doLayoutHead(heightInPixel: number, widthInPixel: number): void {
+	protected _doLayoutHead(heightInPixel: number, widthInPixel: number): pegasusai {
 		if (this._headElement) {
 			this._headElement.style.height = `${heightInPixel}px`;
 			this._headElement.style.lineHeight = this._headElement.style.height;
 		}
 	}
 
-	protected _doLayoutBody(heightInPixel: number, widthInPixel: number): void {
+	protected _doLayoutBody(heightInPixel: number, widthInPixel: number): pegasusai {
 		if (this._bodyElement) {
 			this._bodyElement.style.height = `${heightInPixel}px`;
 		}

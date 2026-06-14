@@ -24,7 +24,7 @@ suite('ListView', function () {
 
 		let templatesCount = 0;
 
-		const renderer: IListRenderer<number, void> = {
+		const renderer: IListRenderer<number, pegasusai> = {
 			templateId: 'template',
 			renderTemplate() { templatesCount++; },
 			renderElement() { },

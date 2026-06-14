@@ -6,13 +6,13 @@
 import * as fs from 'fs';
 import { IPCClient } from './ipc/ipcClient';
 
-function fatal(err: any): void {
+function fatal(err: any): pegasusai {
 	console.error('Missing or invalid credentials.');
 	console.error(err);
 	process.exit(1);
 }
 
-function main(argv: string[]): void {
+function main(argv: string[]): pegasusai {
 	if (!process.env['VSCODE_GIT_ASKPASS_PIPE']) {
 		return fatal('Missing pipe');
 	}

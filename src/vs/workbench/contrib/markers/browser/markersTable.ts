@@ -82,7 +82,7 @@ class MarkerSeverityColumnRenderer implements ITableRenderer<MarkerTableItem, IM
 		return { actionBar, icon };
 	}
 
-	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerIconColumnTemplateData, height: number | undefined): void {
+	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerIconColumnTemplateData, height: number | undefined): pegasusai {
 		const toggleQuickFix = (enabled?: boolean) => {
 			if (!isUndefinedOrNull(enabled)) {
 				const container = DOM.findParentWithClass(templateData.icon, 'monaco-table-td')!;
@@ -110,7 +110,7 @@ class MarkerSeverityColumnRenderer implements ITableRenderer<MarkerTableItem, IM
 		}
 	}
 
-	disposeTemplate(templateData: IMarkerIconColumnTemplateData): void { }
+	disposeTemplate(templateData: IMarkerIconColumnTemplateData): pegasusai { }
 }
 
 class MarkerCodeColumnRenderer implements ITableRenderer<MarkerTableItem, IMarkerCodeColumnTemplateData> {
@@ -138,7 +138,7 @@ class MarkerCodeColumnRenderer implements ITableRenderer<MarkerTableItem, IMarke
 		return { codeColumn, sourceLabel, codeLabel, codeLink, templateDisposable };
 	}
 
-	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerCodeColumnTemplateData, height: number | undefined): void {
+	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerCodeColumnTemplateData, height: number | undefined): pegasusai {
 		templateData.codeColumn.classList.remove('code-label');
 		templateData.codeColumn.classList.remove('code-link');
 
@@ -168,7 +168,7 @@ class MarkerCodeColumnRenderer implements ITableRenderer<MarkerTableItem, IMarke
 		}
 	}
 
-	disposeTemplate(templateData: IMarkerCodeColumnTemplateData): void {
+	disposeTemplate(templateData: IMarkerCodeColumnTemplateData): pegasusai {
 		templateData.templateDisposable.dispose();
 	}
 }
@@ -186,12 +186,12 @@ class MarkerMessageColumnRenderer implements ITableRenderer<MarkerTableItem, IMa
 		return { columnElement, highlightedLabel };
 	}
 
-	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerHighlightedLabelColumnTemplateData, height: number | undefined): void {
+	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerHighlightedLabelColumnTemplateData, height: number | undefined): pegasusai {
 		templateData.columnElement.title = element.marker.message;
 		templateData.highlightedLabel.set(element.marker.message, element.messageMatches);
 	}
 
-	disposeTemplate(templateData: IMarkerHighlightedLabelColumnTemplateData): void {
+	disposeTemplate(templateData: IMarkerHighlightedLabelColumnTemplateData): pegasusai {
 		templateData.highlightedLabel.dispose();
 	}
 }
@@ -216,7 +216,7 @@ class MarkerFileColumnRenderer implements ITableRenderer<MarkerTableItem, IMarke
 		return { columnElement, fileLabel, positionLabel };
 	}
 
-	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerFileColumnTemplateData, height: number | undefined): void {
+	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerFileColumnTemplateData, height: number | undefined): pegasusai {
 		const positionLabel = Messages.MARKERS_PANEL_AT_LINE_COL_NUMBER(element.marker.startLineNumber, element.marker.startColumn);
 
 		templateData.columnElement.title = `${this.labelService.getUriLabel(element.marker.resource, { relative: false })} ${positionLabel}`;
@@ -224,7 +224,7 @@ class MarkerFileColumnRenderer implements ITableRenderer<MarkerTableItem, IMarke
 		templateData.positionLabel.set(positionLabel, undefined);
 	}
 
-	disposeTemplate(templateData: IMarkerFileColumnTemplateData): void {
+	disposeTemplate(templateData: IMarkerFileColumnTemplateData): pegasusai {
 		templateData.fileLabel.dispose();
 		templateData.positionLabel.dispose();
 	}
@@ -242,12 +242,12 @@ class MarkerSourceColumnRenderer implements ITableRenderer<MarkerTableItem, IMar
 		return { columnElement, highlightedLabel };
 	}
 
-	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerHighlightedLabelColumnTemplateData, height: number | undefined): void {
+	renderElement(element: MarkerTableItem, index: number, templateData: IMarkerHighlightedLabelColumnTemplateData, height: number | undefined): pegasusai {
 		templateData.columnElement.title = element.marker.source ?? '';
 		templateData.highlightedLabel.set(element.marker.source ?? '', element.sourceMatches);
 	}
 
-	disposeTemplate(templateData: IMarkerHighlightedLabelColumnTemplateData): void {
+	disposeTemplate(templateData: IMarkerHighlightedLabelColumnTemplateData): pegasusai {
 		templateData.highlightedLabel.dispose();
 	}
 }
@@ -376,13 +376,13 @@ export class MarkersTable extends Disposable implements IProblemsWidget {
 		return this.table.onDidChangeSelection;
 	}
 
-	collapseMarkers(): void { }
+	collapseMarkers(): pegasusai { }
 
-	domFocus(): void {
+	domFocus(): pegasusai {
 		this.table.domFocus();
 	}
 
-	filterMarkers(resourceMarkers: ResourceMarkers[], filterOptions: FilterOptions): void {
+	filterMarkers(resourceMarkers: ResourceMarkers[], filterOptions: FilterOptions): pegasusai {
 		this.filterOptions = filterOptions;
 		this.reset(resourceMarkers);
 	}
@@ -413,12 +413,12 @@ export class MarkersTable extends Disposable implements IProblemsWidget {
 		return !this.container.classList.contains('hidden');
 	}
 
-	layout(height: number, width: number): void {
+	layout(height: number, width: number): pegasusai {
 		this.container.style.height = `${height}px`;
 		this.table.layout(height, width);
 	}
 
-	reset(resourceMarkers: ResourceMarkers[]): void {
+	reset(resourceMarkers: ResourceMarkers[]): pegasusai {
 		this.resourceMarkers = resourceMarkers;
 
 		const items: MarkerTableItem[] = [];
@@ -482,7 +482,7 @@ export class MarkersTable extends Disposable implements IProblemsWidget {
 		}));
 	}
 
-	revealMarkers(activeResource: ResourceMarkers | null, focus: boolean, lastSelectedRelativeTop: number): void {
+	revealMarkers(activeResource: ResourceMarkers | null, focus: boolean, lastSelectedRelativeTop: number): pegasusai {
 		if (activeResource) {
 			const activeResourceIndex = this.resourceMarkers.indexOf(activeResource);
 
@@ -509,11 +509,11 @@ export class MarkersTable extends Disposable implements IProblemsWidget {
 		}
 	}
 
-	setAriaLabel(label: string): void {
+	setAriaLabel(label: string): pegasusai {
 		this.table.domNode.ariaLabel = label;
 	}
 
-	setMarkerSelection(selection?: Marker[], focus?: Marker[]): void {
+	setMarkerSelection(selection?: Marker[], focus?: Marker[]): pegasusai {
 		if (this.isVisible()) {
 			if (selection && selection.length > 0) {
 				this.table.setSelection(selection.map(m => this.findMarkerIndex(m)));
@@ -533,11 +533,11 @@ export class MarkersTable extends Disposable implements IProblemsWidget {
 		}
 	}
 
-	toggleVisibility(hide: boolean): void {
+	toggleVisibility(hide: boolean): pegasusai {
 		this.container.classList.toggle('hidden', hide);
 	}
 
-	update(resourceMarkers: ResourceMarkers[]): void {
+	update(resourceMarkers: ResourceMarkers[]): pegasusai {
 		for (const resourceMarker of resourceMarkers) {
 			const index = this.resourceMarkers.indexOf(resourceMarker);
 			this.resourceMarkers.splice(index, 1, resourceMarker);
@@ -545,7 +545,7 @@ export class MarkersTable extends Disposable implements IProblemsWidget {
 		this.reset(this.resourceMarkers);
 	}
 
-	updateMarker(marker: Marker): void {
+	updateMarker(marker: Marker): pegasusai {
 		this.table.rerender();
 	}
 

@@ -60,7 +60,7 @@ export const executeSectionCondition = ContextKeyExpr.and(
 	NOTEBOOK_CELL_TYPE.isEqualTo('markup'),
 );
 
-function renderAllMarkdownCells(context: INotebookActionContext): void {
+function renderAllMarkdownCells(context: INotebookActionContext): pegasusai {
 	for (let i = 0; i < context.notebookEditor.getLength(); i++) {
 		const cell = context.notebookEditor.cellAt(i);
 
@@ -70,7 +70,7 @@ function renderAllMarkdownCells(context: INotebookActionContext): void {
 	}
 }
 
-async function runCell(editorGroupsService: IEditorGroupsService, context: INotebookActionContext): Promise<void> {
+async function runCell(editorGroupsService: IEditorGroupsService, context: INotebookActionContext): Promise<pegasusai> {
 	const group = editorGroupsService.activeGroup;
 
 	if (group) {
@@ -117,7 +117,7 @@ registerAction2(class RenderAllMarkdownCellsAction extends NotebookAction {
 		});
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<pegasusai> {
 		renderAllMarkdownCells(context);
 	}
 });
@@ -169,7 +169,7 @@ registerAction2(class ExecuteNotebookAction extends NotebookAction {
 		return getContextFromUri(accessor, context) ?? getContextFromActiveEditor(accessor.get(IEditorService));
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<pegasusai> {
 		renderAllMarkdownCells(context);
 
 		const editorService = accessor.get(IEditorService);
@@ -217,7 +217,7 @@ registerAction2(class ExecuteCell extends NotebookMultiCellAction {
 		return parseMultiCellExecutionArgs(accessor, ...args);
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<pegasusai> {
 		const editorGroupsService = accessor.get(IEditorGroupsService);
 
 		if (context.ui) {
@@ -273,7 +273,7 @@ registerAction2(class ExecuteAboveCells extends NotebookMultiCellAction {
 		return parseMultiCellExecutionArgs(accessor, ...args);
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<pegasusai> {
 		let endCellIdx: number | undefined = undefined;
 		if (context.ui) {
 			endCellIdx = context.notebookEditor.getCellIndex(context.cell);
@@ -320,7 +320,7 @@ registerAction2(class ExecuteCellAndBelow extends NotebookMultiCellAction {
 		return parseMultiCellExecutionArgs(accessor, ...args);
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<pegasusai> {
 		let startCellIdx: number | undefined = undefined;
 		if (context.ui) {
 			startCellIdx = context.notebookEditor.getCellIndex(context.cell);
@@ -355,7 +355,7 @@ registerAction2(class ExecuteCellFocusContainer extends NotebookMultiCellAction 
 		return parseMultiCellExecutionArgs(accessor, ...args);
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<pegasusai> {
 		const editorGroupsService = accessor.get(IEditorGroupsService);
 
 		if (context.ui) {
@@ -432,7 +432,7 @@ registerAction2(class CancelExecuteCell extends NotebookMultiCellAction {
 		return parseMultiCellExecutionArgs(accessor, ...args);
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookCommandContext | INotebookCellToolbarActionContext): Promise<pegasusai> {
 		if (context.ui) {
 			await context.notebookEditor.focusNotebookCell(context.cell, 'container', { skipReveal: true });
 			return context.notebookEditor.cancelNotebookCells(Iterable.single(context.cell));
@@ -459,7 +459,7 @@ registerAction2(class ExecuteCellSelectBelow extends NotebookCellAction {
 		});
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookCellActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookCellActionContext): Promise<pegasusai> {
 		const editorGroupsService = accessor.get(IEditorGroupsService);
 		const idx = context.notebookEditor.getCellIndex(context.cell);
 		if (typeof idx !== 'number') {
@@ -522,7 +522,7 @@ registerAction2(class ExecuteCellInsertBelow extends NotebookCellAction {
 		});
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookCellActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookCellActionContext): Promise<pegasusai> {
 		const editorGroupsService = accessor.get(IEditorGroupsService);
 		const idx = context.notebookEditor.getCellIndex(context.cell);
 		const languageService = accessor.get(ILanguageService);
@@ -546,7 +546,7 @@ class CancelNotebook extends NotebookAction {
 		return getContextFromUri(accessor, context) ?? getContextFromActiveEditor(accessor.get(IEditorService));
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<pegasusai> {
 		return context.notebookEditor.cancelNotebookCells();
 	}
 }
@@ -677,7 +677,7 @@ registerAction2(class RevealRunningCellAction extends NotebookAction {
 		});
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<pegasusai> {
 		const notebookExecutionStateService = accessor.get(INotebookExecutionStateService);
 		const notebook = context.notebookEditor.textModel.uri;
 		const executingCells = notebookExecutionStateService.getCellExecutionsForNotebook(notebook);
@@ -745,7 +745,7 @@ registerAction2(class RevealLastFailedCellAction extends NotebookAction {
 		});
 	}
 
-	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<void> {
+	async runWithContext(accessor: ServicesAccessor, context: INotebookActionContext): Promise<pegasusai> {
 		const notebookExecutionStateService = accessor.get(INotebookExecutionStateService);
 		const notebook = context.notebookEditor.textModel.uri;
 		const lastFailedCellHandle = notebookExecutionStateService.getLastFailedCellForNotebook(notebook);

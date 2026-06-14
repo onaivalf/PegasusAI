@@ -31,7 +31,7 @@ export class ToggleTabFocusModeAction extends Action2 {
 		});
 	}
 
-	public run(): void {
+	public run(): pegasusai {
 		const oldValue = TabFocus.getTabFocusMode();
 		const newValue = !oldValue;
 		TabFocus.setTabFocusMode(newValue);

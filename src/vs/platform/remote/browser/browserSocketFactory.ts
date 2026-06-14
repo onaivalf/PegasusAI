@@ -38,13 +38,13 @@ export interface IWebSocketCloseEvent {
 
 export interface IWebSocket {
 	readonly onData: Event<ArrayBuffer>;
-	readonly onOpen: Event<void>;
-	readonly onClose: Event<IWebSocketCloseEvent | void>;
+	readonly onOpen: Event<pegasusai>;
+	readonly onClose: Event<IWebSocketCloseEvent | pegasusai>;
 	readonly onError: Event<any>;
 
-	traceSocketEvent?(type: SocketDiagnosticsEventType, data?: VSBuffer | Uint8Array | ArrayBuffer | ArrayBufferView | any): void;
-	send(data: ArrayBuffer | ArrayBufferView): void;
-	close(): void;
+	traceSocketEvent?(type: SocketDiagnosticsEventType, data?: VSBuffer | Uint8Array | ArrayBuffer | ArrayBufferView | any): pegasusai;
+	send(data: ArrayBuffer | ArrayBufferView): pegasusai;
+	close(): pegasusai;
 }
 
 class BrowserWebSocket extends Disposable implements IWebSocket {
@@ -52,7 +52,7 @@ class BrowserWebSocket extends Disposable implements IWebSocket {
 	private readonly _onData = new Emitter<ArrayBuffer>();
 	public readonly onData = this._onData.event;
 
-	private readonly _onOpen = this._register(new Emitter<void>());
+	private readonly _onOpen = this._register(new Emitter<pegasusai>());
 	public readonly onOpen = this._onOpen.event;
 
 	private readonly _onClose = this._register(new Emitter<IWebSocketCloseEvent>());
@@ -68,9 +68,9 @@ class BrowserWebSocket extends Disposable implements IWebSocket {
 	private _isReading: boolean;
 	private _isClosed: boolean;
 
-	private readonly _socketMessageListener: (ev: MessageEvent) => void;
+	private readonly _socketMessageListener: (ev: MessageEvent) => pegasusai;
 
-	public traceSocketEvent(type: SocketDiagnosticsEventType, data?: VSBuffer | Uint8Array | ArrayBuffer | ArrayBufferView | any): void {
+	public traceSocketEvent(type: SocketDiagnosticsEventType, data?: VSBuffer | Uint8Array | ArrayBuffer | ArrayBufferView | any): pegasusai {
 		SocketDiagnostics.traceSocketEvent(this._socket, this._debugLabel, type, data);
 	}
 
@@ -181,7 +181,7 @@ class BrowserWebSocket extends Disposable implements IWebSocket {
 		}));
 	}
 
-	send(data: ArrayBuffer | ArrayBufferView): void {
+	send(data: ArrayBuffer | ArrayBufferView): pegasusai {
 		if (this._isClosed) {
 			// Refuse to write data to closed WebSocket...
 			return;
@@ -190,7 +190,7 @@ class BrowserWebSocket extends Disposable implements IWebSocket {
 		this._socket.send(data);
 	}
 
-	close(): void {
+	close(): pegasusai {
 		this._isClosed = true;
 		this.traceSocketEvent(SocketDiagnosticsEventType.Close);
 		this._socket.close();
@@ -210,7 +210,7 @@ class BrowserSocket implements ISocket {
 	public readonly socket: IWebSocket;
 	public readonly debugLabel: string;
 
-	public traceSocketEvent(type: SocketDiagnosticsEventType, data?: VSBuffer | Uint8Array | ArrayBuffer | ArrayBufferView | any): void {
+	public traceSocketEvent(type: SocketDiagnosticsEventType, data?: VSBuffer | Uint8Array | ArrayBuffer | ArrayBufferView | any): pegasusai {
 		if (typeof this.socket.traceSocketEvent === 'function') {
 			this.socket.traceSocketEvent(type, data);
 		} else {
@@ -223,16 +223,16 @@ class BrowserSocket implements ISocket {
 		this.debugLabel = debugLabel;
 	}
 
-	public dispose(): void {
+	public dispose(): pegasusai {
 		this.socket.close();
 	}
 
-	public onData(listener: (e: VSBuffer) => void): IDisposable {
+	public onData(listener: (e: VSBuffer) => pegasusai): IDisposable {
 		return this.socket.onData((data) => listener(VSBuffer.wrap(new Uint8Array(data))));
 	}
 
-	public onClose(listener: (e: SocketCloseEvent) => void): IDisposable {
-		const adapter = (e: IWebSocketCloseEvent | void) => {
+	public onClose(listener: (e: SocketCloseEvent) => pegasusai): IDisposable {
+		const adapter = (e: IWebSocketCloseEvent | pegasusai) => {
 			if (typeof e === 'undefined') {
 				listener(e);
 			} else {
@@ -248,19 +248,19 @@ class BrowserSocket implements ISocket {
 		return this.socket.onClose(adapter);
 	}
 
-	public onEnd(listener: () => void): IDisposable {
+	public onEnd(listener: () => pegasusai): IDisposable {
 		return Disposable.None;
 	}
 
-	public write(buffer: VSBuffer): void {
+	public write(buffer: VSBuffer): pegasusai {
 		this.socket.send(buffer.buffer);
 	}
 
-	public end(): void {
+	public end(): pegasusai {
 		this.socket.close();
 	}
 
-	public drain(): Promise<void> {
+	public drain(): Promise<pegasusai> {
 		return Promise.resolve();
 	}
 }

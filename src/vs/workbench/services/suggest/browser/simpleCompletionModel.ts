@@ -74,12 +74,12 @@ export class SimpleCompletionModel<T extends SimpleCompletionItem> {
 		this._refilterKind = Refilter.All;
 	}
 
-	private _ensureCachedState(): void {
+	private _ensureCachedState(): pegasusai {
 		if (this._refilterKind !== Refilter.Nothing) {
 			this._createCachedState();
 		}
 	}
-	private _createCachedState(): void {
+	private _createCachedState(): pegasusai {
 
 		// this._providerInfo = new Map();
 

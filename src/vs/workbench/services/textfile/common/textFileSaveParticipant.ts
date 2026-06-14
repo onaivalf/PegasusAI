@@ -31,7 +31,7 @@ export class TextFileSaveParticipant extends Disposable {
 		return toDisposable(() => remove());
 	}
 
-	async participate(model: ITextFileEditorModel, context: ITextFileSaveParticipantContext, progress: IProgress<IProgressStep>, token: CancellationToken): Promise<void> {
+	async participate(model: ITextFileEditorModel, context: ITextFileSaveParticipantContext, progress: IProgress<IProgressStep>, token: CancellationToken): Promise<pegasusai> {
 		const cts = new CancellationTokenSource(token);
 
 		// undoStop before participation
@@ -91,7 +91,7 @@ export class TextFileSaveParticipant extends Disposable {
 		}
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this.saveParticipants.clear();
 
 		super.dispose();

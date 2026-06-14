@@ -44,7 +44,7 @@ export class HoverService extends Disposable implements IHoverService {
 
 	private _lastFocusedElementBeforeOpen: HTMLElement | undefined;
 
-	private readonly _delayedHovers = new Map<HTMLElement, { show: (focus: boolean) => void }>();
+	private readonly _delayedHovers = new Map<HTMLElement, { show: (focus: boolean) => pegasusai }>();
 	private readonly _managedHovers = new Map<HTMLElement, IManagedHover>();
 
 	constructor(
@@ -296,35 +296,35 @@ export class HoverService extends Disposable implements IHoverService {
 		);
 	}
 
-	hideHover(force?: boolean): void {
+	hideHover(force?: boolean): pegasusai {
 		if ((!force && this._currentHover?.isLocked) || !this._currentHoverOptions) {
 			return;
 		}
 		this.doHideHover();
 	}
 
-	private doHideHover(): void {
+	private doHideHover(): pegasusai {
 		this._currentHover = undefined;
 		this._currentHoverOptions = undefined;
 		this._contextViewHandler.hideContextView();
 	}
 
-	private _intersectionChange(entries: IntersectionObserverEntry[], hover: IDisposable): void {
+	private _intersectionChange(entries: IntersectionObserverEntry[], hover: IDisposable): pegasusai {
 		const entry = entries[entries.length - 1];
 		if (!entry.isIntersecting) {
 			hover.dispose();
 		}
 	}
 
-	showAndFocusLastHover(): void {
+	showAndFocusLastHover(): pegasusai {
 		if (!this._lastHoverOptions) {
 			return;
 		}
 		this.showInstantHover(this._lastHoverOptions, true, true);
 	}
 
-	private _showAndFocusHoverForActiveElement(): void {
-		// TODO: if hover is visible, focus it to avoid flickering
+	private _showAndFocusHoverForActiveElement(): pegasusai {
+		// TODO: if hover is visible, focus it to apegasusai flickering
 
 		let activeElement = getActiveElement() as HTMLElement | null;
 		while (activeElement) {
@@ -490,14 +490,14 @@ export class HoverService extends Disposable implements IHoverService {
 		return hover;
 	}
 
-	showManagedHover(target: HTMLElement): void {
+	showManagedHover(target: HTMLElement): pegasusai {
 		const hover = this._managedHovers.get(target);
 		if (hover) {
 			hover.show(true);
 		}
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		this._managedHovers.forEach(hover => hover.dispose());
 		super.dispose();
 	}

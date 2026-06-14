@@ -39,7 +39,7 @@ class LastRenderedData {
 		return this._currentVisibleRange;
 	}
 
-	public setCurrentVisibleRange(currentVisibleRange: Range): void {
+	public setCurrentVisibleRange(currentVisibleRange: Range): pegasusai {
 		this._currentVisibleRange = currentVisibleRange;
 	}
 }
@@ -172,7 +172,7 @@ export class ViewLines extends ViewPart implements IViewLines {
 		this._maxNumberStickyLines = options.get(EditorOption.stickyScroll).maxLineCount;
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		this._asyncUpdateLineWidths.dispose();
 		this._asyncCheckMonospaceFontAssumptions.dispose();
 		super.dispose();
@@ -501,7 +501,7 @@ export class ViewLines extends ViewPart implements IViewLines {
 
 	// --- implementation
 
-	public updateLineWidths(): void {
+	public updateLineWidths(): pegasusai {
 		this._updateLineWidths(false);
 	}
 
@@ -514,7 +514,7 @@ export class ViewLines extends ViewPart implements IViewLines {
 		return this._updateLineWidths(true);
 	}
 
-	private _updateLineWidthsSlow(): void {
+	private _updateLineWidthsSlow(): pegasusai {
 		this._updateLineWidths(false);
 	}
 
@@ -522,7 +522,7 @@ export class ViewLines extends ViewPart implements IViewLines {
 	 * Update the line widths using DOM layout information after someone else
 	 * has caused a synchronous layout.
 	 */
-	private _updateLineWidthsSlowIfDomDidLayout(domReadingContext: DomReadingContext): void {
+	private _updateLineWidthsSlowIfDomDidLayout(domReadingContext: DomReadingContext): pegasusai {
 		if (!domReadingContext.didDomLayout) {
 			// only proceed if we just did a layout
 			return;
@@ -563,7 +563,7 @@ export class ViewLines extends ViewPart implements IViewLines {
 		return allWidthsComputed;
 	}
 
-	private _checkMonospaceFontAssumptions(): void {
+	private _checkMonospaceFontAssumptions(): pegasusai {
 		// Problems with monospace assumptions are more apparent for longer lines,
 		// as small rounding errors start to sum up, so we will select the longest
 		// line for a closer inspection
@@ -594,15 +594,15 @@ export class ViewLines extends ViewPart implements IViewLines {
 		}
 	}
 
-	public prepareRender(): void {
+	public prepareRender(): pegasusai {
 		throw new Error('Not supported');
 	}
 
-	public render(): void {
+	public render(): pegasusai {
 		throw new Error('Not supported');
 	}
 
-	public renderText(viewportData: ViewportData): void {
+	public renderText(viewportData: ViewportData): pegasusai {
 		// (1) render lines - ensures lines are in the DOM
 		this._visibleLines.renderLines(viewportData);
 		this._lastRenderedData.setCurrentVisibleRange(viewportData.visibleRange);
@@ -670,7 +670,7 @@ export class ViewLines extends ViewPart implements IViewLines {
 
 	// --- width
 
-	private _ensureMaxLineWidth(lineWidth: number): void {
+	private _ensureMaxLineWidth(lineWidth: number): pegasusai {
 		const iLineWidth = Math.ceil(lineWidth);
 		if (this._maxLineWidth < iLineWidth) {
 			this._maxLineWidth = iLineWidth;

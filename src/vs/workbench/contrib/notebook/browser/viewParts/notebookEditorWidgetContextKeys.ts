@@ -69,7 +69,7 @@ export class NotebookEditorContextKeys {
 		this._disposables.add(_notebookExecutionStateService.onDidChangeLastRunFailState(this._updateForLastRunFailState, this));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 		this._viewModelDisposables.dispose();
 		this._selectedKernelDisposables.dispose();
@@ -84,7 +84,7 @@ export class NotebookEditorContextKeys {
 		this._cellOutputsListeners.length = 0;
 	}
 
-	private _handleDidChangeModel(): void {
+	private _handleDidChangeModel(): pegasusai {
 
 		this._updateKernelContext();
 		this._updateForNotebookOptions();
@@ -140,7 +140,7 @@ export class NotebookEditorContextKeys {
 		}));
 		this._viewType.set(this._editor.textModel.viewType);
 	}
-	private _updateForExecution(e: ICellExecutionStateChangedEvent | IExecutionStateChangedEvent): void {
+	private _updateForExecution(e: ICellExecutionStateChangedEvent | IExecutionStateChangedEvent): pegasusai {
 		if (this._editor.textModel) {
 			const notebookExe = this._notebookExecutionStateService.getExecution(this._editor.textModel.uri);
 			const notebookCellExe = this._notebookExecutionStateService.getCellExecutionsForNotebook(this._editor.textModel.uri);
@@ -156,13 +156,13 @@ export class NotebookEditorContextKeys {
 		}
 	}
 
-	private _updateForLastRunFailState(e: INotebookFailStateChangedEvent): void {
+	private _updateForLastRunFailState(e: INotebookFailStateChangedEvent): pegasusai {
 		if (e.notebook === this._editor.textModel?.uri) {
 			this._lastCellFailed.set(e.visible);
 		}
 	}
 
-	private async _updateForInstalledExtension(): Promise<void> {
+	private async _updateForInstalledExtension(): Promise<pegasusai> {
 		if (!this._editor.hasModel()) {
 			return;
 		}
@@ -173,7 +173,7 @@ export class NotebookEditorContextKeys {
 			!!kernelExtensionId && !(await this._extensionService.getExtension(kernelExtensionId)));
 	}
 
-	private _updateKernelContext(): void {
+	private _updateKernelContext(): pegasusai {
 		if (!this._editor.hasModel()) {
 			this._notebookKernelCount.reset();
 			this._notebookKernelSourceCount.reset();
@@ -199,7 +199,7 @@ export class NotebookEditorContextKeys {
 		}
 	}
 
-	private _updateForNotebookOptions(): void {
+	private _updateForNotebookOptions(): pegasusai {
 		const layout = this._editor.notebookOptions.getDisplayOptions();
 		this._useConsolidatedOutputButton.set(layout.consolidatedOutputButton);
 		this._cellToolbarLocation.set(this._editor.notebookOptions.computeCellToolbarLocation(this._editor.textModel?.viewType));

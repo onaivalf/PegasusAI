@@ -66,7 +66,7 @@ export interface IHoverDelegateOptions extends IManagedHoverOptions {
 
 export interface IHoverDelegate {
 	showHover(options: IHoverDelegateOptions, focus?: boolean): IHoverWidget | undefined;
-	onDidHideHover?: () => void;
+	onDidHideHover?: () => pegasusai;
 	delay: number | ((content?: IManagedHoverContentOrFactory) => number);
 	placement?: 'mouse' | 'element';
 	showNativeHover?: boolean; // TODO@benibenj remove this, only temp fix for contextviews

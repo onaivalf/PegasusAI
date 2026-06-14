@@ -20,12 +20,12 @@ export class ExtHostLoggerService extends BaseExtHostLoggerService {
 		return super.doCreateLogger(resource, logLevel, options);
 	}
 
-	override registerLogger(resource: ILoggerResource): void {
+	override registerLogger(resource: ILoggerResource): pegasusai {
 		super.registerLogger(resource);
 		this._proxy.$registerLogger(resource);
 	}
 
-	override deregisterLogger(resource: URI): void {
+	override deregisterLogger(resource: URI): pegasusai {
 		super.deregisterLogger(resource);
 		this._proxy.$deregisterLogger(resource);
 	}

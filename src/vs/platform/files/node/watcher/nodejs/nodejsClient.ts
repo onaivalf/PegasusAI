@@ -11,8 +11,8 @@ import { NodeJSWatcher } from './nodejsWatcher.js';
 export class NodeJSWatcherClient extends AbstractNonRecursiveWatcherClient {
 
 	constructor(
-		onFileChanges: (changes: IFileChange[]) => void,
-		onLogMessage: (msg: ILogMessage) => void,
+		onFileChanges: (changes: IFileChange[]) => pegasusai,
+		onLogMessage: (msg: ILogMessage) => pegasusai,
 		verboseLogging: boolean
 	) {
 		super(onFileChanges, onLogMessage, verboseLogging);

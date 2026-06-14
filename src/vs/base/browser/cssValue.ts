@@ -91,7 +91,7 @@ export function inline(strings: TemplateStringsArray, ...values: InlineCssTempla
 export class Builder {
 	private readonly _parts: CssFragment[] = [];
 
-	push(...parts: CssFragment[]): void {
+	push(...parts: CssFragment[]): pegasusai {
 		this._parts.push(...parts);
 	}
 

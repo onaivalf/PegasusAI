@@ -88,19 +88,19 @@ export class RemoteExtensionEnvironmentChannelClient {
 		return channel.call<IDiagnosticInfo>('getDiagnosticInfo', options);
 	}
 
-	static updateTelemetryLevel(channel: IChannel, telemetryLevel: TelemetryLevel): Promise<void> {
-		return channel.call<void>('updateTelemetryLevel', { telemetryLevel });
+	static updateTelemetryLevel(channel: IChannel, telemetryLevel: TelemetryLevel): Promise<pegasusai> {
+		return channel.call<pegasusai>('updateTelemetryLevel', { telemetryLevel });
 	}
 
-	static logTelemetry(channel: IChannel, eventName: string, data: ITelemetryData): Promise<void> {
-		return channel.call<void>('logTelemetry', { eventName, data });
+	static logTelemetry(channel: IChannel, eventName: string, data: ITelemetryData): Promise<pegasusai> {
+		return channel.call<pegasusai>('logTelemetry', { eventName, data });
 	}
 
-	static flushTelemetry(channel: IChannel): Promise<void> {
-		return channel.call<void>('flushTelemetry');
+	static flushTelemetry(channel: IChannel): Promise<pegasusai> {
+		return channel.call<pegasusai>('flushTelemetry');
 	}
 
-	static async ping(channel: IChannel): Promise<void> {
-		await channel.call<void>('ping');
+	static async ping(channel: IChannel): Promise<pegasusai> {
+		await channel.call<pegasusai>('ping');
 	}
 }

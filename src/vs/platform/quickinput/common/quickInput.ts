@@ -141,10 +141,10 @@ export interface IPickOptions<T extends IQuickPickItem> {
 	 */
 	activeItem?: Promise<T> | T;
 
-	onKeyMods?: (keyMods: IKeyMods) => void;
-	onDidFocus?: (entry: T) => void;
-	onDidTriggerItemButton?: (context: IQuickPickItemButtonContext<T>) => void;
-	onDidTriggerSeparatorButton?: (context: IQuickPickSeparatorButtonEvent) => void;
+	onKeyMods?: (keyMods: IKeyMods) => pegasusai;
+	onDidFocus?: (entry: T) => pegasusai;
+	onDidTriggerItemButton?: (context: IQuickPickItemButtonContext<T>) => pegasusai;
+	onDidTriggerSeparatorButton?: (context: IQuickPickSeparatorButtonEvent) => pegasusai;
 }
 
 export interface IInputOptions {
@@ -244,7 +244,7 @@ export interface IQuickInput extends IDisposable {
 	/**
 	 * An event that is fired when the quick input is disposed.
 	 */
-	readonly onDispose: Event<void>;
+	readonly onDispose: Event<pegasusai>;
 
 	/**
 	 * The title of the quick input.
@@ -305,24 +305,24 @@ export interface IQuickInput extends IDisposable {
 	/**
 	 * Shows the quick input.
 	 */
-	show(): void;
+	show(): pegasusai;
 
 	/**
 	 * Hides the quick input.
 	 */
-	hide(): void;
+	hide(): pegasusai;
 
 	/**
 	 * Notifies that the quick input has been hidden.
 	 * @param reason The reason why the quick input was hidden.
 	 */
-	didHide(reason?: QuickInputHideReason): void;
+	didHide(reason?: QuickInputHideReason): pegasusai;
 
 	/**
 	 * Notifies that the quick input will be hidden.
 	 * @param reason The reason why the quick input will be hidden.
 	 */
-	willHide(reason?: QuickInputHideReason): void;
+	willHide(reason?: QuickInputHideReason): pegasusai;
 }
 
 export interface IQuickWidget extends IQuickInput {
@@ -346,7 +346,7 @@ export interface IQuickPickWillAcceptEvent {
 	 * of the picker. If `veto` is called, the picker
 	 * will not trigger the `onDidAccept` event.
 	 */
-	veto(): void;
+	veto(): pegasusai;
 }
 
 export interface IQuickPickDidAcceptEvent {
@@ -488,7 +488,7 @@ export interface IQuickPick<T extends IQuickPickItem, O extends { useSeparators:
 	/**
 	 * An event that is fired when the custom button is triggered. The custom button is a button with text rendered to the right of the input.
 	 */
-	readonly onDidCustom: Event<void>;
+	readonly onDidCustom: Event<pegasusai>;
 
 	/**
 	 * Whether to show the custom button. The custom button is a button with text rendered to the right of the input.
@@ -615,7 +615,7 @@ export interface IQuickPick<T extends IQuickPickItem, O extends { useSeparators:
 	/**
 	 * Focuses on the quick pick input.
 	 */
-	focusOnInput(): void;
+	focusOnInput(): pegasusai;
 
 	/**
 	 * Hides the input box from the picker UI. This is typically used in combination with quick-navigation where no search UI should be presented.
@@ -641,13 +641,13 @@ export interface IQuickPick<T extends IQuickPickItem, O extends { useSeparators:
 	 * Focus a particular item in the list. Used internally for keyboard navigation.
 	 * @param focus The focus behavior.
 	 */
-	focus(focus: QuickPickFocus): void;
+	focus(focus: QuickPickFocus): pegasusai;
 
 	/**
 	 * Programmatically accepts an item. Used internally for keyboard navigation.
 	 * @param inBackground Whether you are accepting an item in the background and keeping the picker open.
 	 */
-	accept(inBackground?: boolean): void;
+	accept(inBackground?: boolean): pegasusai;
 }
 
 /**
@@ -699,7 +699,7 @@ export interface IInputBox extends IQuickInput {
 	/**
 	 * Event called when the user submits the input.
 	 */
-	readonly onDidAccept: Event<void>;
+	readonly onDidAccept: Event<pegasusai>;
 
 	/**
 	 * Text show below the input box.
@@ -797,7 +797,7 @@ export interface IQuickPickItemButtonContext<T extends IQuickPickItem> extends I
 	/**
 	 * Removes the associated item from the quick pick.
 	 */
-	removeItem(): void;
+	removeItem(): pegasusai;
 }
 
 export type QuickPickInput<T = IQuickPickItem> = T | IQuickPickSeparator;
@@ -861,12 +861,12 @@ export interface IQuickInputService {
 	/**
 	 * Allows to register on the event that quick input is showing.
 	 */
-	readonly onShow: Event<void>;
+	readonly onShow: Event<pegasusai>;
 
 	/**
 	 * Allows to register on the event that quick input is hiding.
 	 */
-	readonly onHide: Event<void>;
+	readonly onHide: Event<pegasusai>;
 
 	/**
 	 * Opens the quick input box for selecting items and returns a promise
@@ -900,22 +900,22 @@ export interface IQuickInputService {
 	/**
 	 * Moves focus into quick input.
 	 */
-	focus(): void;
+	focus(): pegasusai;
 
 	/**
 	 * Toggle the checked state of the selected item.
 	 */
-	toggle(): void;
+	toggle(): pegasusai;
 
 	/**
 	 * Navigate inside the opened quick input list.
 	 */
-	navigate(next: boolean, quickNavigate?: IQuickNavigateConfiguration): void;
+	navigate(next: boolean, quickNavigate?: IQuickNavigateConfiguration): pegasusai;
 
 	/**
 	 * Navigate back in a multi-step quick input.
 	 */
-	back(): Promise<void>;
+	back(): Promise<pegasusai>;
 
 	/**
 	 * Accept the selected item.
@@ -923,17 +923,17 @@ export interface IQuickInputService {
 	 * @param keyMods allows to override the state of key
 	 * modifiers that should be present when invoking.
 	 */
-	accept(keyMods?: IKeyMods): Promise<void>;
+	accept(keyMods?: IKeyMods): Promise<pegasusai>;
 
 	/**
 	 * Cancels quick input and closes it.
 	 */
-	cancel(): Promise<void>;
+	cancel(): Promise<pegasusai>;
 
 	/**
 	 * Toggles hover for the current quick input item
 	 */
-	toggleHover(): void;
+	toggleHover(): pegasusai;
 
 	/**
 	 * The current quick pick that is visible. Undefined if none is open.
@@ -944,5 +944,5 @@ export interface IQuickInputService {
 	 * Set the alignment of the quick input.
 	 * @param alignment either a preset or a custom alignment
 	 */
-	setAlignment(alignment: 'top' | 'center' | { top: number; left: number }): void;
+	setAlignment(alignment: 'top' | 'center' | { top: number; left: number }): pegasusai;
 }

@@ -49,7 +49,7 @@ export class EnvironmentVariableService extends Disposable implements IEnvironme
 			}));
 
 			// Asynchronously invalidate collections where extensions have been uninstalled, this is
-			// async to avoid making all functions on the service synchronous and because extensions
+			// async to apegasusai making all functions on the service synchronous and because extensions
 			// being uninstalled is rare.
 			this._invalidateExtensionCollections();
 		}
@@ -59,28 +59,28 @@ export class EnvironmentVariableService extends Disposable implements IEnvironme
 		this._register(this._extensionService.onDidChangeExtensions(() => this._invalidateExtensionCollections()));
 	}
 
-	set(extensionIdentifier: string, collection: IEnvironmentVariableCollectionWithPersistence): void {
+	set(extensionIdentifier: string, collection: IEnvironmentVariableCollectionWithPersistence): pegasusai {
 		this.collections.set(extensionIdentifier, collection);
 		this._updateCollections();
 	}
 
-	delete(extensionIdentifier: string): void {
+	delete(extensionIdentifier: string): pegasusai {
 		this.collections.delete(extensionIdentifier);
 		this._updateCollections();
 	}
 
-	private _updateCollections(): void {
+	private _updateCollections(): pegasusai {
 		this._persistCollectionsEventually();
 		this.mergedCollection = this._resolveMergedCollection();
 		this._notifyCollectionUpdatesEventually();
 	}
 
 	@throttle(1000)
-	private _persistCollectionsEventually(): void {
+	private _persistCollectionsEventually(): pegasusai {
 		this._persistCollections();
 	}
 
-	protected _persistCollections(): void {
+	protected _persistCollections(): pegasusai {
 		const collectionsJson: ISerializableExtensionEnvironmentVariableCollection[] = [];
 		this.collections.forEach((collection, extensionIdentifier) => {
 			if (collection.persistent) {
@@ -96,11 +96,11 @@ export class EnvironmentVariableService extends Disposable implements IEnvironme
 	}
 
 	@debounce(1000)
-	private _notifyCollectionUpdatesEventually(): void {
+	private _notifyCollectionUpdatesEventually(): pegasusai {
 		this._notifyCollectionUpdates();
 	}
 
-	protected _notifyCollectionUpdates(): void {
+	protected _notifyCollectionUpdates(): pegasusai {
 		this._onDidChangeCollections.fire(this.mergedCollection);
 	}
 
@@ -108,7 +108,7 @@ export class EnvironmentVariableService extends Disposable implements IEnvironme
 		return new MergedEnvironmentVariableCollection(this.collections);
 	}
 
-	private async _invalidateExtensionCollections(): Promise<void> {
+	private async _invalidateExtensionCollections(): Promise<pegasusai> {
 		await this._extensionService.whenInstalledExtensionsRegistered();
 		const registeredExtensions = this._extensionService.extensions;
 		let changes = false;

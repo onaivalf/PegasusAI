@@ -56,8 +56,8 @@ export class TestSharedProcessService implements ISharedProcessService {
 
 	createRawConnection(): never { throw new Error('Not Implemented'); }
 	getChannel(channelName: string): any { return undefined; }
-	registerChannel(channelName: string, channel: any): void { }
-	notifyRestored(): void { }
+	registerChannel(channelName: string, channel: any): pegasusai { }
+	notifyRestored(): pegasusai { }
 }
 
 export class TestNativeHostService implements INativeHostService {
@@ -87,36 +87,36 @@ export class TestNativeHostService implements INativeHostService {
 	async getActiveWindowPosition(): Promise<IRectangle | undefined> { return undefined; }
 	async getNativeWindowHandle(windowId: number): Promise<VSBuffer | undefined> { return undefined; }
 
-	openWindow(options?: IOpenEmptyWindowOptions): Promise<void>;
-	openWindow(toOpen: IWindowOpenable[], options?: IOpenWindowOptions): Promise<void>;
-	openWindow(arg1?: IOpenEmptyWindowOptions | IWindowOpenable[], arg2?: IOpenWindowOptions): Promise<void> {
+	openWindow(options?: IOpenEmptyWindowOptions): Promise<pegasusai>;
+	openWindow(toOpen: IWindowOpenable[], options?: IOpenWindowOptions): Promise<pegasusai>;
+	openWindow(arg1?: IOpenEmptyWindowOptions | IWindowOpenable[], arg2?: IOpenWindowOptions): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 
-	async toggleFullScreen(): Promise<void> { }
+	async toggleFullScreen(): Promise<pegasusai> { }
 	async isMaximized(): Promise<boolean> { return true; }
 	async isFullScreen(): Promise<boolean> { return true; }
-	async maximizeWindow(): Promise<void> { }
-	async unmaximizeWindow(): Promise<void> { }
-	async minimizeWindow(): Promise<void> { }
-	async moveWindowTop(options?: INativeHostOptions): Promise<void> { }
+	async maximizeWindow(): Promise<pegasusai> { }
+	async unmaximizeWindow(): Promise<pegasusai> { }
+	async minimizeWindow(): Promise<pegasusai> { }
+	async moveWindowTop(options?: INativeHostOptions): Promise<pegasusai> { }
 	getCursorScreenPoint(): Promise<{ readonly point: IPoint; readonly display: IRectangle }> { throw new Error('Method not implemented.'); }
-	async positionWindow(position: IRectangle, options?: INativeHostOptions): Promise<void> { }
-	async updateWindowControls(options: { height?: number; backgroundColor?: string; foregroundColor?: string }): Promise<void> { }
-	async setMinimumSize(width: number | undefined, height: number | undefined): Promise<void> { }
-	async saveWindowSplash(value: IPartsSplash): Promise<void> { }
-	async focusWindow(options?: INativeHostOptions): Promise<void> { }
+	async positionWindow(position: IRectangle, options?: INativeHostOptions): Promise<pegasusai> { }
+	async updateWindowControls(options: { height?: number; backgroundColor?: string; foregroundColor?: string }): Promise<pegasusai> { }
+	async setMinimumSize(width: number | undefined, height: number | undefined): Promise<pegasusai> { }
+	async saveWindowSplash(value: IPartsSplash): Promise<pegasusai> { }
+	async focusWindow(options?: INativeHostOptions): Promise<pegasusai> { }
 	async showMessageBox(options: Electron.MessageBoxOptions): Promise<Electron.MessageBoxReturnValue> { throw new Error('Method not implemented.'); }
 	async showSaveDialog(options: Electron.SaveDialogOptions): Promise<Electron.SaveDialogReturnValue> { throw new Error('Method not implemented.'); }
 	async showOpenDialog(options: Electron.OpenDialogOptions): Promise<Electron.OpenDialogReturnValue> { throw new Error('Method not implemented.'); }
-	async pickFileFolderAndOpen(options: INativeOpenDialogOptions): Promise<void> { }
-	async pickFileAndOpen(options: INativeOpenDialogOptions): Promise<void> { }
-	async pickFolderAndOpen(options: INativeOpenDialogOptions): Promise<void> { }
-	async pickWorkspaceAndOpen(options: INativeOpenDialogOptions): Promise<void> { }
-	async showItemInFolder(path: string): Promise<void> { }
-	async setRepresentedFilename(path: string): Promise<void> { }
+	async pickFileFolderAndOpen(options: INativeOpenDialogOptions): Promise<pegasusai> { }
+	async pickFileAndOpen(options: INativeOpenDialogOptions): Promise<pegasusai> { }
+	async pickFolderAndOpen(options: INativeOpenDialogOptions): Promise<pegasusai> { }
+	async pickWorkspaceAndOpen(options: INativeOpenDialogOptions): Promise<pegasusai> { }
+	async showItemInFolder(path: string): Promise<pegasusai> { }
+	async setRepresentedFilename(path: string): Promise<pegasusai> { }
 	async isAdmin(): Promise<boolean> { return false; }
-	async writeElevated(source: URI, target: URI): Promise<void> { }
+	async writeElevated(source: URI, target: URI): Promise<pegasusai> { }
 	async isRunningUnderARM64Translation(): Promise<boolean> { return false; }
 	async getOSProperties(): Promise<IOSProperties> { return Object.create(null); }
 	async getOSStatistics(): Promise<IOSStatistics> { return Object.create(null); }
@@ -124,38 +124,38 @@ export class TestNativeHostService implements INativeHostService {
 	async getOSColorScheme(): Promise<IColorScheme> { return { dark: true, highContrast: false }; }
 	async hasWSLFeatureInstalled(): Promise<boolean> { return false; }
 	async getProcessId(): Promise<number> { throw new Error('Method not implemented.'); }
-	async killProcess(): Promise<void> { }
-	async setDocumentEdited(edited: boolean): Promise<void> { }
+	async killProcess(): Promise<pegasusai> { }
+	async setDocumentEdited(edited: boolean): Promise<pegasusai> { }
 	async openExternal(url: string, defaultApplication?: string): Promise<boolean> { return false; }
-	async updateTouchBar(): Promise<void> { }
-	async moveItemToTrash(): Promise<void> { }
-	async newWindowTab(): Promise<void> { }
-	async showPreviousWindowTab(): Promise<void> { }
-	async showNextWindowTab(): Promise<void> { }
-	async moveWindowTabToNewWindow(): Promise<void> { }
-	async mergeAllWindowTabs(): Promise<void> { }
-	async toggleWindowTabsBar(): Promise<void> { }
-	async installShellCommand(): Promise<void> { }
-	async uninstallShellCommand(): Promise<void> { }
-	async notifyReady(): Promise<void> { }
-	async relaunch(options?: { addArgs?: string[] | undefined; removeArgs?: string[] | undefined } | undefined): Promise<void> { }
-	async reload(): Promise<void> { }
-	async closeWindow(): Promise<void> { }
-	async quit(): Promise<void> { }
-	async exit(code: number): Promise<void> { }
-	async openDevTools(options?: Partial<Electron.OpenDevToolsOptions> & INativeHostOptions | undefined): Promise<void> { }
-	async toggleDevTools(): Promise<void> { }
-	async openGPUInfoWindow(): Promise<void> { }
+	async updateTouchBar(): Promise<pegasusai> { }
+	async moveItemToTrash(): Promise<pegasusai> { }
+	async newWindowTab(): Promise<pegasusai> { }
+	async showPreviousWindowTab(): Promise<pegasusai> { }
+	async showNextWindowTab(): Promise<pegasusai> { }
+	async moveWindowTabToNewWindow(): Promise<pegasusai> { }
+	async mergeAllWindowTabs(): Promise<pegasusai> { }
+	async toggleWindowTabsBar(): Promise<pegasusai> { }
+	async installShellCommand(): Promise<pegasusai> { }
+	async uninstallShellCommand(): Promise<pegasusai> { }
+	async notifyReady(): Promise<pegasusai> { }
+	async relaunch(options?: { addArgs?: string[] | undefined; removeArgs?: string[] | undefined } | undefined): Promise<pegasusai> { }
+	async reload(): Promise<pegasusai> { }
+	async closeWindow(): Promise<pegasusai> { }
+	async quit(): Promise<pegasusai> { }
+	async exit(code: number): Promise<pegasusai> { }
+	async openDevTools(options?: Partial<Electron.OpenDevToolsOptions> & INativeHostOptions | undefined): Promise<pegasusai> { }
+	async toggleDevTools(): Promise<pegasusai> { }
+	async openGPUInfoWindow(): Promise<pegasusai> { }
 	async resolveProxy(url: string): Promise<string | undefined> { return undefined; }
 	async lookupAuthorization(authInfo: AuthInfo): Promise<Credentials | undefined> { return undefined; }
 	async lookupKerberosAuthorization(url: string): Promise<string | undefined> { return undefined; }
 	async loadCertificates(): Promise<string[]> { return []; }
 	async findFreePort(startPort: number, giveUpAfter: number, timeout: number, stride?: number): Promise<number> { return -1; }
 	async readClipboardText(type?: 'selection' | 'clipboard' | undefined): Promise<string> { return ''; }
-	async writeClipboardText(text: string, type?: 'selection' | 'clipboard' | undefined): Promise<void> { }
+	async writeClipboardText(text: string, type?: 'selection' | 'clipboard' | undefined): Promise<pegasusai> { }
 	async readClipboardFindText(): Promise<string> { return ''; }
-	async writeClipboardFindText(text: string): Promise<void> { }
-	async writeClipboardBuffer(format: string, buffer: VSBuffer, type?: 'selection' | 'clipboard' | undefined): Promise<void> { }
+	async writeClipboardFindText(text: string): Promise<pegasusai> { }
+	async writeClipboardBuffer(format: string, buffer: VSBuffer, type?: 'selection' | 'clipboard' | undefined): Promise<pegasusai> { }
 	async readImage(): Promise<Uint8Array> { return Uint8Array.from([]); }
 	async readClipboardBuffer(format: string): Promise<VSBuffer> { return VSBuffer.wrap(Uint8Array.from([])); }
 	async hasClipboard(format: string, type?: 'selection' | 'clipboard' | undefined): Promise<boolean> { return false; }
@@ -235,7 +235,7 @@ export class TestNativeWorkingCopyBackupService extends NativeWorkingCopyBackupS
 	private discardBackupJoiners: Function[];
 	discardedBackups: IWorkingCopyIdentifier[];
 	discardedAllBackups: boolean;
-	private pendingBackupsArr: Promise<void>[];
+	private pendingBackupsArr: Promise<pegasusai>[];
 
 	constructor() {
 		const environmentService = TestEnvironmentService;
@@ -264,15 +264,15 @@ export class TestNativeWorkingCopyBackupService extends NativeWorkingCopyBackupS
 		return this.fileService;
 	}
 
-	async waitForAllBackups(): Promise<void> {
+	async waitForAllBackups(): Promise<pegasusai> {
 		await Promise.all(this.pendingBackupsArr);
 	}
 
-	joinBackupResource(): Promise<void> {
+	joinBackupResource(): Promise<pegasusai> {
 		return new Promise(resolve => this.backupResourceJoiners.push(resolve));
 	}
 
-	override async backup(identifier: IWorkingCopyIdentifier, content?: VSBufferReadableStream | VSBufferReadable, versionId?: number, meta?: any, token?: CancellationToken): Promise<void> {
+	override async backup(identifier: IWorkingCopyIdentifier, content?: VSBufferReadableStream | VSBufferReadable, versionId?: number, meta?: any, token?: CancellationToken): Promise<pegasusai> {
 		const p = super.backup(identifier, content, versionId, meta, token);
 		const removeFromPendingBackups = insert(this.pendingBackupsArr, p.then(undefined, undefined));
 
@@ -287,11 +287,11 @@ export class TestNativeWorkingCopyBackupService extends NativeWorkingCopyBackupS
 		}
 	}
 
-	joinDiscardBackup(): Promise<void> {
+	joinDiscardBackup(): Promise<pegasusai> {
 		return new Promise(resolve => this.discardBackupJoiners.push(resolve));
 	}
 
-	override async discardBackup(identifier: IWorkingCopyIdentifier): Promise<void> {
+	override async discardBackup(identifier: IWorkingCopyIdentifier): Promise<pegasusai> {
 		await super.discardBackup(identifier);
 		this.discardedBackups.push(identifier);
 
@@ -300,7 +300,7 @@ export class TestNativeWorkingCopyBackupService extends NativeWorkingCopyBackupS
 		}
 	}
 
-	override async discardBackups(filter?: { except: IWorkingCopyIdentifier[] }): Promise<void> {
+	override async discardBackups(filter?: { except: IWorkingCopyIdentifier[] }): Promise<pegasusai> {
 		this.discardedAllBackups = true;
 
 		return super.discardBackups(filter);

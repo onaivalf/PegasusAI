@@ -25,11 +25,11 @@ export class StopWatch {
 		this._stopTime = -1;
 	}
 
-	public stop(): void {
+	public stop(): pegasusai {
 		this._stopTime = this._now();
 	}
 
-	public reset(): void {
+	public reset(): pegasusai {
 		this._startTime = this._now();
 		this._stopTime = -1;
 	}

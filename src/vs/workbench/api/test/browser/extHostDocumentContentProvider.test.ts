@@ -29,17 +29,17 @@ suite('ExtHostDocumentContentProvider', () => {
 		changes.length = 0;
 
 		mainThreadContentProvider = new class implements MainThreadDocumentContentProvidersShape {
-			$registerTextContentProvider(handle: number, scheme: string): void {
+			$registerTextContentProvider(handle: number, scheme: string): pegasusai {
 
 			}
-			$unregisterTextContentProvider(handle: number): void {
+			$unregisterTextContentProvider(handle: number): pegasusai {
 
 			}
-			async $onVirtualDocumentChange(uri: UriComponents, value: string): Promise<void> {
+			async $onVirtualDocumentChange(uri: UriComponents, value: string): Promise<pegasusai> {
 				await timeout(10);
 				changes.push([uri, value]);
 			}
-			dispose(): void {
+			dispose(): pegasusai {
 				throw new Error('Method not implemented.');
 			}
 		};

@@ -85,7 +85,7 @@ export function mergeSearchResultEvents(events: IChangeEvent[]): IChangeEvent {
 }
 
 export interface ISearchModel {
-	readonly onReplaceTermChanged: Event<void>;
+	readonly onReplaceTermChanged: Event<pegasusai>;
 	readonly onSearchResultChanged: Event<IChangeEvent>;
 	location: SearchModelLocation;
 	id(): string;
@@ -97,18 +97,18 @@ export interface ISearchModel {
 	replaceString: string;
 	preserveCase: boolean;
 	searchResult: ISearchResult;
-	addAIResults(onProgress?: (result: ISearchProgressItem) => void): Promise<ISearchComplete>;
-	aiSearch(query: IAITextQuery, onProgress?: (result: ISearchProgressItem) => void): Promise<ISearchComplete>;
+	addAIResults(onProgress?: (result: ISearchProgressItem) => pegasusai): Promise<ISearchComplete>;
+	aiSearch(query: IAITextQuery, onProgress?: (result: ISearchProgressItem) => pegasusai): Promise<ISearchComplete>;
 	hasAIResults: boolean;
 	hasPlainResults: boolean;
-	search(query: ITextQuery, onProgress?: (result: ISearchProgressItem) => void, callerToken?: CancellationToken): {
+	search(query: ITextQuery, onProgress?: (result: ISearchProgressItem) => pegasusai, callerToken?: CancellationToken): {
 		asyncResults: Promise<ISearchComplete>;
 		syncResults: IFileMatch<URI>[];
 	};
 	cancelSearch(cancelledForNewSearch?: boolean): boolean;
 	cancelAISearch(cancelledForNewSearch?: boolean): boolean;
-	clearAiSearchResults(): void;
-	dispose(): void;
+	clearAiSearchResults(): pegasusai;
+	dispose(): pegasusai;
 }
 
 
@@ -122,25 +122,25 @@ export interface ISearchResult {
 	readonly isDirty: boolean;
 	query: ITextQuery | null;
 
-	batchReplace(elementsToReplace: RenderableMatch[]): Promise<void>;
-	batchRemove(elementsToRemove: RenderableMatch[]): void;
+	batchReplace(elementsToReplace: RenderableMatch[]): Promise<pegasusai>;
+	batchRemove(elementsToRemove: RenderableMatch[]): pegasusai;
 	folderMatches(ai?: boolean): ISearchTreeFolderMatch[];
-	add(allRaw: IFileMatch[], searchInstanceID: string, ai: boolean, silent?: boolean): void;
-	clear(): void;
-	remove(matches: ISearchTreeFileMatch | ISearchTreeFolderMatch | (ISearchTreeFileMatch | ISearchTreeFolderMatch)[], ai?: boolean): void;
+	add(allRaw: IFileMatch[], searchInstanceID: string, ai: boolean, silent?: boolean): pegasusai;
+	clear(): pegasusai;
+	remove(matches: ISearchTreeFileMatch | ISearchTreeFolderMatch | (ISearchTreeFileMatch | ISearchTreeFolderMatch)[], ai?: boolean): pegasusai;
 	replace(match: ISearchTreeFileMatch): Promise<any>;
 	matches(ai?: boolean): ISearchTreeFileMatch[];
 	isEmpty(): boolean;
 	fileCount(): number;
 	count(): number;
 	id(): string;
-	setCachedSearchComplete(cachedSearchComplete: ISearchComplete | undefined, ai: boolean): void;
+	setCachedSearchComplete(cachedSearchComplete: ISearchComplete | undefined, ai: boolean): pegasusai;
 	getCachedSearchComplete(ai: boolean): ISearchComplete | undefined;
-	toggleHighlights(value: boolean, ai?: boolean): void;
+	toggleHighlights(value: boolean, ai?: boolean): pegasusai;
 	getRangeHighlightDecorations(ai?: boolean): RangeHighlightDecorations;
 	replaceAll(progress: IProgress<IProgressStep>): Promise<any>;
-	setAIQueryUsingTextQuery(query?: ITextQuery | null): void;
-	dispose(): void;
+	setAIQueryUsingTextQuery(query?: ITextQuery | null): pegasusai;
+	dispose(): pegasusai;
 }
 
 export interface ITextSearchHeading {
@@ -148,7 +148,7 @@ export interface ITextSearchHeading {
 	resource: URI | null;
 	hidden: boolean;
 	cachedSearchComplete: ISearchComplete | undefined;
-	hide(): void;
+	hide(): pegasusai;
 	readonly isAIContributed: boolean;
 	id(): string;
 	parent(): ISearchResult;
@@ -156,8 +156,8 @@ export interface ITextSearchHeading {
 	name(): string;
 	readonly isDirty: boolean;
 	getFolderMatch(resource: URI): ISearchTreeFolderMatch | undefined;
-	add(allRaw: IFileMatch[], searchInstanceID: string, ai: boolean, silent?: boolean): void;
-	remove(matches: ISearchTreeFileMatch | ISearchTreeFolderMatch | (ISearchTreeFileMatch | ISearchTreeFolderMatch)[], ai?: boolean): void;
+	add(allRaw: IFileMatch[], searchInstanceID: string, ai: boolean, silent?: boolean): pegasusai;
+	remove(matches: ISearchTreeFileMatch | ISearchTreeFolderMatch | (ISearchTreeFileMatch | ISearchTreeFolderMatch)[], ai?: boolean): pegasusai;
 	groupFilesByFolder(fileMatches: ISearchTreeFileMatch[]): { byFolder: Map<URI, ISearchTreeFileMatch[]>; other: ISearchTreeFileMatch[] };
 	isEmpty(): boolean;
 	findFolderSubstr(resource: URI): ISearchTreeFolderMatch | undefined;
@@ -165,12 +165,12 @@ export interface ITextSearchHeading {
 	folderMatches(): ISearchTreeFolderMatch[];
 	matches(): ISearchTreeFileMatch[];
 	showHighlights: boolean;
-	toggleHighlights(value: boolean): void;
+	toggleHighlights(value: boolean): pegasusai;
 	rangeHighlightDecorations: RangeHighlightDecorations;
 	fileCount(): number;
 	count(): number;
-	clear(clearAll: boolean): void;
-	dispose(): void;
+	clear(clearAll: boolean): pegasusai;
+	dispose(): pegasusai;
 }
 
 export interface IPlainTextSearchHeading extends ITextSearchHeading {
@@ -180,7 +180,7 @@ export interface IPlainTextSearchHeading extends ITextSearchHeading {
 
 export interface ISearchTreeFolderMatch {
 	readonly onChange: Event<IChangeEvent>;
-	readonly onDispose: Event<void>;
+	readonly onDispose: Event<pegasusai>;
 	id(): string;
 	resource: URI | null;
 	index(): number;
@@ -190,29 +190,29 @@ export interface ISearchTreeFolderMatch {
 	parent(): ISearchTreeFolderMatch | ITextSearchHeading;
 	matches(): (ISearchTreeFileMatch | ISearchTreeFolderMatchWithResource)[];
 	allDownstreamFileMatches(): ISearchTreeFileMatch[];
-	remove(matches: ISearchTreeFileMatch | ISearchTreeFolderMatchWithResource | (ISearchTreeFileMatch | ISearchTreeFolderMatchWithResource)[]): void;
-	addFileMatch(raw: IFileMatch[], silent: boolean, searchInstanceID: string): void;
+	remove(matches: ISearchTreeFileMatch | ISearchTreeFolderMatchWithResource | (ISearchTreeFileMatch | ISearchTreeFolderMatchWithResource)[]): pegasusai;
+	addFileMatch(raw: IFileMatch[], silent: boolean, searchInstanceID: string): pegasusai;
 	isEmpty(): boolean;
-	clear(clearingAll?: boolean): void;
+	clear(clearingAll?: boolean): pegasusai;
 	showHighlights: boolean;
 	searchModel: ISearchModel;
 	query: ITextSearchQuery | null;
 	replace(match: ISearchTreeFileMatch): Promise<any>;
 	replacingAll: boolean;
-	bindModel(model: ITextModel): void;
+	bindModel(model: ITextModel): pegasusai;
 	getDownstreamFileMatch(uri: URI): ISearchTreeFileMatch | null;
 	replaceAll(): Promise<any>;
 	recursiveFileCount(): number;
-	doRemoveFile(fileMatches: ISearchTreeFileMatch[], dispose?: boolean, trigger?: boolean, keepReadonly?: boolean): void;
-	unbindNotebookEditorWidget(editor: NotebookEditorWidget, resource: URI): void;
-	bindNotebookEditorWidget(editor: NotebookEditorWidget, resource: URI): Promise<void>;
-	unbindNotebookEditorWidget(editor: NotebookEditorWidget, resource: URI): void;
+	doRemoveFile(fileMatches: ISearchTreeFileMatch[], dispose?: boolean, trigger?: boolean, keepReadonly?: boolean): pegasusai;
+	unbindNotebookEditorWidget(editor: NotebookEditorWidget, resource: URI): pegasusai;
+	bindNotebookEditorWidget(editor: NotebookEditorWidget, resource: URI): Promise<pegasusai>;
+	unbindNotebookEditorWidget(editor: NotebookEditorWidget, resource: URI): pegasusai;
 	hasOnlyReadOnlyMatches(): boolean;
 	fileMatchesIterator(): IterableIterator<ISearchTreeFileMatch>;
 	folderMatchesIterator(): IterableIterator<ISearchTreeFolderMatchWithResource>;
 	recursiveFileCount(): number;
 	recursiveMatchCount(): number;
-	dispose(): void;
+	dispose(): pegasusai;
 	isAIContributed(): boolean;
 }
 
@@ -236,28 +236,28 @@ export interface ISearchTreeFileMatch {
 		forceUpdateModel?: boolean;
 	}>;
 	hasChildren: boolean;
-	readonly onDispose: Event<void>;
+	readonly onDispose: Event<pegasusai>;
 	name(): string;
 	count(): number;
 	hasOnlyReadOnlyMatches(): boolean;
 	matches(): ISearchTreeMatch[];
-	updateHighlights(): void;
+	updateHighlights(): pegasusai;
 	getSelectedMatch(): ISearchTreeMatch | null;
 	parent(): ISearchTreeFolderMatch;
-	bindModel(model: ITextModel): void;
+	bindModel(model: ITextModel): pegasusai;
 	hasReadonlyMatches(): boolean;
-	addContext(results: ITextSearchResult[] | undefined): void;
-	add(match: ISearchTreeMatch, trigger?: boolean): void;
-	replace(toReplace: ISearchTreeMatch): Promise<void>;
-	remove(matches: ISearchTreeMatch | (ISearchTreeMatch[])): void;
-	setSelectedMatch(match: ISearchTreeMatch | null): void;
+	addContext(results: ITextSearchResult[] | undefined): pegasusai;
+	add(match: ISearchTreeMatch, trigger?: boolean): pegasusai;
+	replace(toReplace: ISearchTreeMatch): Promise<pegasusai>;
+	remove(matches: ISearchTreeMatch | (ISearchTreeMatch[])): pegasusai;
+	setSelectedMatch(match: ISearchTreeMatch | null): pegasusai;
 	fileStat: IFileStatWithPartialMetadata | undefined;
-	resolveFileStat(fileService: IFileService): Promise<void>;
+	resolveFileStat(fileService: IFileService): Promise<pegasusai>;
 	textMatches(): ISearchTreeMatch[];
 	readonly context: Map<number, string>;
 	readonly closestRoot: ISearchTreeFolderMatchWorkspaceRoot | null;
 	isMatchSelected(match: ISearchTreeMatch): boolean;
-	dispose(): void;
+	dispose(): pegasusai;
 }
 
 export interface ISearchTreeMatch {

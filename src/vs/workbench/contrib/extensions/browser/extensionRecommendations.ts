@@ -22,11 +22,11 @@ export type ExtensionRecommendation = GalleryExtensionRecommendation | ResourceE
 export abstract class ExtensionRecommendations extends Disposable {
 
 	readonly abstract recommendations: ReadonlyArray<ExtensionRecommendation>;
-	protected abstract doActivate(): Promise<void>;
+	protected abstract doActivate(): Promise<pegasusai>;
 
-	private _activationPromise: Promise<void> | null = null;
+	private _activationPromise: Promise<pegasusai> | null = null;
 	get activated(): boolean { return this._activationPromise !== null; }
-	activate(): Promise<void> {
+	activate(): Promise<pegasusai> {
 		if (!this._activationPromise) {
 			this._activationPromise = this.doActivate();
 		}

@@ -25,32 +25,32 @@
 	};
 
 	interface ILoaderPlugin {
-		load: (pluginParam: string, parentRequire: IRelativeRequire, loadCallback: IPluginLoadCallback, options: IConfigurationOptions) => void;
-		write?: (pluginName: string, moduleName: string, write: IPluginWriteCallback) => void;
-		writeFile?: (pluginName: string, moduleName: string, req: IRelativeRequire, write: IPluginWriteFileCallback, config: IConfigurationOptions) => void;
-		finishBuild?: (write: (filename: string, contents: string) => void) => void;
+		load: (pluginParam: string, parentRequire: IRelativeRequire, loadCallback: IPluginLoadCallback, options: IConfigurationOptions) => pegasusai;
+		write?: (pluginName: string, moduleName: string, write: IPluginWriteCallback) => pegasusai;
+		writeFile?: (pluginName: string, moduleName: string, req: IRelativeRequire, write: IPluginWriteFileCallback, config: IConfigurationOptions) => pegasusai;
+		finishBuild?: (write: (filename: string, contents: string) => pegasusai) => pegasusai;
 	}
 	interface IRelativeRequire {
-		(dependencies: string[], callback: Function, errorback?: (error: Error) => void): void;
+		(dependencies: string[], callback: Function, errorback?: (error: Error) => pegasusai): pegasusai;
 		toUrl(id: string): string;
 	}
 	interface IPluginLoadCallback {
-		(value: any): void;
-		error(err: any): void;
+		(value: any): pegasusai;
+		error(err: any): pegasusai;
 	}
 	interface IConfigurationOptions {
 		isBuild: boolean | undefined;
 		[key: string]: any;
 	}
 	interface IPluginWriteCallback {
-		(contents: string): void;
+		(contents: string): pegasusai;
 		getEntryPoint(): string;
-		asModule(moduleId: string, contents: string): void;
+		asModule(moduleId: string, contents: string): pegasusai;
 	}
 	interface IPluginWriteFileCallback {
-		(filename: string, contents: string): void;
+		(filename: string, contents: string): pegasusai;
 		getEntryPoint(): string;
-		asModule(moduleId: string, contents: string): void;
+		asModule(moduleId: string, contents: string): pegasusai;
 	}
 
 	//#endregion

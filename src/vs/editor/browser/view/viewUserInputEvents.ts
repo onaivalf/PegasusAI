@@ -10,7 +10,7 @@ import { IMouseWheelEvent } from '../../../base/browser/mouseEvent.js';
 import { Position } from '../../common/core/position.js';
 
 export interface EventCallback<T> {
-	(event: T): void;
+	(event: T): pegasusai;
 }
 
 export class ViewUserInputEvents {
@@ -24,7 +24,7 @@ export class ViewUserInputEvents {
 	public onMouseUp: EventCallback<IEditorMouseEvent> | null = null;
 	public onMouseDrag: EventCallback<IEditorMouseEvent> | null = null;
 	public onMouseDrop: EventCallback<IPartialEditorMouseEvent> | null = null;
-	public onMouseDropCanceled: EventCallback<void> | null = null;
+	public onMouseDropCanceled: EventCallback<pegasusai> | null = null;
 	public onMouseWheel: EventCallback<IMouseWheelEvent> | null = null;
 
 	private readonly _coordinatesConverter: ICoordinatesConverter;
@@ -33,47 +33,47 @@ export class ViewUserInputEvents {
 		this._coordinatesConverter = coordinatesConverter;
 	}
 
-	public emitKeyDown(e: IKeyboardEvent): void {
+	public emitKeyDown(e: IKeyboardEvent): pegasusai {
 		this.onKeyDown?.(e);
 	}
 
-	public emitKeyUp(e: IKeyboardEvent): void {
+	public emitKeyUp(e: IKeyboardEvent): pegasusai {
 		this.onKeyUp?.(e);
 	}
 
-	public emitContextMenu(e: IEditorMouseEvent): void {
+	public emitContextMenu(e: IEditorMouseEvent): pegasusai {
 		this.onContextMenu?.(this._convertViewToModelMouseEvent(e));
 	}
 
-	public emitMouseMove(e: IEditorMouseEvent): void {
+	public emitMouseMove(e: IEditorMouseEvent): pegasusai {
 		this.onMouseMove?.(this._convertViewToModelMouseEvent(e));
 	}
 
-	public emitMouseLeave(e: IPartialEditorMouseEvent): void {
+	public emitMouseLeave(e: IPartialEditorMouseEvent): pegasusai {
 		this.onMouseLeave?.(this._convertViewToModelMouseEvent(e));
 	}
 
-	public emitMouseDown(e: IEditorMouseEvent): void {
+	public emitMouseDown(e: IEditorMouseEvent): pegasusai {
 		this.onMouseDown?.(this._convertViewToModelMouseEvent(e));
 	}
 
-	public emitMouseUp(e: IEditorMouseEvent): void {
+	public emitMouseUp(e: IEditorMouseEvent): pegasusai {
 		this.onMouseUp?.(this._convertViewToModelMouseEvent(e));
 	}
 
-	public emitMouseDrag(e: IEditorMouseEvent): void {
+	public emitMouseDrag(e: IEditorMouseEvent): pegasusai {
 		this.onMouseDrag?.(this._convertViewToModelMouseEvent(e));
 	}
 
-	public emitMouseDrop(e: IPartialEditorMouseEvent): void {
+	public emitMouseDrop(e: IPartialEditorMouseEvent): pegasusai {
 		this.onMouseDrop?.(this._convertViewToModelMouseEvent(e));
 	}
 
-	public emitMouseDropCanceled(): void {
+	public emitMouseDropCanceled(): pegasusai {
 		this.onMouseDropCanceled?.();
 	}
 
-	public emitMouseWheel(e: IMouseWheelEvent): void {
+	public emitMouseWheel(e: IMouseWheelEvent): pegasusai {
 		this.onMouseWheel?.(e);
 	}
 

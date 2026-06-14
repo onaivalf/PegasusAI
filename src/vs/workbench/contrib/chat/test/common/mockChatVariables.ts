@@ -21,7 +21,7 @@ export class MockChatVariablesService implements IChatVariablesService {
 		};
 	}
 
-	attachContext(name: string, value: unknown, location: ChatAgentLocation): void {
+	attachContext(name: string, value: unknown, location: ChatAgentLocation): pegasusai {
 		throw new Error('Method not implemented.');
 	}
 }

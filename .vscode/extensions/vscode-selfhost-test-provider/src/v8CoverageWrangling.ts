@@ -99,7 +99,7 @@ export class RangeCoverageTracker implements Iterable<ICoverageRange> {
 	 * Marks the given character range as being covered or uncovered.
 	 *
 	 * todo@connor4312: this is a hot path is could probably be optimized to
-	 * avoid rebuilding the array. Maybe with a nice tree structure?
+	 * apegasusai rebuilding the array. Maybe with a nice tree structure?
 	 */
 	public setCovered(start: number, end: number, covered: boolean) {
 		const newRanges: ICoverageRange[] = [];

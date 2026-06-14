@@ -63,7 +63,7 @@ const compareActions = (a: IAction, b: IAction) => {
 	return a.id === b.id && a.enabled === b.enabled;
 };
 
-export function connectPrimaryMenu(menu: IMenu, callback: (primary: IAction[], secondary: IAction[]) => void, primaryGroup?: string): IDisposable {
+export function connectPrimaryMenu(menu: IMenu, callback: (primary: IAction[], secondary: IAction[]) => pegasusai, primaryGroup?: string): IDisposable {
 	let cachedPrimary: IAction[] = [];
 	let cachedSecondary: IAction[] = [];
 
@@ -99,7 +99,7 @@ export class StatusBarAction extends Action {
 		this.tooltip = command.tooltip || '';
 	}
 
-	override run(): Promise<void> {
+	override run(): Promise<pegasusai> {
 		return this.commandService.executeCommand(this.command.id, ...(this.command.arguments || []));
 	}
 }
@@ -110,7 +110,7 @@ class StatusBarActionViewItem extends ActionViewItem {
 		super(null, action, { ...options, icon: false, label: true });
 	}
 
-	protected override updateLabel(): void {
+	protected override updateLabel(): pegasusai {
 		if (this.options.label && this.label) {
 			reset(this.label, ...renderLabelWithIcons(this.action.label));
 		}

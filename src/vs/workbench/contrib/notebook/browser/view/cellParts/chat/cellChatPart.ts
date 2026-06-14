@@ -20,15 +20,15 @@ export class CellChatPart extends CellContentPart {
 		super();
 	}
 
-	override didRenderCell(element: ICellViewModel): void {
+	override didRenderCell(element: ICellViewModel): pegasusai {
 		super.didRenderCell(element);
 	}
 
-	override unrenderCell(element: ICellViewModel): void {
+	override unrenderCell(element: ICellViewModel): pegasusai {
 		super.unrenderCell(element);
 	}
 
-	override updateInternalLayoutNow(element: ICellViewModel): void {
+	override updateInternalLayoutNow(element: ICellViewModel): pegasusai {
 	}
 
 	override dispose() {

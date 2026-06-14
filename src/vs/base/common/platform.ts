@@ -219,7 +219,7 @@ export const setTimeout0 = (() => {
 	if (setTimeout0IsFaster) {
 		interface IQueueElement {
 			id: number;
-			callback: () => void;
+			callback: () => pegasusai;
 		}
 		const pending: IQueueElement[] = [];
 
@@ -236,7 +236,7 @@ export const setTimeout0 = (() => {
 			}
 		});
 		let lastId = 0;
-		return (callback: () => void) => {
+		return (callback: () => pegasusai) => {
 			const myId = ++lastId;
 			pending.push({
 				id: myId,
@@ -245,7 +245,7 @@ export const setTimeout0 = (() => {
 			$globalThis.postMessage({ vscodeScheduleAsyncWork: myId }, '*');
 		};
 	}
-	return (callback: () => void) => setTimeout(callback);
+	return (callback: () => pegasusai) => setTimeout(callback);
 })();
 
 export const enum OperatingSystem {

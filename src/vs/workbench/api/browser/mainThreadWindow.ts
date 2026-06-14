@@ -33,11 +33,11 @@ export class MainThreadWindow implements MainThreadWindowShape {
 		this.registerNativeHandle();
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.disposables.dispose();
 	}
 
-	registerNativeHandle(): void {
+	registerNativeHandle(): pegasusai {
 		Event.latch(this.hostService.onDidChangeActiveWindow)(
 			async windowId => {
 				const handle = await this.hostService.getNativeWindowHandle(windowId);

@@ -22,36 +22,36 @@ import type * as rendererApi from 'vscode-notebook-renderer';
 declare module globalThis {
 	const acquireVsCodeApi: () => ({
 		getState(): { [key: string]: unknown };
-		setState(data: { [key: string]: unknown }): void;
-		postMessage: (msg: unknown) => void;
+		setState(data: { [key: string]: unknown }): pegasusai;
+		postMessage: (msg: unknown) => pegasusai;
 	});
 }
 
 declare class ResizeObserver {
-	constructor(onChange: (entries: { target: HTMLElement; contentRect?: ClientRect }[]) => void);
-	observe(element: Element): void;
-	disconnect(): void;
+	constructor(onChange: (entries: { target: HTMLElement; contentRect?: ClientRect }[]) => pegasusai);
+	observe(element: Element): pegasusai;
+	disconnect(): pegasusai;
 }
 
 declare class Highlight {
 	constructor();
-	add(range: AbstractRange): void;
-	clear(): void;
+	add(range: AbstractRange): pegasusai;
+	clear(): pegasusai;
 	priority: number;
 }
 
 interface CSSHighlights {
-	set(rule: string, highlight: Highlight): void;
+	set(rule: string, highlight: Highlight): pegasusai;
 }
 declare namespace CSS {
 	let highlights: CSSHighlights | undefined;
 }
 
 
-type Listener<T> = { fn: (evt: T) => void; thisArg: unknown };
+type Listener<T> = { fn: (evt: T) => pegasusai; thisArg: unknown };
 
 interface EmitterLike<T> {
-	fire(data: T): void;
+	fire(data: T): pegasusai;
 	event: Event<T>;
 }
 
@@ -83,8 +83,8 @@ interface PreloadContext {
 	readonly isWorkspaceTrusted: boolean;
 }
 
-declare function requestIdleCallback(callback: (args: IdleDeadline) => void, options?: { timeout: number }): number;
-declare function cancelIdleCallback(handle: number): void;
+declare function requestIdleCallback(callback: (args: IdleDeadline) => pegasusai, options?: { timeout: number }): number;
+declare function cancelIdleCallback(handle: number): pegasusai;
 
 declare function __import(path: string): Promise<any>;
 
@@ -101,9 +101,9 @@ async function webviewPreloads(ctx: PreloadContext) {
 	const textEncoder = new TextEncoder();
 	const textDecoder = new TextDecoder();
 
-	function promiseWithResolvers<T>(): { promise: Promise<T>; resolve: (value: T | PromiseLike<T>) => void; reject: (err?: any) => void } {
-		let resolve: (value: T | PromiseLike<T>) => void;
-		let reject: (reason?: any) => void;
+	function promiseWithResolvers<T>(): { promise: Promise<T>; resolve: (value: T | PromiseLike<T>) => pegasusai; reject: (err?: any) => pegasusai } {
+		let resolve: (value: T | PromiseLike<T>) => pegasusai;
+		let reject: (reason?: any) => pegasusai;
 		const promise = new Promise<T>((res, rej) => {
 			resolve = res;
 			reject = rej;
@@ -123,7 +123,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 	const tokenizationStyle = new CSSStyleSheet();
 	tokenizationStyle.replaceSync(ctx.style.tokenizationCss);
 
-	const runWhenIdle: (callback: (idle: IdleDeadline) => void, timeout?: number) => IDisposable = (typeof requestIdleCallback !== 'function' || typeof cancelIdleCallback !== 'function')
+	const runWhenIdle: (callback: (idle: IdleDeadline) => pegasusai, timeout?: number) => IDisposable = (typeof requestIdleCallback !== 'function' || typeof cancelIdleCallback !== 'function')
 		? (runner) => {
 			setTimeout(() => {
 				if (disposed) {
@@ -411,11 +411,11 @@ async function webviewPreloads(ctx: PreloadContext) {
 
 	interface KernelPreloadContext {
 		readonly onDidReceiveKernelMessage: Event<unknown>;
-		postKernelMessage(data: unknown): void;
+		postKernelMessage(data: unknown): pegasusai;
 	}
 
 	interface KernelPreloadModule {
-		activate(ctx: KernelPreloadContext): Promise<void> | void;
+		activate(ctx: KernelPreloadContext): Promise<pegasusai> | pegasusai;
 	}
 
 	interface IObservedElement {
@@ -433,7 +433,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 		});
 	}
 
-	async function runKernelPreload(url: string): Promise<void> {
+	async function runKernelPreload(url: string): Promise<pegasusai> {
 		try {
 			return await activateModuleKernelPreload(url);
 		} catch (e) {
@@ -871,8 +871,8 @@ async function webviewPreloads(ctx: PreloadContext) {
 
 	interface IHighlightResult {
 		range: ICommonRange;
-		dispose: () => void;
-		update: (color: string | undefined, className: string | undefined) => void;
+		dispose: () => pegasusai;
+		update: (color: string | undefined, className: string | undefined) => pegasusai;
 	}
 
 	function selectRange(_range: ICommonRange) {
@@ -948,7 +948,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 		}
 	}
 
-	function createEmitter<T>(listenerChange: (listeners: Set<Listener<T>>) => void = () => undefined): EmitterLike<T> {
+	function createEmitter<T>(listenerChange: (listeners: Set<Listener<T>>) => pegasusai = () => undefined): EmitterLike<T> {
 		const listeners = new Set<Listener<T>>();
 		return {
 			fire(data) {
@@ -993,7 +993,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 
 	const outputItemRequests = new class {
 		private _requestPool = 0;
-		private readonly _requests = new Map</*requestId*/number, { resolve: (x: webviewMessages.OutputItemEntry | undefined) => void }>();
+		private readonly _requests = new Map</*requestId*/number, { resolve: (x: webviewMessages.OutputItemEntry | undefined) => pegasusai }>();
 
 		getOutputItem(outputId: string, mime: string) {
 			const requestId = this._requestPool++;
@@ -1137,11 +1137,11 @@ async function webviewPreloads(ctx: PreloadContext) {
 	}
 
 	interface IHighlighter {
-		addHighlights(matches: IFindMatch[], ownerID: string): void;
-		removeHighlights(ownerID: string): void;
-		highlightCurrentMatch(index: number, ownerID: string): void;
-		unHighlightCurrentMatch(index: number, ownerID: string): void;
-		dispose(): void;
+		addHighlights(matches: IFindMatch[], ownerID: string): pegasusai;
+		removeHighlights(ownerID: string): pegasusai;
+		highlightCurrentMatch(index: number, ownerID: string): pegasusai;
+		unHighlightCurrentMatch(index: number, ownerID: string): pegasusai;
+		dispose(): pegasusai;
 	}
 
 	interface IHighlightInfo {
@@ -1160,7 +1160,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			this._activeHighlightInfo = new Map();
 		}
 
-		addHighlights(matches: IFindMatch[], ownerID: string): void {
+		addHighlights(matches: IFindMatch[], ownerID: string): pegasusai {
 			for (let i = matches.length - 1; i >= 0; i--) {
 				const match = matches[i];
 				const ret = highlightRange(match.originalRange, true, 'mark', match.isShadow ? {
@@ -1178,7 +1178,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			this._activeHighlightInfo.set(ownerID, highlightInfo);
 		}
 
-		removeHighlights(ownerID: string): void {
+		removeHighlights(ownerID: string): pegasusai {
 			this._activeHighlightInfo.get(ownerID)?.matches.forEach(match => {
 				match.highlightResult?.dispose();
 			});
@@ -1297,7 +1297,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			this._activeHighlightInfo.set(ownerID, newEntry);
 		}
 
-		highlightCurrentMatch(index: number, ownerID: string): void {
+		highlightCurrentMatch(index: number, ownerID: string): pegasusai {
 			const highlightInfo = this._activeHighlightInfo.get(ownerID);
 			if (!highlightInfo) {
 				console.error('Modified current highlight match before adding highlight list.');
@@ -1324,7 +1324,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			this._refreshRegistry(false);
 		}
 
-		unHighlightCurrentMatch(index: number, ownerID: string): void {
+		unHighlightCurrentMatch(index: number, ownerID: string): pegasusai {
 			const highlightInfo = this._activeHighlightInfo.get(ownerID);
 			if (!highlightInfo) {
 				return;
@@ -1338,7 +1338,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			this._refreshRegistry();
 		}
 
-		dispose(): void {
+		dispose(): pegasusai {
 			window.document.getSelection()?.removeAllRanges();
 			this._currentMatchesHighlight.clear();
 			this._matchesHighlight.clear();
@@ -1512,7 +1512,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 					if (anchorNode) {
 						const lastEl: any = matches.length ? matches[matches.length - 1] : null;
 
-						// Optimization: avoid searching for the output container
+						// Optimization: apegasusai searching for the output container
 						if (lastEl && lastEl.container.contains(anchorNode) && options.includeOutput) {
 							matches.push({
 								type: lastEl.type,
@@ -1868,7 +1868,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			this._onMessageEvent.fire(message);
 		}
 
-		public async renderOutputItem(item: rendererApi.OutputItem, element: HTMLElement, signal: AbortSignal): Promise<void> {
+		public async renderOutputItem(item: rendererApi.OutputItem, element: HTMLElement, signal: AbortSignal): Promise<pegasusai> {
 			try {
 				await this.load();
 			} catch (e) {
@@ -1904,7 +1904,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			}
 		}
 
-		public disposeOutputItem(id?: string): void {
+		public disposeOutputItem(id?: string): pegasusai {
 			this._api?.disposeOutputItem?.(id);
 		}
 
@@ -2176,7 +2176,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			this._renderers.get(rendererId)?.disposeOutputItem(outputId);
 		}
 
-		public async render(item: ExtendedOutputItem, preferredRendererId: string | undefined, element: HTMLElement, signal: AbortSignal): Promise<void> {
+		public async render(item: ExtendedOutputItem, preferredRendererId: string | undefined, element: HTMLElement, signal: AbortSignal): Promise<pegasusai> {
 			const primaryRenderer = this.findRenderer(preferredRendererId, item);
 			if (!primaryRenderer) {
 				const errorMessage = (window.document.documentElement.style.getPropertyValue('--notebook-cell-renderer-not-found-error') || '').replace('$0', () => item.mime);
@@ -2303,7 +2303,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			return cell;
 		}
 
-		public async ensureMarkupCell(info: webviewMessages.IMarkupCellInitialization): Promise<void> {
+		public async ensureMarkupCell(info: webviewMessages.IMarkupCellInitialization): Promise<pegasusai> {
 			let cell = this._markupCells.get(info.cellId);
 			if (cell) {
 				cell.element.style.visibility = info.visible ? '' : 'hidden';
@@ -2322,22 +2322,22 @@ async function webviewPreloads(ctx: PreloadContext) {
 			}
 		}
 
-		public async updateMarkupContent(id: string, newContent: string, metadata: NotebookCellMetadata): Promise<void> {
+		public async updateMarkupContent(id: string, newContent: string, metadata: NotebookCellMetadata): Promise<pegasusai> {
 			const cell = this.getExpectedMarkupCell(id);
 			await cell?.updateContentAndRender(newContent, metadata);
 		}
 
-		public showMarkupCell(id: string, top: number, newContent: string | undefined, metadata: NotebookCellMetadata | undefined): void {
+		public showMarkupCell(id: string, top: number, newContent: string | undefined, metadata: NotebookCellMetadata | undefined): pegasusai {
 			const cell = this.getExpectedMarkupCell(id);
 			cell?.show(top, newContent, metadata);
 		}
 
-		public hideMarkupCell(id: string): void {
+		public hideMarkupCell(id: string): pegasusai {
 			const cell = this.getExpectedMarkupCell(id);
 			cell?.hide();
 		}
 
-		public unhideMarkupCell(id: string): void {
+		public unhideMarkupCell(id: string): pegasusai {
 			const cell = this.getExpectedMarkupCell(id);
 			cell?.unhide();
 		}
@@ -2373,7 +2373,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			}
 		}
 
-		public async renderOutputCell(data: webviewMessages.ICreationRequestMessage, signal: AbortSignal): Promise<void> {
+		public async renderOutputCell(data: webviewMessages.ICreationRequestMessage, signal: AbortSignal): Promise<pegasusai> {
 			const preloadErrors = await Promise.all<undefined | Error>(
 				data.requiredPreloads.map(p => kernelPreloads.waitFor(p.uri).then(() => undefined, err => err))
 			);
@@ -2470,7 +2470,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 
 	class MarkupCell {
 
-		public readonly ready: Promise<void>;
+		public readonly ready: Promise<pegasusai>;
 
 		public readonly id: string;
 		public readonly element: HTMLElement;
@@ -2488,7 +2488,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			this.id = id;
 			this._content = { value: content, version: 0, metadata: metadata };
 
-			const { promise, resolve, reject } = promiseWithResolvers<void>();
+			const { promise, resolve, reject } = promiseWithResolvers<pegasusai>();
 			this.ready = promise;
 
 			let cachedData: { readonly version: number; readonly value: Uint8Array } | undefined;
@@ -2603,7 +2603,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			});
 		}
 
-		public async updateContentAndRender(newContent: string, metadata: NotebookCellMetadata): Promise<void> {
+		public async updateContentAndRender(newContent: string, metadata: NotebookCellMetadata): Promise<pegasusai> {
 			this._content = { value: newContent, version: this._content.version + 1, metadata };
 
 			this.renderTaskAbort?.abort();
@@ -2647,7 +2647,7 @@ async function webviewPreloads(ctx: PreloadContext) {
 			});
 		}
 
-		public show(top: number, newContent: string | undefined, metadata: NotebookCellMetadata | undefined): void {
+		public show(top: number, newContent: string | undefined, metadata: NotebookCellMetadata | undefined): pegasusai {
 			this.element.style.visibility = '';
 			this.element.style.top = `${top}px`;
 			if (typeof newContent === 'string' || metadata) {

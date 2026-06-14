@@ -49,7 +49,7 @@ export class FolderQuerySearchTree<FolderQueryInfo extends { folder: URI }> exte
 
 	}
 
-	forEachFolderQueryInfo(fn: (folderQueryInfo: FolderQueryInfo) => void): void {
+	forEachFolderQueryInfo(fn: (folderQueryInfo: FolderQueryInfo) => pegasusai): pegasusai {
 		return this.forEach(elem => elem.forEach(mapElem => fn(mapElem)));
 	}
 

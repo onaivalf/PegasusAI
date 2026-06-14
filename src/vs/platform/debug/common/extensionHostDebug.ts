@@ -35,16 +35,16 @@ export interface IOpenExtensionWindowResult {
 export interface IExtensionHostDebugService {
 	readonly _serviceBrand: undefined;
 
-	reload(sessionId: string): void;
+	reload(sessionId: string): pegasusai;
 	readonly onReload: Event<IReloadSessionEvent>;
 
-	close(sessionId: string): void;
+	close(sessionId: string): pegasusai;
 	readonly onClose: Event<ICloseSessionEvent>;
 
-	attachSession(sessionId: string, port: number, subId?: string): void;
+	attachSession(sessionId: string, port: number, subId?: string): pegasusai;
 	readonly onAttachSession: Event<IAttachSessionEvent>;
 
-	terminateSession(sessionId: string, subId?: string): void;
+	terminateSession(sessionId: string, subId?: string): pegasusai;
 	readonly onTerminateSession: Event<ITerminateSessionEvent>;
 
 	openExtensionDevelopmentHostWindow(args: string[], debugRenderer: boolean): Promise<IOpenExtensionWindowResult>;

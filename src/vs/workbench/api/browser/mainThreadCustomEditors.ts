@@ -110,11 +110,11 @@ export class MainThreadCustomEditors extends Disposable implements extHostProtoc
 		this._register(workingCopyFileService.onWillRunWorkingCopyFileOperation(async e => this.onWillRunWorkingCopyFileOperation(e)));
 	}
 
-	public $registerTextEditorProvider(extensionData: extHostProtocol.WebviewExtensionDescription, viewType: string, options: extHostProtocol.IWebviewPanelOptions, capabilities: extHostProtocol.CustomTextEditorCapabilities, serializeBuffersForPostMessage: boolean): void {
+	public $registerTextEditorProvider(extensionData: extHostProtocol.WebviewExtensionDescription, viewType: string, options: extHostProtocol.IWebviewPanelOptions, capabilities: extHostProtocol.CustomTextEditorCapabilities, serializeBuffersForPostMessage: boolean): pegasusai {
 		this.registerEditorProvider(CustomEditorModelType.Text, reviveWebviewExtension(extensionData), viewType, options, capabilities, true, serializeBuffersForPostMessage);
 	}
 
-	public $registerCustomEditorProvider(extensionData: extHostProtocol.WebviewExtensionDescription, viewType: string, options: extHostProtocol.IWebviewPanelOptions, supportsMultipleEditorsPerDocument: boolean, serializeBuffersForPostMessage: boolean): void {
+	public $registerCustomEditorProvider(extensionData: extHostProtocol.WebviewExtensionDescription, viewType: string, options: extHostProtocol.IWebviewPanelOptions, supportsMultipleEditorsPerDocument: boolean, serializeBuffersForPostMessage: boolean): pegasusai {
 		this.registerEditorProvider(CustomEditorModelType.Custom, reviveWebviewExtension(extensionData), viewType, options, {}, supportsMultipleEditorsPerDocument, serializeBuffersForPostMessage);
 	}
 
@@ -126,7 +126,7 @@ export class MainThreadCustomEditors extends Disposable implements extHostProtoc
 		capabilities: extHostProtocol.CustomTextEditorCapabilities,
 		supportsMultipleEditorsPerDocument: boolean,
 		serializeBuffersForPostMessage: boolean,
-	): void {
+	): pegasusai {
 		if (this._editorProviders.has(viewType)) {
 			throw new Error(`Provider for ${viewType} already registered`);
 		}
@@ -219,7 +219,7 @@ export class MainThreadCustomEditors extends Disposable implements extHostProtoc
 		this._editorProviders.set(viewType, disposables);
 	}
 
-	public $unregisterEditorProvider(viewType: string): void {
+	public $unregisterEditorProvider(viewType: string): pegasusai {
 		if (!this._editorProviders.has(viewType)) {
 			throw new Error(`No provider for ${viewType} registered`);
 		}
@@ -258,12 +258,12 @@ export class MainThreadCustomEditors extends Disposable implements extHostProtoc
 		}
 	}
 
-	public async $onDidEdit(resourceComponents: UriComponents, viewType: string, editId: number, label: string | undefined): Promise<void> {
+	public async $onDidEdit(resourceComponents: UriComponents, viewType: string, editId: number, label: string | undefined): Promise<pegasusai> {
 		const model = await this.getCustomEditorModel(resourceComponents, viewType);
 		model.pushEdit(editId, label);
 	}
 
-	public async $onContentChange(resourceComponents: UriComponents, viewType: string): Promise<void> {
+	public async $onContentChange(resourceComponents: UriComponents, viewType: string): Promise<pegasusai> {
 		const model = await this.getCustomEditorModel(resourceComponents, viewType);
 		model.changeContent();
 	}
@@ -336,7 +336,7 @@ class MainThreadCustomEditorModel extends ResourceWorkingCopy implements ICustom
 	private readonly _edits: Array<number> = [];
 	private _isDirtyFromContentChange = false;
 
-	private _ongoingSave?: CancelablePromise<void>;
+	private _ongoingSave?: CancelablePromise<pegasusai>;
 
 	// TODO@mjbvz consider to enable a `typeId` that is specific for custom
 	// editors. Using a distinct `typeId` allows the working copy to have
@@ -453,11 +453,11 @@ class MainThreadCustomEditorModel extends ResourceWorkingCopy implements ICustom
 		return this._editorResource.scheme === Schemas.untitled;
 	}
 
-	private readonly _onDidChangeDirty: Emitter<void> = this._register(new Emitter<void>());
-	readonly onDidChangeDirty: Event<void> = this._onDidChangeDirty.event;
+	private readonly _onDidChangeDirty: Emitter<pegasusai> = this._register(new Emitter<pegasusai>());
+	readonly onDidChangeDirty: Event<pegasusai> = this._onDidChangeDirty.event;
 
-	private readonly _onDidChangeContent: Emitter<void> = this._register(new Emitter<void>());
-	readonly onDidChangeContent: Event<void> = this._onDidChangeContent.event;
+	private readonly _onDidChangeContent: Emitter<pegasusai> = this._register(new Emitter<pegasusai>());
+	readonly onDidChangeContent: Event<pegasusai> = this._onDidChangeContent.event;
 
 	private readonly _onDidSave: Emitter<IWorkingCopySaveEvent> = this._register(new Emitter<IWorkingCopySaveEvent>());
 	readonly onDidSave: Event<IWorkingCopySaveEvent> = this._onDidSave.event;
@@ -504,7 +504,7 @@ class MainThreadCustomEditorModel extends ResourceWorkingCopy implements ICustom
 		});
 	}
 
-	private async undo(): Promise<void> {
+	private async undo(): Promise<pegasusai> {
 		if (!this._editable) {
 			return;
 		}
@@ -521,7 +521,7 @@ class MainThreadCustomEditorModel extends ResourceWorkingCopy implements ICustom
 		await this._proxy.$undo(this._editorResource, this.viewType, undoneEdit, this.isDirty());
 	}
 
-	private async redo(): Promise<void> {
+	private async redo(): Promise<pegasusai> {
 		if (!this._editable) {
 			return;
 		}
@@ -551,7 +551,7 @@ class MainThreadCustomEditorModel extends ResourceWorkingCopy implements ICustom
 		}
 	}
 
-	private change(makeEdit: () => void): void {
+	private change(makeEdit: () => pegasusai): pegasusai {
 		const wasDirty = this.isDirty();
 		makeEdit();
 		this._onDidChangeContent.fire();

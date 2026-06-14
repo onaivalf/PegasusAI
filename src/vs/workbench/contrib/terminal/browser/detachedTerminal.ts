@@ -81,27 +81,27 @@ export class DetachedTerminal extends Disposable implements IDetachedTerminalIns
 		return this._xterm.hasSelection();
 	}
 
-	clearSelection(): void {
+	clearSelection(): pegasusai {
 		this._xterm.clearSelection();
 	}
 
-	focus(force?: boolean): void {
+	focus(force?: boolean): pegasusai {
 		if (force || !dom.getActiveWindow().getSelection()?.toString()) {
 			this.xterm.focus();
 		}
 	}
 
-	attachToElement(container: HTMLElement, options?: Partial<IXtermAttachToElementOptions> | undefined): void {
+	attachToElement(container: HTMLElement, options?: Partial<IXtermAttachToElementOptions> | undefined): pegasusai {
 		this.domElement = container;
 		const screenElement = this._xterm.attachToElement(container, options);
 		this._widgets.attachToElement(screenElement);
 	}
 
-	forceScrollbarVisibility(): void {
+	forceScrollbarVisibility(): pegasusai {
 		this.domElement?.classList.add('force-scrollbar');
 	}
 
-	resetScrollbarVisibility(): void {
+	resetScrollbarVisibility(): pegasusai {
 		this.domElement?.classList.remove('force-scrollbar');
 	}
 

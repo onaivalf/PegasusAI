@@ -27,7 +27,7 @@ export class Problems {
 		await this.code.waitForElement(Problems.PROBLEMS_VIEW_SELECTOR, el => !el);
 	}
 
-	async waitForProblemsView(): Promise<void> {
+	async waitForProblemsView(): Promise<pegasusai> {
 		await this.code.waitForElement(Problems.PROBLEMS_VIEW_SELECTOR);
 	}
 

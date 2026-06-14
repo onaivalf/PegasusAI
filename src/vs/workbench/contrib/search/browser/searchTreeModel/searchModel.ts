@@ -30,12 +30,12 @@ export class SearchModelImpl extends Disposable implements ISearchModel {
 	private _replaceString: string | null = null;
 	private _replacePattern: ReplacePattern | null = null;
 	private _preserveCase: boolean = false;
-	private _startStreamDelay: Promise<void> = Promise.resolve();
+	private _startStreamDelay: Promise<pegasusai> = Promise.resolve();
 	private readonly _resultQueue: IFileMatch[] = [];
 	private readonly _aiResultQueue: IFileMatch[] = [];
 
-	private readonly _onReplaceTermChanged: Emitter<void> = this._register(new Emitter<void>());
-	readonly onReplaceTermChanged: Event<void> = this._onReplaceTermChanged.event;
+	private readonly _onReplaceTermChanged: Emitter<pegasusai> = this._register(new Emitter<pegasusai>());
+	readonly onReplaceTermChanged: Event<pegasusai> = this._onReplaceTermChanged.event;
 
 	private readonly _onSearchResultChanged = this._register(new PauseableEmitter<IChangeEvent>({
 		merge: mergeSearchResultEvents
@@ -115,7 +115,7 @@ export class SearchModelImpl extends Disposable implements ISearchModel {
 		return this._searchResult;
 	}
 
-	async addAIResults(onProgress?: (result: ISearchProgressItem) => void): Promise<ISearchComplete> {
+	async addAIResults(onProgress?: (result: ISearchProgressItem) => pegasusai): Promise<ISearchComplete> {
 		if (this.hasAIResults) {
 			// already has matches or pending matches
 			throw Error('AI results already exist');
@@ -131,7 +131,7 @@ export class SearchModelImpl extends Disposable implements ISearchModel {
 		}
 	}
 
-	aiSearch(query: IAITextQuery, onProgress?: (result: ISearchProgressItem) => void): Promise<ISearchComplete> {
+	aiSearch(query: IAITextQuery, onProgress?: (result: ISearchProgressItem) => pegasusai): Promise<ISearchComplete> {
 
 		const searchInstanceID = Date.now().toString();
 		const tokenSource = new CancellationTokenSource();
@@ -157,7 +157,7 @@ export class SearchModelImpl extends Disposable implements ISearchModel {
 		return asyncAIResults;
 	}
 
-	private doSearch(query: ITextQuery, progressEmitter: Emitter<void>, searchQuery: ITextQuery, searchInstanceID: string, onProgress?: (result: ISearchProgressItem) => void, callerToken?: CancellationToken): {
+	private doSearch(query: ITextQuery, progressEmitter: Emitter<pegasusai>, searchQuery: ITextQuery, searchInstanceID: string, onProgress?: (result: ISearchProgressItem) => pegasusai, callerToken?: CancellationToken): {
 		asyncResults: Promise<ISearchComplete>;
 		syncResults: IFileMatch<URI>[];
 	} {
@@ -217,7 +217,7 @@ export class SearchModelImpl extends Disposable implements ISearchModel {
 		return !!(this.searchResult.getCachedSearchComplete(false)) || (!!this.currentCancelTokenSource && !this.currentCancelTokenSource.token.isCancellationRequested);
 	}
 
-	search(query: ITextQuery, onProgress?: (result: ISearchProgressItem) => void, callerToken?: CancellationToken): {
+	search(query: ITextQuery, onProgress?: (result: ISearchProgressItem) => pegasusai, callerToken?: CancellationToken): {
 		asyncResults: Promise<ISearchComplete>;
 		syncResults: IFileMatch<URI>[];
 	} {
@@ -231,7 +231,7 @@ export class SearchModelImpl extends Disposable implements ISearchModel {
 
 		this._searchResult.query = this._searchQuery;
 
-		const progressEmitter = this._register(new Emitter<void>());
+		const progressEmitter = this._register(new Emitter<pegasusai>());
 		this._replacePattern = new ReplacePattern(this.replaceString, this._searchQuery.contentPattern);
 
 		// In search on type case, delay the streaming of results just a bit, so that we don't flash the only "local results" fast path
@@ -342,7 +342,7 @@ export class SearchModelImpl extends Disposable implements ISearchModel {
 		return completed;
 	}
 
-	private onSearchError(e: any, duration: number, ai: boolean): void {
+	private onSearchError(e: any, duration: number, ai: boolean): pegasusai {
 		if (errors.isCancellationError(e)) {
 			this.onSearchCompleted(
 				(ai ? this.aiSearchCancelledForNewSearch : this.searchCancelledForNewSearch)
@@ -398,12 +398,12 @@ export class SearchModelImpl extends Disposable implements ISearchModel {
 		}
 		return false;
 	}
-	clearAiSearchResults(): void {
+	clearAiSearchResults(): pegasusai {
 		this._aiResultQueue.length = 0;
 		// it's not clear all as we are only clearing the AI results
 		this._searchResult.aiTextSearchResult.clear(false);
 	}
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this.cancelSearch();
 		this.cancelAISearch();
 		this.searchResult.dispose();

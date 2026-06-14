@@ -10,10 +10,10 @@ import { ViewPart } from '../../view/viewPart.js';
 
 export abstract class AbstractEditContext extends ViewPart {
 	abstract domNode: FastDomNode<HTMLElement>;
-	abstract focus(): void;
+	abstract focus(): pegasusai;
 	abstract isFocused(): boolean;
-	abstract refreshFocusState(): void;
-	abstract setAriaOptions(options: IEditorAriaOptions): void;
+	abstract refreshFocusState(): pegasusai;
+	abstract setAriaOptions(options: IEditorAriaOptions): pegasusai;
 	abstract getLastRenderData(): Position | null;
-	abstract writeScreenReaderContent(reason: string): void;
+	abstract writeScreenReaderContent(reason: string): pegasusai;
 }

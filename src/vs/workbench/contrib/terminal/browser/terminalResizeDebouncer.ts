@@ -25,14 +25,14 @@ export class TerminalResizeDebouncer extends Disposable {
 	constructor(
 		private readonly _isVisible: () => boolean,
 		private readonly _getXterm: () => XtermTerminal | undefined,
-		private readonly _resizeBothCallback: (cols: number, rows: number) => void,
-		private readonly _resizeXCallback: (cols: number) => void,
-		private readonly _resizeYCallback: (rows: number) => void,
+		private readonly _resizeBothCallback: (cols: number, rows: number) => pegasusai,
+		private readonly _resizeXCallback: (cols: number) => pegasusai,
+		private readonly _resizeYCallback: (rows: number) => pegasusai,
 	) {
 		super();
 	}
 
-	async resize(cols: number, rows: number, immediate: boolean): Promise<void> {
+	async resize(cols: number, rows: number, immediate: boolean): Promise<pegasusai> {
 		this._latestX = cols;
 		this._latestY = rows;
 
@@ -69,7 +69,7 @@ export class TerminalResizeDebouncer extends Disposable {
 		this._debounceResizeX(cols);
 	}
 
-	flush(): void {
+	flush(): pegasusai {
 		if (this._resizeXJob.value || this._resizeYJob.value) {
 			this._resizeXJob.clear();
 			this._resizeYJob.clear();

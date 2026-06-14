@@ -34,12 +34,12 @@ export class MainThreadDocumentContentProviders implements MainThreadDocumentCon
 		this._proxy = extHostContext.getProxy(ExtHostContext.ExtHostDocumentContentProviders);
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._resourceContentProvider.dispose();
 		dispose(this._pendingUpdate.values());
 	}
 
-	$registerTextContentProvider(handle: number, scheme: string): void {
+	$registerTextContentProvider(handle: number, scheme: string): pegasusai {
 		const registration = this._textModelResolverService.registerTextModelContentProvider(scheme, {
 			provideTextContent: (uri: URI): Promise<ITextModel | null> => {
 				return this._proxy.$provideTextDocumentContent(handle, uri).then(value => {
@@ -55,11 +55,11 @@ export class MainThreadDocumentContentProviders implements MainThreadDocumentCon
 		this._resourceContentProvider.set(handle, registration);
 	}
 
-	$unregisterTextContentProvider(handle: number): void {
+	$unregisterTextContentProvider(handle: number): pegasusai {
 		this._resourceContentProvider.deleteAndDispose(handle);
 	}
 
-	async $onVirtualDocumentChange(uri: UriComponents, value: string): Promise<void> {
+	async $onVirtualDocumentChange(uri: UriComponents, value: string): Promise<pegasusai> {
 		const model = this._modelService.getModel(URI.revive(uri));
 		if (!model) {
 			return;

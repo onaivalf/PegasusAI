@@ -20,9 +20,9 @@ const REDIRECT_URL_INSIDERS = 'https://insiders.vscode.dev/redirect';
 
 export interface IGitHubServer {
 	login(scopes: string, existingLogin?: string): Promise<string>;
-	logout(session: vscode.AuthenticationSession): Promise<void>;
+	logout(session: vscode.AuthenticationSession): Promise<pegasusai>;
 	getUserInfo(token: string): Promise<{ id: string; accountName: string }>;
-	sendAdditionalTelemetryInfo(session: vscode.AuthenticationSession): Promise<void>;
+	sendAdditionalTelemetryInfo(session: vscode.AuthenticationSession): Promise<pegasusai>;
 	friendlyName: string;
 }
 
@@ -149,7 +149,7 @@ export class GitHubServer implements IGitHubServer {
 		throw new Error(userCancelled ? CANCELLATION_ERROR : 'No auth flow succeeded.');
 	}
 
-	public async logout(session: vscode.AuthenticationSession): Promise<void> {
+	public async logout(session: vscode.AuthenticationSession): Promise<pegasusai> {
 		this._logger.trace(`Deleting session (${session.id}) from server...`);
 
 		if (!Config.gitHubClientSecret) {
@@ -251,7 +251,7 @@ export class GitHubServer implements IGitHubServer {
 		}
 	}
 
-	public async sendAdditionalTelemetryInfo(session: vscode.AuthenticationSession): Promise<void> {
+	public async sendAdditionalTelemetryInfo(session: vscode.AuthenticationSession): Promise<pegasusai> {
 		if (!vscode.env.isTelemetryEnabled) {
 			return;
 		}
@@ -269,7 +269,7 @@ export class GitHubServer implements IGitHubServer {
 		await this.checkEnterpriseVersion(session.accessToken);
 	}
 
-	private async checkUserDetails(session: vscode.AuthenticationSession): Promise<void> {
+	private async checkUserDetails(session: vscode.AuthenticationSession): Promise<pegasusai> {
 		let edu: string | undefined;
 
 		try {
@@ -309,7 +309,7 @@ export class GitHubServer implements IGitHubServer {
 		});
 	}
 
-	private async checkEnterpriseVersion(token: string): Promise<void> {
+	private async checkEnterpriseVersion(token: string): Promise<pegasusai> {
 		try {
 			let version: string;
 			if (!isSupportedTarget(this._type, this._ghesUri)) {

@@ -73,7 +73,7 @@ export class IssueReporterModel {
 		return this._data;
 	}
 
-	update(newData: Partial<IssueReporterData>): void {
+	update(newData: Partial<IssueReporterData>): pegasusai {
 		Object.assign(this._data, newData);
 	}
 

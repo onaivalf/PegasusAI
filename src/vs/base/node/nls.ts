@@ -224,7 +224,7 @@ async function exists(path: string): Promise<boolean> {
 	}
 }
 
-function touch(path: string): Promise<void> {
+function touch(path: string): Promise<pegasusai> {
 	const date = new Date();
 
 	return fs.promises.utimes(path, date, date);

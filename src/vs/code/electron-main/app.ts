@@ -125,14 +125,14 @@ import ErrorTelemetry from '../../platform/telemetry/electron-main/errorTelemetr
 
 // in theory this is not allowed
 // ignore the eslint errors below
-import { IMetricsService } from '../../workbench/contrib/void/common/metricsService.js';
-import { IVoidUpdateService } from '../../workbench/contrib/void/common/voidUpdateService.js';
-import { MetricsMainService } from '../../workbench/contrib/void/electron-main/metricsMainService.js';
-import { VoidMainUpdateService } from '../../workbench/contrib/void/electron-main/voidUpdateMainService.js';
-import { LLMMessageChannel } from '../../workbench/contrib/void/electron-main/sendLLMMessageChannel.js';
-import { VoidSCMService } from '../../workbench/contrib/void/electron-main/voidSCMMainService.js';
-import { IVoidSCMService } from '../../workbench/contrib/void/common/voidSCMTypes.js';
-import { MCPChannel } from '../../workbench/contrib/void/electron-main/mcpChannel.js';
+import { IMetricsService } from '../../workbench/contrib/pegasusai/common/metricsService.js';
+import { IPegasusAIUpdateService } from '../../workbench/contrib/pegasusai/common/pegasusaiUpdateService.js';
+import { MetricsMainService } from '../../workbench/contrib/pegasusai/electron-main/metricsMainService.js';
+import { PegasusAIMainUpdateService } from '../../workbench/contrib/pegasusai/electron-main/pegasusaiUpdateMainService.js';
+import { LLMMessageChannel } from '../../workbench/contrib/pegasusai/electron-main/sendLLMMessageChannel.js';
+import { PegasusAISCMService } from '../../workbench/contrib/pegasusai/electron-main/pegasusaiSCMMainService.js';
+import { IPegasusAISCMService } from '../../workbench/contrib/pegasusai/common/pegasusaiSCMTypes.js';
+import { MCPChannel } from '../../workbench/contrib/pegasusai/electron-main/mcpChannel.js';
 /**
  * The main VS Code application. There will only ever be one instance,
  * even if the user starts many instances (e.g. from the command line).
@@ -168,7 +168,7 @@ export class CodeApplication extends Disposable {
 		this.registerListeners();
 	}
 
-	private configureSession(): void {
+	private configureSession(): pegasusai {
 
 		//#region Security related measures (https://electronjs.org/docs/tutorial/security)
 		//
@@ -354,7 +354,7 @@ export class CodeApplication extends Disposable {
 			 * Sets code cache directory. By default, the directory will be `Code Cache` under
 			 * the respective user data folder.
 			 */
-			setCodeCachePath?(path: string): void;
+			setCodeCachePath?(path: string): pegasusai;
 		};
 
 		const defaultSession = session.defaultSession as unknown as SessionWithCodeCachePathSupport;
@@ -381,7 +381,7 @@ export class CodeApplication extends Disposable {
 		//#endregion
 	}
 
-	private registerListeners(): void {
+	private registerListeners(): pegasusai {
 
 		// Dispose on shutdown
 		Event.once(this.lifecycleMainService.onWillShutdown)(() => this.dispose());
@@ -529,7 +529,7 @@ export class CodeApplication extends Disposable {
 		//#endregion
 	}
 
-	async startup(): Promise<void> {
+	async startup(): Promise<pegasusai> {
 		this.logService.debug('Starting VS Code');
 		this.logService.debug(`from: ${this.environmentMainService.appRoot}`);
 		this.logService.debug('args:', this.environmentMainService.args);
@@ -1101,10 +1101,10 @@ export class CodeApplication extends Disposable {
 			services.set(ITelemetryService, NullTelemetryService);
 		}
 
-		// Void main process services (required for services with a channel for comm between browser and electron-main (node))
+		// PegasusAI main process services (required for services with a channel for comm between browser and electron-main (node))
 		services.set(IMetricsService, new SyncDescriptor(MetricsMainService, undefined, false));
-		services.set(IVoidUpdateService, new SyncDescriptor(VoidMainUpdateService, undefined, false));
-		services.set(IVoidSCMService, new SyncDescriptor(VoidSCMService, undefined, false));
+		services.set(IPegasusAIUpdateService, new SyncDescriptor(PegasusAIMainUpdateService, undefined, false));
+		services.set(IPegasusAISCMService, new SyncDescriptor(PegasusAISCMService, undefined, false));
 
 		// Default Extensions Profile Init
 		services.set(IExtensionsProfileScannerService, new SyncDescriptor(ExtensionsProfileScannerService, undefined, true));
@@ -1132,7 +1132,7 @@ export class CodeApplication extends Disposable {
 		return this.mainInstantiationService.createChild(services);
 	}
 
-	private initChannels(accessor: ServicesAccessor, mainProcessElectronServer: ElectronIPCServer, sharedProcessClient: Promise<MessagePortClient>): void {
+	private initChannels(accessor: ServicesAccessor, mainProcessElectronServer: ElectronIPCServer, sharedProcessClient: Promise<MessagePortClient>): pegasusai {
 
 		// Channels registered to node.js are exposed to second instances
 		// launching because that is the only way the second instance
@@ -1236,23 +1236,23 @@ export class CodeApplication extends Disposable {
 		mainProcessElectronServer.registerChannel('logger', loggerChannel);
 		sharedProcessClient.then(client => client.registerChannel('logger', loggerChannel));
 
-		// Void - use loggerChannel as reference
+		// PegasusAI - use loggerChannel as reference
 		const metricsChannel = ProxyChannel.fromService(accessor.get(IMetricsService), disposables);
-		mainProcessElectronServer.registerChannel('void-channel-metrics', metricsChannel);
+		mainProcessElectronServer.registerChannel('pegasusai-channel-metrics', metricsChannel);
 
-		const voidUpdatesChannel = ProxyChannel.fromService(accessor.get(IVoidUpdateService), disposables);
-		mainProcessElectronServer.registerChannel('void-channel-update', voidUpdatesChannel);
+		const pegasusaiUpdatesChannel = ProxyChannel.fromService(accessor.get(IPegasusAIUpdateService), disposables);
+		mainProcessElectronServer.registerChannel('pegasusai-channel-update', pegasusaiUpdatesChannel);
 
 		const sendLLMMessageChannel = new LLMMessageChannel(accessor.get(IMetricsService));
-		mainProcessElectronServer.registerChannel('void-channel-llmMessage', sendLLMMessageChannel);
+		mainProcessElectronServer.registerChannel('pegasusai-channel-llmMessage', sendLLMMessageChannel);
 
-		// Void added this
-		const voidSCMChannel = ProxyChannel.fromService(accessor.get(IVoidSCMService), disposables);
-		mainProcessElectronServer.registerChannel('void-channel-scm', voidSCMChannel);
+		// PegasusAI added this
+		const pegasusaiSCMChannel = ProxyChannel.fromService(accessor.get(IPegasusAISCMService), disposables);
+		mainProcessElectronServer.registerChannel('pegasusai-channel-scm', pegasusaiSCMChannel);
 
-		// Void added this
+		// PegasusAI added this
 		const mcpChannel = new MCPChannel();
-		mainProcessElectronServer.registerChannel('void-channel-mcp', mcpChannel);
+		mainProcessElectronServer.registerChannel('pegasusai-channel-mcp', mcpChannel);
 
 		// Extension Host Debug Broadcasting
 		const electronExtensionHostDebugBroadcastChannel = new ElectronExtensionHostDebugBroadcastChannel(accessor.get(IWindowsMainService));
@@ -1387,7 +1387,7 @@ export class CodeApplication extends Disposable {
 		});
 	}
 
-	private afterWindowOpen(): void {
+	private afterWindowOpen(): pegasusai {
 
 		// Windows: mutex
 		this.installMutex();
@@ -1415,7 +1415,7 @@ export class CodeApplication extends Disposable {
 		}
 	}
 
-	private async installMutex(): Promise<void> {
+	private async installMutex(): Promise<pegasusai> {
 		const win32MutexName = this.productService.win32MutexName;
 		if (isWindows && win32MutexName) {
 			try {
@@ -1443,7 +1443,7 @@ export class CodeApplication extends Disposable {
 		return {};
 	}
 
-	private async updateCrashReporterEnablement(): Promise<void> {
+	private async updateCrashReporterEnablement(): Promise<pegasusai> {
 
 		// If enable-crash-reporter argv is undefined then this is a fresh start,
 		// based on `telemetry.enableCrashreporter` settings, generate a UUID which
@@ -1489,7 +1489,7 @@ export class CodeApplication extends Disposable {
 		}
 	}
 
-	private eventuallyAfterWindowOpen(): void {
+	private eventuallyAfterWindowOpen(): pegasusai {
 
 		// Validate Device ID is up to date (delay this as it has shown significant perf impact)
 		// Refs: https://github.com/microsoft/vscode/issues/234064

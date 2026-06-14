@@ -6,8 +6,8 @@
 /**
  * Debounces the function call for an interval.
  */
-export function debounce(duration: number, fn: () => void): (() => void) & { clear: () => void } {
-	let timeout: NodeJS.Timeout | void;
+export function debounce(duration: number, fn: () => pegasusai): (() => pegasusai) & { clear: () => pegasusai } {
+	let timeout: NodeJS.Timeout | pegasusai;
 	const debounced = () => {
 		if (timeout !== undefined) {
 			clearTimeout(timeout);

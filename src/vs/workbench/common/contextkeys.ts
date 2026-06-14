@@ -224,11 +224,11 @@ export class ResourceContextKey {
 		}));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 	}
 
-	private _setLangId(): void {
+	private _setLangId(): pegasusai {
 		const value = this.get();
 		if (!value) {
 			this._langIdKey.set(null);
@@ -265,7 +265,7 @@ export class ResourceContextKey {
 		return uri.path;
 	}
 
-	reset(): void {
+	reset(): pegasusai {
 		this._value = undefined;
 		this._contextKeyService.bufferChangeEvents(() => {
 			this._resourceKey.reset();
@@ -287,7 +287,7 @@ export class ResourceContextKey {
 
 //#endregion
 
-export function applyAvailableEditorIds(contextKey: IContextKey<string>, editor: EditorInput | undefined | null, editorResolverService: IEditorResolverService): void {
+export function applyAvailableEditorIds(contextKey: IContextKey<string>, editor: EditorInput | undefined | null, editorResolverService: IEditorResolverService): pegasusai {
 	if (!editor) {
 		contextKey.set('');
 		return;

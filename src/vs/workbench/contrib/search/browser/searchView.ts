@@ -144,17 +144,17 @@ export class SearchView extends ViewPane {
 
 	private currentSelectedFileMatch: ISearchTreeFileMatch | undefined;
 
-	private delayedRefresh: Delayer<void>;
+	private delayedRefresh: Delayer<pegasusai>;
 	private changedWhileHidden: boolean;
 
 	private searchWithoutFolderMessageElement: HTMLElement | undefined;
 
 	private currentSearchQ = Promise.resolve();
-	private addToSearchHistoryDelayer: Delayer<void>;
+	private addToSearchHistoryDelayer: Delayer<pegasusai>;
 
-	private toggleCollapseStateDelayer: Delayer<void>;
+	private toggleCollapseStateDelayer: Delayer<pegasusai>;
 
-	private triggerQueryDelayer: Delayer<void>;
+	private triggerQueryDelayer: Delayer<pegasusai>;
 	private pauseSearching = false;
 
 	private treeAccessibilityProvider: SearchAccessibilityProvider;
@@ -267,11 +267,11 @@ export class SearchView extends ViewPane {
 		this._register(this.searchHistoryService.onDidClearHistory(() => this.clearHistory()));
 		this._register(this.configurationService.onDidChangeConfiguration(e => this.onConfigurationUpdated(e)));
 
-		this.delayedRefresh = this._register(new Delayer<void>(250));
+		this.delayedRefresh = this._register(new Delayer<pegasusai>(250));
 
-		this.addToSearchHistoryDelayer = this._register(new Delayer<void>(2000));
-		this.toggleCollapseStateDelayer = this._register(new Delayer<void>(100));
-		this.triggerQueryDelayer = this._register(new Delayer<void>(0));
+		this.addToSearchHistoryDelayer = this._register(new Delayer<pegasusai>(2000));
+		this.toggleCollapseStateDelayer = this._register(new Delayer<pegasusai>(100));
+		this.triggerQueryDelayer = this._register(new Delayer<pegasusai>(0));
 
 		this.treeAccessibilityProvider = this.instantiationService.createInstance(SearchAccessibilityProvider, this);
 		this.isTreeLayoutViewVisible = this.viewletState['view.treeLayout'] ?? (this.searchConfig.defaultViewMode === ViewMode.Tree);
@@ -303,7 +303,7 @@ export class SearchView extends ViewPane {
 		this.changedWhileHidden = this.hasSearchResults();
 	}
 
-	async queueRefreshTree(): Promise<void> {
+	async queueRefreshTree(): Promise<pegasusai> {
 		return this.refreshTreeController.queue();
 	}
 	get isTreeLayoutViewVisible(): boolean {
@@ -314,7 +314,7 @@ export class SearchView extends ViewPane {
 		this.treeViewKey.set(visible);
 	}
 
-	async setTreeView(visible: boolean): Promise<void> {
+	async setTreeView(visible: boolean): Promise<pegasusai> {
 		if (visible === this.isTreeLayoutViewVisible) {
 			return;
 		}
@@ -343,7 +343,7 @@ export class SearchView extends ViewPane {
 		return this.viewModel;
 	}
 
-	private async refreshHasAISetting(): Promise<void> {
+	private async refreshHasAISetting(): Promise<pegasusai> {
 		const shouldShowAI = this.shouldShowAIResults();
 		if (!this.tree.hasNode(this.searchResult)) {
 			return;
@@ -357,7 +357,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	private onDidChangeWorkbenchState(): void {
+	private onDidChangeWorkbenchState(): pegasusai {
 		if (this.contextService.getWorkbenchState() !== WorkbenchState.EMPTY && this.searchWithoutFolderMessageElement) {
 			dom.hide(this.searchWithoutFolderMessageElement);
 		}
@@ -375,10 +375,10 @@ export class SearchView extends ViewPane {
 		this.pauseSearching = false;
 	}
 
-	public async replaceSearchModel(searchModel: ISearchModel, asyncResults: Promise<ISearchComplete>): Promise<void> {
-		let progressComplete: () => void;
+	public async replaceSearchModel(searchModel: ISearchModel, asyncResults: Promise<ISearchComplete>): Promise<pegasusai> {
+		let progressComplete: () => pegasusai;
 		this.progressService.withProgress({ location: this.getProgressLocation(), delay: 0 }, _progress => {
-			return new Promise<void>(resolve => progressComplete = resolve);
+			return new Promise<pegasusai>(resolve => progressComplete = resolve);
 		});
 
 		const slowTimer = setTimeout(() => {
@@ -413,7 +413,7 @@ export class SearchView extends ViewPane {
 		await this.expandIfSingularResult();
 	}
 
-	protected override renderBody(parent: HTMLElement): void {
+	protected override renderBody(parent: HTMLElement): pegasusai {
 		super.renderBody(parent);
 		this.container = dom.append(parent, dom.$('.search-view'));
 
@@ -535,11 +535,11 @@ export class SearchView extends ViewPane {
 		this._register(this.themeService.onDidFileIconThemeChange(this.updateIndentStyles, this));
 	}
 
-	private updateIndentStyles(theme: IFileIconTheme): void {
+	private updateIndentStyles(theme: IFileIconTheme): pegasusai {
 		this.resultsElement.classList.toggle('hide-arrows', this.isTreeLayoutViewVisible && theme.hidesExplorerArrows);
 	}
 
-	private async onVisibilityChanged(visible: boolean): Promise<void> {
+	private async onVisibilityChanged(visible: boolean): Promise<pegasusai> {
 		this.viewletVisible.set(visible);
 		if (visible) {
 			if (this.changedWhileHidden) {
@@ -568,7 +568,7 @@ export class SearchView extends ViewPane {
 		return this.inputPatternExcludes;
 	}
 
-	private createSearchWidget(container: HTMLElement): void {
+	private createSearchWidget(container: HTMLElement): pegasusai {
 		const contentPattern = this.viewletState['query.contentPattern'] || '';
 		const replaceText = this.viewletState['query.replaceText'] || '';
 		const isRegex = this.viewletState['query.regex'] === true;
@@ -662,13 +662,13 @@ export class SearchView extends ViewPane {
 		const hasProvider = Constants.SearchContext.hasAIResultProvider.getValue(this.contextKeyService);
 		return !!hasProvider;
 	}
-	private async onConfigurationUpdated(event?: IConfigurationChangeEvent): Promise<void> {
+	private async onConfigurationUpdated(event?: IConfigurationChangeEvent): Promise<pegasusai> {
 		if (event && (event.affectsConfiguration('search.decorations.colors') || event.affectsConfiguration('search.decorations.badges'))) {
 			return this.refreshTreeController.queue();
 		}
 	}
 
-	private trackInputBox(inputFocusTracker: dom.IFocusTracker | undefined, contextKey?: IContextKey<boolean>): void {
+	private trackInputBox(inputFocusTracker: dom.IFocusTracker | undefined, contextKey?: IContextKey<boolean>): pegasusai {
 		if (!inputFocusTracker) {
 			return;
 		}
@@ -687,7 +687,7 @@ export class SearchView extends ViewPane {
 		}));
 	}
 
-	private async onSearchResultsChanged(event?: IChangeEvent): Promise<void> {
+	private async onSearchResultsChanged(event?: IChangeEvent): Promise<pegasusai> {
 		if (this.isVisible()) {
 			return this.refreshAndUpdateCount(event);
 		} else {
@@ -695,7 +695,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	private async refreshAndUpdateCount(event?: IChangeEvent): Promise<void> {
+	private async refreshAndUpdateCount(event?: IChangeEvent): Promise<pegasusai> {
 		this.searchWidget.setReplaceAllActionState(!this.viewModel.searchResult.isEmpty());
 		this.updateSearchResultCount(this.viewModel.searchResult.query!.userDisabledExcludesAndIgnoreFiles, this.viewModel.searchResult.query?.onlyOpenEditors, event?.clearingAll);
 		return this.refreshTreeController.queue(event);
@@ -716,7 +716,7 @@ export class SearchView extends ViewPane {
 		return false;
 	}
 
-	private replaceAll(): void {
+	private replaceAll(): pegasusai {
 		if (this.viewModel.searchResult.count() === 0) {
 			return;
 		}
@@ -726,13 +726,13 @@ export class SearchView extends ViewPane {
 		const replaceValue = this.searchWidget.getReplaceValue() || '';
 		const afterReplaceAllMessage = this.buildAfterReplaceAllMessage(occurrences, fileCount, replaceValue);
 
-		let progressComplete: () => void;
+		let progressComplete: () => pegasusai;
 		let progressReporter: IProgress<IProgressStep>;
 
 		this.progressService.withProgress({ location: this.getProgressLocation(), delay: 100, total: occurrences }, p => {
 			progressReporter = p;
 
-			return new Promise<void>(resolve => progressComplete = resolve);
+			return new Promise<pegasusai>(resolve => progressComplete = resolve);
 		});
 
 		const confirmation: IConfirmation = {
@@ -840,7 +840,7 @@ export class SearchView extends ViewPane {
 		return newMessage;
 	}
 
-	private createSearchResultsView(container: HTMLElement): void {
+	private createSearchResultsView(container: HTMLElement): pegasusai {
 		this.resultsElement = dom.append(container, $('.results.show-file-icons.file-icon-themable-tree'));
 		const delegate = this.instantiationService.createInstance(SearchDelegate);
 
@@ -972,7 +972,7 @@ export class SearchView extends ViewPane {
 		}));
 	}
 
-	private onContextMenu(e: ITreeContextMenuEvent<RenderableMatch | null>): void {
+	private onContextMenu(e: ITreeContextMenuEvent<RenderableMatch | null>): pegasusai {
 
 		e.browserEvent.preventDefault();
 		e.browserEvent.stopPropagation();
@@ -1010,7 +1010,7 @@ export class SearchView extends ViewPane {
 		return false;
 	}
 
-	async selectNextMatch(): Promise<void> {
+	async selectNextMatch(): Promise<pegasusai> {
 		if (!this.hasSearchResults()) {
 			return;
 		}
@@ -1055,7 +1055,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	async selectPreviousMatch(): Promise<void> {
+	async selectPreviousMatch(): Promise<pegasusai> {
 		if (!this.hasSearchResults()) {
 			return;
 		}
@@ -1101,11 +1101,11 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	moveFocusToResults(): void {
+	moveFocusToResults(): pegasusai {
 		this.tree.domFocus();
 	}
 
-	override focus(): void {
+	override focus(): pegasusai {
 		super.focus();
 		if (this.lastFocusState === 'input' || !this.hasSearchResults()) {
 			const updatedText = this.searchConfig.seedOnFocus ? this.updateTextFromSelection({ allowSearchOnType: false }) : false;
@@ -1178,7 +1178,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	focusNextInputBox(): void {
+	focusNextInputBox(): pegasusai {
 		if (this.searchWidget.searchInputHasFocus()) {
 			if (this.searchWidget.isReplaceShown()) {
 				this.searchWidget.focus(true, true);
@@ -1213,7 +1213,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	focusPreviousInputBox(): void {
+	focusPreviousInputBox(): pegasusai {
 		if (this.searchWidget.searchInputHasFocus()) {
 			return;
 		}
@@ -1240,7 +1240,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	private moveFocusFromResults(): void {
+	private moveFocusFromResults(): pegasusai {
 		if (this.showsFileTypes()) {
 			this.toggleQueryDetails(true, true, false, true);
 		} else {
@@ -1248,7 +1248,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	private reLayout(): void {
+	private reLayout(): pegasusai {
 		if (this.isDisposed || !this.size) {
 			return;
 		}
@@ -1266,7 +1266,7 @@ export class SearchView extends ViewPane {
 		this.tree.layout(this.size.height - widgetHeight - messagesHeight, this.size.width - 28);
 	}
 
-	protected override layoutBody(height: number, width: number): void {
+	protected override layoutBody(height: number, width: number): pegasusai {
 		super.layoutBody(height, width);
 		this.size = new dom.Dimension(width, height);
 		this.reLayout();
@@ -1290,7 +1290,7 @@ export class SearchView extends ViewPane {
 		return !this.viewModel.searchResult.isEmpty();
 	}
 
-	clearSearchResults(clearInput = true): void {
+	clearSearchResults(clearInput = true): pegasusai {
 		this.viewModel.searchResult.clear();
 		this.showEmptyStage(true);
 		if (this.contextService.getWorkbenchState() === WorkbenchState.EMPTY) {
@@ -1309,7 +1309,7 @@ export class SearchView extends ViewPane {
 		this.reLayout();
 	}
 
-	clearFilePatternFields(): void {
+	clearFilePatternFields(): pegasusai {
 		this.searchExcludePattern.clear();
 		this.searchIncludePattern.clear();
 	}
@@ -1322,7 +1322,7 @@ export class SearchView extends ViewPane {
 		return false;
 	}
 
-	private selectTreeIfNotSelected(): void {
+	private selectTreeIfNotSelected(): pegasusai {
 		if (this.tree.getNode(undefined)) {
 			this.tree.domFocus();
 			const selection = this.tree.getSelection();
@@ -1353,27 +1353,27 @@ export class SearchView extends ViewPane {
 		return this.queryDetails.classList.contains('more');
 	}
 
-	toggleCaseSensitive(): void {
+	toggleCaseSensitive(): pegasusai {
 		this.searchWidget.searchInput?.setCaseSensitive(!this.searchWidget.searchInput.getCaseSensitive());
 		this.triggerQueryChange({ shouldKeepAIResults: true });
 	}
 
-	toggleWholeWords(): void {
+	toggleWholeWords(): pegasusai {
 		this.searchWidget.searchInput?.setWholeWords(!this.searchWidget.searchInput.getWholeWords());
 		this.triggerQueryChange({ shouldKeepAIResults: true });
 	}
 
-	toggleRegex(): void {
+	toggleRegex(): pegasusai {
 		this.searchWidget.searchInput?.setRegex(!this.searchWidget.searchInput.getRegex());
 		this.triggerQueryChange({ shouldKeepAIResults: true });
 	}
 
-	togglePreserveCase(): void {
+	togglePreserveCase(): pegasusai {
 		this.searchWidget.replaceInput?.setPreserveCase(!this.searchWidget.replaceInput.getPreserveCase());
 		this.triggerQueryChange({ shouldKeepAIResults: true });
 	}
 
-	setSearchParameters(args: IFindInFilesArgs = {}): void {
+	setSearchParameters(args: IFindInFilesArgs = {}): pegasusai {
 		if (typeof args.isCaseSensitive === 'boolean') {
 			this.searchWidget.searchInput?.setCaseSensitive(args.isCaseSensitive);
 		}
@@ -1413,7 +1413,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	toggleQueryDetails(moveFocus = true, show?: boolean, skipLayout?: boolean, reverse?: boolean): void {
+	toggleQueryDetails(moveFocus = true, show?: boolean, skipLayout?: boolean, reverse?: boolean): pegasusai {
 		const cls = 'more';
 		show = typeof show === 'undefined' ? !this.queryDetails.classList.contains(cls) : Boolean(show);
 		this.viewletState['query.queryDetailsExpanded'] = show;
@@ -1444,11 +1444,11 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	searchInFolders(folderPaths: string[] = []): void {
+	searchInFolders(folderPaths: string[] = []): pegasusai {
 		this._searchWithIncludeOrExclude(true, folderPaths);
 	}
 
-	searchOutsideOfFolders(folderPaths: string[] = []): void {
+	searchOutsideOfFolders(folderPaths: string[] = []): pegasusai {
 		this._searchWithIncludeOrExclude(false, folderPaths);
 	}
 
@@ -1468,7 +1468,7 @@ export class SearchView extends ViewPane {
 		this.searchWidget.focus(false);
 	}
 
-	triggerQueryChange(_options?: { preserveFocus?: boolean; triggeredOnType?: boolean; delay?: number; shouldKeepAIResults?: boolean; shouldUpdateAISearch?: boolean }): void {
+	triggerQueryChange(_options?: { preserveFocus?: boolean; triggeredOnType?: boolean; delay?: number; shouldKeepAIResults?: boolean; shouldUpdateAISearch?: boolean }): pegasusai {
 		const options = { preserveFocus: true, triggeredOnType: false, delay: 0, ..._options };
 
 		if (options.triggeredOnType && !this.searchConfig.searchOnType) { return; }
@@ -1490,7 +1490,7 @@ export class SearchView extends ViewPane {
 		return this.inputPatternIncludes.getValue().trim();
 	}
 
-	private _onQueryChanged(preserveFocus: boolean, triggeredOnType = false, shouldKeepAIResults = false, shouldUpdateAISearch = false): void {
+	private _onQueryChanged(preserveFocus: boolean, triggeredOnType = false, shouldKeepAIResults = false, shouldUpdateAISearch = false): pegasusai {
 		if (!(this.searchWidget.searchInput?.inputBox.isInputValid())) {
 			return;
 		}
@@ -1532,7 +1532,7 @@ export class SearchView extends ViewPane {
 		const includePattern = this.inputPatternIncludes.getValue();
 
 		// Need the full match line to correctly calculate replace text, if this is a search/replace with regex group references ($1, $2, ...).
-		// 10000 chars is enough to avoid sending huge amounts of text around, if you do a replace with a longer match, it may or may not resolve the group refs correctly.
+		// 10000 chars is enough to apegasusai sending huge amounts of text around, if you do a replace with a longer match, it may or may not resolve the group refs correctly.
 		// https://github.com/microsoft/vscode/issues/58374
 		const charsPerLine = content.isRegExp ? 10000 : 1000;
 
@@ -1581,7 +1581,7 @@ export class SearchView extends ViewPane {
 		}, onQueryValidationError);
 	}
 
-	private validateQuery(query: ITextQuery): Promise<void> {
+	private validateQuery(query: ITextQuery): Promise<pegasusai> {
 		// Validate folderQueries
 		const folderQueriesExistP =
 			query.folderQueries.map(fq => {
@@ -1603,7 +1603,7 @@ export class SearchView extends ViewPane {
 		});
 	}
 
-	private onQueryTriggered(query: ITextQuery, options: ITextQueryBuilderOptions, excludePatternText: string, includePatternText: string, triggeredOnType: boolean, shouldKeepAIResults: boolean, shouldUpdateAISearch: boolean): void {
+	private onQueryTriggered(query: ITextQuery, options: ITextQueryBuilderOptions, excludePatternText: string, includePatternText: string, triggeredOnType: boolean, shouldKeepAIResults: boolean, shouldUpdateAISearch: boolean): pegasusai {
 		this.addToSearchHistoryDelayer.trigger(() => {
 			this.searchWidget.searchInput?.onSearchSubmit();
 			this.inputPatternExcludes.onSearchSubmit();
@@ -1649,7 +1649,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	private async onSearchComplete(progressComplete: () => void, excludePatternText?: string, includePatternText?: string, completed?: ISearchComplete, shouldDoFinalRefresh = true) {
+	private async onSearchComplete(progressComplete: () => pegasusai, excludePatternText?: string, includePatternText?: string, completed?: ISearchComplete, shouldDoFinalRefresh = true) {
 
 		this.state = SearchUIState.Idle;
 
@@ -1781,7 +1781,7 @@ export class SearchView extends ViewPane {
 		this.reLayout();
 	}
 
-	private async onSearchError(e: any, progressComplete: () => void, excludePatternText?: string, includePatternText?: string, completed?: ISearchComplete, shouldDoFinalRefresh = true) {
+	private async onSearchError(e: any, progressComplete: () => pegasusai, excludePatternText?: string, includePatternText?: string, completed?: ISearchComplete, shouldDoFinalRefresh = true) {
 		this.state = SearchUIState.Idle;
 		if (errors.isCancellationError(e)) {
 			return this.onSearchComplete(progressComplete, excludePatternText, includePatternText, completed, shouldDoFinalRefresh);
@@ -1797,9 +1797,9 @@ export class SearchView extends ViewPane {
 	public async addAIResults() {
 		const excludePatternText = this._getExcludePattern();
 		const includePatternText = this._getIncludePattern();
-		let progressComplete: () => void;
+		let progressComplete: () => pegasusai;
 		this.progressService.withProgress({ location: this.getProgressLocation(), delay: 0 }, _progress => {
-			return new Promise<void>(resolve => progressComplete = resolve);
+			return new Promise<pegasusai>(resolve => progressComplete = resolve);
 		});
 
 		this.searchWidget.searchInput?.clearMessage();
@@ -1828,10 +1828,10 @@ export class SearchView extends ViewPane {
 		});
 	}
 
-	private doSearch(query: ITextQuery, excludePatternText: string, includePatternText: string, triggeredOnType: boolean, shouldKeepAIResults: boolean, shouldUpdateAISearch: boolean): Thenable<void> {
-		let progressComplete: () => void;
+	private doSearch(query: ITextQuery, excludePatternText: string, includePatternText: string, triggeredOnType: boolean, shouldKeepAIResults: boolean, shouldUpdateAISearch: boolean): Thenable<pegasusai> {
+		let progressComplete: () => pegasusai;
 		this.progressService.withProgress({ location: this.getProgressLocation(), delay: triggeredOnType ? 300 : 0 }, _progress => {
-			return new Promise<void>(resolve => progressComplete = resolve);
+			return new Promise<pegasusai>(resolve => progressComplete = resolve);
 		});
 
 		this.searchWidget.searchInput?.clearMessage();
@@ -1872,7 +1872,7 @@ export class SearchView extends ViewPane {
 		});
 	}
 
-	private onOpenSettings(e: dom.EventLike): void {
+	private onOpenSettings(e: dom.EventLike): pegasusai {
 		dom.EventHelper.stop(e, false);
 		this.openSettings('@id:files.exclude,search.exclude,search.useParentIgnoreFiles,search.useGlobalIgnoreFiles,search.useIgnoreFiles');
 	}
@@ -1884,11 +1884,11 @@ export class SearchView extends ViewPane {
 			this.preferencesService.openUserSettings(options);
 	}
 
-	private onLearnMore(): void {
+	private onLearnMore(): pegasusai {
 		this.openerService.open(URI.parse('https://go.microsoft.com/fwlink/?linkid=853977'));
 	}
 
-	private onSearchAgain(): void {
+	private onSearchAgain(): pegasusai {
 		this.inputPatternExcludes.setValue('');
 		this.inputPatternIncludes.setValue('');
 		this.inputPatternIncludes.setOnlySearchInOpenEditors(false);
@@ -1896,17 +1896,17 @@ export class SearchView extends ViewPane {
 		this.triggerQueryChange({ preserveFocus: false });
 	}
 
-	private onEnableExcludes(): void {
+	private onEnableExcludes(): pegasusai {
 		this.toggleQueryDetails(false, true);
 		this.searchExcludePattern.setUseExcludesAndIgnoreFiles(true);
 	}
 
-	private onDisableSearchInOpenEditors(): void {
+	private onDisableSearchInOpenEditors(): pegasusai {
 		this.toggleQueryDetails(false, true);
 		this.inputPatternIncludes.setOnlySearchInOpenEditors(false);
 	}
 
-	private updateSearchResultCount(disregardExcludesAndIgnores?: boolean, onlyOpenEditors?: boolean, clear: boolean = false): void {
+	private updateSearchResultCount(disregardExcludesAndIgnores?: boolean, onlyOpenEditors?: boolean, clear: boolean = false): pegasusai {
 		const fileCount = this.viewModel.searchResult.fileCount();
 		const resultCount = this.viewModel.searchResult.count();
 		this.hasSearchResultsKey.set(fileCount > 0);
@@ -1966,7 +1966,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	private showSearchWithoutFolderMessage(): void {
+	private showSearchWithoutFolderMessage(): pegasusai {
 		this.searchWithoutFolderMessageElement = this.clearMessage();
 
 		const textEl = dom.append(this.searchWithoutFolderMessageElement,
@@ -1980,7 +1980,7 @@ export class SearchView extends ViewPane {
 		dom.append(textEl, openFolderButton.element);
 	}
 
-	private showEmptyStage(forceHideMessages = false): void {
+	private showEmptyStage(forceHideMessages = false): pegasusai {
 		const showingCancelled = (this.messagesElement.firstChild?.textContent?.indexOf(SEARCH_CANCELLED_MESSAGE) ?? -1) > -1;
 
 		// clean up ui
@@ -2009,7 +2009,7 @@ export class SearchView extends ViewPane {
 			this.open(lineMatch, preserveFocus, sideBySide, pinned, resource);
 	}
 
-	async open(element: FileMatchOrMatch, preserveFocus?: boolean, sideBySide?: boolean, pinned?: boolean, resourceInput?: URI): Promise<void> {
+	async open(element: FileMatchOrMatch, preserveFocus?: boolean, sideBySide?: boolean, pinned?: boolean, resourceInput?: URI): Promise<pegasusai> {
 		const selection = getEditorSelectionFromMatch(element, this.viewModel);
 		const oldParentMatches = isSearchTreeMatch(element) ? element.parent().matches() : [];
 		const resource = resourceInput ?? (isSearchTreeMatch(element) ? element.parent().resource : (<ISearchTreeFileMatch>element).resource);
@@ -2072,7 +2072,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	openEditorWithMultiCursor(element: FileMatchOrMatch): Promise<void> {
+	openEditorWithMultiCursor(element: FileMatchOrMatch): Promise<pegasusai> {
 		const resource = isSearchTreeMatch(element) ? element.parent().resource : (<ISearchTreeFileMatch>element).resource;
 		return this.editorService.openEditor({
 			resource: resource,
@@ -2104,7 +2104,7 @@ export class SearchView extends ViewPane {
 		}, errors.onUnexpectedError);
 	}
 
-	private onUntitledDidDispose(resource: URI): void {
+	private onUntitledDidDispose(resource: URI): pegasusai {
 		if (!this.viewModel) {
 			return;
 		}
@@ -2124,7 +2124,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	private onFilesChanged(e: FileChangesEvent): void {
+	private onFilesChanged(e: FileChangesEvent): pegasusai {
 		if (!this.viewModel || (this.searchConfig.sortOrder !== SearchSortOrder.Modified && !e.gotDeleted())) {
 			return;
 		}
@@ -2148,13 +2148,13 @@ export class SearchView extends ViewPane {
 		return this.configurationService.getValue<ISearchConfigurationProperties>('search');
 	}
 
-	private clearHistory(): void {
+	private clearHistory(): pegasusai {
 		this.searchWidget.clearHistory();
 		this.inputPatternExcludes.clearHistory();
 		this.inputPatternIncludes.clearHistory();
 	}
 
-	public override saveState(): void {
+	public override saveState(): pegasusai {
 		// This can be called before renderBody() method gets called for the first time
 		// if we move the searchView inside another viewPaneContainer
 		if (!this.searchWidget) {
@@ -2237,12 +2237,12 @@ export class SearchView extends ViewPane {
 	}
 
 
-	private async updateFileStats(elements: ISearchTreeFileMatch[]): Promise<void> {
+	private async updateFileStats(elements: ISearchTreeFileMatch[]): Promise<pegasusai> {
 		const files = elements.map(f => f.resolveFileStat(this.fileService));
 		await Promise.all(files);
 	}
 
-	private removeFileStats(): void {
+	private removeFileStats(): pegasusai {
 		for (const fileMatch of this.searchResult.matches()) {
 			fileMatch.fileStat = undefined;
 		}
@@ -2251,7 +2251,7 @@ export class SearchView extends ViewPane {
 		}
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this.isDisposed = true;
 		this.saveState();
 		super.dispose();
@@ -2269,7 +2269,7 @@ class SearchLinkButton extends Disposable {
 		this.addEventHandlers(handler);
 	}
 
-	private addEventHandlers(handler: (e: dom.EventLike) => unknown): void {
+	private addEventHandlers(handler: (e: dom.EventLike) => unknown): pegasusai {
 		const wrappedHandler = (e: dom.EventLike) => {
 			dom.EventHelper.stop(e, false);
 			handler(e);
@@ -2476,14 +2476,14 @@ class RefreshTreeController extends Disposable {
 
 	private queuedIChangeEvents: IChangeEvent[] = [];
 
-	public async queue(e?: IChangeEvent): Promise<void> {
+	public async queue(e?: IChangeEvent): Promise<pegasusai> {
 		if (e) {
 			this.queuedIChangeEvents.push(e);
 		}
 		return this.refreshTreeThrottler.queue(this.refreshTreeUsingQueue.bind(this));
 	}
 
-	private async refreshTreeUsingQueue(): Promise<void> {
+	private async refreshTreeUsingQueue(): Promise<pegasusai> {
 		const aggregateChangeEvent: IChangeEvent | undefined = this.queuedIChangeEvents.length === 0 ? undefined : {
 			elements: this.queuedIChangeEvents.map(e => e.elements).flat(),
 			added: this.queuedIChangeEvents.some(e => e.added),
@@ -2494,12 +2494,12 @@ class RefreshTreeController extends Disposable {
 		return this.refreshTree(aggregateChangeEvent);
 	}
 
-	private async retrieveFileStats(): Promise<void> {
+	private async retrieveFileStats(): Promise<pegasusai> {
 		const files = this.searchView.model.searchResult.matches().filter(f => !f.fileStat).map(f => f.resolveFileStat(this.fileService));
 		await Promise.all(files);
 	}
 
-	private async refreshTree(event?: IChangeEvent): Promise<void> {
+	private async refreshTree(event?: IChangeEvent): Promise<pegasusai> {
 		const searchConfig = this.geSearchConfig();
 		if (!event || event.added || event.removed) {
 			// Refresh whole tree

@@ -33,8 +33,8 @@ export interface IInlineEditModel {
 	tabAction: IObservable<InlineEditTabAction>;
 	showCollapsed: IObservable<boolean>;
 
-	handleInlineEditShown(): void;
-	accept(): void;
-	jump(): void;
-	abort(reason: string): void;
+	handleInlineEditShown(): pegasusai;
+	accept(): pegasusai;
+	jump(): pegasusai;
+	abort(reason: string): pegasusai;
 }

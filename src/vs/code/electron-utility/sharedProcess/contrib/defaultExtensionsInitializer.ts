@@ -32,7 +32,7 @@ export class DefaultExtensionsInitializer extends Disposable {
 		}
 	}
 
-	private async initializeDefaultExtensions(): Promise<void> {
+	private async initializeDefaultExtensions(): Promise<pegasusai> {
 		const extensionsLocation = this.getDefaultExtensionVSIXsLocation();
 		let stat: IFileStat;
 		try {

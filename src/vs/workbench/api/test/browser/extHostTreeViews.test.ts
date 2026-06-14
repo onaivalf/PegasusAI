@@ -37,20 +37,20 @@ suite('ExtHostTreeView', function () {
 
 		onRefresh = new Emitter<{ [treeItemHandle: string]: ITreeItem }>();
 
-		override async $registerTreeViewDataProvider(treeViewId: string): Promise<void> {
+		override async $registerTreeViewDataProvider(treeViewId: string): Promise<pegasusai> {
 		}
 
-		override $refresh(viewId: string, itemsToRefresh: { [treeItemHandle: string]: ITreeItem }): Promise<void> {
+		override $refresh(viewId: string, itemsToRefresh: { [treeItemHandle: string]: ITreeItem }): Promise<pegasusai> {
 			return Promise.resolve(null).then(() => {
 				this.onRefresh.fire(itemsToRefresh);
 			});
 		}
 
-		override $reveal(treeViewId: string, itemInfo: { item: ITreeItem; parentChain: ITreeItem[] } | undefined, options: IRevealOptions): Promise<void> {
+		override $reveal(treeViewId: string, itemInfo: { item: ITreeItem; parentChain: ITreeItem[] } | undefined, options: IRevealOptions): Promise<pegasusai> {
 			return Promise.resolve();
 		}
 
-		override $disposeTree(treeViewId: string): Promise<void> {
+		override $disposeTree(treeViewId: string): Promise<pegasusai> {
 			return Promise.resolve();
 		}
 
@@ -265,9 +265,9 @@ suite('ExtHostTreeView', function () {
 		onDidChangeTreeNode.fire(getNode('bb'));
 	});
 
-	async function runWithEventMerging(action: (resolve: () => void) => void) {
+	async function runWithEventMerging(action: (resolve: () => pegasusai) => pegasusai) {
 		await runWithFakedTimers({}, async () => {
-			await new Promise<void>((resolve) => {
+			await new Promise<pegasusai>((resolve) => {
 				let subscription: IDisposable | undefined = undefined;
 				subscription = target.onRefresh.event(() => {
 					subscription!.dispose();
@@ -275,7 +275,7 @@ suite('ExtHostTreeView', function () {
 				});
 				onDidChangeTreeNode.fire(getNode('b'));
 			});
-			await new Promise<void>(action);
+			await new Promise<pegasusai>(action);
 		});
 	}
 

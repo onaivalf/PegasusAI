@@ -31,9 +31,9 @@ export function setup(options?: { skipSuite: boolean }) {
 				this.retries(3);
 			}
 
-			async function writeTextForAutoReply(text: string): Promise<void> {
-				// Put the matching word in quotes to avoid powershell coloring the first word and
-				// on a new line to avoid cursor move/line switching sequences
+			async function writeTextForAutoReply(text: string): Promise<pegasusai> {
+				// Put the matching word in quotes to apegasusai powershell coloring the first word and
+				// on a new line to apegasusai cursor move/line switching sequences
 				await terminal.runCommandInTerminal(`"\r${text}`, true);
 			}
 

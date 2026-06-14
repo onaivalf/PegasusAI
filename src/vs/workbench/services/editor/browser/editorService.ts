@@ -42,10 +42,10 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 
 	//#region events
 
-	private readonly _onDidActiveEditorChange = this._register(new Emitter<void>());
+	private readonly _onDidActiveEditorChange = this._register(new Emitter<pegasusai>());
 	readonly onDidActiveEditorChange = this._onDidActiveEditorChange.event;
 
-	private readonly _onDidVisibleEditorsChange = this._register(new Emitter<void>());
+	private readonly _onDidVisibleEditorsChange = this._register(new Emitter<pegasusai>());
 	readonly onDidVisibleEditorsChange = this._onDidVisibleEditorsChange.event;
 
 	private readonly _onDidEditorsChange = this._register(new Emitter<IEditorsChangeEvent>());
@@ -60,7 +60,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 	private readonly _onDidOpenEditorFail = this._register(new Emitter<IEditorIdentifier>());
 	readonly onDidOpenEditorFail = this._onDidOpenEditorFail.event;
 
-	private readonly _onDidMostRecentlyActiveEditorsChange = this._register(new Emitter<void>());
+	private readonly _onDidMostRecentlyActiveEditorsChange = this._register(new Emitter<pegasusai>());
 	readonly onDidMostRecentlyActiveEditorsChange = this._onDidMostRecentlyActiveEditorsChange.event;
 
 	//#endregion
@@ -94,7 +94,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 		return disposables.add(new EditorService(editorGroupsContainer === 'main' ? this.editorGroupService.mainPart : editorGroupsContainer, this.editorGroupService, this.instantiationService, this.fileService, this.configurationService, this.contextService, this.uriIdentityService, this.editorResolverService, this.workspaceTrustRequestService, this.hostService, this.textEditorService));
 	}
 
-	private registerListeners(): void {
+	private registerListeners(): pegasusai {
 
 		// Editor & group changes
 		if (this.editorGroupsContainer === this.editorGroupService.mainPart || this.editorGroupsContainer === this.editorGroupService) {
@@ -125,7 +125,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 
 	private lastActiveEditor: EditorInput | undefined = undefined;
 
-	private onEditorGroupsReady(): void {
+	private onEditorGroupsReady(): pegasusai {
 
 		// Register listeners to each opened group
 		for (const group of this.editorGroupsContainer.groups) {
@@ -139,7 +139,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 		}
 	}
 
-	private handleActiveEditorChange(group: IEditorGroup): void {
+	private handleActiveEditorChange(group: IEditorGroup): pegasusai {
 		if (group !== this.editorGroupsContainer.activeGroup) {
 			return; // ignore if not the active group
 		}
@@ -151,7 +151,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 		this.doHandleActiveEditorChangeEvent();
 	}
 
-	private doHandleActiveEditorChangeEvent(): void {
+	private doHandleActiveEditorChangeEvent(): pegasusai {
 
 		// Remember as last active
 		const activeGroup = this.editorGroupsContainer.activeGroup;
@@ -161,7 +161,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 		this._onDidActiveEditorChange.fire();
 	}
 
-	private registerGroupListeners(group: IEditorGroupView): void {
+	private registerGroupListeners(group: IEditorGroupView): pegasusai {
 		const groupDisposables = new DisposableStore();
 
 		groupDisposables.add(group.onDidModelChange(e => {
@@ -196,7 +196,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 
 	private readonly activeOutOfWorkspaceWatchers = new ResourceMap<IDisposable>();
 
-	private handleVisibleEditorsChange(): void {
+	private handleVisibleEditorsChange(): pegasusai {
 		const visibleOutOfWorkspaceResources = new ResourceSet();
 
 		for (const editor of this.visibleEditors) {
@@ -233,7 +233,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 
 	//#region File Changes: Move & Deletes to move or close opend editors
 
-	private async onDidRunFileOperation(e: FileOperationEvent): Promise<void> {
+	private async onDidRunFileOperation(e: FileOperationEvent): Promise<pegasusai> {
 
 		// Handle moves specially when file is opened
 		if (e.isOperation(FileOperation.MOVE)) {
@@ -246,13 +246,13 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 		}
 	}
 
-	private onDidFilesChange(e: FileChangesEvent): void {
+	private onDidFilesChange(e: FileChangesEvent): pegasusai {
 		if (e.gotDeleted()) {
 			this.handleDeletedFile(e, true);
 		}
 	}
 
-	private async handleMovedFile(source: URI, target: URI): Promise<void> {
+	private async handleMovedFile(source: URI, target: URI): Promise<pegasusai> {
 		for (const group of this.editorGroupsContainer.groups) {
 			const replacements: (IUntypedEditorReplacement | IEditorReplacement)[] = [];
 
@@ -318,7 +318,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 
 	private closeOnFileDelete: boolean = false;
 
-	private onConfigurationUpdated(e?: IConfigurationChangeEvent): void {
+	private onConfigurationUpdated(e?: IConfigurationChangeEvent): pegasusai {
 		if (e && !e.affectsConfiguration('workbench.editor.closeOnFileDelete')) {
 			return;
 		}
@@ -331,7 +331,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 		}
 	}
 
-	private handleDeletedFile(arg1: URI | FileChangesEvent, isExternal: boolean, movedTo?: URI): void {
+	private handleDeletedFile(arg1: URI | FileChangesEvent, isExternal: boolean, movedTo?: URI): pegasusai {
 		for (const editor of this.getAllNonDirtyEditors({ includeUntitled: false, supportSideBySide: true })) {
 			(async () => {
 				const resource = editor.resource;
@@ -385,7 +385,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 	private getAllNonDirtyEditors(options: { includeUntitled: boolean; supportSideBySide: boolean }): EditorInput[] {
 		const editors: EditorInput[] = [];
 
-		function conditionallyAddEditor(editor: EditorInput): void {
+		function conditionallyAddEditor(editor: EditorInput): pegasusai {
 			if (editor.hasCapability(EditorInputCapabilities.Untitled) && !options.includeUntitled) {
 				return;
 			}
@@ -764,7 +764,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 
 	//#region closeEditor()
 
-	async closeEditor({ editor, groupId }: IEditorIdentifier, options?: ICloseEditorOptions): Promise<void> {
+	async closeEditor({ editor, groupId }: IEditorIdentifier, options?: ICloseEditorOptions): Promise<pegasusai> {
 		const group = this.editorGroupsContainer.getGroup(groupId);
 
 		await group?.closeEditor(editor, options);
@@ -774,7 +774,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 
 	//#region closeEditors()
 
-	async closeEditors(editors: IEditorIdentifier[], options?: ICloseEditorOptions): Promise<void> {
+	async closeEditors(editors: IEditorIdentifier[], options?: ICloseEditorOptions): Promise<pegasusai> {
 		const mapGroupToEditors = new Map<IEditorGroup, EditorInput[]>();
 
 		for (const { editor, groupId } of editors) {
@@ -887,9 +887,9 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 
 	//#region replaceEditors()
 
-	async replaceEditors(replacements: IUntypedEditorReplacement[], group: IEditorGroup | GroupIdentifier): Promise<void>;
-	async replaceEditors(replacements: IEditorReplacement[], group: IEditorGroup | GroupIdentifier): Promise<void>;
-	async replaceEditors(replacements: Array<IEditorReplacement | IUntypedEditorReplacement>, group: IEditorGroup | GroupIdentifier): Promise<void> {
+	async replaceEditors(replacements: IUntypedEditorReplacement[], group: IEditorGroup | GroupIdentifier): Promise<pegasusai>;
+	async replaceEditors(replacements: IEditorReplacement[], group: IEditorGroup | GroupIdentifier): Promise<pegasusai>;
+	async replaceEditors(replacements: Array<IEditorReplacement | IUntypedEditorReplacement>, group: IEditorGroup | GroupIdentifier): Promise<pegasusai> {
 		const targetGroup = typeof group === 'number' ? this.editorGroupsContainer.getGroup(group) : group;
 
 		// Convert all replacements to typed editors unless already
@@ -1098,7 +1098,7 @@ export class EditorService extends Disposable implements EditorServiceImpl {
 
 	//#endregion
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		super.dispose();
 
 		// Dispose remaining watchers if any

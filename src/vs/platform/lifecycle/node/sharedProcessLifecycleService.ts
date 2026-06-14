@@ -17,14 +17,14 @@ export interface ISharedProcessLifecycleService {
 	/**
 	 * An event for when the application will shutdown
 	 */
-	readonly onWillShutdown: Event<void>;
+	readonly onWillShutdown: Event<pegasusai>;
 }
 
 export class SharedProcessLifecycleService extends Disposable implements ISharedProcessLifecycleService {
 
 	declare readonly _serviceBrand: undefined;
 
-	private readonly _onWillShutdown = this._register(new Emitter<void>());
+	private readonly _onWillShutdown = this._register(new Emitter<pegasusai>());
 	readonly onWillShutdown = this._onWillShutdown.event;
 
 	constructor(
@@ -33,7 +33,7 @@ export class SharedProcessLifecycleService extends Disposable implements IShared
 		super();
 	}
 
-	fireOnWillShutdown(): void {
+	fireOnWillShutdown(): pegasusai {
 		this.logService.trace('Lifecycle#onWillShutdown.fire()');
 
 		this._onWillShutdown.fire();

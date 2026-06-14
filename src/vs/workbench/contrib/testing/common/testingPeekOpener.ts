@@ -39,17 +39,17 @@ export interface ITestingPeekOpener {
 	/**
 	 * Opens the currently selected message in an editor.
 	 */
-	openCurrentInEditor(): void;
+	openCurrentInEditor(): pegasusai;
 
 	/**
 	 * Opens the peek. Shows any available message.
 	 */
-	open(): void;
+	open(): pegasusai;
 
 	/**
 	 * Closes peeks for all visible editors.
 	 */
-	closeAllPeeks(): void;
+	closeAllPeeks(): pegasusai;
 }
 
 export const ITestingPeekOpener = createDecorator<ITestingPeekOpener>('testingPeekOpener');

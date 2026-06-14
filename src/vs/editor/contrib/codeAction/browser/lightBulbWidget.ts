@@ -187,7 +187,7 @@ export class LightBulbWidget extends Disposable implements IContentWidget {
 		}));
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		super.dispose();
 		this._editor.removeContentWidget(this);
 		if (this._gutterDecorationID) {
@@ -330,7 +330,7 @@ export class LightBulbWidget extends Disposable implements IContentWidget {
 		this._editor.layoutContentWidget(this);
 	}
 
-	public hide(): void {
+	public hide(): pegasusai {
 		if (this.state === LightBulbState.Hidden) {
 			return;
 		}
@@ -339,7 +339,7 @@ export class LightBulbWidget extends Disposable implements IContentWidget {
 		this._editor.layoutContentWidget(this);
 	}
 
-	public gutterHide(): void {
+	public gutterHide(): pegasusai {
 		if (this.gutterState === LightBulbState.Hidden) {
 			return;
 		}
@@ -365,7 +365,7 @@ export class LightBulbWidget extends Disposable implements IContentWidget {
 		this._updateGutterLightBulbTitleAndIcon();
 	}
 
-	private _updateLightBulbTitleAndIcon(): void {
+	private _updateLightBulbTitleAndIcon(): pegasusai {
 		this._domNode.classList.remove(...this._iconClasses);
 		this._iconClasses = [];
 		if (this.state.type !== LightBulbState.Type.Showing) {
@@ -394,7 +394,7 @@ export class LightBulbWidget extends Disposable implements IContentWidget {
 		this._domNode.classList.add(...this._iconClasses);
 	}
 
-	private _updateGutterLightBulbTitleAndIcon(): void {
+	private _updateGutterLightBulbTitleAndIcon(): pegasusai {
 		if (this.gutterState.type !== LightBulbState.Type.Showing) {
 			return;
 		}
@@ -429,7 +429,7 @@ export class LightBulbWidget extends Disposable implements IContentWidget {
 	}
 
 	/* Gutter Helper Functions */
-	private renderGutterLightbub(): void {
+	private renderGutterLightbub(): pegasusai {
 		const selection = this._editor.getSelection();
 		if (!selection) {
 			return;
@@ -462,7 +462,7 @@ export class LightBulbWidget extends Disposable implements IContentWidget {
 		});
 	}
 
-	private _updateLightbulbTitle(autoFix: boolean, autoRun: boolean): void {
+	private _updateLightbulbTitle(autoFix: boolean, autoRun: boolean): pegasusai {
 		if (this.state.type !== LightBulbState.Type.Showing) {
 			return;
 		}

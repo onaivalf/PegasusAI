@@ -17,15 +17,15 @@ export class QuickInput {
 
 	constructor(private code: Code) { }
 
-	async waitForQuickInputOpened(retryCount?: number): Promise<void> {
+	async waitForQuickInputOpened(retryCount?: number): Promise<pegasusai> {
 		await this.code.waitForActiveElement(QuickInput.QUICK_INPUT_INPUT, retryCount);
 	}
 
-	async type(value: string): Promise<void> {
+	async type(value: string): Promise<pegasusai> {
 		await this.code.waitForSetValue(QuickInput.QUICK_INPUT_INPUT, value);
 	}
 
-	async waitForQuickInputElementFocused(): Promise<void> {
+	async waitForQuickInputElementFocused(): Promise<pegasusai> {
 		await this.code.waitForTextContent(QuickInput.QUICK_INPUT_FOCUSED_ELEMENT);
 	}
 
@@ -33,19 +33,19 @@ export class QuickInput {
 		return this.code.waitForTextContent(QuickInput.QUICK_INPUT_ENTRY_LABEL_SPAN);
 	}
 
-	async closeQuickInput(): Promise<void> {
+	async closeQuickInput(): Promise<pegasusai> {
 		await this.code.sendKeybinding('escape', () => this.waitForQuickInputClosed());
 	}
 
-	async waitForQuickInputElements(accept: (names: string[]) => boolean): Promise<void> {
+	async waitForQuickInputElements(accept: (names: string[]) => boolean): Promise<pegasusai> {
 		await this.code.waitForElements(QuickInput.QUICK_INPUT_ENTRY_LABEL, false, els => accept(els.map(e => e.textContent)));
 	}
 
-	async waitForQuickInputClosed(): Promise<void> {
+	async waitForQuickInputClosed(): Promise<pegasusai> {
 		await this.code.waitForElement(QuickInput.QUICK_INPUT, r => !!r && r.attributes.style.indexOf('display: none;') !== -1);
 	}
 
-	async selectQuickInputElement(index: number, keepOpen?: boolean): Promise<void> {
+	async selectQuickInputElement(index: number, keepOpen?: boolean): Promise<pegasusai> {
 		await this.waitForQuickInputOpened();
 		for (let from = 0; from < index; from++) {
 			await this.code.sendKeybinding('down');

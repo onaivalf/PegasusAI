@@ -50,8 +50,8 @@ export interface ITerminalProfileResolverService {
 	/**
 	 * Resolves the icon of a shell launch config if this will use the default profile
 	 */
-	resolveIcon(shellLaunchConfig: IShellLaunchConfig, os: OperatingSystem): void;
-	resolveShellLaunchConfig(shellLaunchConfig: IShellLaunchConfig, options: IShellLaunchConfigResolveOptions): Promise<void>;
+	resolveIcon(shellLaunchConfig: IShellLaunchConfig, os: OperatingSystem): pegasusai;
+	resolveShellLaunchConfig(shellLaunchConfig: IShellLaunchConfig, options: IShellLaunchConfigResolveOptions): Promise<pegasusai>;
 	getDefaultProfile(options: IShellLaunchConfigResolveOptions): Promise<ITerminalProfile>;
 	getDefaultShell(options: IShellLaunchConfigResolveOptions): Promise<string>;
 	getDefaultShellArgs(options: IShellLaunchConfigResolveOptions): Promise<string | string[]>;
@@ -74,20 +74,20 @@ export interface ITerminalProfileService {
 	readonly _serviceBrand: undefined;
 	readonly availableProfiles: ITerminalProfile[];
 	readonly contributedProfiles: IExtensionTerminalProfile[];
-	readonly profilesReady: Promise<void>;
+	readonly profilesReady: Promise<pegasusai>;
 	getPlatformKey(): Promise<string>;
-	refreshAvailableProfiles(): void;
+	refreshAvailableProfiles(): pegasusai;
 	getDefaultProfileName(): string | undefined;
 	getDefaultProfile(os?: OperatingSystem): ITerminalProfile | undefined;
 	onDidChangeAvailableProfiles: Event<ITerminalProfile[]>;
 	getContributedDefaultProfile(shellLaunchConfig: IShellLaunchConfig): Promise<IExtensionTerminalProfile | undefined>;
-	registerContributedProfile(args: IRegisterContributedProfileArgs): Promise<void>;
+	registerContributedProfile(args: IRegisterContributedProfileArgs): Promise<pegasusai>;
 	getContributedProfileProvider(extensionIdentifier: string, id: string): ITerminalProfileProvider | undefined;
 	registerTerminalProfileProvider(extensionIdentifier: string, id: string, profileProvider: ITerminalProfileProvider): IDisposable;
 }
 
 export interface ITerminalProfileProvider {
-	createContributedTerminalProfile(options: ICreateContributedTerminalProfileOptions): Promise<void>;
+	createContributedTerminalProfile(options: ICreateContributedTerminalProfileOptions): Promise<pegasusai>;
 }
 
 export interface IShellLaunchConfigResolveOptions {
@@ -251,13 +251,13 @@ export interface IBeforeProcessDataEvent {
 
 export interface IDefaultShellAndArgsRequest {
 	useAutomationShell: boolean;
-	callback: (shell: string, args: string[] | string | undefined) => void;
+	callback: (shell: string, args: string[] | string | undefined) => pegasusai;
 }
 
 /** Read-only process information that can apply to detached terminals. */
 export interface ITerminalProcessInfo {
 	readonly processState: ProcessState;
-	readonly ptyProcessReady: Promise<void>;
+	readonly ptyProcessReady: Promise<pegasusai>;
 	readonly shellProcessId: number | undefined;
 	readonly remoteAuthority: string | undefined;
 	readonly os: OperatingSystem | undefined;
@@ -279,35 +279,35 @@ export const isTerminalProcessManager = (t: ITerminalProcessInfo | ITerminalProc
 export interface ITerminalProcessManager extends IDisposable, ITerminalProcessInfo {
 	readonly processTraits: IProcessReadyEvent | undefined;
 
-	readonly onPtyDisconnect: Event<void>;
-	readonly onPtyReconnect: Event<void>;
+	readonly onPtyDisconnect: Event<pegasusai>;
+	readonly onPtyReconnect: Event<pegasusai>;
 
 	readonly onProcessReady: Event<IProcessReadyEvent>;
 	readonly onBeforeProcessData: Event<IBeforeProcessDataEvent>;
 	readonly onProcessData: Event<IProcessDataEvent>;
-	readonly onProcessReplayComplete: Event<void>;
+	readonly onProcessReplayComplete: Event<pegasusai>;
 	readonly onEnvironmentVariableInfoChanged: Event<IEnvironmentVariableInfo>;
 	readonly onDidChangeProperty: Event<IProcessProperty<any>>;
 	readonly onProcessExit: Event<number | undefined>;
 	readonly onRestoreCommands: Event<ISerializedCommandDetectionCapability>;
 
-	dispose(immediate?: boolean): void;
-	detachFromProcess(forcePersist?: boolean): Promise<void>;
+	dispose(immediate?: boolean): pegasusai;
+	detachFromProcess(forcePersist?: boolean): Promise<pegasusai>;
 	createProcess(shellLaunchConfig: IShellLaunchConfig, cols: number, rows: number): Promise<ITerminalLaunchError | { injectedArgs: string[] } | undefined>;
 	relaunch(shellLaunchConfig: IShellLaunchConfig, cols: number, rows: number, reset: boolean): Promise<ITerminalLaunchError | { injectedArgs: string[] } | undefined>;
-	write(data: string): Promise<void>;
-	setDimensions(cols: number, rows: number): Promise<void>;
-	setDimensions(cols: number, rows: number, sync: false): Promise<void>;
-	setDimensions(cols: number, rows: number, sync: true): void;
-	clearBuffer(): Promise<void>;
-	setUnicodeVersion(version: '6' | '11'): Promise<void>;
-	acknowledgeDataEvent(charCount: number): void;
-	processBinary(data: string): void;
+	write(data: string): Promise<pegasusai>;
+	setDimensions(cols: number, rows: number): Promise<pegasusai>;
+	setDimensions(cols: number, rows: number, sync: false): Promise<pegasusai>;
+	setDimensions(cols: number, rows: number, sync: true): pegasusai;
+	clearBuffer(): Promise<pegasusai>;
+	setUnicodeVersion(version: '6' | '11'): Promise<pegasusai>;
+	acknowledgeDataEvent(charCount: number): pegasusai;
+	processBinary(data: string): pegasusai;
 
 	refreshProperty<T extends ProcessPropertyType>(type: T): Promise<IProcessPropertyMap[T]>;
-	updateProperty<T extends ProcessPropertyType>(property: T, value: IProcessPropertyMap[T]): Promise<void>;
+	updateProperty<T extends ProcessPropertyType>(property: T, value: IProcessPropertyMap[T]): Promise<pegasusai>;
 	getBackendOS(): Promise<OperatingSystem>;
-	freePortKillProcess(port: string): Promise<void>;
+	freePortKillProcess(port: string): Promise<pegasusai>;
 }
 
 export const enum ProcessState {
@@ -332,25 +332,25 @@ export const enum ProcessState {
 export interface ITerminalProcessExtHostProxy extends IDisposable {
 	readonly instanceId: number;
 
-	emitData(data: string): void;
-	emitProcessProperty(property: IProcessProperty<any>): void;
-	emitReady(pid: number, cwd: string, windowsPty: IProcessReadyWindowsPty | undefined): void;
-	emitExit(exitCode: number | undefined): void;
+	emitData(data: string): pegasusai;
+	emitProcessProperty(property: IProcessProperty<any>): pegasusai;
+	emitReady(pid: number, cwd: string, windowsPty: IProcessReadyWindowsPty | undefined): pegasusai;
+	emitExit(exitCode: number | undefined): pegasusai;
 
 	onInput: Event<string>;
 	onBinary: Event<string>;
 	onResize: Event<{ cols: number; rows: number }>;
 	onAcknowledgeDataEvent: Event<number>;
 	onShutdown: Event<boolean>;
-	onRequestInitialCwd: Event<void>;
-	onRequestCwd: Event<void>;
+	onRequestInitialCwd: Event<pegasusai>;
+	onRequestCwd: Event<pegasusai>;
 }
 
 export interface IStartExtensionTerminalRequest {
 	proxy: ITerminalProcessExtHostProxy;
 	cols: number;
 	rows: number;
-	callback: (error: ITerminalLaunchError | undefined) => void;
+	callback: (error: ITerminalLaunchError | undefined) => pegasusai;
 }
 
 export interface ITerminalStatus {
@@ -383,7 +383,7 @@ export interface ITerminalStatus {
 export interface ITerminalStatusHoverAction {
 	label: string;
 	commandId: string;
-	run: () => void;
+	run: () => pegasusai;
 }
 
 /**
@@ -630,7 +630,7 @@ export const DEFAULT_COMMANDS_TO_SKIP_SHELL: string[] = [
 export const terminalContributionsDescriptor: IExtensionPointDescriptor<ITerminalContributions> = {
 	extensionPoint: 'terminal',
 	defaultExtensionKind: ['workspace'],
-	activationEventsGenerator: (contribs: ITerminalContributions[], result: { push(item: string): void }) => {
+	activationEventsGenerator: (contribs: ITerminalContributions[], result: { push(item: string): pegasusai }) => {
 		for (const contrib of contribs) {
 			for (const profileContrib of (contrib.profiles ?? [])) {
 				result.push(`onTerminalProfile:${profileContrib.id}`);

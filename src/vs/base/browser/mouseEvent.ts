@@ -23,8 +23,8 @@ export interface IMouseEvent {
 	readonly metaKey: boolean;
 	readonly timestamp: number;
 
-	preventDefault(): void;
-	stopPropagation(): void;
+	preventDefault(): pegasusai;
+	stopPropagation(): pegasusai;
 }
 
 export class StandardMouseEvent implements IMouseEvent {
@@ -79,11 +79,11 @@ export class StandardMouseEvent implements IMouseEvent {
 		this.posy -= iframeOffsets.top;
 	}
 
-	public preventDefault(): void {
+	public preventDefault(): pegasusai {
 		this.browserEvent.preventDefault();
 	}
 
-	public stopPropagation(): void {
+	public stopPropagation(): pegasusai {
 		this.browserEvent.stopPropagation();
 	}
 }
@@ -219,11 +219,11 @@ export class StandardWheelEvent {
 		}
 	}
 
-	public preventDefault(): void {
+	public preventDefault(): pegasusai {
 		this.browserEvent?.preventDefault();
 	}
 
-	public stopPropagation(): void {
+	public stopPropagation(): pegasusai {
 		this.browserEvent?.stopPropagation();
 	}
 }

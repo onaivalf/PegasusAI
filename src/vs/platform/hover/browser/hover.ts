@@ -100,14 +100,14 @@ export class WorkbenchHoverDelegate extends Disposable implements IHoverDelegate
 		return !!this.hoverOptions?.instantHover && Date.now() - this.lastHoverHideTime < this.timeLimit;
 	}
 
-	setInstantHoverTimeLimit(timeLimit: number): void {
+	setInstantHoverTimeLimit(timeLimit: number): pegasusai {
 		if (!this.hoverOptions?.instantHover) {
 			throw new Error('Instant hover is not enabled');
 		}
 		this.timeLimit = timeLimit;
 	}
 
-	onDidHideHover(): void {
+	onDidHideHover(): pegasusai {
 		this.hoverDisposables.clear();
 		if (this.hoverOptions?.instantHover) {
 			this.lastHoverHideTime = Date.now();

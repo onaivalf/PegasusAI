@@ -43,7 +43,7 @@ export class IssueWebReporter extends BaseIssueReporterService {
 		this.setEventHandlers();
 	}
 
-	public override setEventHandlers(): void {
+	public override setEventHandlers(): pegasusai {
 		super.setEventHandlers();
 
 		this.addEventListener('issue-type', 'change', (event: Event) => {

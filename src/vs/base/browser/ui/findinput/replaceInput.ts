@@ -78,8 +78,8 @@ export class ReplaceInput extends Widget {
 	private readonly _onMouseDown = this._register(new Emitter<IMouseEvent>());
 	public readonly onMouseDown: Event<IMouseEvent> = this._onMouseDown.event;
 
-	private readonly _onInput = this._register(new Emitter<void>());
-	public readonly onInput: Event<void> = this._onInput.event;
+	private readonly _onInput = this._register(new Emitter<pegasusai>());
+	public readonly onInput: Event<pegasusai> = this._onInput.event;
 
 	private readonly _onKeyUp = this._register(new Emitter<IKeyboardEvent>());
 	public readonly onKeyUp: Event<IKeyboardEvent> = this._onKeyUp.event;
@@ -184,23 +184,23 @@ export class ReplaceInput extends Widget {
 		this.onmousedown(this.inputBox.inputElement, (e) => this._onMouseDown.fire(e));
 	}
 
-	public enable(): void {
+	public enable(): pegasusai {
 		this.domNode.classList.remove('disabled');
 		this.inputBox.enable();
 		this.preserveCase.enable();
 	}
 
-	public disable(): void {
+	public disable(): pegasusai {
 		this.domNode.classList.add('disabled');
 		this.inputBox.disable();
 		this.preserveCase.disable();
 	}
 
-	public setFocusInputOnOptionClick(value: boolean): void {
+	public setFocusInputOnOptionClick(value: boolean): pegasusai {
 		this.fixFocusOnOptionClickEnabled = value;
 	}
 
-	public setEnabled(enabled: boolean): void {
+	public setEnabled(enabled: boolean): pegasusai {
 		if (enabled) {
 			this.enable();
 		} else {
@@ -208,7 +208,7 @@ export class ReplaceInput extends Widget {
 		}
 	}
 
-	public clear(): void {
+	public clear(): pegasusai {
 		this.clearValidation();
 		this.setValue('');
 		this.focus();
@@ -218,24 +218,24 @@ export class ReplaceInput extends Widget {
 		return this.inputBox.value;
 	}
 
-	public setValue(value: string): void {
+	public setValue(value: string): pegasusai {
 		if (this.inputBox.value !== value) {
 			this.inputBox.value = value;
 		}
 	}
 
-	public onSearchSubmit(): void {
+	public onSearchSubmit(): pegasusai {
 		this.inputBox.addToHistory();
 	}
 
-	protected applyStyles(): void {
+	protected applyStyles(): pegasusai {
 	}
 
-	public select(): void {
+	public select(): pegasusai {
 		this.inputBox.select();
 	}
 
-	public focus(): void {
+	public focus(): pegasusai {
 		this.inputBox.focus();
 	}
 
@@ -243,34 +243,34 @@ export class ReplaceInput extends Widget {
 		return this.preserveCase.checked;
 	}
 
-	public setPreserveCase(value: boolean): void {
+	public setPreserveCase(value: boolean): pegasusai {
 		this.preserveCase.checked = value;
 	}
 
-	public focusOnPreserve(): void {
+	public focusOnPreserve(): pegasusai {
 		this.preserveCase.focus();
 	}
 
 	private _lastHighlightFindOptions: number = 0;
-	public highlightFindOptions(): void {
+	public highlightFindOptions(): pegasusai {
 		this.domNode.classList.remove('highlight-' + (this._lastHighlightFindOptions));
 		this._lastHighlightFindOptions = 1 - this._lastHighlightFindOptions;
 		this.domNode.classList.add('highlight-' + (this._lastHighlightFindOptions));
 	}
 
-	public validate(): void {
+	public validate(): pegasusai {
 		this.inputBox?.validate();
 	}
 
-	public showMessage(message: InputBoxMessage): void {
+	public showMessage(message: InputBoxMessage): pegasusai {
 		this.inputBox?.showMessage(message);
 	}
 
-	public clearMessage(): void {
+	public clearMessage(): pegasusai {
 		this.inputBox?.hideMessage();
 	}
 
-	private clearValidation(): void {
+	private clearValidation(): pegasusai {
 		this.inputBox?.hideMessage();
 	}
 
@@ -279,7 +279,7 @@ export class ReplaceInput extends Widget {
 		this.domNode.style.width = newWidth + 'px';
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		super.dispose();
 	}
 }

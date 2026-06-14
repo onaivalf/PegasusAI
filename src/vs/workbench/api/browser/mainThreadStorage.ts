@@ -39,7 +39,7 @@ export class MainThreadStorage implements MainThreadStorageShape {
 		}));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._storageListener.dispose();
 	}
 
@@ -53,15 +53,15 @@ export class MainThreadStorage implements MainThreadStorageShape {
 		return this._extensionStorageService.getExtensionStateRaw(extensionId, shared);
 	}
 
-	async $setValue(shared: boolean, key: string, value: object): Promise<void> {
+	async $setValue(shared: boolean, key: string, value: object): Promise<pegasusai> {
 		this._extensionStorageService.setExtensionState(key, value, shared);
 	}
 
-	$registerExtensionStorageKeysToSync(extension: IExtensionIdWithVersion, keys: string[]): void {
+	$registerExtensionStorageKeysToSync(extension: IExtensionIdWithVersion, keys: string[]): pegasusai {
 		this._extensionStorageService.setKeysForSync(extension, keys);
 	}
 
-	private async checkAndMigrateExtensionStorage(extensionId: string, shared: boolean): Promise<void> {
+	private async checkAndMigrateExtensionStorage(extensionId: string, shared: boolean): Promise<pegasusai> {
 		try {
 			let sourceExtensionId = this._extensionStorageService.getSourceExtensionToMigrate(extensionId);
 

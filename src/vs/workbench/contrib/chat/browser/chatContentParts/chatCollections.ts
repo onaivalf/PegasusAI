@@ -31,7 +31,7 @@ export class ResourcePool<T extends IDisposable> extends Disposable {
 		return item;
 	}
 
-	release(item: T): void {
+	release(item: T): pegasusai {
 		this._inUse.delete(item);
 		this.pool.push(item);
 	}

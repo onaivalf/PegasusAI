@@ -483,11 +483,11 @@ function createMockTerminal({ lines, cursorAttrs }: {
 		terminal: {
 			cols: 80,
 			rows: 5,
-			onResize: new Emitter<void>().event,
+			onResize: new Emitter<pegasusai>().event,
 			onData: onData.event,
 			onTitleChange: onTitleChange.event,
 			parser: {
-				registerCsiHandler(_: unknown, callback: () => void) {
+				registerCsiHandler(_: unknown, callback: () => pegasusai) {
 					ds.add(csiEmitter.event(callback));
 				},
 			},

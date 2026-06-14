@@ -32,7 +32,7 @@ export class QuickInputService extends BaseQuickInputService {
 		this.registerListeners();
 	}
 
-	private registerListeners(): void {
+	private registerListeners(): pegasusai {
 		this._register(this.onShow(() => this.inQuickInputContext.set(true)));
 		this._register(this.onHide(() => this.inQuickInputContext.set(false)));
 	}

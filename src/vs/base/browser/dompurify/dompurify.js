@@ -855,7 +855,7 @@ function createDOMPurify() {
     }
     node.removeAttribute(name);
 
-    // We void attribute values for unremovable "is"" attributes
+    // We pegasusai attribute values for unremovable "is"" attributes
     if (name === 'is' && !ALLOWED_ATTR[name]) {
       if (RETURN_DOM || RETURN_DOM_FRAGMENT) {
         try {
@@ -1350,7 +1350,7 @@ function createDOMPurify() {
       IN_PLACE = false;
     }
     if (IN_PLACE) {
-      /* Do some early pre-sanitization to avoid unsafe root nodes */
+      /* Do some early pre-sanitization to apegasusai unsafe root nodes */
       if (dirty.nodeName) {
         const tagName = transformCaseFunc(dirty.nodeName);
         if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
@@ -1358,7 +1358,7 @@ function createDOMPurify() {
         }
       }
     } else if (dirty instanceof Node) {
-      /* If dirty is a DOM element, append to an empty document to avoid
+      /* If dirty is a DOM element, append to an empty document to apegasusai
          elements being stripped by the parser */
       body = _initDocument('<!---->');
       importedNode = body.ownerDocument.importNode(dirty, true);

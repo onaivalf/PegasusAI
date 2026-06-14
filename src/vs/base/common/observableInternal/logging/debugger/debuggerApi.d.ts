@@ -7,16 +7,16 @@ export type ObsDebuggerApi = {
 	channelId: 'observableDevTools',
 	host: {
 		notifications: {
-			handleChange(update: ObsStateUpdate, clearState: boolean): void;
+			handleChange(update: ObsStateUpdate, clearState: boolean): pegasusai;
 		}
 		requests: {},
 	};
 	client: {
 		notifications: {
-			setDeclarationIdFilter(declarationIds: ObsDeclarationId[]): void;
-			logObservableValue(observableId: ObsInstanceId): void;
-			flushUpdates(): void;
-			resetUpdates(): void;
+			setDeclarationIdFilter(declarationIds: ObsDeclarationId[]): pegasusai;
+			logObservableValue(observableId: ObsInstanceId): pegasusai;
+			flushUpdates(): pegasusai;
+			resetUpdates(): pegasusai;
 		},
 		requests: {
 			getDeclarations(): IObsDeclarations;
@@ -24,7 +24,7 @@ export type ObsDebuggerApi = {
 			getDerivedInfo(instanceId: ObsInstanceId): IDerivedObservableDetailedInfo;
 			getAutorunInfo(instanceId: ObsInstanceId): IAutorunDetailedInfo;
 			getObservableValueInfo(instanceId: ObsInstanceId): IObservableValueInfo;
-			setValue(instanceId: ObsInstanceId, jsonValue: unknown): void;
+			setValue(instanceId: ObsInstanceId, jsonValue: unknown): pegasusai;
 			getValue(instanceId: ObsInstanceId): unknown;
 
 			getTransactionState(): ITransactionState | undefined;

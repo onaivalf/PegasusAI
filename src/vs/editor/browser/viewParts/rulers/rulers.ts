@@ -34,7 +34,7 @@ export class Rulers extends ViewPart {
 		this._typicalHalfwidthCharacterWidth = options.get(EditorOption.fontInfo).typicalHalfwidthCharacterWidth;
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		super.dispose();
 	}
 
@@ -52,11 +52,11 @@ export class Rulers extends ViewPart {
 
 	// --- end event handlers
 
-	public prepareRender(ctx: RenderingContext): void {
+	public prepareRender(ctx: RenderingContext): pegasusai {
 		// Nothing to read
 	}
 
-	private _ensureRulersCount(): void {
+	private _ensureRulersCount(): pegasusai {
 		const currentCount = this._renderedRulers.length;
 		const desiredCount = this._rulers.length;
 
@@ -88,7 +88,7 @@ export class Rulers extends ViewPart {
 		}
 	}
 
-	public render(ctx: RestrictedRenderingContext): void {
+	public render(ctx: RestrictedRenderingContext): pegasusai {
 
 		this._ensureRulersCount();
 

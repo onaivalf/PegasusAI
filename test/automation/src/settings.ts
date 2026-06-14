@@ -21,7 +21,7 @@ export class SettingsEditor {
 	 * Warning: You may need to set `editor.wordWrap` to `"on"` if this is called with a really long
 	 * setting.
 	 */
-	async addUserSetting(setting: string, value: string): Promise<void> {
+	async addUserSetting(setting: string, value: string): Promise<pegasusai> {
 		await this.openUserSettingsFile();
 
 		await this.code.sendKeybinding('right', () =>
@@ -36,7 +36,7 @@ export class SettingsEditor {
 	 * Warning: You will likely also need to set `editor.wordWrap` to `"on"` if `addUserSetting` is
 	 * called after this in the test.
 	 */
-	async addUserSettings(settings: [key: string, value: string][]): Promise<void> {
+	async addUserSettings(settings: [key: string, value: string][]): Promise<pegasusai> {
 		await this.openUserSettingsFile();
 
 		await this.code.sendKeybinding('right', () =>
@@ -45,7 +45,7 @@ export class SettingsEditor {
 		await this.editors.saveOpenedFile();
 	}
 
-	async clearUserSettings(): Promise<void> {
+	async clearUserSettings(): Promise<pegasusai> {
 		await this.openUserSettingsFile();
 		await this.quickaccess.runCommand('editor.action.selectAll');
 		await this.code.sendKeybinding('Delete', async () => {
@@ -56,17 +56,17 @@ export class SettingsEditor {
 		await this.quickaccess.runCommand('workbench.action.closeActiveEditor');
 	}
 
-	async openUserSettingsFile(): Promise<void> {
+	async openUserSettingsFile(): Promise<pegasusai> {
 		await this.quickaccess.runCommand('workbench.action.openSettingsJson');
 		await this.editor.waitForEditorFocus('settings.json', 1);
 	}
 
-	async openUserSettingsUI(): Promise<void> {
+	async openUserSettingsUI(): Promise<pegasusai> {
 		await this.quickaccess.runCommand('workbench.action.openSettings2');
 		await this.code.waitForActiveElement(this._editContextSelector());
 	}
 
-	async searchSettingsUI(query: string): Promise<void> {
+	async searchSettingsUI(query: string): Promise<pegasusai> {
 		await this.openUserSettingsUI();
 
 		await this.code.waitAndClick(this._editContextSelector());

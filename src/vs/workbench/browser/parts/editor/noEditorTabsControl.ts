@@ -45,35 +45,35 @@ export class NoEditorTabsControl extends EditorTabsControl {
 		return false;
 	}
 
-	beforeCloseEditor(editor: EditorInput): void { }
+	beforeCloseEditor(editor: EditorInput): pegasusai { }
 
-	closeEditor(editor: EditorInput): void {
+	closeEditor(editor: EditorInput): pegasusai {
 		this.handleClosedEditors();
 	}
 
-	closeEditors(editors: EditorInput[]): void {
+	closeEditors(editors: EditorInput[]): pegasusai {
 		this.handleClosedEditors();
 	}
 
-	private handleClosedEditors(): void {
+	private handleClosedEditors(): pegasusai {
 		this.activeEditor = this.tabsModel.activeEditor;
 	}
 
-	moveEditor(editor: EditorInput, fromIndex: number, targetIndex: number): void { }
+	moveEditor(editor: EditorInput, fromIndex: number, targetIndex: number): pegasusai { }
 
-	pinEditor(editor: EditorInput): void { }
+	pinEditor(editor: EditorInput): pegasusai { }
 
-	stickEditor(editor: EditorInput): void { }
+	stickEditor(editor: EditorInput): pegasusai { }
 
-	unstickEditor(editor: EditorInput): void { }
+	unstickEditor(editor: EditorInput): pegasusai { }
 
-	setActive(isActive: boolean): void { }
+	setActive(isActive: boolean): pegasusai { }
 
-	updateEditorSelections(): void { }
+	updateEditorSelections(): pegasusai { }
 
-	updateEditorLabel(editor: EditorInput): void { }
+	updateEditorLabel(editor: EditorInput): pegasusai { }
 
-	updateEditorDirty(editor: EditorInput): void { }
+	updateEditorDirty(editor: EditorInput): pegasusai { }
 
 	getHeight(): number {
 		return 0;

@@ -11,7 +11,7 @@ import { ensureNoDisposablesAreLeakedInTestSuite } from '../../../../../base/tes
 
 suite('SmartSnippetInserter', () => {
 
-	function testSmartSnippetInserter(text: string[], runner: (assert: (desiredPos: Position, pos: Position, prepend: string, append: string) => void) => void): void {
+	function testSmartSnippetInserter(text: string[], runner: (assert: (desiredPos: Position, pos: Position, prepend: string, append: string) => pegasusai) => pegasusai): pegasusai {
 		const model = createTextModel(text.join('\n'));
 		runner((desiredPos, pos, prepend, append) => {
 			const actual = SmartSnippetInserter.insertSnippet(model, desiredPos);

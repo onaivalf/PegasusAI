@@ -12,10 +12,10 @@ interface IPackageInfo {
 }
 
 export interface TelemetryReporter {
-	dispose(): void;
+	dispose(): pegasusai;
 	sendTelemetryEvent(eventName: string, properties?: {
 		[key: string]: string;
-	}): void;
+	}): pegasusai;
 }
 
 const nullReporter = new class NullTelemetryReporter implements TelemetryReporter {

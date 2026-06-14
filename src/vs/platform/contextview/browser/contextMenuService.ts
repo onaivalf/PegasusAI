@@ -30,10 +30,10 @@ export class ContextMenuService extends Disposable implements IContextMenuServic
 		return this._contextMenuHandler;
 	}
 
-	private readonly _onDidShowContextMenu = this._store.add(new Emitter<void>());
+	private readonly _onDidShowContextMenu = this._store.add(new Emitter<pegasusai>());
 	readonly onDidShowContextMenu = this._onDidShowContextMenu.event;
 
-	private readonly _onDidHideContextMenu = this._store.add(new Emitter<void>());
+	private readonly _onDidHideContextMenu = this._store.add(new Emitter<pegasusai>());
 	readonly onDidHideContextMenu = this._onDidHideContextMenu.event;
 
 	constructor(
@@ -47,13 +47,13 @@ export class ContextMenuService extends Disposable implements IContextMenuServic
 		super();
 	}
 
-	configure(options: IContextMenuHandlerOptions): void {
+	configure(options: IContextMenuHandlerOptions): pegasusai {
 		this.contextMenuHandler.configure(options);
 	}
 
 	// ContextMenu
 
-	showContextMenu(delegate: IContextMenuDelegate | IContextMenuMenuDelegate): void {
+	showContextMenu(delegate: IContextMenuDelegate | IContextMenuMenuDelegate): pegasusai {
 
 		delegate = ContextMenuMenuDelegate.transform(delegate, this.menuService, this.contextKeyService);
 

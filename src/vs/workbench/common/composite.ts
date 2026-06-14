@@ -10,12 +10,12 @@ export interface IComposite {
 	/**
 	 * An event when the composite gained focus.
 	 */
-	readonly onDidFocus: Event<void>;
+	readonly onDidFocus: Event<pegasusai>;
 
 	/**
 	 * An event when the composite lost focus.
 	 */
-	readonly onDidBlur: Event<void>;
+	readonly onDidBlur: Event<pegasusai>;
 
 	/**
 	 * Returns true if the composite has focus.
@@ -40,7 +40,7 @@ export interface IComposite {
 	/**
 	 * Asks the underlying control to focus.
 	 */
-	focus(): void;
+	focus(): pegasusai;
 }
 
 /**

@@ -10,8 +10,8 @@ type MessageEvent = {
 };
 
 declare const globalThis: {
-	postMessage: (message: any) => void;
-	onmessage: (event: MessageEvent) => void;
+	postMessage: (message: any) => pegasusai;
+	onmessage: (event: MessageEvent) => pegasusai;
 };
 
 let initialized = false;

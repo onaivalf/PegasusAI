@@ -133,13 +133,13 @@ export class FindModelBoundToEditorModel {
 		this.research(false, this._state.searchScope);
 	}
 
-	public dispose(): void {
+	public dispose(): pegasusai {
 		this._isDisposed = true;
 		dispose(this._startSearchingTimer);
 		this._toDispose.dispose();
 	}
 
-	private _onStateChanged(e: FindReplaceStateChangedEvent): void {
+	private _onStateChanged(e: FindReplaceStateChangedEvent): pegasusai {
 		if (this._isDisposed) {
 			// The find model is disposed during a find state changed event
 			return;
@@ -180,7 +180,7 @@ export class FindModelBoundToEditorModel {
 		return model.getFullModelRange();
 	}
 
-	private research(moveCursor: boolean, newFindScope?: Range | Range[] | null): void {
+	private research(moveCursor: boolean, newFindScope?: Range | Range[] | null): pegasusai {
 		let findScopes: Range[] | null = null;
 		if (typeof newFindScope !== 'undefined') {
 			if (newFindScope !== null) {
@@ -247,7 +247,7 @@ export class FindModelBoundToEditorModel {
 		return false;
 	}
 
-	private _setCurrentFindMatch(match: Range): void {
+	private _setCurrentFindMatch(match: Range): pegasusai {
 		const matchesPosition = this._decorations.setCurrentFindMatch(match);
 		this._state.changeMatchInfo(
 			matchesPosition,
@@ -281,7 +281,7 @@ export class FindModelBoundToEditorModel {
 		return new Position(lineNumber, column);
 	}
 
-	private _moveToPrevMatch(before: Position, isRecursed: boolean = false): void {
+	private _moveToPrevMatch(before: Position, isRecursed: boolean = false): pegasusai {
 		if (!this._state.canNavigateBack()) {
 			// we are beyond the first matched find result
 			// instead of doing nothing, we should refocus the first item
@@ -349,7 +349,7 @@ export class FindModelBoundToEditorModel {
 		this._setCurrentFindMatch(prevMatch.range);
 	}
 
-	public moveToPrevMatch(): void {
+	public moveToPrevMatch(): pegasusai {
 		this._moveToPrevMatch(this._editor.getSelection().getStartPosition());
 	}
 
@@ -376,7 +376,7 @@ export class FindModelBoundToEditorModel {
 		return new Position(lineNumber, column);
 	}
 
-	private _moveToNextMatch(after: Position): void {
+	private _moveToNextMatch(after: Position): pegasusai {
 		if (!this._state.canNavigateForward()) {
 			// we are beyond the last matched find result
 			// instead of doing nothing, we should refocus the last item
@@ -451,18 +451,18 @@ export class FindModelBoundToEditorModel {
 		return nextMatch;
 	}
 
-	public moveToNextMatch(): void {
+	public moveToNextMatch(): pegasusai {
 		this._moveToNextMatch(this._editor.getSelection().getEndPosition());
 	}
 
-	private _moveToMatch(index: number): void {
+	private _moveToMatch(index: number): pegasusai {
 		const decorationRange = this._decorations.getDecorationRangeAt(index);
 		if (decorationRange) {
 			this._setCurrentFindMatch(decorationRange);
 		}
 	}
 
-	public moveToMatch(index: number): void {
+	public moveToMatch(index: number): pegasusai {
 		this._moveToMatch(index);
 	}
 
@@ -473,7 +473,7 @@ export class FindModelBoundToEditorModel {
 		return ReplacePattern.fromStaticValue(this._state.replaceString);
 	}
 
-	public replace(): void {
+	public replace(): pegasusai {
 		if (!this._hasMatches()) {
 			return;
 		}
@@ -507,7 +507,7 @@ export class FindModelBoundToEditorModel {
 		return this._editor.getModel().findMatches(this._state.searchString, searchRanges, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(EditorOption.wordSeparators) : null, captureMatches, limitResultCount);
 	}
 
-	public replaceAll(): void {
+	public replaceAll(): pegasusai {
 		if (!this._hasMatches()) {
 			return;
 		}
@@ -524,7 +524,7 @@ export class FindModelBoundToEditorModel {
 		this.research(false);
 	}
 
-	private _largeReplaceAll(): void {
+	private _largeReplaceAll(): pegasusai {
 		const searchParams = new SearchParams(this._state.searchString, this._state.isRegex, this._state.matchCase, this._state.wholeWord ? this._editor.getOption(EditorOption.wordSeparators) : null);
 		const searchData = searchParams.parseSearchRequest();
 		if (!searchData) {
@@ -563,7 +563,7 @@ export class FindModelBoundToEditorModel {
 		this._executeEditorCommand('replaceAll', command);
 	}
 
-	private _regularReplaceAll(findScopes: Range[] | null): void {
+	private _regularReplaceAll(findScopes: Range[] | null): pegasusai {
 		const replacePattern = this._getReplacePattern();
 		// Get all the ranges (even more than the highlighted ones)
 		const matches = this._findMatches(findScopes, replacePattern.hasReplacementPatterns || this._state.preserveCase, Constants.MAX_SAFE_SMALL_INTEGER);
@@ -577,7 +577,7 @@ export class FindModelBoundToEditorModel {
 		this._executeEditorCommand('replaceAll', command);
 	}
 
-	public selectAllMatches(): void {
+	public selectAllMatches(): pegasusai {
 		if (!this._hasMatches()) {
 			return;
 		}
@@ -601,7 +601,7 @@ export class FindModelBoundToEditorModel {
 		this._editor.setSelections(selections);
 	}
 
-	private _executeEditorCommand(source: string, command: ICommand): void {
+	private _executeEditorCommand(source: string, command: ICommand): pegasusai {
 		try {
 			this._ignoreModelContentChanged = true;
 			this._editor.pushUndoStop();

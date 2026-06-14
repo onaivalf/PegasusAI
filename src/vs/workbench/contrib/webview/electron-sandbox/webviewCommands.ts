@@ -24,7 +24,7 @@ export class OpenWebviewDeveloperToolsAction extends Action2 {
 		});
 	}
 
-	async run(accessor: ServicesAccessor): Promise<void> {
+	async run(accessor: ServicesAccessor): Promise<pegasusai> {
 		const nativeHostService = accessor.get(INativeHostService);
 
 		const iframeWebviewElements = getActiveWindow().document.querySelectorAll('iframe.webview.ready');

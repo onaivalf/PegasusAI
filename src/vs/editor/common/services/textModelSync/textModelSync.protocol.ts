@@ -6,11 +6,11 @@
 import { IModelChangedEvent } from '../../model/mirrorTextModel.js';
 
 export interface IWorkerTextModelSyncChannelServer {
-	$acceptNewModel(data: IRawModelData): void;
+	$acceptNewModel(data: IRawModelData): pegasusai;
 
-	$acceptModelChanged(strURL: string, e: IModelChangedEvent): void;
+	$acceptModelChanged(strURL: string, e: IModelChangedEvent): pegasusai;
 
-	$acceptRemovedModel(strURL: string): void;
+	$acceptRemovedModel(strURL: string): pegasusai;
 }
 
 export interface IRawModelData {

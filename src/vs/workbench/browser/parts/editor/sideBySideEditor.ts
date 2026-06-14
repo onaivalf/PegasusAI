@@ -139,11 +139,11 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		this.registerListeners();
 	}
 
-	private registerListeners(): void {
+	private registerListeners(): pegasusai {
 		this._register(this.configurationService.onDidChangeConfiguration(e => this.onConfigurationUpdated(e)));
 	}
 
-	private onConfigurationUpdated(event: IConfigurationChangeEvent): void {
+	private onConfigurationUpdated(event: IConfigurationChangeEvent): pegasusai {
 		if (event.affectsConfiguration(SideBySideEditor.SIDE_BY_SIDE_LAYOUT_SETTING)) {
 			this.orientation = this.configurationService.getValue<'vertical' | 'horizontal'>(SideBySideEditor.SIDE_BY_SIDE_LAYOUT_SETTING) === 'vertical' ? Orientation.VERTICAL : Orientation.HORIZONTAL;
 
@@ -156,7 +156,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		}
 	}
 
-	private recreateSplitview(): void {
+	private recreateSplitview(): pegasusai {
 		const container = assertIsDefined(this.getContainer());
 
 		// Clear old (if any) but remember ratio
@@ -190,7 +190,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		return ratio;
 	}
 
-	protected createEditor(parent: HTMLElement): void {
+	protected createEditor(parent: HTMLElement): pegasusai {
 		parent.classList.add('side-by-side-editor');
 
 		// Editor pane containers
@@ -201,7 +201,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		this.createSplitView(parent);
 	}
 
-	private createSplitView(parent: HTMLElement, ratio?: number): void {
+	private createSplitView(parent: HTMLElement, ratio?: number): pegasusai {
 
 		// Splitview widget
 		this.splitview = this.splitviewDisposables.add(new SplitView(parent, { orientation: this.orientation }));
@@ -258,7 +258,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		return localize('sideBySideEditor', "Side by Side Editor");
 	}
 
-	override async setInput(input: SideBySideEditorInput, options: ISideBySideEditorOptions | undefined, context: IEditorOpenContext, token: CancellationToken): Promise<void> {
+	override async setInput(input: SideBySideEditorInput, options: ISideBySideEditorOptions | undefined, context: IEditorOpenContext, token: CancellationToken): Promise<pegasusai> {
 		const oldInput = this.input;
 		await super.setInput(input, options, context, token);
 
@@ -325,7 +325,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		return { primary: primaryOptions, secondary: secondaryOptions, viewState };
 	}
 
-	private createEditors(newInput: SideBySideEditorInput): void {
+	private createEditors(newInput: SideBySideEditorInput): pegasusai {
 
 		// Create editors
 		this.secondaryEditorPane = this.doCreateEditor(newInput.secondary, assertIsDefined(this.secondaryEditorContainer));
@@ -368,7 +368,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		return editorPane;
 	}
 
-	private onDidFocusChange(side: Side.PRIMARY | Side.SECONDARY): void {
+	private onDidFocusChange(side: Side.PRIMARY | Side.SECONDARY): pegasusai {
 		this.lastFocusedSide = side;
 
 		// Signal to outside that our active control changed
@@ -387,7 +387,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		return undefined;
 	}
 
-	override setOptions(options: ISideBySideEditorOptions | undefined): void {
+	override setOptions(options: ISideBySideEditorOptions | undefined): pegasusai {
 		super.setOptions(options);
 
 		// Update focus if target is provided
@@ -399,7 +399,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		this.getLastFocusedEditorPane()?.setOptions(options);
 	}
 
-	protected override setEditorVisible(visible: boolean): void {
+	protected override setEditorVisible(visible: boolean): pegasusai {
 
 		// Forward to both sides
 		this.primaryEditorPane?.setVisible(visible);
@@ -408,7 +408,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		super.setEditorVisible(visible);
 	}
 
-	override clearInput(): void {
+	override clearInput(): pegasusai {
 		super.clearInput();
 
 		// Forward to both sides
@@ -420,7 +420,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		this.disposeEditors();
 	}
 
-	override focus(): void {
+	override focus(): pegasusai {
 		super.focus();
 
 		this.getLastFocusedEditorPane()?.focus();
@@ -434,7 +434,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		return this.primaryEditorPane;
 	}
 
-	layout(dimension: Dimension): void {
+	layout(dimension: Dimension): pegasusai {
 		this.dimension = dimension;
 
 		const splitview = assertIsDefined(this.splitview);
@@ -449,7 +449,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		}
 	}
 
-	private layoutPane(pane: EditorPane | undefined, size: number): void {
+	private layoutPane(pane: EditorPane | undefined, size: number): pegasusai {
 		pane?.layout(this.orientation === Orientation.HORIZONTAL ? new Dimension(size, this.dimension.height) : new Dimension(this.dimension.width, size));
 	}
 
@@ -506,7 +506,7 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		return URI.from({ scheme: 'sideBySide', path: `${multibyteAwareBtoa(secondary.toString())}${multibyteAwareBtoa(primary.toString())}` });
 	}
 
-	override updateStyles(): void {
+	override updateStyles(): pegasusai {
 		super.updateStyles();
 
 		if (this.primaryEditorContainer) {
@@ -526,13 +526,13 @@ export class SideBySideEditor extends AbstractEditorWithViewState<ISideBySideEdi
 		}
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this.disposeEditors();
 
 		super.dispose();
 	}
 
-	private disposeEditors(): void {
+	private disposeEditors(): pegasusai {
 		this.editorDisposables.clear();
 
 		this.secondaryEditorPane = undefined;

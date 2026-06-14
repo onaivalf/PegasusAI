@@ -15,7 +15,7 @@ export interface IBannerItem {
 	readonly message: string | MarkdownString;
 	readonly actions?: ILinkDescriptor[];
 	readonly ariaLabel?: string;
-	readonly onClose?: () => void;
+	readonly onClose?: () => pegasusai;
 	readonly closeLabel?: string;
 }
 
@@ -24,9 +24,9 @@ export const IBannerService = createDecorator<IBannerService>('bannerService');
 export interface IBannerService {
 	readonly _serviceBrand: undefined;
 
-	focus(): void;
-	focusNextAction(): void;
-	focusPreviousAction(): void;
-	hide(id: string): void;
-	show(item: IBannerItem): void;
+	focus(): pegasusai;
+	focusNextAction(): pegasusai;
+	focusPreviousAction(): pegasusai;
+	hide(id: string): pegasusai;
+	show(item: IBannerItem): pegasusai;
 }

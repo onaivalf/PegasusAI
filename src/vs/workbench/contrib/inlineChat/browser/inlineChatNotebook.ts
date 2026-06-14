@@ -99,7 +99,7 @@ export class InlineChatNotebookContribution {
 		}));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._store.dispose();
 	}
 }

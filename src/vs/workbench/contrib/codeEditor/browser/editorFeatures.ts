@@ -29,7 +29,7 @@ class EditorFeaturesInstantiator extends Disposable implements IWorkbenchContrib
 		}
 	}
 
-	private _instantiate(): void {
+	private _instantiate(): pegasusai {
 		if (this._instantiated) {
 			return;
 		}

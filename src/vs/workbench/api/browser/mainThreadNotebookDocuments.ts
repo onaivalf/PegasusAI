@@ -43,13 +43,13 @@ export class MainThreadNotebookDocuments implements MainThreadNotebookDocumentsS
 		}));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 		this._modelReferenceCollection.dispose();
 		dispose(this._documentEventListenersMapping.values());
 	}
 
-	handleNotebooksAdded(notebooks: readonly NotebookTextModel[]): void {
+	handleNotebooksAdded(notebooks: readonly NotebookTextModel[]): pegasusai {
 
 		for (const textModel of notebooks) {
 			const disposableStore = new DisposableStore();
@@ -119,7 +119,7 @@ export class MainThreadNotebookDocuments implements MainThreadNotebookDocumentsS
 		}
 	}
 
-	handleNotebooksRemoved(uris: URI[]): void {
+	handleNotebooksRemoved(uris: URI[]): pegasusai {
 		for (const uri of uris) {
 			this._documentEventListenersMapping.get(uri)?.dispose();
 			this._documentEventListenersMapping.delete(uri);

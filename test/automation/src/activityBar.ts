@@ -14,7 +14,7 @@ export class ActivityBar {
 
 	constructor(private code: Code) { }
 
-	async waitForActivityBar(position: ActivityBarPosition): Promise<void> {
+	async waitForActivityBar(position: ActivityBarPosition): Promise<pegasusai> {
 		let positionClass: string;
 
 		if (position === ActivityBarPosition.LEFT) {

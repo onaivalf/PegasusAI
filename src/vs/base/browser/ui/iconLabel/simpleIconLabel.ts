@@ -30,7 +30,7 @@ export class SimpleIconLabel implements IDisposable {
 		}
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this.hover?.dispose();
 	}
 }

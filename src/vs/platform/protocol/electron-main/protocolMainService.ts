@@ -17,7 +17,7 @@ import { ILogService } from '../../log/common/log.js';
 import { IIPCObjectUrl, IProtocolMainService } from './protocol.js';
 import { IUserDataProfilesService } from '../../userDataProfile/common/userDataProfile.js';
 
-type ProtocolCallback = { (result: string | Electron.FilePathWithHeaders | { error: number }): void };
+type ProtocolCallback = { (result: string | Electron.FilePathWithHeaders | { error: number }): pegasusai };
 
 export class ProtocolMainService extends Disposable implements IProtocolMainService {
 
@@ -46,7 +46,7 @@ export class ProtocolMainService extends Disposable implements IProtocolMainServ
 		this.handleProtocols();
 	}
 
-	private handleProtocols(): void {
+	private handleProtocols(): pegasusai {
 		const { defaultSession } = session;
 
 		// Register vscode-file:// handler
@@ -91,7 +91,7 @@ export class ProtocolMainService extends Disposable implements IProtocolMainServ
 
 	//#region vscode-file://
 
-	private handleResourceRequest(request: Electron.ProtocolRequest, callback: ProtocolCallback): void {
+	private handleResourceRequest(request: Electron.ProtocolRequest, callback: ProtocolCallback): pegasusai {
 		const path = this.requestToNormalizedFilePath(request);
 		const pathBasename = basename(path);
 

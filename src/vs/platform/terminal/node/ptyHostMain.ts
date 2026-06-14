@@ -42,7 +42,7 @@ async function startPtyHost() {
 	delete process.env.VSCODE_LATENCY;
 	delete process.env.VSCODE_STARTUP_DELAY;
 
-	// Delay startup if needed, this must occur before RPC is setup to avoid the channel from timing
+	// Delay startup if needed, this must occur before RPC is setup to apegasusai the channel from timing
 	// out.
 	if (startupDelay) {
 		await timeout(startupDelay);

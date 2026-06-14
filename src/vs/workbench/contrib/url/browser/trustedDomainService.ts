@@ -17,7 +17,7 @@ export const ITrustedDomainService = createDecorator<ITrustedDomainService>('ITr
 
 export interface ITrustedDomainService {
 	_serviceBrand: undefined;
-	onDidChangeTrustedDomains: Event<void>;
+	onDidChangeTrustedDomains: Event<pegasusai>;
 	isValid(resource: URI): boolean;
 }
 
@@ -26,8 +26,8 @@ export class TrustedDomainService extends Disposable implements ITrustedDomainSe
 
 	private _staticTrustedDomainsResult!: WindowIdleValue<string[]>;
 
-	private _onDidChangeTrustedDomains: Emitter<void> = this._register(new Emitter<void>());
-	onDidChangeTrustedDomains: Event<void> = this._onDidChangeTrustedDomains.event;
+	private _onDidChangeTrustedDomains: Emitter<pegasusai> = this._register(new Emitter<pegasusai>());
+	onDidChangeTrustedDomains: Event<pegasusai> = this._onDidChangeTrustedDomains.event;
 
 	constructor(
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,

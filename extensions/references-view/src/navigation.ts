@@ -21,7 +21,7 @@ export class Navigation {
 		);
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		vscode.Disposable.from(...this._disposables).dispose();
 	}
 
@@ -51,7 +51,7 @@ export class Navigation {
 		});
 	}
 
-	previous(preserveFocus: boolean): void {
+	previous(preserveFocus: boolean): pegasusai {
 		if (!this._delegate) {
 			return;
 		}
@@ -67,7 +67,7 @@ export class Navigation {
 		}
 	}
 
-	next(preserveFocus: boolean): void {
+	next(preserveFocus: boolean): pegasusai {
 		if (!this._delegate) {
 			return;
 		}

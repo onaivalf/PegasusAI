@@ -47,7 +47,7 @@ class TerminalQuickFixContribution extends DisposableStore implements ITerminalC
 		super();
 	}
 
-	xtermReady(xterm: IXtermTerminal & { raw: RawXtermTerminal }): void {
+	xtermReady(xterm: IXtermTerminal & { raw: RawXtermTerminal }): pegasusai {
 		// Create addon
 		this._addon = this._instantiationService.createInstance(TerminalQuickFixAddon, undefined, this._ctx.instance.capabilities);
 		xterm.raw.loadAddon(this._addon);

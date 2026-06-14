@@ -47,7 +47,7 @@ interface GlobalObj {
 }
 
 interface IHost {
-	sendNotification: (data: unknown) => void;
+	sendNotification: (data: unknown) => pegasusai;
 }
 
 function createChannelFactoryFromDebugChannel(host: IHost): { channel: ChannelFactory; handler: { handleRequest: (data: unknown) => unknown } } {

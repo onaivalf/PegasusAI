@@ -28,7 +28,7 @@ export async function saveAllFilesAndCloseAll() {
 }
 
 
-function sleep(ms: number): Promise<void> {
+function sleep(ms: number): Promise<pegasusai> {
 	return new Promise(resolve => {
 		setTimeout(resolve, ms);
 	});
@@ -56,7 +56,7 @@ export class Kernel {
 		});
 	}
 
-	protected async _execute(cells: vscode.NotebookCell[]): Promise<void> {
+	protected async _execute(cells: vscode.NotebookCell[]): Promise<pegasusai> {
 		for (const cell of cells) {
 			await this._runCell(cell);
 		}

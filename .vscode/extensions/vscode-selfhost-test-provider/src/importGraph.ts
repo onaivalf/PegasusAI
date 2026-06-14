@@ -10,7 +10,7 @@ import { promises as fs } from 'fs';
 
 const maxInt32 = 2 ** 31 - 1;
 
-// limit concurrency to avoid overwhelming the filesystem during discovery
+// limit concurrency to apegasusai overwhelming the filesystem during discovery
 const discoverLimiter = bulkhead(8, Infinity);
 
 // Max import distance when listing related code to improve relevancy.
@@ -21,7 +21,7 @@ const defaultMaxDistance = 3;
  * imports and re-parsing files only on request.
  *
  * This is a rough, file-level graph derived from simple regex matching on
- * source files to avoid having to parse the AST of every file in the codebase,
+ * source files to apegasusai having to parse the AST of every file in the codebase,
  * which is possible but more intensive. (See: all the years of work from the
  * TS language server.)
  *
@@ -229,7 +229,7 @@ const IMPORT_RE = /import .*? from ["'](vs\/[^"']+)/g;
 class FileNode {
 	public imports = new Set<FileNode>();
 	public importedBy = new Set<FileNode>();
-	public isSynced: boolean | Promise<void> = false;
+	public isSynced: boolean | Promise<pegasusai> = false;
 
 	// Path is the *import path* starting with `vs/`
 	constructor(

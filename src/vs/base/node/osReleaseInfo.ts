@@ -13,7 +13,7 @@ type ReleaseInfo = {
 	version_id?: string;
 };
 
-export async function getOSReleaseInfo(errorLogger: (error: any) => void): Promise<ReleaseInfo | undefined> {
+export async function getOSReleaseInfo(errorLogger: (error: any) => pegasusai): Promise<ReleaseInfo | undefined> {
 	if (Platform.isMacintosh || Platform.isWindows) {
 		return;
 	}

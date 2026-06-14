@@ -112,14 +112,14 @@ export class ViewCursor {
 		}
 	}
 
-	public show(): void {
+	public show(): pegasusai {
 		if (!this._isVisible) {
 			this._domNode.setVisibility('inherit');
 			this._isVisible = true;
 		}
 	}
 
-	public hide(): void {
+	public hide(): pegasusai {
 		if (this._isVisible) {
 			this._domNode.setVisibility('hidden');
 			this._isVisible = false;
@@ -240,7 +240,7 @@ export class ViewCursor {
 		return lineData.tokens.getClassName(tokenIndex);
 	}
 
-	public prepareRender(ctx: RenderingContext): void {
+	public prepareRender(ctx: RenderingContext): pegasusai {
 		this._renderData = this._prepareRender(ctx);
 	}
 

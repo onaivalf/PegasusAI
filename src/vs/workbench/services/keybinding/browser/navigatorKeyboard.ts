@@ -5,9 +5,9 @@
 
 export interface IKeyboard {
 	getLayoutMap(): Promise<Object>;
-	lock(keyCodes?: string[]): Promise<void>;
-	unlock(): void;
-	addEventListener?(type: string, listener: () => void): void;
+	lock(keyCodes?: string[]): Promise<pegasusai>;
+	unlock(): pegasusai;
+	addEventListener?(type: string, listener: () => pegasusai): pegasusai;
 
 }
 export type INavigatorWithKeyboard = Navigator & {

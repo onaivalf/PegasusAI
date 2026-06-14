@@ -83,14 +83,14 @@ export class ViewportSemanticTokensContribution extends Disposable implements IE
 		scheduleTokenizeViewport();
 	}
 
-	private _cancelAll(): void {
+	private _cancelAll(): pegasusai {
 		for (const request of this._outstandingRequests) {
 			request.cancel();
 		}
 		this._outstandingRequests = [];
 	}
 
-	private _removeOutstandingRequest(req: CancelablePromise<any>): void {
+	private _removeOutstandingRequest(req: CancelablePromise<any>): pegasusai {
 		for (let i = 0, len = this._outstandingRequests.length; i < len; i++) {
 			if (this._outstandingRequests[i] === req) {
 				this._outstandingRequests.splice(i, 1);
@@ -99,7 +99,7 @@ export class ViewportSemanticTokensContribution extends Disposable implements IE
 		}
 	}
 
-	private _tokenizeViewportNow(): void {
+	private _tokenizeViewportNow(): pegasusai {
 		if (!this._editor.hasModel()) {
 			return;
 		}

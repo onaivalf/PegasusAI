@@ -50,7 +50,7 @@ export class SpeechService extends Disposable implements ISpeechService {
 
 	readonly _serviceBrand: undefined;
 
-	private readonly _onDidChangeHasSpeechProvider = this._register(new Emitter<void>());
+	private readonly _onDidChangeHasSpeechProvider = this._register(new Emitter<pegasusai>());
 	readonly onDidChangeHasSpeechProvider = this._onDidChangeHasSpeechProvider.event;
 
 	get hasSpeechProvider() { return this.providerDescriptors.size > 0 || this.providers.size > 0; }
@@ -77,7 +77,7 @@ export class SpeechService extends Disposable implements ISpeechService {
 		this.handleAndRegisterSpeechExtensions();
 	}
 
-	private handleAndRegisterSpeechExtensions(): void {
+	private handleAndRegisterSpeechExtensions(): pegasusai {
 		speechProvidersExtensionPoint.setHandler((extensions, delta) => {
 			const oldHasSpeechProvider = this.hasSpeechProvider;
 
@@ -123,7 +123,7 @@ export class SpeechService extends Disposable implements ISpeechService {
 		});
 	}
 
-	private handleHasSpeechProviderChange(): void {
+	private handleHasSpeechProviderChange(): pegasusai {
 		this.hasSpeechProviderContext.set(this.hasSpeechProvider);
 
 		this._onDidChangeHasSpeechProvider.fire();
@@ -131,10 +131,10 @@ export class SpeechService extends Disposable implements ISpeechService {
 
 	//#region Speech to Text
 
-	private readonly _onDidStartSpeechToTextSession = this._register(new Emitter<void>());
+	private readonly _onDidStartSpeechToTextSession = this._register(new Emitter<pegasusai>());
 	readonly onDidStartSpeechToTextSession = this._onDidStartSpeechToTextSession.event;
 
-	private readonly _onDidEndSpeechToTextSession = this._register(new Emitter<void>());
+	private readonly _onDidEndSpeechToTextSession = this._register(new Emitter<pegasusai>());
 	readonly onDidEndSpeechToTextSession = this._onDidEndSpeechToTextSession.event;
 
 	private activeSpeechToTextSessions = 0;
@@ -244,10 +244,10 @@ export class SpeechService extends Disposable implements ISpeechService {
 
 	//#region Text to Speech
 
-	private readonly _onDidStartTextToSpeechSession = this._register(new Emitter<void>());
+	private readonly _onDidStartTextToSpeechSession = this._register(new Emitter<pegasusai>());
 	readonly onDidStartTextToSpeechSession = this._onDidStartTextToSpeechSession.event;
 
-	private readonly _onDidEndTextToSpeechSession = this._register(new Emitter<void>());
+	private readonly _onDidEndTextToSpeechSession = this._register(new Emitter<pegasusai>());
 	readonly onDidEndTextToSpeechSession = this._onDidEndTextToSpeechSession.event;
 
 	private activeTextToSpeechSessions = 0;
@@ -328,10 +328,10 @@ export class SpeechService extends Disposable implements ISpeechService {
 
 	//#region Keyword Recognition
 
-	private readonly _onDidStartKeywordRecognition = this._register(new Emitter<void>());
+	private readonly _onDidStartKeywordRecognition = this._register(new Emitter<pegasusai>());
 	readonly onDidStartKeywordRecognition = this._onDidStartKeywordRecognition.event;
 
-	private readonly _onDidEndKeywordRecognition = this._register(new Emitter<void>());
+	private readonly _onDidEndKeywordRecognition = this._register(new Emitter<pegasusai>());
 	readonly onDidEndKeywordRecognition = this._onDidEndKeywordRecognition.event;
 
 	private activeKeywordRecognitionSessions = 0;
@@ -347,7 +347,7 @@ export class SpeechService extends Disposable implements ISpeechService {
 		}));
 
 		const recognizeKeywordDisposables = disposables.add(new DisposableStore());
-		let activeRecognizeKeywordSession: Promise<void> | undefined = undefined;
+		let activeRecognizeKeywordSession: Promise<pegasusai> | undefined = undefined;
 		const recognizeKeyword = () => {
 			recognizeKeywordDisposables.clear();
 

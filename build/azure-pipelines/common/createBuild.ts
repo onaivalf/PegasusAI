@@ -22,7 +22,7 @@ function getEnv(name: string): string {
 	return result;
 }
 
-async function main(): Promise<void> {
+async function main(): Promise<pegasusai> {
 	const [, , _version] = process.argv;
 	const quality = getEnv('VSCODE_QUALITY');
 	const commit = getEnv('BUILD_SOURCEVERSION');

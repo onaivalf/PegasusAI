@@ -39,7 +39,7 @@ export class AutoRepliesPtyServiceContribution implements IPtyServiceContributio
 		}
 	}
 
-	handleProcessReady(persistentProcessId: number, process: ITerminalChildProcess): void {
+	handleProcessReady(persistentProcessId: number, process: ITerminalChildProcess): pegasusai {
 		this._terminalProcesses.set(persistentProcessId, process);
 		this._autoResponders.set(persistentProcessId, new Map());
 		for (const [match, reply] of this._autoReplies.entries()) {
@@ -47,7 +47,7 @@ export class AutoRepliesPtyServiceContribution implements IPtyServiceContributio
 		}
 	}
 
-	handleProcessDispose(persistentProcessId: number): void {
+	handleProcessDispose(persistentProcessId: number): pegasusai {
 		const processAutoResponders = this._autoResponders.get(persistentProcessId);
 		if (processAutoResponders) {
 			for (const e of processAutoResponders.values()) {

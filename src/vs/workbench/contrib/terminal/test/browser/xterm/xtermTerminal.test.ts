@@ -31,8 +31,8 @@ class TestWebglAddon implements WebglAddon {
 	static isEnabled = false;
 	readonly onChangeTextureAtlas = new Emitter().event as IEvent<HTMLCanvasElement>;
 	readonly onAddTextureAtlasCanvas = new Emitter().event as IEvent<HTMLCanvasElement>;
-	readonly onRemoveTextureAtlasCanvas = new Emitter().event as IEvent<HTMLCanvasElement, void>;
-	readonly onContextLoss = new Emitter().event as IEvent<void>;
+	readonly onRemoveTextureAtlasCanvas = new Emitter().event as IEvent<HTMLCanvasElement, pegasusai>;
+	readonly onContextLoss = new Emitter().event as IEvent<pegasusai>;
 	activate() {
 		TestWebglAddon.isEnabled = !TestWebglAddon.shouldThrow;
 		if (TestWebglAddon.shouldThrow) {

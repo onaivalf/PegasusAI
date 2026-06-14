@@ -56,7 +56,7 @@ export class EditorCommandsContextActionRunner extends ActionRunner {
 		super();
 	}
 
-	override run(action: IAction, context?: { preserveFocus?: boolean }): Promise<void> {
+	override run(action: IAction, context?: { preserveFocus?: boolean }): Promise<pegasusai> {
 
 		// Even though we have a fixed context for editor commands,
 		// allow to preserve the context that is given to us in case
@@ -75,20 +75,20 @@ export class EditorCommandsContextActionRunner extends ActionRunner {
 }
 
 export interface IEditorTabsControl extends IDisposable {
-	updateOptions(oldOptions: IEditorPartOptions, newOptions: IEditorPartOptions): void;
+	updateOptions(oldOptions: IEditorPartOptions, newOptions: IEditorPartOptions): pegasusai;
 	openEditor(editor: EditorInput, options?: IInternalEditorOpenOptions): boolean;
 	openEditors(editors: EditorInput[]): boolean;
-	beforeCloseEditor(editor: EditorInput): void;
-	closeEditor(editor: EditorInput): void;
-	closeEditors(editors: EditorInput[]): void;
-	moveEditor(editor: EditorInput, fromIndex: number, targetIndex: number, stickyStateChange: boolean): void;
-	pinEditor(editor: EditorInput): void;
-	stickEditor(editor: EditorInput): void;
-	unstickEditor(editor: EditorInput): void;
-	setActive(isActive: boolean): void;
-	updateEditorSelections(): void;
-	updateEditorLabel(editor: EditorInput): void;
-	updateEditorDirty(editor: EditorInput): void;
+	beforeCloseEditor(editor: EditorInput): pegasusai;
+	closeEditor(editor: EditorInput): pegasusai;
+	closeEditors(editors: EditorInput[]): pegasusai;
+	moveEditor(editor: EditorInput, fromIndex: number, targetIndex: number, stickyStateChange: boolean): pegasusai;
+	pinEditor(editor: EditorInput): pegasusai;
+	stickEditor(editor: EditorInput): pegasusai;
+	unstickEditor(editor: EditorInput): pegasusai;
+	setActive(isActive: boolean): pegasusai;
+	updateEditorSelections(): pegasusai;
+	updateEditorLabel(editor: EditorInput): pegasusai;
+	updateEditorDirty(editor: EditorInput): pegasusai;
 	layout(dimensions: IEditorTitleControlDimensions): Dimension;
 	getHeight(): number;
 }
@@ -176,7 +176,7 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 		return this.groupsView.partOptions.editorActionsLocation === 'default' && this.groupsView.partOptions.showTabs !== 'none';
 	}
 
-	protected createEditorActionsToolBar(parent: HTMLElement, classes: string[]): void {
+	protected createEditorActionsToolBar(parent: HTMLElement, classes: string[]): pegasusai {
 		this.editorActionsToolbarContainer = $('div');
 		this.editorActionsToolbarContainer.classList.add(...classes);
 		parent.appendChild(this.editorActionsToolbarContainer);
@@ -184,7 +184,7 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 		this.handleEditorActionToolBarVisibility(this.editorActionsToolbarContainer);
 	}
 
-	private handleEditorActionToolBarVisibility(container: HTMLElement): void {
+	private handleEditorActionToolBarVisibility(container: HTMLElement): pegasusai {
 		const editorActionsEnabled = this.editorActionsEnabled;
 		const editorActionsVisible = !!this.editorActionsToolbar;
 
@@ -203,7 +203,7 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 		container.classList.toggle('hidden', !editorActionsEnabled);
 	}
 
-	private doCreateEditorActionsToolBar(container: HTMLElement): void {
+	private doCreateEditorActionsToolBar(container: HTMLElement): pegasusai {
 		const context: IEditorCommandsContext = { groupId: this.groupView.id };
 
 		// Toolbar Widget
@@ -250,7 +250,7 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 		return createActionViewItem(this.instantiationService, action, { ...options, menuAsChild: this.renderDropdownAsChildElement });
 	}
 
-	protected updateEditorActionsToolbar(): void {
+	protected updateEditorActionsToolbar(): pegasusai {
 		if (!this.editorActionsEnabled) {
 			return;
 		}
@@ -270,7 +270,7 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 		return this.groupView.activeEditorPane?.scopedContextKeyService ?? this.contextKeyService;
 	}
 
-	protected clearEditorActionsToolbar(): void {
+	protected clearEditorActionsToolbar(): pegasusai {
 		if (!this.editorActionsEnabled) {
 			return;
 		}
@@ -323,7 +323,7 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 		return isNewWindowOperation;
 	}
 
-	protected async onGroupDragEnd(e: DragEvent, previousDragEvent: DragEvent | undefined, element: HTMLElement, isNewWindowOperation: boolean): Promise<void> {
+	protected async onGroupDragEnd(e: DragEvent, previousDragEvent: DragEvent | undefined, element: HTMLElement, isNewWindowOperation: boolean): Promise<pegasusai> {
 		this.groupTransfer.clearData(DraggedEditorGroupIdentifier.prototype);
 
 		if (
@@ -405,7 +405,7 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 		return false;
 	}
 
-	protected onTabContextMenu(editor: EditorInput, e: Event, node: HTMLElement): void {
+	protected onTabContextMenu(editor: EditorInput, e: Event, node: HTMLElement): pegasusai {
 
 		// Update contexts based on editor picked and remember previous to restore
 		this.resourceContext.set(EditorResourceAccessor.getOriginalUri(editor, { supportSideBySide: SideBySideEditor.PRIMARY }));
@@ -463,11 +463,11 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 		return title;
 	}
 
-	protected updateTabHeight(): void {
+	protected updateTabHeight(): pegasusai {
 		this.parent.style.setProperty('--editor-group-tab-height', `${this.tabHeight}px`);
 	}
 
-	updateOptions(oldOptions: IEditorPartOptions, newOptions: IEditorPartOptions): void {
+	updateOptions(oldOptions: IEditorPartOptions, newOptions: IEditorPartOptions): pegasusai {
 
 		// Update tab height
 		if (oldOptions.tabHeight !== newOptions.tabHeight) {
@@ -490,27 +490,27 @@ export abstract class EditorTabsControl extends Themable implements IEditorTabsC
 
 	abstract openEditors(editors: EditorInput[]): boolean;
 
-	abstract beforeCloseEditor(editor: EditorInput): void;
+	abstract beforeCloseEditor(editor: EditorInput): pegasusai;
 
-	abstract closeEditor(editor: EditorInput): void;
+	abstract closeEditor(editor: EditorInput): pegasusai;
 
-	abstract closeEditors(editors: EditorInput[]): void;
+	abstract closeEditors(editors: EditorInput[]): pegasusai;
 
-	abstract moveEditor(editor: EditorInput, fromIndex: number, targetIndex: number): void;
+	abstract moveEditor(editor: EditorInput, fromIndex: number, targetIndex: number): pegasusai;
 
-	abstract pinEditor(editor: EditorInput): void;
+	abstract pinEditor(editor: EditorInput): pegasusai;
 
-	abstract stickEditor(editor: EditorInput): void;
+	abstract stickEditor(editor: EditorInput): pegasusai;
 
-	abstract unstickEditor(editor: EditorInput): void;
+	abstract unstickEditor(editor: EditorInput): pegasusai;
 
-	abstract setActive(isActive: boolean): void;
+	abstract setActive(isActive: boolean): pegasusai;
 
-	abstract updateEditorSelections(): void;
+	abstract updateEditorSelections(): pegasusai;
 
-	abstract updateEditorLabel(editor: EditorInput): void;
+	abstract updateEditorLabel(editor: EditorInput): pegasusai;
 
-	abstract updateEditorDirty(editor: EditorInput): void;
+	abstract updateEditorDirty(editor: EditorInput): pegasusai;
 
 	abstract layout(dimensions: IEditorTitleControlDimensions): Dimension;
 

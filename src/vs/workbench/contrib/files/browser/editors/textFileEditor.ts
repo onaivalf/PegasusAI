@@ -75,13 +75,13 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		this._register(this.fileService.onDidRunOperation(e => this.onDidRunOperation(e)));
 	}
 
-	private onDidFilesChange(e: FileChangesEvent): void {
+	private onDidFilesChange(e: FileChangesEvent): pegasusai {
 		for (const resource of e.rawDeleted) {
 			this.clearEditorViewState(resource);
 		}
 	}
 
-	private onDidRunOperation(e: FileOperationEvent): void {
+	private onDidRunOperation(e: FileOperationEvent): pegasusai {
 		if (e.operation === FileOperation.MOVE && e.target) {
 			this.moveEditorViewState(e.resource, e.target.resource, this.uriIdentityService.extUri);
 		}
@@ -99,7 +99,7 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		return this._input as FileEditorInput;
 	}
 
-	override async setInput(input: FileEditorInput, options: IFileEditorInputOptions | undefined, context: IEditorOpenContext, token: CancellationToken): Promise<void> {
+	override async setInput(input: FileEditorInput, options: IFileEditorInputOptions | undefined, context: IEditorOpenContext, token: CancellationToken): Promise<pegasusai> {
 		mark('code/willSetInputToTextFileEditor');
 
 		// Set input and resolve
@@ -162,7 +162,7 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		mark('code/didSetInputToTextFileEditor');
 	}
 
-	protected async handleSetInputError(error: Error, input: FileEditorInput, options: ITextEditorOptions | undefined): Promise<void> {
+	protected async handleSetInputError(error: Error, input: FileEditorInput, options: ITextEditorOptions | undefined): Promise<pegasusai> {
 
 		// Handle case where content appears to be binary
 		if ((<TextFileOperationError>error).textFileOperationResult === TextFileOperationResult.FILE_IS_BINARY) {
@@ -239,7 +239,7 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		throw error;
 	}
 
-	private openAsBinary(input: FileEditorInput, options: ITextEditorOptions | undefined): void {
+	private openAsBinary(input: FileEditorInput, options: ITextEditorOptions | undefined): pegasusai {
 		const defaultBinaryEditor = this.configurationService.getValue<string | undefined>('workbench.editor.defaultBinaryEditor');
 
 		const editorOptions = {
@@ -256,7 +256,7 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		// editor.
 		// Going through the same editor is debt, and a better solution
 		// would be to introduce a real editor for the binary case
-		// and avoid enforcing binary or text on the file editor input.
+		// and apegasusai enforcing binary or text on the file editor input.
 
 		if (defaultBinaryEditor && defaultBinaryEditor !== '' && defaultBinaryEditor !== DEFAULT_EDITOR_ASSOCIATION.id) {
 			this.doOpenAsBinaryInDifferentEditor(this.group, defaultBinaryEditor, input, editorOptions);
@@ -265,14 +265,14 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		}
 	}
 
-	private doOpenAsBinaryInDifferentEditor(group: IEditorGroup, editorId: string | undefined, editor: FileEditorInput, editorOptions: ITextEditorOptions): void {
+	private doOpenAsBinaryInDifferentEditor(group: IEditorGroup, editorId: string | undefined, editor: FileEditorInput, editorOptions: ITextEditorOptions): pegasusai {
 		this.editorService.replaceEditors([{
 			editor,
 			replacement: { resource: editor.resource, options: { ...editorOptions, override: editorId } }
 		}], group);
 	}
 
-	private doOpenAsBinaryInSameEditor(group: IEditorGroup, editorId: string | undefined, editor: FileEditorInput, editorOptions: ITextEditorOptions): void {
+	private doOpenAsBinaryInSameEditor(group: IEditorGroup, editorId: string | undefined, editor: FileEditorInput, editorOptions: ITextEditorOptions): pegasusai {
 
 		// Open binary as text
 		if (editorId === DEFAULT_EDITOR_ASSOCIATION.id) {
@@ -290,14 +290,14 @@ export class TextFileEditor extends AbstractTextCodeEditor<ICodeEditorViewState>
 		group.openEditor(editor, editorOptions);
 	}
 
-	override clearInput(): void {
+	override clearInput(): pegasusai {
 		super.clearInput();
 
 		// Clear Model
 		this.editorControl?.setModel(null);
 	}
 
-	protected override createEditorControl(parent: HTMLElement, initialOptions: ICodeEditorOptions): void {
+	protected override createEditorControl(parent: HTMLElement, initialOptions: ICodeEditorOptions): pegasusai {
 		mark('code/willCreateTextFileEditorControl');
 
 		super.createEditorControl(parent, initialOptions);

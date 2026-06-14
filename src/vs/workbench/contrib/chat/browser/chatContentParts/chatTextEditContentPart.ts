@@ -45,7 +45,7 @@ export class ChatTextEditContentPart extends Disposable implements IChatContentP
 	public readonly domNode: HTMLElement;
 	private readonly comparePart: IDisposableReference<CodeCompareBlockPart> | undefined;
 
-	private readonly _onDidChangeHeight = this._register(new Emitter<void>());
+	private readonly _onDidChangeHeight = this._register(new Emitter<pegasusai>());
 	public readonly onDidChangeHeight = this._onDidChangeHeight.event;
 
 	constructor(
@@ -121,7 +121,7 @@ export class ChatTextEditContentPart extends Disposable implements IChatContentP
 		}
 	}
 
-	layout(width: number): void {
+	layout(width: number): pegasusai {
 		this.comparePart?.object.layout(width);
 	}
 
@@ -130,7 +130,7 @@ export class ChatTextEditContentPart extends Disposable implements IChatContentP
 		return other.kind === 'textEditGroup';
 	}
 
-	addDisposable(disposable: IDisposable): void {
+	addDisposable(disposable: IDisposable): pegasusai {
 		this._register(disposable);
 	}
 }

@@ -51,7 +51,7 @@ class SCMAccessibilityHelpContentProvider extends Disposable implements IAccessi
 		this._focusedView = this._viewsService.getFocusedViewName();
 	}
 
-	onClose(): void {
+	onClose(): pegasusai {
 		switch (this._focusedView) {
 			case 'Source Control':
 				this._commandService.executeCommand('workbench.scm');

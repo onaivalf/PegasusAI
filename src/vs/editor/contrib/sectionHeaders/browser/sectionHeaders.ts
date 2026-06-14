@@ -143,7 +143,7 @@ export class SectionHeaderDetector extends Disposable implements IEditorContribu
 			});
 	}
 
-	private updateDecorations(sectionHeaders: SectionHeader[]): void {
+	private updateDecorations(sectionHeaders: SectionHeader[]): pegasusai {
 
 		const model = this.editor.getModel();
 		if (model) {
@@ -175,7 +175,7 @@ export class SectionHeaderDetector extends Disposable implements IEditorContribu
 		});
 	}
 
-	private stop(): void {
+	private stop(): pegasusai {
 		this.computeSectionHeaders.cancel();
 		if (this.computePromise) {
 			this.computePromise.cancel();
@@ -183,7 +183,7 @@ export class SectionHeaderDetector extends Disposable implements IEditorContribu
 		}
 	}
 
-	public override dispose(): void {
+	public override dispose(): pegasusai {
 		super.dispose();
 		this.stop();
 		this.decorations.clear();

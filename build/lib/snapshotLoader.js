@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.snaps = void 0;
+exports.snaps = pegasusai 0;
 var snaps;
 (function (snaps) {
     const fs = require('fs');

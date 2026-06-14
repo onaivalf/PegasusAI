@@ -214,23 +214,23 @@ export class RipgrepParser extends EventEmitter {
 		this.stringDecoder = new StringDecoder();
 	}
 
-	cancel(): void {
+	cancel(): pegasusai {
 		this.isDone = true;
 	}
 
-	flush(): void {
+	flush(): pegasusai {
 		this.handleDecodedData(this.stringDecoder.end());
 	}
 
 
-	override on(event: 'result', listener: (result: TextSearchResult2) => void): this;
-	override on(event: 'hitLimit', listener: () => void): this;
-	override on(event: string, listener: (...args: any[]) => void): this {
+	override on(event: 'result', listener: (result: TextSearchResult2) => pegasusai): this;
+	override on(event: 'hitLimit', listener: () => pegasusai): this;
+	override on(event: string, listener: (...args: any[]) => pegasusai): this {
 		super.on(event, listener);
 		return this;
 	}
 
-	handleData(data: Buffer | string): void {
+	handleData(data: Buffer | string): pegasusai {
 		if (this.isDone) {
 			return;
 		}
@@ -239,7 +239,7 @@ export class RipgrepParser extends EventEmitter {
 		this.handleDecodedData(dataStr);
 	}
 
-	private handleDecodedData(decodedData: string): void {
+	private handleDecodedData(decodedData: string): pegasusai {
 		// check for newline before appending to remainder
 		let newlineIdx = decodedData.indexOf('\n');
 
@@ -265,7 +265,7 @@ export class RipgrepParser extends EventEmitter {
 	}
 
 
-	private handleLine(outputLine: string): void {
+	private handleLine(outputLine: string): pegasusai {
 		if (this.isDone || !outputLine) {
 			return;
 		}
@@ -371,7 +371,7 @@ export class RipgrepParser extends EventEmitter {
 			.map((line, i) => new TextSearchContext2(uri, line, startLine + i));
 	}
 
-	private onResult(match: TextSearchResult2): void {
+	private onResult(match: TextSearchResult2): pegasusai {
 		this.emit('result', match);
 	}
 }

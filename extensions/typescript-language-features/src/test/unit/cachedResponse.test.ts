@@ -118,8 +118,8 @@ function createResponse(command: string): Proto.Response {
 	};
 }
 
-function createEventualResponder<T>(): { promise: Promise<T>; resolve: (x: T) => void } {
-	let resolve: (value: T) => void;
+function createEventualResponder<T>(): { promise: Promise<T>; resolve: (x: T) => pegasusai } {
+	let resolve: (value: T) => pegasusai;
 	const promise = new Promise<T>(r => { resolve = r; });
 	return { promise, resolve: resolve! };
 }

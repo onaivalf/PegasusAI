@@ -30,7 +30,7 @@ export class MainThreadInteractive implements MainThreadInteractiveShape {
 		}));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 
 	}

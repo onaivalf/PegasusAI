@@ -13,20 +13,20 @@ export class MockLanguageModelToolsService implements ILanguageModelToolsService
 
 	constructor() { }
 
-	cancelToolCallsForRequest(requestId: string): void {
+	cancelToolCallsForRequest(requestId: string): pegasusai {
 	}
 
-	onDidChangeTools: Event<void> = Event.None;
+	onDidChangeTools: Event<pegasusai> = Event.None;
 
 	registerToolData(toolData: IToolData): IDisposable {
 		return Disposable.None;
 	}
 
-	resetToolAutoConfirmation(): void {
+	resetToolAutoConfirmation(): pegasusai {
 
 	}
 
-	setToolAutoConfirmation(toolId: string, scope: 'workspace' | 'profile', autoConfirm?: boolean): void {
+	setToolAutoConfirmation(toolId: string, scope: 'workspace' | 'profile', autoConfirm?: boolean): pegasusai {
 
 	}
 

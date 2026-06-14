@@ -37,25 +37,25 @@ export class DebugEditContext {
 		return this._editContext.characterBoundsRangeStart;
 	}
 
-	updateText(rangeStart: number, rangeEnd: number, text: string): void {
+	updateText(rangeStart: number, rangeEnd: number, text: string): pegasusai {
 		this._editContext.updateText(rangeStart, rangeEnd, text);
 		this.renderDebug();
 	}
-	updateSelection(start: number, end: number): void {
+	updateSelection(start: number, end: number): pegasusai {
 		this._editContext.updateSelection(start, end);
 		this.renderDebug();
 	}
-	updateControlBounds(controlBounds: DOMRect): void {
+	updateControlBounds(controlBounds: DOMRect): pegasusai {
 		this._editContext.updateControlBounds(controlBounds);
 		this._controlBounds = controlBounds;
 		this.renderDebug();
 	}
-	updateSelectionBounds(selectionBounds: DOMRect): void {
+	updateSelectionBounds(selectionBounds: DOMRect): pegasusai {
 		this._editContext.updateSelectionBounds(selectionBounds);
 		this._selectionBounds = selectionBounds;
 		this.renderDebug();
 	}
-	updateCharacterBounds(rangeStart: number, characterBounds: DOMRect[]): void {
+	updateCharacterBounds(rangeStart: number, characterBounds: DOMRect[]): pegasusai {
 		this._editContext.updateCharacterBounds(rangeStart, characterBounds);
 		this._characterBounds = { rangeStart, characterBounds };
 		this.renderDebug();
@@ -88,8 +88,8 @@ export class DebugEditContext {
 
 	private readonly _listenerMap = new Map<EventListenerOrEventListenerObject, EventListenerOrEventListenerObject>();
 
-	addEventListener<K extends keyof EditContextEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: EditContextEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-	addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
+	addEventListener<K extends keyof EditContextEventHandlersEventMap>(type: K, listener: (this: GlobalEventHandlers, ev: EditContextEventHandlersEventMap[K]) => any, options?: boolean | AddEventListenerOptions): pegasusai;
+	addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): pegasusai {
 		if (!listener) { return; }
 
 		const debugListener = (event: Event) => {
@@ -108,7 +108,7 @@ export class DebugEditContext {
 		this.renderDebug();
 	}
 
-	removeEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | EventListenerOptions | undefined): void {
+	removeEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | EventListenerOptions | undefined): pegasusai {
 		if (!listener) { return; }
 		const debugListener = this._listenerMap.get(listener);
 		if (debugListener) {
@@ -132,7 +132,7 @@ export class DebugEditContext {
 		this.renderDebug();
 	}
 
-	private _disposables: { dispose(): void }[] = [];
+	private _disposables: { dispose(): pegasusai }[] = [];
 
 	public renderDebug() {
 		this._disposables.forEach(d => d.dispose());

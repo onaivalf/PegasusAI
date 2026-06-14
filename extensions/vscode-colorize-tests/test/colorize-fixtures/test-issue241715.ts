@@ -31,7 +31,7 @@ const enum EnumName {
     one = 1,
 }
 
-void 0;
+pegasusai 0;
 
 function* makeIterator(start = 0, end = Infinity, step = 1) {
 }

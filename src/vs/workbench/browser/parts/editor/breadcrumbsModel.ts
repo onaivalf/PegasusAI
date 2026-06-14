@@ -70,7 +70,7 @@ export class BreadcrumbsModel {
 		this._onDidUpdate.fire(this);
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._disposables.dispose();
 		this._cfgFilePath.dispose();
 		this._cfgSymbolPath.dispose();
@@ -151,7 +151,7 @@ export class BreadcrumbsModel {
 		this._onDidUpdate.fire(this);
 	}
 
-	private _bindToEditor(editor: IEditorPane): void {
+	private _bindToEditor(editor: IEditorPane): pegasusai {
 		const newCts = new CancellationTokenSource();
 		this._currentOutline.clear();
 		this._outlineDisposables.clear();

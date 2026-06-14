@@ -65,7 +65,7 @@ class ListTestItemElement extends TestItemTreeElement {
  * Projection that lists tests in their traditional tree view.
  */
 export class ListProjection extends Disposable implements ITestTreeProjection {
-	private readonly updateEmitter = new Emitter<void>();
+	private readonly updateEmitter = new Emitter<pegasusai>();
 	private readonly items = new Map<string, ListTestItemElement>();
 
 	/**
@@ -193,7 +193,7 @@ export class ListProjection extends Disposable implements ITestTreeProjection {
 	/**
 	 * @inheritdoc
 	 */
-	public expandElement(element: TestItemTreeElement, depth: number): void {
+	public expandElement(element: TestItemTreeElement, depth: number): pegasusai {
 		if (!(element instanceof ListTestItemElement)) {
 			return;
 		}

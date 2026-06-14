@@ -44,13 +44,13 @@ export class NotebookVisibleCellObserver extends Disposable {
 		this.updateEverything();
 	}
 
-	protected updateEverything(): void {
+	protected updateEverything(): pegasusai {
 		this._onDidChangeVisibleCells.fire({ added: [], removed: Array.from(this._visibleCells) });
 		this._visibleCells = [];
 		this._updateVisibleCells();
 	}
 
-	private _updateVisibleCells(): void {
+	private _updateVisibleCells(): pegasusai {
 		if (!this._notebookEditor.hasModel()) {
 			return;
 		}

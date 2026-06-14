@@ -25,10 +25,10 @@ export class FileStorage extends Disposable {
 	private storage: StorageDatabase = Object.create(null);
 	private lastSavedStorageContents = '';
 
-	private readonly flushDelayer: ThrottledDelayer<void>;
+	private readonly flushDelayer: ThrottledDelayer<pegasusai>;
 
-	private initializing: Promise<void> | undefined = undefined;
-	private closing: Promise<void> | undefined = undefined;
+	private initializing: Promise<pegasusai> | undefined = undefined;
+	private closing: Promise<pegasusai> | undefined = undefined;
 
 	constructor(
 		private readonly storagePath: URI,
@@ -38,10 +38,10 @@ export class FileStorage extends Disposable {
 	) {
 		super();
 
-		this.flushDelayer = this._register(new ThrottledDelayer<void>(saveStrategy === SaveStrategy.IMMEDIATE ? 0 : 100 /* buffer saves over a short time */));
+		this.flushDelayer = this._register(new ThrottledDelayer<pegasusai>(saveStrategy === SaveStrategy.IMMEDIATE ? 0 : 100 /* buffer saves over a short time */));
 	}
 
-	init(): Promise<void> {
+	init(): Promise<pegasusai> {
 		if (!this.initializing) {
 			this.initializing = this.doInit();
 		}
@@ -49,7 +49,7 @@ export class FileStorage extends Disposable {
 		return this.initializing;
 	}
 
-	private async doInit(): Promise<void> {
+	private async doInit(): Promise<pegasusai> {
 		try {
 			this.lastSavedStorageContents = (await this.fileService.readFile(this.storagePath)).value.toString();
 			this.storage = JSON.parse(this.lastSavedStorageContents);
@@ -71,11 +71,11 @@ export class FileStorage extends Disposable {
 		return res as T;
 	}
 
-	setItem(key: string, data?: object | string | number | boolean | undefined | null): void {
+	setItem(key: string, data?: object | string | number | boolean | undefined | null): pegasusai {
 		this.setItems([{ key, data }]);
 	}
 
-	setItems(items: readonly { key: string; data?: object | string | number | boolean | undefined | null }[]): void {
+	setItems(items: readonly { key: string; data?: object | string | number | boolean | undefined | null }[]): pegasusai {
 		let save = false;
 
 		for (const { key, data } of items) {
@@ -105,7 +105,7 @@ export class FileStorage extends Disposable {
 		}
 	}
 
-	removeItem(key: string): void {
+	removeItem(key: string): pegasusai {
 
 		// Only update if the key is actually present (not undefined)
 		if (!isUndefined(this.storage[key])) {
@@ -114,7 +114,7 @@ export class FileStorage extends Disposable {
 		}
 	}
 
-	private async save(): Promise<void> {
+	private async save(): Promise<pegasusai> {
 		if (this.closing) {
 			return; // already about to close
 		}
@@ -122,7 +122,7 @@ export class FileStorage extends Disposable {
 		return this.flushDelayer.trigger(() => this.doSave());
 	}
 
-	private async doSave(): Promise<void> {
+	private async doSave(): Promise<pegasusai> {
 		if (!this.initializing) {
 			return; // if we never initialized, we should not save our state
 		}
@@ -145,7 +145,7 @@ export class FileStorage extends Disposable {
 		}
 	}
 
-	async close(): Promise<void> {
+	async close(): Promise<pegasusai> {
 		if (!this.closing) {
 			this.closing = this.flushDelayer.trigger(() => this.doSave(), 0 /* as soon as possible */);
 		}
@@ -171,7 +171,7 @@ export class StateReadonlyService extends Disposable implements IStateReadServic
 		this.fileStorage = this._register(new FileStorage(environmentService.stateResource, saveStrategy, logService, fileService));
 	}
 
-	async init(): Promise<void> {
+	async init(): Promise<pegasusai> {
 		await this.fileStorage.init();
 	}
 
@@ -186,19 +186,19 @@ export class StateService extends StateReadonlyService implements IStateService 
 
 	declare readonly _serviceBrand: undefined;
 
-	setItem(key: string, data?: object | string | number | boolean | undefined | null): void {
+	setItem(key: string, data?: object | string | number | boolean | undefined | null): pegasusai {
 		this.fileStorage.setItem(key, data);
 	}
 
-	setItems(items: readonly { key: string; data?: object | string | number | boolean | undefined | null }[]): void {
+	setItems(items: readonly { key: string; data?: object | string | number | boolean | undefined | null }[]): pegasusai {
 		this.fileStorage.setItems(items);
 	}
 
-	removeItem(key: string): void {
+	removeItem(key: string): pegasusai {
 		this.fileStorage.removeItem(key);
 	}
 
-	close(): Promise<void> {
+	close(): Promise<pegasusai> {
 		return this.fileStorage.close();
 	}
 }

@@ -43,8 +43,8 @@ import { observableValue } from '../../../../base/common/observable.js';
 import { IMenuService, MenuItemAction } from '../../../../platform/actions/common/actions.js';
 
 export interface IEditObserver {
-	start(): void;
-	stop(): void;
+	start(): pegasusai;
+	stop(): pegasusai;
 }
 
 export const enum HunkAction {
@@ -78,8 +78,8 @@ export class LiveStrategy {
 	});
 
 	protected readonly _store = new DisposableStore();
-	protected readonly _onDidAccept = this._store.add(new Emitter<void>());
-	protected readonly _onDidDiscard = this._store.add(new Emitter<void>());
+	protected readonly _onDidAccept = this._store.add(new Emitter<pegasusai>());
+	protected readonly _onDidDiscard = this._store.add(new Emitter<pegasusai>());
 	private readonly _ctxCurrentChangeHasDiff: IContextKey<boolean>;
 	private readonly _ctxCurrentChangeShowsDiff: IContextKey<boolean>;
 	private readonly _progressiveEditingDecorations: IEditorDecorationsCollection;
@@ -87,8 +87,8 @@ export class LiveStrategy {
 	private _editCount: number = 0;
 	private readonly _hunkData = new Map<HunkInformation, HunkDisplayData>();
 
-	readonly onDidAccept: Event<void> = this._onDidAccept.event;
-	readonly onDidDiscard: Event<void> = this._onDidDiscard.event;
+	readonly onDidAccept: Event<pegasusai> = this._onDidAccept.event;
+	readonly onDidDiscard: Event<pegasusai> = this._onDidDiscard.event;
 
 	constructor(
 		protected readonly _session: Session,
@@ -111,12 +111,12 @@ export class LiveStrategy {
 		this._lensActionsFactory = this._store.add(new ConflictActionsFactory(this._editor));
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._resetDiff();
 		this._store.dispose();
 	}
 
-	private _resetDiff(): void {
+	private _resetDiff(): pegasusai {
 		this._ctxCurrentChangeHasDiff.reset();
 		this._ctxCurrentChangeShowsDiff.reset();
 		this._zone.widget.updateStatus('');
@@ -141,11 +141,11 @@ export class LiveStrategy {
 		return this._session.hunkData.discardAll();
 	}
 
-	async makeChanges(edits: ISingleEditOperation[], obs: IEditObserver, undoStopBefore: boolean): Promise<void> {
+	async makeChanges(edits: ISingleEditOperation[], obs: IEditObserver, undoStopBefore: boolean): Promise<pegasusai> {
 		return this._makeChanges(edits, obs, undefined, undefined, undoStopBefore);
 	}
 
-	async makeProgressiveChanges(edits: ISingleEditOperation[], obs: IEditObserver, opts: ProgressingEditsOptions, undoStopBefore: boolean): Promise<void> {
+	async makeProgressiveChanges(edits: ISingleEditOperation[], obs: IEditObserver, opts: ProgressingEditsOptions, undoStopBefore: boolean): Promise<pegasusai> {
 
 		// add decorations once per line that got edited
 		const progress = new Progress<IValidEditOperation[]>(edits => {
@@ -168,7 +168,7 @@ export class LiveStrategy {
 		return this._makeChanges(edits, obs, opts, progress, undoStopBefore);
 	}
 
-	private async _makeChanges(edits: ISingleEditOperation[], obs: IEditObserver, opts: ProgressingEditsOptions | undefined, progress: Progress<IValidEditOperation[]> | undefined, undoStopBefore: boolean): Promise<void> {
+	private async _makeChanges(edits: ISingleEditOperation[], obs: IEditObserver, opts: ProgressingEditsOptions | undefined, progress: Progress<IValidEditOperation[]> | undefined, undoStopBefore: boolean): Promise<pegasusai> {
 
 		// push undo stop before first edit
 		if (undoStopBefore) {
@@ -503,7 +503,7 @@ export class LiveStrategy {
 		return [];
 	}
 
-	private async _doApplyChanges(ignoreLocal: boolean): Promise<void> {
+	private async _doApplyChanges(ignoreLocal: boolean): Promise<pegasusai> {
 
 		const untitledModels: IUntitledTextEditorModel[] = [];
 
@@ -560,16 +560,16 @@ type HunkDisplayData = {
 
 	distance: number;
 	position: Position;
-	acceptHunk: () => void;
-	discardHunk: () => void;
+	acceptHunk: () => pegasusai;
+	discardHunk: () => pegasusai;
 	toggleDiff?: () => any;
-	remove(): void;
-	move: (next: boolean) => void;
+	remove(): pegasusai;
+	move: (next: boolean) => pegasusai;
 
 	hunk: HunkInformation;
 };
 
-function changeDecorationsAndViewZones(editor: ICodeEditor, callback: (accessor: IModelDecorationsChangeAccessor, viewZoneAccessor: IViewZoneChangeAccessor) => void): void {
+function changeDecorationsAndViewZones(editor: ICodeEditor, callback: (accessor: IModelDecorationsChangeAccessor, viewZoneAccessor: IViewZoneChangeAccessor) => pegasusai): pegasusai {
 	editor.changeDecorations(decorationsAccessor => {
 		editor.changeViewZones(viewZoneAccessor => {
 			callback(decorationsAccessor, viewZoneAccessor);

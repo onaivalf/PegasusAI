@@ -32,17 +32,17 @@ import { WorkingCopyCapabilities } from '../../../services/workingCopy/common/wo
 
 export class SimpleNotebookEditorModel extends EditorModel implements INotebookEditorModel {
 
-	private readonly _onDidChangeDirty = this._register(new Emitter<void>());
+	private readonly _onDidChangeDirty = this._register(new Emitter<pegasusai>());
 	private readonly _onDidSave = this._register(new Emitter<IStoredFileWorkingCopySaveEvent>());
-	private readonly _onDidChangeOrphaned = this._register(new Emitter<void>());
-	private readonly _onDidChangeReadonly = this._register(new Emitter<void>());
-	private readonly _onDidRevertUntitled = this._register(new Emitter<void>());
+	private readonly _onDidChangeOrphaned = this._register(new Emitter<pegasusai>());
+	private readonly _onDidChangeReadonly = this._register(new Emitter<pegasusai>());
+	private readonly _onDidRevertUntitled = this._register(new Emitter<pegasusai>());
 
-	readonly onDidChangeDirty: Event<void> = this._onDidChangeDirty.event;
+	readonly onDidChangeDirty: Event<pegasusai> = this._onDidChangeDirty.event;
 	readonly onDidSave: Event<IStoredFileWorkingCopySaveEvent> = this._onDidSave.event;
-	readonly onDidChangeOrphaned: Event<void> = this._onDidChangeOrphaned.event;
-	readonly onDidChangeReadonly: Event<void> = this._onDidChangeReadonly.event;
-	readonly onDidRevertUntitled: Event<void> = this._onDidRevertUntitled.event;
+	readonly onDidChangeOrphaned: Event<pegasusai> = this._onDidChangeOrphaned.event;
+	readonly onDidChangeReadonly: Event<pegasusai> = this._onDidChangeReadonly.event;
+	readonly onDidRevertUntitled: Event<pegasusai> = this._onDidRevertUntitled.event;
 
 	private _workingCopy?: IStoredFileWorkingCopy<NotebookFileWorkingCopyModel> | IUntitledFileWorkingCopy<NotebookFileWorkingCopyModel>;
 	private readonly _workingCopyListeners = this._register(new DisposableStore());
@@ -61,7 +61,7 @@ export class SimpleNotebookEditorModel extends EditorModel implements INotebookE
 		this.scratchPad = scratchpad;
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this._workingCopy?.dispose();
 		super.dispose();
 	}
@@ -118,7 +118,7 @@ export class SimpleNotebookEditorModel extends EditorModel implements INotebookE
 		return false;
 	}
 
-	async revert(options?: IRevertOptions): Promise<void> {
+	async revert(options?: IRevertOptions): Promise<pegasusai> {
 		assertType(this.isResolved());
 		return this._workingCopy!.revert(options);
 	}
@@ -188,7 +188,7 @@ export class NotebookFileWorkingCopyModel extends Disposable implements IStoredF
 	private readonly _onDidChangeContent = this._register(new Emitter<IStoredFileWorkingCopyModelContentChangedEvent & IUntitledFileWorkingCopyModelContentChangedEvent>());
 	readonly onDidChangeContent = this._onDidChangeContent.event;
 
-	readonly onWillDispose: Event<void>;
+	readonly onWillDispose: Event<pegasusai>;
 
 	readonly configuration: IFileWorkingCopyModelConfiguration | undefined = undefined;
 	save: ((options: IWriteFileOptions, token: CancellationToken) => Promise<IFileStatWithMetadata>) | undefined;
@@ -231,7 +231,7 @@ export class NotebookFileWorkingCopyModel extends Disposable implements IStoredF
 			};
 		}
 
-		// Override save behavior to avoid transferring the buffer across the wire 3 times
+		// Override save behavior to apegasusai transferring the buffer across the wire 3 times
 		if (saveWithReducedCommunication) {
 			this.setSaveDelegate().catch(console.error);
 		}
@@ -283,7 +283,7 @@ export class NotebookFileWorkingCopyModel extends Disposable implements IStoredF
 		};
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		this._notebookModel.dispose();
 		super.dispose();
 	}
@@ -296,7 +296,7 @@ export class NotebookFileWorkingCopyModel extends Disposable implements IStoredF
 		return this._notebookService.createNotebookTextDocumentSnapshot(this._notebookModel.uri, context, token);
 	}
 
-	async update(stream: VSBufferReadableStream, token: CancellationToken): Promise<void> {
+	async update(stream: VSBufferReadableStream, token: CancellationToken): Promise<pegasusai> {
 		const serializer = await this.getNotebookSerializer();
 
 		const bytes = await streamToBuffer(stream);
@@ -323,7 +323,7 @@ export class NotebookFileWorkingCopyModel extends Disposable implements IStoredF
 		return this._notebookModel.alternativeVersionId;
 	}
 
-	pushStackElement(): void {
+	pushStackElement(): pegasusai {
 		this._notebookModel.pushStackElement();
 	}
 }

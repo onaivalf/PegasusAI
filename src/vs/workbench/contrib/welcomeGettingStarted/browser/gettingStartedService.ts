@@ -104,13 +104,13 @@ export interface IWalkthroughsService {
 	getWalkthroughs(): IResolvedWalkthrough[];
 	getWalkthrough(id: string): IResolvedWalkthrough;
 
-	registerWalkthrough(descriptor: IWalkthroughLoose): void;
+	registerWalkthrough(descriptor: IWalkthroughLoose): pegasusai;
 
-	progressByEvent(eventName: string): void;
-	progressStep(id: string): void;
-	deprogressStep(id: string): void;
+	progressByEvent(eventName: string): pegasusai;
+	progressStep(id: string): pegasusai;
+	deprogressStep(id: string): pegasusai;
 
-	markWalkthroughOpened(id: string): void;
+	markWalkthroughOpened(id: string): pegasusai;
 }
 
 // Show walkthrough as "new" for 7 days after first install
@@ -564,7 +564,7 @@ export class WalkthroughsService extends Disposable implements IWalkthroughsServ
 		this._onDidProgressStep.fire(this.getStepProgress(step));
 	}
 
-	progressByEvent(event: string): void {
+	progressByEvent(event: string): pegasusai {
 		if (this.sessionEvents.has(event)) { return; }
 
 		this.sessionEvents.add(event);
@@ -578,7 +578,7 @@ export class WalkthroughsService extends Disposable implements IWalkthroughsServ
 		});
 	}
 
-	_registerWalkthrough(walkthroughDescriptor: IWalkthrough): void {
+	_registerWalkthrough(walkthroughDescriptor: IWalkthrough): pegasusai {
 		const oldCategory = this.gettingStartedContributions.get(walkthroughDescriptor.id);
 		if (oldCategory) {
 			console.error(`Skipping attempt to overwrite walkthrough. (${walkthroughDescriptor.id})`);

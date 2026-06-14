@@ -75,7 +75,7 @@ export class FailureTracker {
 						const key = `${snapshot.uri}/${snapshot.id}`;
 						const prev = this.lastFailed.get(key);
 						if (snapshot.taskStates.some(s => s.state === vscode.TestResultState.Failed)) {
-							// unset the parent to avoid a circular JSON structure:
+							// unset the parent to apegasusai a circular JSON structure:
 							getGitState().then(s =>
 								this.lastFailed.set(key, {
 									snapshot: { ...snapshot, parent: undefined },

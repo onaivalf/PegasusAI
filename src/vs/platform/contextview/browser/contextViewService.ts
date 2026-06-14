@@ -57,11 +57,11 @@ export class ContextViewHandler extends Disposable implements IContextViewProvid
 		return openContextView;
 	}
 
-	layout(): void {
+	layout(): pegasusai {
 		this.contextView.layout();
 	}
 
-	hideContextView(data?: any): void {
+	hideContextView(data?: any): pegasusai {
 		this.contextView.hide(data);
 		this.openContextView = undefined;
 	}

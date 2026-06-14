@@ -18,7 +18,7 @@ export class QuickAccess {
 
 	constructor(private code: Code, private editors: Editors, private quickInput: QuickInput) { }
 
-	async openFileQuickAccessAndWait(searchValue: string, expectedFirstElementNameOrExpectedResultCount: string | number): Promise<void> {
+	async openFileQuickAccessAndWait(searchValue: string, expectedFirstElementNameOrExpectedResultCount: string | number): Promise<pegasusai> {
 
 		// make sure the file quick access is not "polluted"
 		// with entries from the editor history when opening
@@ -109,10 +109,10 @@ export class QuickAccess {
 		}
 	}
 
-	async openFile(path: string): Promise<void> {
+	async openFile(path: string): Promise<pegasusai> {
 		if (!isAbsolute(path)) {
 			// we require absolute paths to get a single
-			// result back that is unique and avoid hitting
+			// result back that is unique and apegasusai hitting
 			// the search process to reduce chances of
 			// search needing longer.
 			throw new Error('QuickAccess.openFile requires an absolute path');
@@ -131,7 +131,7 @@ export class QuickAccess {
 		await this.editors.selectTab(fileName);
 	}
 
-	private async openQuickAccessWithRetry(kind: QuickAccessKind, value?: string): Promise<void> {
+	private async openQuickAccessWithRetry(kind: QuickAccessKind, value?: string): Promise<pegasusai> {
 		let retries = 0;
 
 		// Other parts of code might steal focus away from quickinput :(
@@ -169,7 +169,7 @@ export class QuickAccess {
 		}
 	}
 
-	async runCommand(commandId: string, options?: { keepOpen?: boolean; exactLabelMatch?: boolean }): Promise<void> {
+	async runCommand(commandId: string, options?: { keepOpen?: boolean; exactLabelMatch?: boolean }): Promise<pegasusai> {
 		const keepOpen = options?.keepOpen;
 		const exactLabelMatch = options?.exactLabelMatch;
 
@@ -218,7 +218,7 @@ export class QuickAccess {
 		await this.quickInput.selectQuickInputElement(0, keepOpen);
 	}
 
-	async openQuickOutline(): Promise<void> {
+	async openQuickOutline(): Promise<pegasusai> {
 		let retries = 0;
 
 		while (++retries < 10) {

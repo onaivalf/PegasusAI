@@ -30,7 +30,7 @@ export class FileUserDataProvider extends Disposable implements
 	IFileSystemProviderWithFileCloneCapability {
 
 	readonly capabilities: FileSystemProviderCapabilities;
-	readonly onDidChangeCapabilities: Event<void>;
+	readonly onDidChangeCapabilities: Event<pegasusai>;
 
 	private readonly _onDidChangeFile: Emitter<readonly IFileChange[]>;
 	readonly onDidChangeFile: Event<readonly IFileChange[]>;
@@ -58,7 +58,7 @@ export class FileUserDataProvider extends Disposable implements
 		this._register(this.fileSystemProvider.onDidChangeFile(e => this.handleFileChanges(e)));
 	}
 
-	private updateAtomicReadWritesResources(): void {
+	private updateAtomicReadWritesResources(): pegasusai {
 		this.atomicReadWriteResources.clear();
 		for (const profile of this.userDataProfilesService.profiles) {
 			this.atomicReadWriteResources.add(profile.settingsResource);
@@ -72,7 +72,7 @@ export class FileUserDataProvider extends Disposable implements
 		return this.fileSystemProvider.open(this.toFileSystemResource(resource), opts);
 	}
 
-	close(fd: number): Promise<void> {
+	close(fd: number): Promise<pegasusai> {
 		return this.fileSystemProvider.close(fd);
 	}
 
@@ -97,11 +97,11 @@ export class FileUserDataProvider extends Disposable implements
 		return this.fileSystemProvider.stat(this.toFileSystemResource(resource));
 	}
 
-	mkdir(resource: URI): Promise<void> {
+	mkdir(resource: URI): Promise<pegasusai> {
 		return this.fileSystemProvider.mkdir(this.toFileSystemResource(resource));
 	}
 
-	rename(from: URI, to: URI, opts: IFileOverwriteOptions): Promise<void> {
+	rename(from: URI, to: URI, opts: IFileOverwriteOptions): Promise<pegasusai> {
 		return this.fileSystemProvider.rename(this.toFileSystemResource(from), this.toFileSystemResource(to), opts);
 	}
 
@@ -121,7 +121,7 @@ export class FileUserDataProvider extends Disposable implements
 		return this.atomicReadWriteResources.has(resource);
 	}
 
-	writeFile(resource: URI, content: Uint8Array, opts: IFileWriteOptions): Promise<void> {
+	writeFile(resource: URI, content: Uint8Array, opts: IFileWriteOptions): Promise<pegasusai> {
 		return this.fileSystemProvider.writeFile(this.toFileSystemResource(resource), content, opts);
 	}
 
@@ -133,25 +133,25 @@ export class FileUserDataProvider extends Disposable implements
 		return false;
 	}
 
-	delete(resource: URI, opts: IFileDeleteOptions): Promise<void> {
+	delete(resource: URI, opts: IFileDeleteOptions): Promise<pegasusai> {
 		return this.fileSystemProvider.delete(this.toFileSystemResource(resource), opts);
 	}
 
-	copy(from: URI, to: URI, opts: IFileOverwriteOptions): Promise<void> {
+	copy(from: URI, to: URI, opts: IFileOverwriteOptions): Promise<pegasusai> {
 		if (hasFileFolderCopyCapability(this.fileSystemProvider)) {
 			return this.fileSystemProvider.copy(this.toFileSystemResource(from), this.toFileSystemResource(to), opts);
 		}
 		throw new Error('copy not supported');
 	}
 
-	cloneFile(from: URI, to: URI): Promise<void> {
+	cloneFile(from: URI, to: URI): Promise<pegasusai> {
 		if (hasFileCloneCapability(this.fileSystemProvider)) {
 			return this.fileSystemProvider.cloneFile(this.toFileSystemResource(from), this.toFileSystemResource(to));
 		}
 		throw new Error('clone not supported');
 	}
 
-	private handleFileChanges(changes: readonly IFileChange[]): void {
+	private handleFileChanges(changes: readonly IFileChange[]): pegasusai {
 		const userDataChanges: IFileChange[] = [];
 		for (const change of changes) {
 			if (change.resource.scheme !== this.fileSystemScheme) {

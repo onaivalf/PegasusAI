@@ -182,9 +182,9 @@ export class RemoteExtensionHost extends Disposable implements IExtensionHost {
 		});
 	}
 
-	private _onExtHostConnectionLost(reconnectionToken: string): void {
+	private _onExtHostConnectionLost(reconnectionToken: string): pegasusai {
 		if (this._hasLostConnection) {
-			// avoid re-entering this method
+			// apegasusai re-entering this method
 			return;
 		}
 		this._hasLostConnection = true;
@@ -273,7 +273,7 @@ export class RemoteExtensionHost extends Disposable implements IExtensionHost {
 		}
 	}
 
-	override dispose(): void {
+	override dispose(): pegasusai {
 		super.dispose();
 
 		this._terminating = true;

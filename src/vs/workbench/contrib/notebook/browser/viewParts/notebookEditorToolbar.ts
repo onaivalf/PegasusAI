@@ -273,7 +273,7 @@ export class NotebookEditorWorkbenchToolbar extends Disposable {
 		this._secondaryActions = [];
 		this._buildBody();
 
-		this._register(Event.debounce<void, void>(
+		this._register(Event.debounce<pegasusai, pegasusai>(
 			this.editorService.onDidActiveEditorChange,
 			(last, _current) => last,
 			200
@@ -389,7 +389,7 @@ export class NotebookEditorWorkbenchToolbar extends Disposable {
 
 		this._showNotebookActionsinEditorToolbar();
 		let dropdownIsVisible = false;
-		let deferredUpdate: (() => void) | undefined;
+		let deferredUpdate: (() => pegasusai) | undefined;
 
 		this._register(this._notebookGlobalActionsMenu.onDidChange(() => {
 			if (dropdownIsVisible) {

@@ -18,11 +18,11 @@ suite('Viewlets', () => {
 			super('id', null!, null!, null!, null!, null!, null!, null!);
 		}
 
-		override layout(dimension: any): void {
+		override layout(dimension: any): pegasusai {
 			throw new Error('Method not implemented.');
 		}
 
-		override setBoundarySashes(sashes: IBoundarySashes): void {
+		override setBoundarySashes(sashes: IBoundarySashes): pegasusai {
 			throw new Error('Method not implemented.');
 		}
 

@@ -8,7 +8,7 @@ declare module 'vscode' {
 		/**
 		 * Dispose and remove the detection task.
 		 */
-		dispose(): void;
+		dispose(): pegasusai;
 	}
 
 	export class NotebookKernelSourceAction {
@@ -25,7 +25,7 @@ declare module 'vscode' {
 		/**
 		 * An optional event to signal that the kernel source actions have changed.
 		 */
-		onDidChangeNotebookKernelSourceActions?: Event<void>;
+		onDidChangeNotebookKernelSourceActions?: Event<pegasusai>;
 		/**
 		 * Provide kernel source actions
 		 */

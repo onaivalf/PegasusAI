@@ -124,11 +124,11 @@ export class SetWithKey<T> implements Set<T> {
 		}
 	}
 
-	clear(): void {
+	clear(): pegasusai {
 		this._map.clear();
 	}
 
-	forEach(callbackfn: (value: T, value2: T, set: Set<T>) => void, thisArg?: any): void {
+	forEach(callbackfn: (value: T, value2: T, set: Set<T>) => pegasusai, thisArg?: any): pegasusai {
 		this._map.forEach(entry => callbackfn.call(thisArg, entry, entry, this));
 	}
 

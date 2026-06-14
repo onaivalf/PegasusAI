@@ -28,7 +28,7 @@ export class MainThreadTheming implements MainThreadThemingShape {
 		this._proxy.$onColorThemeChange(this._themeService.getColorTheme().type);
 	}
 
-	dispose(): void {
+	dispose(): pegasusai {
 		this._themeChangeListener.dispose();
 	}
 }

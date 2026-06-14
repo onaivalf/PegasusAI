@@ -8,12 +8,12 @@ import { format } from 'util';
 import { EOL } from 'os';
 
 export interface Logger {
-	log(message: string, ...args: any[]): void;
+	log(message: string, ...args: any[]): pegasusai;
 }
 
 export class ConsoleLogger implements Logger {
 
-	log(message: string, ...args: any[]): void {
+	log(message: string, ...args: any[]): pegasusai {
 		console.log('**', message, ...args);
 	}
 }
@@ -24,7 +24,7 @@ export class FileLogger implements Logger {
 		writeFileSync(path, '');
 	}
 
-	log(message: string, ...args: any[]): void {
+	log(message: string, ...args: any[]): pegasusai {
 		const date = new Date().toISOString();
 		appendFileSync(this.path, `[${date}] ${format(message, ...args)}${EOL}`);
 	}
@@ -34,7 +34,7 @@ export class MultiLogger implements Logger {
 
 	constructor(private loggers: Logger[]) { }
 
-	log(message: string, ...args: any[]): void {
+	log(message: string, ...args: any[]): pegasusai {
 		for (const logger of this.loggers) {
 			logger.log(message, ...args);
 		}

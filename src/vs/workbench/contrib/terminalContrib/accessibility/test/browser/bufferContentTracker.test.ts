@@ -149,7 +149,7 @@ suite('Buffer Content Tracker', () => {
 	});
 });
 
-async function writeAndAssertBufferState(data: string, rows: number, terminal: Terminal, bufferTracker: BufferContentTracker): Promise<void> {
+async function writeAndAssertBufferState(data: string, rows: number, terminal: Terminal, bufferTracker: BufferContentTracker): Promise<pegasusai> {
 	const content = `${data}\r\n`.repeat(rows).trimEnd();
 	await writeP(terminal, content);
 	bufferTracker.update();

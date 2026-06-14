@@ -20,7 +20,7 @@ import { IProductService } from '../../../../platform/product/common/productServ
 export interface DidChangeUserDataProfileEvent {
 	readonly previous: IUserDataProfile;
 	readonly profile: IUserDataProfile;
-	join(promise: Promise<void>): void;
+	join(promise: Promise<pegasusai>): pegasusai;
 }
 
 export const IUserDataProfileService = createDecorator<IUserDataProfileService>('IUserDataProfileService');
@@ -28,7 +28,7 @@ export interface IUserDataProfileService {
 	readonly _serviceBrand: undefined;
 	readonly currentProfile: IUserDataProfile;
 	readonly onDidChangeCurrentProfile: Event<DidChangeUserDataProfileEvent>;
-	updateCurrentProfile(currentProfile: IUserDataProfile): Promise<void>;
+	updateCurrentProfile(currentProfile: IUserDataProfile): Promise<pegasusai>;
 }
 
 export interface IProfileTemplateInfo {
@@ -43,9 +43,9 @@ export interface IUserDataProfileManagementService {
 	createProfile(name: string, options?: IUserDataProfileOptions): Promise<IUserDataProfile>;
 	createAndEnterProfile(name: string, options?: IUserDataProfileOptions): Promise<IUserDataProfile>;
 	createAndEnterTransientProfile(): Promise<IUserDataProfile>;
-	removeProfile(profile: IUserDataProfile): Promise<void>;
+	removeProfile(profile: IUserDataProfile): Promise<pegasusai>;
 	updateProfile(profile: IUserDataProfile, updateOptions: IUserDataProfileUpdateOptions): Promise<IUserDataProfile>;
-	switchProfile(profile: IUserDataProfile): Promise<void>;
+	switchProfile(profile: IUserDataProfile): Promise<pegasusai>;
 	getBuiltinProfileTemplates(): Promise<IProfileTemplateInfo[]>;
 	getDefaultProfileToUse(): IUserDataProfile;
 }
@@ -100,22 +100,22 @@ export interface IUserDataProfileImportExportService {
 	readonly _serviceBrand: undefined;
 
 	registerProfileContentHandler(id: string, profileContentHandler: IUserDataProfileContentHandler): IDisposable;
-	unregisterProfileContentHandler(id: string): void;
+	unregisterProfileContentHandler(id: string): pegasusai;
 
 	resolveProfileTemplate(uri: URI): Promise<IUserDataProfileTemplate | null>;
-	exportProfile(profile: IUserDataProfile, exportFlags?: ProfileResourceTypeFlags): Promise<void>;
+	exportProfile(profile: IUserDataProfile, exportFlags?: ProfileResourceTypeFlags): Promise<pegasusai>;
 	createFromProfile(from: IUserDataProfile, options: IUserDataProfileCreateOptions, token: CancellationToken): Promise<IUserDataProfile | undefined>;
 	createProfileFromTemplate(profileTemplate: IUserDataProfileTemplate, options: IUserDataProfileCreateOptions, token: CancellationToken): Promise<IUserDataProfile | undefined>;
-	createTroubleshootProfile(): Promise<void>;
+	createTroubleshootProfile(): Promise<pegasusai>;
 }
 
 export interface IProfileResourceInitializer {
-	initialize(content: string): Promise<void>;
+	initialize(content: string): Promise<pegasusai>;
 }
 
 export interface IProfileResource {
 	getContent(profile: IUserDataProfile): Promise<string>;
-	apply(content: string, profile: IUserDataProfile): Promise<void>;
+	apply(content: string, profile: IUserDataProfile): Promise<pegasusai>;
 }
 
 export interface IProfileResourceTreeItem extends ITreeItem {

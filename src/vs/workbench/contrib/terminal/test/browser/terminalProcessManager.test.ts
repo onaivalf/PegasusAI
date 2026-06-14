@@ -22,7 +22,7 @@ class TestTerminalChildProcess implements ITerminalChildProcess {
 		readonly shouldPersist: boolean
 	) {
 	}
-	updateProperty(property: any, value: any): Promise<void> {
+	updateProperty(property: any, value: any): Promise<pegasusai> {
 		throw new Error('Method not implemented.');
 	}
 
@@ -37,15 +37,15 @@ class TestTerminalChildProcess implements ITerminalChildProcess {
 	onProcessTitleChanged = Event.None;
 	onProcessShellTypeChanged = Event.None;
 	async start(): Promise<undefined> { return undefined; }
-	shutdown(immediate: boolean): void { }
-	input(data: string): void { }
-	resize(cols: number, rows: number): void { }
-	clearBuffer(): void { }
-	acknowledgeDataEvent(charCount: number): void { }
-	async setUnicodeVersion(version: '6' | '11'): Promise<void> { }
+	shutdown(immediate: boolean): pegasusai { }
+	input(data: string): pegasusai { }
+	resize(cols: number, rows: number): pegasusai { }
+	clearBuffer(): pegasusai { }
+	acknowledgeDataEvent(charCount: number): pegasusai { }
+	async setUnicodeVersion(version: '6' | '11'): Promise<pegasusai> { }
 	async getInitialCwd(): Promise<string> { return ''; }
 	async getCwd(): Promise<string> { return ''; }
-	async processBinary(data: string): Promise<void> { }
+	async processBinary(data: string): Promise<pegasusai> { }
 	refreshProperty(property: any): Promise<any> { return Promise.resolve(''); }
 }
 

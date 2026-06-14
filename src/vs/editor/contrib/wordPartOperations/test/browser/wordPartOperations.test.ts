@@ -30,19 +30,19 @@ suite('WordPartOperations', () => {
 		new TestLanguageConfigurationService()
 	);
 
-	function runEditorCommand(editor: ICodeEditor, command: EditorCommand): void {
+	function runEditorCommand(editor: ICodeEditor, command: EditorCommand): pegasusai {
 		command.runEditorCommand(serviceAccessor, editor, null);
 	}
-	function cursorWordPartLeft(editor: ICodeEditor, inSelectionmode: boolean = false): void {
+	function cursorWordPartLeft(editor: ICodeEditor, inSelectionmode: boolean = false): pegasusai {
 		runEditorCommand(editor, inSelectionmode ? _cursorWordPartLeftSelect : _cursorWordPartLeft);
 	}
-	function cursorWordPartRight(editor: ICodeEditor, inSelectionmode: boolean = false): void {
+	function cursorWordPartRight(editor: ICodeEditor, inSelectionmode: boolean = false): pegasusai {
 		runEditorCommand(editor, inSelectionmode ? _cursorWordPartRightSelect : _cursorWordPartRight);
 	}
-	function deleteWordPartLeft(editor: ICodeEditor): void {
+	function deleteWordPartLeft(editor: ICodeEditor): pegasusai {
 		runEditorCommand(editor, _deleteWordPartLeft);
 	}
-	function deleteWordPartRight(editor: ICodeEditor): void {
+	function deleteWordPartRight(editor: ICodeEditor): pegasusai {
 		runEditorCommand(editor, _deleteWordPartRight);
 	}
 

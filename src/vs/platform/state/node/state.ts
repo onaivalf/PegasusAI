@@ -20,10 +20,10 @@ export interface IStateService extends IStateReadService {
 
 	readonly _serviceBrand: undefined;
 
-	setItem(key: string, data?: object | string | number | boolean | undefined | null): void;
-	setItems(items: readonly { key: string; data?: object | string | number | boolean | undefined | null }[]): void;
+	setItem(key: string, data?: object | string | number | boolean | undefined | null): pegasusai;
+	setItems(items: readonly { key: string; data?: object | string | number | boolean | undefined | null }[]): pegasusai;
 
-	removeItem(key: string): void;
+	removeItem(key: string): pegasusai;
 
-	close(): Promise<void>;
+	close(): Promise<pegasusai>;
 }

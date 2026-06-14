@@ -51,7 +51,7 @@ class StandaloneLayoutService implements ILayoutService {
 
 	whenContainerStylesLoaded() { return undefined; }
 
-	focus(): void {
+	focus(): pegasusai {
 		this._codeEditorService.getFocusedCodeEditor()?.focus();
 	}
 

@@ -81,23 +81,23 @@ export interface IResolvedBackLayerWebview {
 export interface INotebookDelegateForWebview {
 	readonly creationOptions: INotebookEditorCreationOptions;
 	getCellById(cellId: string): IGenericCellViewModel | undefined;
-	focusNotebookCell(cell: IGenericCellViewModel, focus: 'editor' | 'container' | 'output', options?: IFocusNotebookCellOptions): Promise<void>;
-	toggleNotebookCellSelection(cell: IGenericCellViewModel, selectFromPrevious: boolean): void;
+	focusNotebookCell(cell: IGenericCellViewModel, focus: 'editor' | 'container' | 'output', options?: IFocusNotebookCellOptions): Promise<pegasusai>;
+	toggleNotebookCellSelection(cell: IGenericCellViewModel, selectFromPrevious: boolean): pegasusai;
 	getCellByInfo(cellInfo: ICommonCellInfo): IGenericCellViewModel;
-	focusNextNotebookCell(cell: IGenericCellViewModel, focus: 'editor' | 'container' | 'output'): Promise<void>;
-	updateOutputHeight(cellInfo: ICommonCellInfo, output: IDisplayOutputViewModel, height: number, isInit: boolean, source?: string): void;
-	scheduleOutputHeightAck(cellInfo: ICommonCellInfo, outputId: string, height: number): void;
-	updateMarkupCellHeight(cellId: string, height: number, isInit: boolean): void;
-	setMarkupCellEditState(cellId: string, editState: CellEditState): void;
-	didStartDragMarkupCell(cellId: string, event: { dragOffsetY: number }): void;
-	didDragMarkupCell(cellId: string, event: { dragOffsetY: number }): void;
-	didDropMarkupCell(cellId: string, event: { dragOffsetY: number; ctrlKey: boolean; altKey: boolean }): void;
-	didEndDragMarkupCell(cellId: string): void;
-	didResizeOutput(cellId: string): void;
-	setScrollTop(scrollTop: number): void;
-	triggerScroll(event: IMouseWheelEvent): void;
-	updatePerformanceMetadata(cellId: string, executionId: string, duration: number, rendererId: string): void;
-	didFocusOutputInputChange(inputFocused: boolean): void;
+	focusNextNotebookCell(cell: IGenericCellViewModel, focus: 'editor' | 'container' | 'output'): Promise<pegasusai>;
+	updateOutputHeight(cellInfo: ICommonCellInfo, output: IDisplayOutputViewModel, height: number, isInit: boolean, source?: string): pegasusai;
+	scheduleOutputHeightAck(cellInfo: ICommonCellInfo, outputId: string, height: number): pegasusai;
+	updateMarkupCellHeight(cellId: string, height: number, isInit: boolean): pegasusai;
+	setMarkupCellEditState(cellId: string, editState: CellEditState): pegasusai;
+	didStartDragMarkupCell(cellId: string, event: { dragOffsetY: number }): pegasusai;
+	didDragMarkupCell(cellId: string, event: { dragOffsetY: number }): pegasusai;
+	didDropMarkupCell(cellId: string, event: { dragOffsetY: number; ctrlKey: boolean; altKey: boolean }): pegasusai;
+	didEndDragMarkupCell(cellId: string): pegasusai;
+	didResizeOutput(cellId: string): pegasusai;
+	setScrollTop(scrollTop: number): pegasusai;
+	triggerScroll(event: IMouseWheelEvent): pegasusai;
+	updatePerformanceMetadata(cellId: string, executionId: string, duration: number, rendererId: string): pegasusai;
+	didFocusOutputInputChange(inputFocused: boolean): pegasusai;
 }
 
 interface BacklayerWebviewOptions {
@@ -152,7 +152,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 	private _currentKernel?: INotebookKernel;
 
 	private firstInit = true;
-	private initializeMarkupPromise?: { readonly requestId: string; readonly p: DeferredPromise<void>; readonly isFirstInit: boolean };
+	private initializeMarkupPromise?: { readonly requestId: string; readonly p: DeferredPromise<pegasusai>; readonly isFirstInit: boolean };
 
 	private readonly nonce = UUID.generateUuid();
 
@@ -546,7 +546,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		return !!this.webview;
 	}
 
-	createWebview(targetWindow: CodeWindow): Promise<void> {
+	createWebview(targetWindow: CodeWindow): Promise<pegasusai> {
 		const baseUrl = this.asWebviewUri(this.getNotebookBaseUri(), undefined);
 		const htmlContent = this.generateContent(baseUrl.toString());
 		return this._initialize(htmlContent, targetWindow);
@@ -584,7 +584,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		];
 	}
 
-	private _initialize(content: string, targetWindow: CodeWindow): Promise<void> {
+	private _initialize(content: string, targetWindow: CodeWindow): Promise<pegasusai> {
 		if (!getWindow(this.element).document.body.contains(this.element)) {
 			throw new Error('Element is already detached from the DOM tree');
 		}
@@ -595,7 +595,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 
 		this._register(new WebviewWindowDragMonitor(targetWindow, () => this.webview));
 
-		const initializePromise = new DeferredPromise<void>();
+		const initializePromise = new DeferredPromise<pegasusai>();
 
 		this._register(this.webview.onFatalError(e => {
 			initializePromise.error(new Error(`Could not initialize webview: ${e.message}}`));
@@ -1156,7 +1156,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 			});
 		}
 	}
-	private async _onDidClickDataLink(event: IClickedDataUrlMessage): Promise<void> {
+	private async _onDidClickDataLink(event: IClickedDataUrlMessage): Promise<pegasusai> {
 		if (typeof event.data !== 'string') {
 			return;
 		}
@@ -1279,7 +1279,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		return true;
 	}
 
-	ackHeight(updates: readonly IAckOutputHeight[]): void {
+	ackHeight(updates: readonly IAckOutputHeight[]): pegasusai {
 		this._sendMessageToWebview({
 			type: 'ack-dimension',
 			updates
@@ -1452,7 +1452,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		});
 	}
 
-	async initializeMarkup(cells: readonly IMarkupCellInitialization[]): Promise<void> {
+	async initializeMarkup(cells: readonly IMarkupCellInitialization[]): Promise<pegasusai> {
 		if (this._disposed) {
 			return;
 		}
@@ -1517,7 +1517,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		}));
 	}
 
-	createOutput(cellInfo: T, content: IInsetRenderOutput, cellTop: number, offset: number): void {
+	createOutput(cellInfo: T, content: IInsetRenderOutput, cellTop: number, offset: number): pegasusai {
 		if (this._disposed) {
 			return;
 		}
@@ -1623,7 +1623,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		};
 	}
 
-	updateOutput(cellInfo: T, content: IInsetRenderOutput, cellTop: number, offset: number): void {
+	updateOutput(cellInfo: T, content: IInsetRenderOutput, cellTop: number, offset: number): pegasusai {
 		if (this._disposed) {
 			return;
 		}
@@ -1677,7 +1677,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		return;
 	}
 
-	async copyImage(output: ICellOutputViewModel): Promise<void> {
+	async copyImage(output: ICellOutputViewModel): Promise<pegasusai> {
 		this._sendMessageToWebview({
 			type: 'copyImage',
 			outputId: output.model.outputId,
@@ -1685,7 +1685,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		});
 	}
 
-	removeInsets(outputs: readonly ICellOutputViewModel[]): void {
+	removeInsets(outputs: readonly ICellOutputViewModel[]): pegasusai {
 		if (this._disposed) {
 			return;
 		}
@@ -1714,7 +1714,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		}
 	}
 
-	hideInset(output: ICellOutputViewModel): void {
+	hideInset(output: ICellOutputViewModel): pegasusai {
 		if (this._disposed) {
 			return;
 		}
@@ -1846,7 +1846,7 @@ export class BackLayerWebView<T extends ICommonCellInfo> extends Themable {
 		return ret;
 	}
 
-	async findUnHighlightCurrent(index: number, ownerID: string): Promise<void> {
+	async findUnHighlightCurrent(index: number, ownerID: string): Promise<pegasusai> {
 		this._sendMessageToWebview({
 			type: 'findUnHighlightCurrent',
 			index,
@@ -1971,7 +1971,7 @@ function copyBufferIfNeeded(buffer: Uint8Array, transfer: ArrayBuffer[]): Uint8A
 		return buffer;
 	} else {
 		// The buffer is smaller than its backing array buffer.
-		// Create a copy to avoid sending the entire array buffer.
+		// Create a copy to apegasusai sending the entire array buffer.
 		const valueBytes = new Uint8Array(buffer);
 		transfer.push(valueBytes.buffer);
 		return valueBytes;

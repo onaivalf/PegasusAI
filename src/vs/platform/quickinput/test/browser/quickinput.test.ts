@@ -37,7 +37,7 @@ import { TestAccessibilityService } from '../../../accessibility/test/common/tes
 
 // Sets up an `onShow` listener to allow us to wait until the quick pick is shown (useful when triggering an `accept()` right after launching a quick pick)
 // kick this off before you launch the picker and then await the promise returned after you launch the picker.
-async function setupWaitTilShownListener(controller: QuickInputController): Promise<void> {
+async function setupWaitTilShownListener(controller: QuickInputController): Promise<pegasusai> {
 	const result = await raceTimeout(new Promise<boolean>(resolve => {
 		const event = controller.onShow(_ => {
 			event.dispose();
@@ -224,7 +224,7 @@ suite('QuickInput', () => { // https://github.com/microsoft/vscode/issues/147543
 		quickpick.items = [{ label: 'step 1' }];
 		quickpick.show();
 
-		void (await new Promise<void>(resolve => {
+		pegasusai (await new Promise<pegasusai>(resolve => {
 			store.add(quickpick.onDidAccept(() => {
 				quickpick.canSelectMany = true;
 				quickpick.items = [{ label: 'a' }, { label: 'b' }, { label: 'c' }];
