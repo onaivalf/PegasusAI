@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>ai.pegasus.ide</id>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <name>PegasusAI</name>
+  <summary>IDE Inteligente Offline-First com IA Integrada</summary>
+  <description>
+    <p>
+      PegasusAI é uma IDE de próxima geração construída sobre o Code-OSS, 
+      combinando o melhor das arquiteturas VOID, OPIDE e Antigravity. 
+      Projetada para funcionar 100% offline por padrão, oferece integração 
+      profunda com modelos de IA locais e em nuvem, sistema de memória, 
+      timeline e grafo de conhecimento.
+    </p>
+    <p>Recursos principais:</p>
+    <ul>
+      <li>Suporte nativo a provedores LLM locais (Ollama, LM Studio, vLLM)</li>
+      <li>Smart Apply para edição inteligente de código</li>
+      <li>Sistema de memória persistente e grafo de conhecimento</li>
+      <li>Orquestrador multi-modelo com fallback automático</li>
+      <li>Compatibilidade total com extensões do VS Code</li>
+      <li>Funcionamento offline completo sem dependência de SaaS</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">ai.pegasus.ide.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://pegasusai.dev/screenshots/main.png</image>
+      <caption>Interface principal do PegasusAI com painel de IA</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://pegasusai.dev/screenshots/chat.png</image>
+      <caption>Chat integrado com contexto do projeto</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://pegasusai.dev/screenshots/graph.png</image>
+      <caption>Grafo de conhecimento do código</caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://pegasusai.dev</url>
+  <url type="bugtracker">https://github.com/pegasusai/pegasusai/issues</url>
+  <url type="donation">https://opencollective.com/pegasusai</url>
+  <developer_name>PegasusAI Committee</developer_name>
+  <update_contact>dev@pegasusai.dev</update_contact>
+  <project_group>PegasusAI</project_group>
+  <provides>
+    <binary>PegasusAI</binary>
+    <id>ai.pegasus.ide.desktop</id>
+  </provides>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+  <requires>
+    <display_length compare="ge">1024</display_length>
+  </requires>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="0.1.0" date="2024-01-15">
+      <description>
+        <p>Lançamento inicial da PegasusAI</p>
+        <ul>
+          <li>Suporte a Windows, Linux e macOS</li>
+          <li>Integração com múltiplos provedores LLM</li>
+          <li>Sistema de memória e grafo de conhecimento</li>
+          <li>Orquestrador multi-modelo</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

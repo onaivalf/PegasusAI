@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022", "DOM"],
+    "outDir": "./out",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@main/*": ["src/main/*"],
+      "@renderer/*": ["src/renderer/*"],
+      "@common/*": ["src/common/*"],
+      "@integration/*": ["src/integration/*"],
+      "@pegasus/*": ["src/common/constants/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./src/common/types"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "out", "dist", "test"]
+}
