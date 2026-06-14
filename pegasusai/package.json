@@ -1,0 +1,152 @@
+{
+  "name": "pegasusai",
+  "version": "0.1.0",
+  "distro": "47.5.6",
+  "productName": "PegasusAI",
+  "description": "IDE PegasusAI - Offline-First AI-Powered Development Environment",
+  "main": "./out/main.js",
+  "author": "PegasusAI Team",
+  "license": "MIT",
+  "homepage": "https://pegasusai.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pegasusai/pegasusai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pegasusai/pegasusai/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "node build/npm/preinstall.js",
+    "postinstall": "node build/npm/postinstall.js",
+    "compile": "gulp compile",
+    "watch": "gulp watch",
+    "watch-client": "gulp watch-client",
+    "watch-extension-cli": "gulp watch-extension-cli",
+    "watch-extensions": "gulp watch-extensions",
+    "watch-extensions-build": "gulp watch-extensions-build",
+    "precommit": "node build/lib/precommit.js",
+    "lint": "eslint --cache \"src/**/*.ts\" \"src/**/*.tsx\"",
+    "electron": "node lib/electron",
+    "start": "yarn && yarn watch && yarn electron",
+    "start-main": "yarn watch && node --inspect-brk ./scripts/code-server.js",
+    "start-renderer": "yarn watch-client",
+    "build": "gulp vscode-build",
+    "build-prod": "yarn build && yarn package",
+    "package": "node build/lib/packager.js",
+    "rebrand": "node scripts/rebrand/apply-rebranding.js",
+    "verify": "node scripts/build/verify-build.js"
+  },
+  "dependencies": {
+    "@microsoft/vscode-webview-ui-toolkit": "^1.4.0",
+    "@vscode/iconv-lite-umd": "0.2.3",
+    "@vscode/sqlite3": "5.1.8-vscode",
+    "@vscode/vscode-languagedetection": "1.0.21",
+    "@vscode/windows-mutex": "^0.5.0",
+    "@vscode/windows-process-tree": "^0.6.0",
+    "@vscode/windows-registry": "^1.1.0",
+    "http-proxy-agent": "^7.0.0",
+    "https-proxy-agent": "^7.0.2",
+    "jschardet": "3.1.4",
+    "kerberos": "2.1.1",
+    "native-is-elevated": "0.7.0",
+    "native-keymap": "^3.3.5",
+    "native-watchdog": "^1.4.1",
+    "node-pty": "1.1.0-beta22",
+    "tas-client-umd": "0.2.0",
+    "vscode-oniguruma": "1.7.0",
+    "vscode-regexpp": "^3.1.0",
+    "vscode-textmate": "9.1.0",
+    "ws": "^8.18.0",
+    "xml2js": "^0.6.2",
+    "yauzl": "^3.1.3",
+    "yazl": "^2.5.1",
+    "better-sqlite3": "^9.4.3",
+    "langchain": "^0.1.30",
+    "@xenova/transformers": "^2.15.0",
+    "openai": "^4.28.0",
+    "ollama": "^0.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.9",
+    "@types/gulp": "^4.0.17",
+    "@types/node": "20.x",
+    "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.19",
+    "@types/ws": "^8.5.10",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "electron": "^30.0.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-esbuild": "^0.12.0",
+    "gulp-filter": "^9.0.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.1",
+    "gulp-replace": "^1.1.4",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "husky": "^9.0.11",
+    "merge-stream": "^2.0.0",
+    "minimist": "^1.2.8",
+    "mkdirp": "^3.0.1",
+    "nyc": "^15.1.0",
+    "rimraf": "^5.0.5",
+    "terser": "^5.29.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.2",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  },
+  "resolutions": {
+    "**/nan": "^2.19.0",
+    "**/node-gyp": "^10.0.1"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "pegasusai": {
+    "version": "0.1.0",
+    "codename": "Bellerophon",
+    "releaseDate": "2025-06-14",
+    "offlineFirst": true,
+    "supportedPlatforms": [
+      "win32-x64",
+      "win32-arm64",
+      "linux-x64",
+      "linux-arm64",
+      "darwin-x64",
+      "darwin-arm64"
+    ],
+    "aiProviders": {
+      "local": [
+        "ollama",
+        "lmstudio",
+        "vllm",
+        "transformers"
+      ],
+      "cloud": [
+        "openai",
+        "anthropic",
+        "google",
+        "azure"
+      ]
+    },
+    "features": {
+      "knowledgeGraph": true,
+      "timeline": true,
+      "memorySystem": true,
+      "orchestrator": true,
+      "multiModelFallback": true,
+      "fastApply": true,
+      "slowApply": true,
+      "ragIndexing": true
+    }
+  }
+}

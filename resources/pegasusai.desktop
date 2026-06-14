@@ -1,0 +1,21 @@
+[Desktop Entry]
+Name=PegasusAI
+Comment=IDE Inteligente Offline-First com IA Integrada
+GenericName=Editor de Código
+Exec=PegasusAI %F
+Icon=pegasusai
+Type=Application
+StartupNotify=true
+StartupWMClass=PegasusAI
+Categories=Development;IDE;Programming;
+MimeType=text/plain;text/x-python;text/x-java;text/javascript;text/typescript;text/html;text/css;text/xml;application/json;
+Keywords=development;programming;ide;code;editor;pegasus;ai;llm;offline;
+Actions=NewWindow;OpenFolder;
+
+[Desktop Action NewWindow]
+Name=Nova Janela
+Exec=PegasusAI --new-window
+
+[Desktop Action OpenFolder]
+Name=Abrir Pasta
+Exec=PegasusAI --open-folder %F

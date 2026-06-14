@@ -1,0 +1,78 @@
+{
+  "name": "PegasusAI",
+  "version": "0.1.0",
+  "displayName": "PegasusAI",
+  "description": "IDE Inteligente Offline-First com Integração Multi-Modelo",
+  "vendor": "PegasusAI Foundation",
+  "homepage": "https://pegasusai.dev",
+  "license": "MIT",
+  
+  "applicationName": "pegasusai",
+  "dataFolderName": ".pegasusai",
+  "win32MutexName": "pegasusai",
+  "win32DirName": "PegasusAI",
+  "win32NameVersion": "PegasusAI",
+  "win32AppUserModelId": "ai.pegasus.ide",
+  "win32ShellShortCuts": [
+    {
+      "name": "PegasusAI",
+      "description": "PegasusAI - IDE Inteligente"
+    }
+  ],
+  
+  "darwinBundleIdentifier": "ai.pegasus.ide",
+  "darwinIcon": "resources/darwin/icon.icns",
+  "darwinDMGVolumeName": "PegasusAI",
+  
+  "linuxExecutableName": "pegasusai",
+  "linuxIconName": "pegasusai",
+  
+  "reportIssueUrl": "https://github.com/pegasusai/pegasusai/issues/new",
+  "urlProtocol": "pegasusai",
+  
+  "quality": "stable",
+  "extensionsGallery": {
+    "serviceUrl": "",
+    "itemUrl": "",
+    "publisherUrl": "",
+    "resourceUrlTemplate": "",
+    "controlUrl": "",
+    "recommendationUrl": ""
+  },
+  
+  "enableTelemetry": false,
+  "diagnosticChannel": false,
+  
+  "aiConfig": {
+    "defaultProvider": "local",
+    "offlineFirst": true,
+    "providers": {
+      "local": ["ollama", "vllm", "lmstudio"],
+      "cloud": ["openai", "anthropic", "google"]
+    },
+    "features": {
+      "chat": true,
+      "inlineEdit": true,
+      "codeGeneration": true,
+      "knowledgeGraph": true,
+      "memory": true
+    }
+  },
+  
+  "builtInExtensions": [
+    {
+      "name": "pegasusai-theme-default",
+      "version": "0.1.0",
+      "repo": "https://github.com/pegasusai/theme-default"
+    },
+    {
+      "name": "pegasusai-snippets-core",
+      "version": "0.1.0",
+      "repo": "https://github.com/pegasusai/snippets-core"
+    }
+  ],
+  
+  "msInternal": false,
+  "updateUrl": "https://pegasusai.dev/update",
+  "downloadUrl": "https://pegasusai.dev/download"
+}

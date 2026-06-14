@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Permissões para acesso a recursos do sistema -->
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    
+    <!-- Permitir execução de código JIT (necessário para V8/Node.js) -->
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    
+    <!-- Permitir carregamento de bibliotecas dinâmicas não assinadas (para extensões) -->
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    
+    <!-- Acesso à rede (necessário para LLMs locais e atualizações) -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+    <key>com.apple.security.network.server</key>
+    <true/>
+    
+    <!-- Acesso ao sistema de arquivos (para projetos do usuário) -->
+    <key>com.apple.security.files.user-selected.read-write</key>
+    <true/>
+    <key>com.apple.security.files.bookmarks.app-scope</key>
+    <true/>
+    <key>com.apple.security.files.bookmarks.document-scope</key>
+    <true/>
+    
+    <!-- Acesso a dispositivos USB (para debugging, serial, etc.) -->
+    <key>com.apple.security.device.usb</key>
+    <true/>
+    
+    <!-- Acesso a áudio (para features de TTS/STT se implementado) -->
+    <key>com.apple.security.device.audio-input</key>
+    <true/>
+    
+    <!-- Herdar entitlements do app pai (se aplicável) -->
+    <key>com.apple.security.inherit</key>
+    <true/>
+    
+    <!-- Hardened Runtime: permitir assinatura de código ad-hoc para desenvolvimento -->
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+</dict>
+</plist>
