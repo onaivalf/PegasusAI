@@ -1,60 +1,52 @@
 ```
-# Dependencies
-node_modules/
+# Editors
+.vscode/
 
-# Build directories
-build/
-dist/
-target/
-
-# Logs
-*.log
-
-# Environment variables
+# Environment
 .env
 .env.local
 *.env.*
 
-# IDE specific
-.vscode/
-.idea/
+# Dependencies
+node_modules/
+
+# Logs and temp files
+*.log
+*.tmp
 
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-.pytest_cache/
-.coverage
-htmlcov/
-.mypy_cache/
 
-# OS generated files
+# Build artifacts
+dist/
+build/
+*.o
+*.obj
+*.so
+*.a
+*.dll
+*.exe
+
+# Coverage
+.coverage
+coverage/
+htmlcov/
+
+# IDE
+.idea/
+
+# System
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Temporary files
-*.tmp
-*.temp
-*.bak
-*.swp
-*.swo
-
-# Archives
+# Compressed files
 *.zip
-*.tar
 *.gz
+*.tar
+*.tgz
 *.bz2
 *.xz
 *.7z
@@ -73,5 +65,4 @@ Thumbs.db
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-
 ```

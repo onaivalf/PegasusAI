@@ -35,31 +35,31 @@ Se você está fazendo fork do VS Code, pode referenciar a lógica do PegasusAI.
 
 <div align="center">
 	<img
-		src="./src/vs/workbench/browser/parts/editor/media/slice_of_void.png"
-	 	alt="Void Welcome"
+		src="./src/vs/workbench/browser/parts/editor/media/slice_of_pegasusai.png"
+	 	alt="PegasusAI Welcome"
 		width="300"
 	 	height="300"
 	/>
 </div>
 
-Use AI agents on your codebase, checkpoint and visualize changes, and bring any model or host locally. Void sends messages directly to providers without retaining your data.
+Use AI agents on your codebase, checkpoint and visualize changes, and bring any model or host locally. PegasusAI sends messages directly to providers without retaining your data.
 
-This repo contains the full sourcecode for Void's Desktop app. If you're new, welcome!
+This repo contains the full sourcecode for PegasusAI's Desktop app. If you're new, welcome!
 
 - 🧭 [Website](https://pegasusai.com)
 
 - 🚙 [Roadmap](https://github.com/orgs/pegasusai/projects/2)
 
-- 🔨 [Contribute](https://github.com/pegasusai/void/blob/main/HOW_TO_CONTRIBUTE.md)
+- 🔨 [Contribute](https://github.com/pegasusai/pegasusai/blob/main/HOW_TO_CONTRIBUTE.md)
 
 
 
 
 ## Reference
 
-Void is a fork of the [vscode](https://github.com/microsoft/vscode) repository. For a guide to our codebase, see [VOID_CODEBASE_GUIDE](https://github.com/pegasusai/void/blob/main/VOID_CODEBASE_GUIDE.md).
+PegasusAI is a fork of the [vscode](https://github.com/microsoft/vscode) repository. For a guide to our codebase, see [VOID_CODEBASE_GUIDE](https://github.com/pegasusai/pegasusai/blob/main/PEGASUSAI_CODEBASE_GUIDE.md).
 
-For a guide on how to develop your own version of Void, see [HOW_TO_CONTRIBUTE](https://github.com/pegasusai/void/blob/main/HOW_TO_CONTRIBUTE.md) and [void-builder](https://github.com/pegasusai/void-builder).
+For a guide on how to develop your own version of PegasusAI, see [HOW_TO_CONTRIBUTE](https://github.com/pegasusai/pegasusai/blob/main/HOW_TO_CONTRIBUTE.md) and [pegasusai-builder](https://github.com/pegasusai/pegasusai-builder).
 
 
 
